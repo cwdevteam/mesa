@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import ThemeProvider from '@/components/ThemeProvider'
+import { Toaster } from "@/components/ui/toaster"
 
 import './globals.css'
 import clsx from 'clsx'
@@ -12,7 +13,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Nextjs Supabase Auth Starter',
+  title: 'Next.js Supabase Auth Starter',
   description: 'The fastest way to start building apps with Supabase and Next.js',
 }
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -7,6 +7,7 @@ import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 import { signInWithOAuth, signInWithOtp } from "@/app/auth/actions"
 import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
 import Link from "next/link"
@@ -48,8 +49,24 @@ function EmailAuthFormFields() {
 }
 
 function EmailAuthForm() {
-  // XXX TODO use TOAST for form message?
+  const { toast } = useToast()
   const [state, formAction] = useFormState(signInWithOtp, initialState)
+  
+  useEffect(() => {
+    if (state?.data) {
+      toast({
+        title: "Success",
+        description: "Please check your email to finish signing in.",
+      })
+    } else if (state?.error) {
+      toast({
+        title: "Error",
+        description: "An error occurred while signing in",
+        variant: "destructive",
+      })
+    }
+  }, [state])
+
   return (
     <form action={formAction} className="contents">
       <EmailAuthFormFields />
@@ -156,7 +173,7 @@ function SocialAuthFormFields() {
 }
 
 function SocialAuthForm() {
-  // XXX TODO use TOAST for form message?
+  const { toast } = useToast()
   const [state, formAction] = useFormState(signInWithOAuth, initialState)
   const url = state?.data?.url
 
@@ -166,6 +183,16 @@ function SocialAuthForm() {
     }
   }, [url])
 
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        title: "Error",
+        description: "An error occurred while signing in with OAuth",
+        variant: "destructive",
+      })
+    }
+  }, [state?.error])
+  
   return (
     <form action={formAction} className="contents">
       <SocialAuthFormFields />
