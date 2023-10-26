@@ -8,6 +8,8 @@ import { UserAuthForm } from '@/components/UserAuthForm'
 import { Icons } from "@/components/Icons";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const supabase = createServerComponentClient({ cookies })
 
