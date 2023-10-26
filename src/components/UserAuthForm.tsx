@@ -91,7 +91,7 @@ const enabledOAuthProviders = ProviderArray.parse(
 
 // TODO add more icons
 const providerIcons = {
-  'github': Icons.gitHub,
+  'github': Icons.github,
   'google': Icons.google,
   'apple': Icons.apple,
   // 'azure': Icons.azure,
