@@ -18,12 +18,10 @@ const initialState = {
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-function EmailAuthForm() {
-  // XXX TODO use TOAST for form message?
-  const [state, formAction] = useFormState(signInWithOtp, initialState)
+function EmailAuthFormFields() {
   const { pending } = useFormStatus()
   return (
-    <form action={formAction} className="contents">
+    <>
       <Label className="sr-only" htmlFor="email">
         Email
       </Label>
@@ -44,24 +42,24 @@ function EmailAuthForm() {
         )}
         Continue with Email
       </Button>
+    </>
+  )
+}
+
+function EmailAuthForm() {
+  // XXX TODO use TOAST for form message?
+  const [state, formAction] = useFormState(signInWithOtp, initialState)
+  return (
+    <form action={formAction} className="contents">
+      <EmailAuthFormFields />
     </form>
   )
 }
 
-function SocialAuthForm() {
-  // XXX TODO use TOAST for form message?
-  const [state, formAction] = useFormState(signInWithOAuth, initialState)
+function SocialAuthFormFields() {
   const { pending } = useFormStatus()
-  const url = state?.data?.url
-
-  useEffect(() => {
-    if (url) {
-      window.location.href = url
-    }
-  }, [url])
-
   return (
-    <form action={formAction} className="contents">
+    <>
       <Button type="submit" name="provider" value="github" variant="outline" disabled={pending}>
         {pending ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
@@ -78,6 +76,24 @@ function SocialAuthForm() {
         )}{" "}
         Google
       </Button>
+    </>
+  )
+}
+
+function SocialAuthForm() {
+  // XXX TODO use TOAST for form message?
+  const [state, formAction] = useFormState(signInWithOAuth, initialState)
+  const url = state?.data?.url
+
+  useEffect(() => {
+    if (url) {
+      window.location.href = url
+    }
+  }, [url])
+
+  return (
+    <form action={formAction} className="contents">
+      <SocialAuthFormFields />
     </form>
   )
 }

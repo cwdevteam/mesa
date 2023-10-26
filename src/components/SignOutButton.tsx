@@ -5,10 +5,10 @@ import { useFormStatus } from "@/lib/react-dom-shim"
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 
-export function SignOutButton() {
+function SignOutButtonFormChildren() {
   const { pending } = useFormStatus()
   return (
-    <form action={signOut}>
+    <>
       <Button disabled={pending} type="submit">
         {pending ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
@@ -16,6 +16,14 @@ export function SignOutButton() {
           "Logout"
         )}
       </Button>
+    </>
+  )
+}
+
+export function SignOutButton() {
+  return (
+    <form action={signOut}>
+      <SignOutButtonFormChildren />
     </form>
   )
 }
