@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/Icons"
@@ -123,12 +123,27 @@ function ProviderIcon({ provider }: { provider: string }) {
 
 function SocialAuthFormFields() {
   const { pending } = useFormStatus()
+  const [pendingProvider, setPendingProvider] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!pending) {
+      setPendingProvider(null)
+    }
+  }, [pending])
 
   return (
     <>
       {enabledOAuthProviders.map((provider) => (
-        <Button key={provider} type="submit" name="provider" value={provider} variant="outline" disabled={pending}>
-          {pending ? (
+        <Button 
+          key={provider} 
+          type="submit" 
+          name="provider" 
+          value={provider} 
+          variant="outline" 
+          disabled={pending}
+          onClick={() => setPendingProvider(provider)}
+        >
+          {pending && pendingProvider === provider ? (
             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
           ) : (
             <ProviderIcon provider={provider} />
