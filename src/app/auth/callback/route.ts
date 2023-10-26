@@ -10,12 +10,19 @@ export async function GET(request: Request) {
   // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-sign-in-with-code-exchange
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
+  const redirectUrl = requestUrl.origin
 
   if (code) {
-    const supabase = createRouteHandlerClient({ cookies })
-    await supabase.auth.exchangeCodeForSession(code)
+    try {
+      const supabase = createRouteHandlerClient({ cookies })
+      await supabase.auth.exchangeCodeForSession(code)
+    } catch (error: unknown) {
+      const message = 'An unexpected error occurred'
+      console.error(message, error)
+      return NextResponse.redirect(`${redirectUrl}?error=1&message=${encodeURIComponent(message)}`)
+    }
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  return NextResponse.redirect(redirectUrl)
 }
