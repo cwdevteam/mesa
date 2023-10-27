@@ -64,7 +64,7 @@ function EmailAuthForm() {
         variant: "destructive",
       })
     }
-  }, [state])
+  }, [toast, state])
 
   return (
     <form action={formAction} className="contents">
@@ -158,7 +158,7 @@ function SocialAuthForm() {
         variant: "destructive",
       })
     }
-  }, [state?.error])
+  }, [toast, state?.error])
   
   return (
     <form action={formAction} className="contents">
