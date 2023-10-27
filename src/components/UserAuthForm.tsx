@@ -11,8 +11,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { signInWithOAuth, signInWithOtp } from "@/app/auth/actions"
 import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
 import Link from "next/link"
-import { z } from "zod"
-
+import { env } from "@/env"
 
 const initialState = {
   message: null,
@@ -74,38 +73,6 @@ function EmailAuthForm() {
   )
 }
 
-
- // Includes all providers currently supported by supabase-js
-const SupabaseOAuthProvider = z.enum([
-  'apple',
-  'azure',
-  'bitbucket',
-  'discord',
-  'facebook',
-  'figma',
-  'github',
-  'gitlab',
-  'google',
-  'kakao',
-  'keycloak',
-  'linkedin',
-  // 'linkedin_oidc',
-  'notion',
-  'slack',
-  'spotify',
-  'twitch',
-  'twitter',
-  'workos',
-  'zoom',
-  'fly'
-])
-
-const ProviderArray = z.array(SupabaseOAuthProvider)
-const stringToArrays = z.string().transform((val) => val.split(/[, ]+/).filter(Boolean))
-const enabledOAuthProviders = ProviderArray.parse(
-  stringToArrays.parse(process.env.NEXT_PUBLIC_OAUTH_PROVIDERS)
-)
-
 // TODO add more icons
 const providerIcons = {
   'github': Icons.github,
@@ -150,7 +117,7 @@ function SocialAuthFormFields() {
 
   return (
     <>
-      {enabledOAuthProviders.map((provider) => (
+      {env.NEXT_PUBLIC_OAUTH_PROVIDERS?.map((provider) => (
         <Button 
           key={provider} 
           type="submit" 
@@ -206,7 +173,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       <div className="grid gap-1">
         <EmailAuthForm />
       </div>
-      {enabledOAuthProviders.length > 0 && (
+      {env.NEXT_PUBLIC_OAUTH_PROVIDERS && (
         <>
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
