@@ -1,0 +1,30 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+
+import { SignOutButton } from '@/components/SignOutButton'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+export default async function Dashboard() {
+  // TODO pass Database type to client constructor
+  const supabase = createServerComponentClient({ cookies })
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    return <></>
+  }
+
+  return (
+    <Card className="grid grid-flow-row place-items-center gap-4">
+      <CardHeader className="grid place-items-center text-center">
+        <CardTitle className="text-2xl font-semibold tracking-tight">
+          Welcome
+        </CardTitle>
+        <CardDescription className="text-sm text-muted-foreground">
+          Hey, {user.email}!
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <SignOutButton />
+      </CardContent>
+    </Card>
+  )
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { signOut } from "@/app/auth/actions"
+import { signOut } from "@/app/actions"
 import { useFormStatus } from "@/lib/react-dom-shim"
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"

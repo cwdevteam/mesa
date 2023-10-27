@@ -12,20 +12,24 @@ const schemas = {
     email: z.string(),
     password: z.string(),
   })),
+
   signInWithOtp: zfd.formData(z.object({
     email: z.string(),
-  }).transform(data => ({
+    lang: z.string(),
+  }).transform(({lang, ...data}) => ({
     ...data,
     options: {
-      emailRedirectTo: `${getOrigin()}/auth/callback`,
+      emailRedirectTo: `${getOrigin()}/${lang}/auth/callback`,
     },
   }))),
+  
   signInWithOAuth: zfd.formData(z.object({
     provider: z.string().transform((provider) => provider as Provider),
-  }).transform(data => ({
+    lang: z.string(),
+  }).transform(({lang, ...data}) => ({
     ...data,
     options: {
-      redirectTo: `${getOrigin()}/auth/callback`,
+      redirectTo: `${getOrigin()}/${lang}/auth/callback`,
     },
   }))),
 }
@@ -60,8 +64,12 @@ function errorResponse(error: unknown) {
   return {data: null, error: {message}}
 }
 
-async function signInWithSupabase<M extends AuthMethod>(authMethod: M, credentials: AuthCredentials[M]) {
+async function signInWithSupabase<M extends AuthMethod>(
+  authMethod: M, 
+  credentials: AuthCredentials[M]
+) {
   try {
+    // TODO pass Database type to client constructor
     const supabase = createServerActionClient({ cookies })
     const authMethodFn = supabase.auth[authMethod].bind(supabase.auth) as AuthMethodFns[M]
     const {data, error} = await authMethodFn(credentials)

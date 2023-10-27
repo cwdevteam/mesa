@@ -1,19 +1,12 @@
 import Link from "next/link";
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { SignOutButton } from '@/components/SignOutButton'
 import { UserAuthForm } from '@/components/UserAuthForm'
 import { Icons } from "@/components/Icons";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const supabase = createServerComponentClient({ cookies })
-
-  const { data: { user } } = await supabase.auth.getUser()
 
   return (
     <div className="grid grid-rows-[auto_1fr] min-h-full h-fit">
@@ -45,35 +38,7 @@ export default async function Home() {
         </div>
         <div className="container w-fit">
           <section>
-            {user ? (
-              <Card className="grid grid-flow-row place-items-center gap-4">
-                <CardHeader className="grid place-items-center text-center">
-                  <CardTitle className="text-2xl font-semibold tracking-tight">
-                    Welcome
-                  </CardTitle>
-                  <CardDescription className="text-sm text-muted-foreground">
-                    Hey, {user.email}!
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <SignOutButton />
-                </CardContent>
-              </Card>
-            ) : (
-              <Card className="grid gap-2 w-full max-w-[24rem]">
-                <CardHeader className="grid grid-flow-row gap-1 place-items-center text-center">
-                  <CardTitle className="text-2xl font-semibold tracking-tight">
-                    Sign-in or create an account
-                  </CardTitle>
-                  <CardDescription className="text-sm text-muted-foreground">
-                    Enter your email below to continue
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <UserAuthForm />
-                </CardContent>
-              </Card>
-            )}
+            <UserAuthForm />
           </section>
         </div>
       </main>

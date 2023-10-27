@@ -8,28 +8,33 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
-import { signInWithOAuth, signInWithOtp } from "@/app/auth/actions"
+import { signInWithOAuth, signInWithOtp } from "@/app/actions"
 import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
 import Link from "next/link"
 import { env } from "@/env"
+import { useLocale } from "@/context/LocaleContext"
+import { useDictionary } from "@/context/DictionaryContext"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const initialState = {
-  message: null,
+  EmailAuthForm: {},
+  SocialAuthForm: {}
 }
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 function EmailAuthFormFields() {
   const { pending } = useFormStatus()
+  const { auth: {emailAuthForm: dict } } = useDictionary()
   return (
     <>
       <Label className="sr-only" htmlFor="email">
-        Email
+        {dict.emailInputLabel}
       </Label>
       <Input
         id="email"
         name="email"
-        placeholder="name@example.com"
+        placeholder={dict.emailInputPlaceholder}
         type="email"
         autoCapitalize="none"
         autoComplete="email"
@@ -41,7 +46,7 @@ function EmailAuthFormFields() {
         {pending && (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         )}
-        Continue with Email
+        {dict.buttonLabel}
       </Button>
     </>
   )
@@ -49,18 +54,25 @@ function EmailAuthFormFields() {
 
 function EmailAuthForm() {
   const { toast } = useToast()
-  const [state, formAction] = useFormState(signInWithOtp, initialState)
+  const lang = useLocale()
+  const { auth: {emailAuthForm: dict } } = useDictionary()
+  
+  const [state, formAction] = useFormState(
+    signInWithOtp,
+    initialState.EmailAuthForm as
+    ReturnType<typeof signInWithOtp>
+  )
   
   useEffect(() => {
     if (state?.data) {
       toast({
-        title: "Success",
-        description: "Please check your email to finish signing in.",
+        title: dict.successToastTitle,
+        description: dict.successToastDescription,
       })
     } else if (state?.error) {
       toast({
-        title: "Error",
-        description: "An error occurred while signing in",
+        title: dict.errorToastTitle,
+        description: dict.errorToastDescription,
         variant: "destructive",
       })
     }
@@ -68,6 +80,7 @@ function EmailAuthForm() {
 
   return (
     <form action={formAction} className="contents">
+      <input type="hidden" name="lang" value={lang} />
       <EmailAuthFormFields />
     </form>
   )
@@ -141,7 +154,13 @@ function SocialAuthFormFields() {
 
 function SocialAuthForm() {
   const { toast } = useToast()
-  const [state, formAction] = useFormState(signInWithOAuth, initialState)
+  const lang = useLocale()
+  const { auth: {socialAuthForm: dict } } = useDictionary()
+  const [state, formAction] = useFormState(
+    signInWithOAuth,
+    initialState.SocialAuthForm as
+    ReturnType<typeof signInWithOAuth>
+  )
   const url = state?.data?.url
 
   useEffect(() => {
@@ -153,8 +172,8 @@ function SocialAuthForm() {
   useEffect(() => {
     if (state?.error) {
       toast({
-        title: "Error",
-        description: "An error occurred while signing in with OAuth",
+        title: dict.errorToastTitle,
+        description: dict.errorToastDescription,
         variant: "destructive",
       })
     }
@@ -162,51 +181,65 @@ function SocialAuthForm() {
   
   return (
     <form action={formAction} className="contents">
+      <input type="hidden" name="lang" value={lang} />
       <SocialAuthFormFields />
     </form>
   )
 }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const { auth: {userAuthForm: dict } } = useDictionary()
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
-      <div className="grid gap-1">
-        <EmailAuthForm />
-      </div>
-      {env.NEXT_PUBLIC_OAUTH_PROVIDERS && (
-        <>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
-          </div>
+    <Card className={cn("grid gap-2 w-full max-w-[24rem]", className)} {...props}>
+      <CardHeader className="grid grid-flow-row gap-1 place-items-center text-center">
+        <CardTitle className="text-2xl font-semibold tracking-tight">
+          {dict.title}
+        </CardTitle>
+        <CardDescription className="text-sm text-muted-foreground">
+          {dict.description}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-6">
           <div className="grid gap-1">
-            <SocialAuthForm />
+            <EmailAuthForm />
           </div>
-        </>
-      )}
-      <p className="px-8 text-center text-sm text-muted-foreground">
-        By clicking continue, you agree to our{" "}
-        <Link
-          href="/terms"
-          className="underline underline-offset-4 hover:text-primary"
-        >
-          Terms of Service
-        </Link>{" "}
-        and{" "}
-        <Link
-          href="/privacy"
-          className="underline underline-offset-4 hover:text-primary"
-        >
-          Privacy Policy
-        </Link>
-        .
-      </p>
-    </div>
+          {env.NEXT_PUBLIC_OAUTH_PROVIDERS && (
+            <>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    {dict.orContinueWith}
+                  </span>
+                </div>
+              </div>
+              <div className="grid gap-1">
+                <SocialAuthForm />
+              </div>
+            </>
+          )}
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            {dict.agreementText}{" "}
+            <Link
+              href="/terms"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              {dict.termsOfService}
+            </Link>{" "}
+            {dict.and}{" "}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              {dict.privacyPolicy}
+            </Link>
+            .
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
