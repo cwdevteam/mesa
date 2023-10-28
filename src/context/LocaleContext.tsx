@@ -25,3 +25,5 @@ export const useLocale = (): Locale => {
   }
   return context
 }
+
+export default LocaleProvider

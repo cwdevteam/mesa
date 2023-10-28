@@ -1,16 +1,13 @@
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import { i18n, Locale } from '@/../i18n.config'
-import { LocaleProvider } from '@/context/LocaleContext'
-import { DictionaryProvider } from '@/context/DictionaryContext'
-import { getDictionary } from '@/lib/dictionary'
-
-import ThemeProvider from '@/components/ThemeProvider'
 import { Toaster } from "@/components/ui/toaster"
+import Header from '@/components/Header'
+import Providers from '@/context/Providers'
 
 import '@/app/globals.css'
-import clsx from 'clsx'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,23 +30,16 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { lang: Locale }
 }) {
-  const dictionary = await getDictionary(lang)
   return (
     <html lang={lang} className="h-full" suppressHydrationWarning>
       <body className={clsx('h-full', inter.className)}>
-      <LocaleProvider locale={lang}>
-          <DictionaryProvider dictionary={dictionary}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </DictionaryProvider>
-        </LocaleProvider>
+        <Providers lang={lang}>
+          <div className="grid grid-rows-[auto_1fr] min-h-full h-fit">
+            <Header />
+            {children}
+          </div>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   )

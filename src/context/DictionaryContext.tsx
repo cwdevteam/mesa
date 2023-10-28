@@ -25,3 +25,5 @@ export const useDictionary = (): Dictionary => {
   }
   return context
 }
+
+export default DictionaryProvider

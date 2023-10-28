@@ -187,7 +187,7 @@ function SocialAuthForm() {
   )
 }
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export default function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const { auth: {userAuthForm: dict } } = useDictionary()
   return (
     <Card className={cn("grid gap-2 w-full max-w-[24rem]", className)} {...props}>
