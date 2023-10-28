@@ -29,6 +29,9 @@ const ProviderArray = z.array(SupabaseOAuthProvider)
 
 // Define the schema for your environment variables
 const envSchema = z.object({
+  NEXT_PUBLIC_TOS_URL: z.string().url().optional(),
+  NEXT_PUBLIC_PP_URL: z.string().url().optional(),
+  NEXT_PUBLIC_ACCESS_FORM_URL: z.string().url().optional(),
   NEXT_PUBLIC_OAUTH_PROVIDERS: z.string()
     .transform(val => val.split(/[, ]+/).filter(Boolean))
     .transform(val => val.length > 0 ? val : undefined)
@@ -45,9 +48,7 @@ const envSchema = z.object({
 })
 
 // Parse and validate the environment variables
-const parsed = envSchema.safeParse({
-  NEXT_PUBLIC_OAUTH_PROVIDERS: process.env.NEXT_PUBLIC_OAUTH_PROVIDERS
-})
+const parsed = envSchema.safeParse(process.env)
 
 if (!parsed.success) {
   const count = parsed.error.errors.length > 1 ? 's' : ''

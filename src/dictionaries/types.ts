@@ -13,7 +13,7 @@ export type Dictionary = {
       errorToastTitle: string,
       errorToastDescription: string,
     },
-    userAuthForm: {
+    userAuthDialog: {
       title: string,
       description: string,
       orContinueWith: string,
