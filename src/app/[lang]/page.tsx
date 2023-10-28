@@ -2,8 +2,6 @@ import Link from "next/link";
 
 import UserAuthForm from '@/components/UserAuthForm'
 
-export const dynamic = 'force-dynamic'
-
 export default async function Home() {
   return (
     <main className="grid content-start justify-center gap-6 sm:gap-12 md:gap-24 pt-10 pb-4">

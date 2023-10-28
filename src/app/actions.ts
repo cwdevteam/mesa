@@ -4,6 +4,7 @@ import { Provider, SupabaseClient } from '@supabase/supabase-js'
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs'
 import { revalidatePath } from 'next/cache'
 import { cookies, headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { zfd } from 'zod-form-data'
 
@@ -67,55 +68,52 @@ function errorResponse(error: unknown) {
 async function signInWithSupabase<M extends AuthMethod>(
   authMethod: M, 
   credentials: AuthCredentials[M]
-) {
+): Promise<ReturnType<AuthMethodFns[M] | typeof errorResponse>> {
   try {
     // TODO pass Database type to client constructor
     const supabase = createServerActionClient({ cookies })
     const authMethodFn = supabase.auth[authMethod].bind(supabase.auth) as AuthMethodFns[M]
-    const {data, error} = await authMethodFn(credentials)
-    if (error) {
-      console.error(`Failed to '${authMethod}':`, error)
-      return errorResponse(error)
-    } else {
+    const result = await authMethodFn(credentials)
+    if (!result.error) {
       revalidatePath('/')
-      return {data, error: null}
+      return result
     }
+
+    console.error(`Failed to '${authMethod}':`, result.error)
+    return errorResponse(result.error)
   } catch (e) {
     console.error(`Failed to ${authMethod}: Error in supabase client`, e)
     return errorResponse(e)
   }
 }
 
-function createSignInFunction(authMethod: AuthMethod) {
+// function createSignInFunction() {
+function createSignInFunction<M extends AuthMethod>(
+  authMethod: M, 
+  callback?: (result: Awaited<ReturnType<typeof signInWithSupabase<M>>>) => void
+) {
   return async function(prevState: any, formData: FormData) {
-    const schema = schemas[authMethod];
-    const result = schema.safeParse(formData);
-    if (!result.success) {
-      console.error(`Error in ${authMethod}:`, result.error)
-      return errorResponse(result.error)
+    const schema = schemas[authMethod]
+    const parsed = schema.safeParse(formData)
+    if (!parsed.success) {
+      console.error(`Error in ${authMethod}:`, parsed.error)
+      return errorResponse(parsed.error)
     }
 
-    return signInWithSupabase(authMethod, result.data)
+    const result = await signInWithSupabase(authMethod, parsed.data as AuthCredentials[M])
+    if (callback) {
+      callback(result)
+    }
+
+    return result
   }
 }
 
-export const signInWithPassword = createSignInFunction('signInWithPassword');
-export const signInWithOtp = createSignInFunction('signInWithOtp');
-export const signInWithOAuth = createSignInFunction('signInWithOAuth');
-
-export async function signOut() {
-  try {
-    const supabase = createServerActionClient({ cookies })
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      console.error('Failed to sign out:', error)
-      return errorResponse(error)
-    } else {
-      revalidatePath('/')
-      return {data: null, error: null}
+export const signInWithPassword = createSignInFunction('signInWithPassword')
+export const signInWithOtp = createSignInFunction('signInWithOtp')
+export const signInWithOAuth = createSignInFunction('signInWithOAuth', (result) => {
+    const url = result.data?.url
+    if (url) {
+      redirect(url)
     }
-  } catch (e) {
-    console.error('Failed to sign out: Error in supabase client', e)
-    return errorResponse(e)
-  }
-}
+})

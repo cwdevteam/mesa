@@ -21,6 +21,9 @@ export type Dictionary = {
       privacyPolicy: string,
       agreementText: string,
       and: string,
+    },
+    signOutButton: {
+      buttonLabel: string
     }
   }
 }

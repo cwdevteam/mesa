@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/Icons"
@@ -10,7 +11,6 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { signInWithOAuth, signInWithOtp } from "@/app/actions"
 import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
-import Link from "next/link"
 import { env } from "@/env"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
@@ -161,13 +161,6 @@ function SocialAuthForm() {
     initialState.SocialAuthForm as
     ReturnType<typeof signInWithOAuth>
   )
-  const url = state?.data?.url
-
-  useEffect(() => {
-    if (url) {
-      window.location.href = url
-    }
-  }, [url])
 
   useEffect(() => {
     if (state?.error) {

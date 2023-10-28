@@ -9,7 +9,6 @@ export const withAuth: MiddlewareFactory = (next) => {
 
     // Auth is not required for auth callback routes
     if (req.nextUrl.pathname.startsWith(`/${locale}/auth/`)) {
-      console.log('auth: skip', req.nextUrl.pathname)
       return next(req, event)
     }
 
@@ -25,7 +24,6 @@ export const withAuth: MiddlewareFactory = (next) => {
     
     // Get auth user from supabase client. If null, user is not logged in.
     const { data: { user } } = await supabase.auth.getUser()
-    console.log('auth: user', user)
 
     // if user is signed in and the current path is /<locale> redirect the user to /<locale>/dashboard
     if (user && req.nextUrl.pathname === `/${locale}`) {
@@ -39,7 +37,6 @@ export const withAuth: MiddlewareFactory = (next) => {
       return NextResponse.redirect(new URL(`/${locale}`, req.url))
     }
 
-    console.log('auth: noop')
     return res
   }
 }

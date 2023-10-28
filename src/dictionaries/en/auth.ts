@@ -22,6 +22,9 @@ const auth: Dictionary['auth'] = {
     privacyPolicy: "Privacy Policy",
     agreementText: "By clicking continue, you agree to our",
     and: "and"
+  },
+  signOutButton: {
+    buttonLabel: "Sign out"
   }
 } as const
 
