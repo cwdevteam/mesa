@@ -82,7 +82,7 @@ function SocialAuthFormFields() {
 export default function SocialAuthForm() {
   const { toast } = useToast()
   const lang = useLocale()
-  const { auth: {socialAuthForm: dict } } = useDictionary()
+  const { auth: { socialAuthForm: dict } } = useDictionary()
   const [state, formAction] = useFormState( signInWithOAuth, initialState )
 
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function SocialAuthForm() {
         variant: "destructive",
       })
     }
-  }, [toast, state?.error])
+  }, [toast, state?.error, dict])
   
   return (
     <form action={formAction} className="contents">

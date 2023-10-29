@@ -46,7 +46,7 @@ function EmailAuthFormFields() {
 export default function EmailAuthForm() {
   const { toast } = useToast()
   const lang = useLocale()
-  const { auth: {emailAuthForm: dict } } = useDictionary()
+  const { auth: { emailAuthForm: dict } } = useDictionary()
   
   const [state, formAction] = useFormState(signInWithOtp, initialState)
   
@@ -63,7 +63,7 @@ export default function EmailAuthForm() {
         variant: "destructive",
       })
     }
-  }, [toast, state])
+  }, [toast, state, dict])
 
   return (
     <form action={formAction} className="contents">

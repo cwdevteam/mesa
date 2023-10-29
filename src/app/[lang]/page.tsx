@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import UserAuthDialog from "@/components/UserAuthDialog";
 import env from "@/env";
 
-export default async function Home({ lang }: { lang: Locale }) {
+export default async function Home({
+  params: { lang },
+}: {
+  params: { lang: Locale }
+}) {
   return (
     <main className="grid gap-6 sm:gap-12 md:gap-24">
       <div className="grid grid-rows-[1fr_auto_2fr]">
