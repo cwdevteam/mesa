@@ -25,7 +25,7 @@ export default async function UserAuthDialog({ lang, children, className, ...pro
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className={cn("max-w-sm px-8 py-16", className)} {...props}>
+      <DialogContent className={cn("grid gap-8 max-w-sm px-8 py-16", className)} {...props}>
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold tracking-tight text-center">
             {dict.title}
@@ -55,36 +55,36 @@ export default async function UserAuthDialog({ lang, children, className, ...pro
               </div>
             </>
           )}
-          {(env.NEXT_PUBLIC_TOS_URL || env.NEXT_PUBLIC_PP_URL) && (
-            <p className="px-8 text-center text-sm text-muted-foreground">
-              {dict.agreementText}{" "}
-              {env.NEXT_PUBLIC_TOS_URL && (
-                <a
-                  href={env.NEXT_PUBLIC_TOS_URL}
-                  className="underline underline-offset-4 hover:text-primary"
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  {dict.termsOfService}
-                </a>
-              )}
-              {env.NEXT_PUBLIC_TOS_URL && env.NEXT_PUBLIC_PP_URL && (
-                <>{" "}{dict.and}{" "}</>
-              )}
-              {env.NEXT_PUBLIC_PP_URL && (
-                <a
-                  href={env.NEXT_PUBLIC_PP_URL}
-                  className="underline underline-offset-4 hover:text-primary"
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  {dict.privacyPolicy}
-                </a>
-              )}
-              .
-            </p>
-          )}
         </div>
+        {(env.NEXT_PUBLIC_TOS_URL || env.NEXT_PUBLIC_PP_URL) && (
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            {dict.agreementText}{" "}
+            {env.NEXT_PUBLIC_TOS_URL && (
+              <a
+                href={env.NEXT_PUBLIC_TOS_URL}
+                className="underline underline-offset-4 hover:text-primary"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                {dict.termsOfService}
+              </a>
+            )}
+            {env.NEXT_PUBLIC_TOS_URL && env.NEXT_PUBLIC_PP_URL && (
+              <>{" "}{dict.and}{" "}</>
+            )}
+            {env.NEXT_PUBLIC_PP_URL && (
+              <a
+                href={env.NEXT_PUBLIC_PP_URL}
+                className="underline underline-offset-4 hover:text-primary"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                {dict.privacyPolicy}
+              </a>
+            )}
+            .
+          </p>
+        )}
       </DialogContent>
     </Dialog>
   )

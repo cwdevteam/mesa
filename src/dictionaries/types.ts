@@ -25,5 +25,21 @@ export type Dictionary = {
     signOutButton: {
       buttonLabel: string
     }
+  },
+  home: {
+    heroSection: {
+      welcome: string,
+      signIn: string,
+      accessLimited: string,
+      signUp: string
+    }
+  },
+  layout: {
+    themeToggle: {
+      toggle: string,
+      light: string,
+      dark: string,
+      system: string
+    }
   }
 }

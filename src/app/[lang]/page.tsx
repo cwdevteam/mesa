@@ -1,23 +1,25 @@
+import env from "@/env";
 import { Locale } from "@/../i18n.config";
 import { Button } from "@/components/ui/button";
 import UserAuthDialog from "@/components/UserAuthDialog";
-import env from "@/env";
+import { getDictionary } from "@/lib/dictionary";
 
 export default async function Home({
   params: { lang },
 }: {
   params: { lang: Locale }
 }) {
+  const { home: { heroSection: dict }} = await getDictionary(lang)
   return (
     <main className="grid gap-6 sm:gap-12 md:gap-24">
       <div className="grid grid-rows-[1fr_auto_2fr]">
         <section className="row-start-2 grid gap-4 place-items-center container w-fit p-8">
-          <h1 className="text-4xl font-medium tracking-tight">Welcome to Mesa</h1>
+          <h1 className="text-4xl font-medium tracking-tight">{dict.welcome}</h1>
           <UserAuthDialog lang={lang}>
-            <Button className="text-md px-8 w-full">Sign in</Button>
+            <Button className="text-md px-8 w-full">{dict.signIn}</Button>
           </UserAuthDialog>
           <p className="text-sm text-muted-foreground text-center max-w-[18em]">
-            Access is currently limited to our alpha release partners.
+            {dict.accessLimited}
             {env.NEXT_PUBLIC_ACCESS_FORM_URL && (
               <>
                 <br/>
@@ -28,7 +30,7 @@ export default async function Home({
                   rel="noreferrer noopener"
                   target="_blank"
                 >
-                  Sign up for early access
+                  {dict.signUp}
                 </a>
               </>
             )}
