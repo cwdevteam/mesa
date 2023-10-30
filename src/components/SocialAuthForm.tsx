@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react"
 
+import env from "@/env"
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { signInWithOAuth } from "@/app/actions"
 import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
-import { env } from "@/env"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
 

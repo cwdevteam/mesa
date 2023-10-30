@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { cn } from "@/lib/utils"
-import { env } from "@/env"
+import env from "@/env"
 import EmailAuthForm from "@/components/EmailAuthForm"
 import SocialAuthForm from "@/components/SocialAuthForm"
 import { getDictionary } from "@/lib/dictionary"
@@ -28,7 +28,7 @@ export default async function UserAuthDialog({ lang, children, className, ...pro
       <DialogContent className={cn("grid gap-8 max-w-sm px-8 py-16", className)} {...props}>
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold tracking-tight text-center">
-            {dict.title}
+            {env.NEXT_PUBLIC_SIGNUPS_OPEN ? dict.titleOpen : dict.titleClosed}
           </DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground text-center">
             {dict.description}

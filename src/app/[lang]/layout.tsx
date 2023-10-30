@@ -6,6 +6,7 @@ import { i18n, Locale } from '@/../i18n.config'
 import { Toaster } from "@/components/ui/toaster"
 import Header from '@/components/Header'
 import Providers from '@/context/Providers'
+import env from'@/env'
 
 import '@/app/globals.css'
 

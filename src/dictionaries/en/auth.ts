@@ -15,7 +15,8 @@ const auth: Dictionary['auth'] = {
     errorToastDescription: "An error occurred while signing in with OAuth",
   },
   userAuthDialog: {
-    title: 'Sign-in or create an account',
+    titleOpen: 'Sign-in or create an account',
+    titleClosed: 'Sign-in',
     description: 'Enter your email below to continue',
     orContinueWith: "Or continue with",
     termsOfService: "Terms of Service",

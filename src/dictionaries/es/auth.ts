@@ -15,7 +15,8 @@ const auth: Dictionary['auth'] = {
     errorToastDescription: "Ocurrió un error al iniciar sesión con OAuth",
   },
   userAuthDialog: {
-    title: 'Inicia sesión o crea una cuenta',
+    titleOpen: 'Inicia sesión o crea una cuenta',
+    titleClosed: 'Inicia sesión',
     description: 'Ingresa tu correo electrónico a continuación para continuar',
     orContinueWith: "O continuar con",
     termsOfService: "Términos de Servicio",

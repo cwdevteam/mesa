@@ -14,7 +14,8 @@ export type Dictionary = {
       errorToastDescription: string,
     },
     userAuthDialog: {
-      title: string,
+      titleOpen: string,
+      titleClosed: string,
       description: string,
       orContinueWith: string,
       termsOfService: string,

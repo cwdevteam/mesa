@@ -7,19 +7,16 @@ import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { zfd } from 'zod-form-data'
+import env from '@/env'
 
 const schemas = {
-  signInWithPassword: zfd.formData(z.object({
-    email: z.string(),
-    password: z.string(),
-  })),
-
   signInWithOtp: zfd.formData(z.object({
     email: z.string(),
     lang: z.string(),
   }).transform(({lang, ...data}) => ({
     ...data,
     options: {
+      shouldCreateUser: env.NEXT_PUBLIC_SIGNUPS_OPEN,
       emailRedirectTo: `${getOrigin()}/${lang}/auth/callback`,
     },
   }))),
@@ -109,11 +106,15 @@ function createSignInFunction<M extends AuthMethod>(
   }
 }
 
-export const signInWithPassword = createSignInFunction('signInWithPassword')
 export const signInWithOtp = createSignInFunction('signInWithOtp')
 export const signInWithOAuth = createSignInFunction('signInWithOAuth', (result) => {
-    const url = result.data?.url
-    if (url) {
-      redirect(url)
-    }
+  if (!env.NEXT_PUBLIC_SIGNUPS_OPEN) {
+    console.error('Signups are currently closed.')
+    return errorResponse('Signups are currently closed.')
+  }
+
+  const url = result.data?.url
+  if (url) {
+    redirect(url)
+  }
 })
