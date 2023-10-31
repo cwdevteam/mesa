@@ -3,12 +3,12 @@ import { cookies } from 'next/headers'
 
 import { SignOutButton } from '@/components/SignOutButton'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Database } from '@/lib/database.types'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Dashboard() {
-  // TODO pass Database type to client constructor
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient<Database>({ cookies })
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
     return <></>

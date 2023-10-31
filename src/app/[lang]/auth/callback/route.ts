@@ -1,3 +1,4 @@
+import { Database } from '@/lib/database.types'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse, NextRequest } from 'next/server'
@@ -14,8 +15,7 @@ export async function GET(request: NextRequest, { params: { lang } }: { params: 
 
   if (code) {
     try {
-    // TODO pass Database type to client constructor
-      const supabase = createRouteHandlerClient({ cookies })
+      const supabase = createRouteHandlerClient<Database>({ cookies })
       await supabase.auth.exchangeCodeForSession(code)
     } catch (error: unknown) {
       const message = 'An unexpected error occurred'

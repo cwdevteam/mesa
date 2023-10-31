@@ -2,6 +2,7 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse, NextRequest } from 'next/server'
 
 import { MiddlewareFactory, currentLocale } from '@/middleware/util'
+import { Database } from '@/lib/database.types'
 
 export const withAuth: MiddlewareFactory = (next) => {
   return async (req: NextRequest, event) => {
@@ -19,8 +20,7 @@ export const withAuth: MiddlewareFactory = (next) => {
     const _res = res as NextResponse<unknown>
     
     // Create supabase client for auth
-    // TODO pass Database type to client constructor
-    const supabase = createMiddlewareClient({ req, res: _res  })
+    const supabase = createMiddlewareClient<Database>({ req, res: _res  })
     
     // Get auth user from supabase client. If null, user is not logged in.
     const { data: { user } } = await supabase.auth.getUser()

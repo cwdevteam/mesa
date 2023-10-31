@@ -5,7 +5,8 @@
     "dev": "bun run check-env && next dev",
     "build": "bun run check-env && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typegen": "supabase gen types typescript --project-id='ewvzsofyvxcctuxxqibo' > src/lib/database.types.ts"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.4.2",
@@ -37,8 +38,12 @@
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
     "postcss": "^8",
+    "supabase": "^1.106.1",
     "tailwindcss": "^3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
-  }
+  },
+  "trustedDependencies": [
+    "supabase"
+  ]
 }
