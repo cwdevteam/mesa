@@ -29,6 +29,8 @@ const ProviderArray = z.array(SupabaseOAuthProvider)
 
 // Define the schema for your environment variables
 const envSchema = z.object({
+  NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(32), // min(208)
   NEXT_PUBLIC_TOS_URL: z.string().url().optional(),
   NEXT_PUBLIC_PP_URL: z.string().url().optional(),
   NEXT_PUBLIC_ACCESS_FORM_URL: z.string().url().optional(),
@@ -48,7 +50,8 @@ const envSchema = z.object({
       }
     }, {
       message: "Invalid provider array",
-    }).optional()
+    }).optional(),
+  NEXT_PUBLIC_THIRDWEB_CLIENT_ID: z.string().min(32),
 })
 .refine(value => {
   // OAuth is disabled when signups are closed to prevent automatic account
@@ -71,7 +74,8 @@ const parsed = envSchema.safeParse({
   NEXT_PUBLIC_TOS_URL: process.env.NEXT_PUBLIC_TOS_URL,
   NEXT_PUBLIC_PP_URL: process.env.NEXT_PUBLIC_PP_URL,
   NEXT_PUBLIC_ACCESS_FORM_URL: process.env.NEXT_PUBLIC_ACCESS_FORM_URL,
-  NEXT_PUBLIC_SIGNUPS_OPEN: process.env.NEXT_PUBLIC_SIGNUPS_OPEN
+  NEXT_PUBLIC_SIGNUPS_OPEN: process.env.NEXT_PUBLIC_SIGNUPS_OPEN,
+  NEXT_PUBLIC_THIRDWEB_CLIENT_ID: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
 })
 
 if (!parsed.success) {
