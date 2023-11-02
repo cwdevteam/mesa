@@ -1,11 +1,12 @@
 {
   "private": true,
   "scripts": {
+    "build": "bun run check-env && next build",
     "check-env": "bun src/env.ts",
     "dev": "bun run check-env && next dev",
-    "build": "bun run check-env && next build",
-    "start": "next start",
     "lint": "next lint",
+    "rebuild": "npm rebuild",
+    "start": "next start",
     "typegen": "supabase gen types typescript --project-id='ewvzsofyvxcctuxxqibo' > src/lib/database.types.ts"
   },
   "dependencies": {
@@ -24,7 +25,7 @@
     "clsx": "^2.0.0",
     "ethers": "^5",
     "negotiator": "^0.6.3",
-    "next": "^13",
+    "next": "^14",
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
@@ -39,7 +40,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
     "eslint": "^8",
-    "eslint-config-next": "13.5.6",
+    "eslint-config-next": "^14",
     "pino-pretty": "^10.2.3",
     "postcss": "^8",
     "supabase": "^1.106.1",
@@ -51,6 +52,6 @@
     "supabase"
   ],
   "overrides": {
-    "next": "^13"
+    "next": "^14"
   }
 }

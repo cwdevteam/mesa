@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormStatus } from "@/lib/react-dom-shim"
+import { useFormStatus } from "react-dom"
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { useLocale } from "@/context/LocaleContext"

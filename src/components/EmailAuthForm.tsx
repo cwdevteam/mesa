@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { signInWithOtp } from "@/app/actions"
-import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
+import { useFormState, useFormStatus } from "react-dom"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
 

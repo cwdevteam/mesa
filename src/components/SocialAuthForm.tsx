@@ -7,7 +7,7 @@ import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { signInWithOAuth } from "@/app/actions"
-import { useFormState, useFormStatus } from "@/lib/react-dom-shim"
+import { useFormState, useFormStatus } from "react-dom"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
 
