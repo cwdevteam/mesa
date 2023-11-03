@@ -1,13 +1,16 @@
 'use client'
 
 import { useEffect } from 'react';
-import { ClientToken } from '@/lib/ClientToken';
+import { createHash } from 'crypto';
 import {
   useSetConnectionStatus,
   useSetConnectedWallet,
-  localWallet,
   useCreateWalletInstance,
-} from "@thirdweb-dev/react";
+} from '@thirdweb-dev/react';
+
+import { ClientToken } from '@/lib/ClientToken';
+import { mesaWallet } from '@/wallet/react/mesaWallet';
+import { fetchWalletId, fetchWalletToken } from '@/app/actions/wallet';
 
 export async function exchangeToken(token: string) {
   const response = await fetch('/api/exchangeToken', {
@@ -27,23 +30,47 @@ export async function exchangeToken(token: string) {
   return password;
 }
 
-const walletConfig = localWallet();
-
 export const WithWallet = ({ children }: { children: React.ReactNode }) => {
   const createWalletInstance = useCreateWalletInstance();
   const setConnectionStatus = useSetConnectionStatus();
   const setConnectedWallet = useSetConnectedWallet();
 
   useEffect(() => {
-    const clientToken = new ClientToken('__clientToken__')
+    // TODO support rotation of client token
+    // See https://github.com/cwdevteam/mesa/issues/31
+    const clientToken = new ClientToken()
     const connectWallet = async () => {
-      const wallet = createWalletInstance(walletConfig);
-      const token = clientToken.getToken()
-      const password = await exchangeToken(token);
-      await wallet.loadOrCreate({
+      // Create wallet instance scoped to the current user
+      const walletId = await fetchWalletId()
+      const wallet = createWalletInstance(mesaWallet({walletId}));
+      
+      // Get saved wallet address or generate a new wallet and get the address.
+      const savedAddress = (await wallet.getSavedData())?.address
+      const address = savedAddress || (await wallet.generate())
+      // Generate deterministic wallet password.
+      const token = clientToken.getToken(walletId)
+      const walletToken = await fetchWalletToken(address);
+      const walletPassword = createHash('sha256')
+        .update(token + walletToken)
+        .digest('base64')
+      
+      // Options used to load or save encrypted wallet.
+      const options = {
         strategy: 'encryptedJson' as 'encryptedJson',
-        password
-      });
+        password: walletPassword
+      }
+
+      // Load or save wallet
+      // TODO support rotation of walletToken
+      // See https://github.com/cwdevteam/mesa/issues/31
+      if (savedAddress) {
+        await wallet.load(options)
+      } else {
+        await wallet.save(options)
+      }
+
+      // TODO register wallet
+      // See https://github.com/cwdevteam/mesa/issues/31
 
       try {
         setConnectionStatus("connecting");

@@ -6,10 +6,11 @@ import env from "@/env"
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { signInWithOAuth } from "@/app/auth"
+import { signInWithOAuth } from "@/app/actions/auth"
 import { useFormState, useFormStatus } from "react-dom"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
+import { Provider } from "@supabase/supabase-js"
 
 const initialState = {} as ReturnType<typeof signInWithOAuth>
 
@@ -57,7 +58,7 @@ function SocialAuthFormFields() {
 
   return (
     <>
-      {env.NEXT_PUBLIC_OAUTH_PROVIDERS?.map((provider) => (
+      {env.NEXT_PUBLIC_OAUTH_PROVIDERS?.map((provider: Provider) => (
         <Button 
           key={provider} 
           type="submit" 

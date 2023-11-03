@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+const isNode = new Function("try {return this===global;}catch(e){return false;}")()
+
 // Define the schema for your OAuth providers
 const SupabaseOAuthProvider = z.enum([
   'apple',
@@ -27,8 +29,14 @@ const SupabaseOAuthProvider = z.enum([
 
 const ProviderArray = z.array(SupabaseOAuthProvider)
 
+const privateEnvSchema = {
+  THIRDWEB_SECRET_KEY: z.string().min(32),
+  SERVER_SECRET_KEY: z.string().min(32),
+}
+
 // Define the schema for your environment variables
 const envSchema = z.object({
+  ...(isNode && privateEnvSchema),
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(32), // min(208)
   NEXT_PUBLIC_TOS_URL: z.string().url().optional(),
@@ -68,6 +76,10 @@ const envSchema = z.object({
 // Parse and validate env variables.  Without explicit mapping, the bundler may
 // replace process.env with {} and all values will be undefined.
 const parsed = envSchema.safeParse({
+  // Private schema
+  ...(isNode && process.env),
+
+  // Public Schema
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   NEXT_PUBLIC_OAUTH_PROVIDERS: process.env.NEXT_PUBLIC_OAUTH_PROVIDERS,
