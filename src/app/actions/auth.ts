@@ -1,14 +1,14 @@
 'use server'
 
 import { Provider, SupabaseClient } from '@supabase/supabase-js'
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs'
 import { revalidatePath } from 'next/cache'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { zfd } from 'zod-form-data'
+
 import env from '@/env'
-import { Database } from '@/lib/database.types'
+import { createServerActionClient } from '@/lib/supabase'
 
 const schemas = {
   signInWithOtp: zfd.formData(z.object({
@@ -68,7 +68,7 @@ async function signInWithSupabase<M extends AuthMethod>(
   credentials: AuthCredentials[M]
 ): Promise<ReturnType<AuthMethodFns[M] | typeof errorResponse>> {
   try {
-    const supabase = createServerActionClient<Database>({ cookies })
+    const supabase = createServerActionClient()
     const authMethodFn = supabase.auth[authMethod].bind(supabase.auth) as AuthMethodFns[M]
     const result = await authMethodFn(credentials)
     if (!result.error) {
