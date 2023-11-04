@@ -1,22 +1,24 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 
-import { SignOutButton } from '@/components/SignOutButton'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Database } from '@/lib/database.types'
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from '@/components/ui/button'
+import { createServerComponentClient, getUser } from '@/lib/supabase'
+import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Dashboard() {
-  const supabase = createServerComponentClient<Database>({ cookies })
-  const { data: { user } } = await supabase.auth.getUser()
+  const supabase = createServerComponentClient()
+  const user = await getUser(supabase)
   if (!user) {
     return <></>
   }
 
   return (
     <main className="grid place-items-center">
-      <Card className="grid grid-flow-row place-items-center gap-4 w-fit">
+      <Button asChild>
+        <Link href="/project/new">New Project</Link>
+      </Button>
+      {/* <Card className="grid grid-flow-row place-items-center gap-4 w-fit">
         <CardHeader className="grid place-items-center text-center">
           <CardTitle className="text-2xl font-semibold tracking-tight">
             Welcome
@@ -28,7 +30,7 @@ export default async function Dashboard() {
         <CardContent>
           <SignOutButton />
         </CardContent>
-      </Card>
+      </Card> */}
     </main>
   )
 }

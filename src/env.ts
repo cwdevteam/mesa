@@ -60,6 +60,8 @@ const envSchema = z.object({
       message: "Invalid provider array",
     }).optional(),
   NEXT_PUBLIC_THIRDWEB_CLIENT_ID: z.string().min(32),
+  NEXT_PUBLIC_SITE_TITLE: z.string().min(3),
+  NEXT_PUBLIC_SITE_DESCRIPTION: z.string().min(4),
 })
 .refine(value => {
   // OAuth is disabled when signups are closed to prevent automatic account
@@ -88,6 +90,8 @@ const parsed = envSchema.safeParse({
   NEXT_PUBLIC_ACCESS_FORM_URL: process.env.NEXT_PUBLIC_ACCESS_FORM_URL,
   NEXT_PUBLIC_SIGNUPS_OPEN: process.env.NEXT_PUBLIC_SIGNUPS_OPEN,
   NEXT_PUBLIC_THIRDWEB_CLIENT_ID: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
+  NEXT_PUBLIC_SITE_TITLE: process.env.NEXT_PUBLIC_SITE_TITLE,
+  NEXT_PUBLIC_SITE_DESCRIPTION: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,
 })
 
 if (!parsed.success) {

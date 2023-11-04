@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
@@ -47,11 +47,11 @@ export default function EmailAuthForm() {
   const { toast } = useToast()
   const lang = useLocale()
   const { auth: { emailAuthForm: dict } } = useDictionary()
-  
   const [state, formAction] = useFormState(signInWithOtp, initialState)
   
   useEffect(() => {
     if (state?.data) {
+
       toast({
         title: dict.successToastTitle,
         description: dict.successToastDescription,

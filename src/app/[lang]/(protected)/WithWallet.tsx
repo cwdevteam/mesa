@@ -12,24 +12,6 @@ import { ClientToken } from '@/lib/ClientToken';
 import { mesaWallet } from '@/wallet/react/mesaWallet';
 import { fetchWalletId, fetchWalletToken } from '@/app/actions/wallet';
 
-export async function exchangeToken(token: string) {
-  const response = await fetch('/api/exchangeToken', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ token })
-  });
-
-  const { password } = await response.json();
-  if (!password) {
-    console.error('Failed to exchange token: missing password');
-    return null;
-  }
-
-  return password;
-}
-
 export const WithWallet = ({ children }: { children: React.ReactNode }) => {
   const createWalletInstance = useCreateWalletInstance();
   const setConnectionStatus = useSetConnectionStatus();

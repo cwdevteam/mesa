@@ -1,19 +1,28 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { ProjectCollaborators } from '@/components/ProjectCollaborators'
+import project from './project.json' // TODO
+// export const dynamic = 'force-dynamic'
 
-import { Database } from '@/lib/database.types'
-
-export const dynamic = 'force-dynamic'
+import ProjectDetailsCard from "@/components/ProjectDetailsCard"
+import ProjectTimeline from "@/components/ProjectTimeline"
+import { TimelineProvider } from "@/context/TimelineContext"
+import { createServerComponentClient, getUser } from "@/lib/supabase"
 
 export default async function Project() {
-  const supabase = createServerComponentClient<Database>({ cookies })
-  const { data: { user } } = await supabase.auth.getUser()
+  const supabase = createServerComponentClient()
+  const user = await getUser(supabase)
   if (!user) {
     return <></>
   }
 
   return (
-    <main className="grid place-items-center">
-    </main>
+    <TimelineProvider>
+      <main className="grid grid-rows-[auto_minmax(0,1fr)] gap-6 container py-8 h-full">
+        <div>
+          <ProjectDetailsCard project={project} />
+          <ProjectCollaborators project={project} />
+        </div>
+        <ProjectTimeline />
+      </main>
+    </TimelineProvider>
   )
 }
