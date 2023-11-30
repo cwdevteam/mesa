@@ -7,7 +7,7 @@
     "lint": "next lint",
     "rebuild": "npm rebuild",
     "start": "next start",
-    "typegen": "supabase gen types typescript --project-id='ewvzsofyvxcctuxxqibo' > src/lib/database.types.ts"
+    "db:types": "supabase gen types typescript --local --schema public,auth,storage > src/types/supabase.ts"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.4.2",
