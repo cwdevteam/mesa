@@ -7,6 +7,12 @@
     "lint": "next lint",
     "rebuild": "npm rebuild",
     "start": "next start",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:pull": "supabase db pull --schema public,auth,storage",
+    "db:push": "supabase db push --schema public,auth,storage",
+    "db:up": "supabase migration up",
     "db:types": "supabase gen types typescript --local --schema public,auth,storage > src/types/supabase.ts"
   },
   "dependencies": {
