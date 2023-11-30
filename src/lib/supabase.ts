@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { SupabaseClient } from '@supabase/supabase-js';
 import * as Supabase from '@supabase/auth-helpers-nextjs'
 
-import { Database } from '@/lib/database.types'
+import { Database } from '@/types/supabase'
 
 export function createRouteHandlerClient() {
   const cookieStore = cookies()

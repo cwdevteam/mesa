@@ -2,7 +2,7 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse, NextRequest } from 'next/server'
 
 import { MiddlewareFactory, currentLocale } from '@/middleware/util'
-import { Database } from '@/lib/database.types'
+import { Database } from '@/types/supabase'
 
 export const withAuth: MiddlewareFactory = (next) => {
   return async (req: NextRequest, event) => {
