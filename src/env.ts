@@ -100,18 +100,18 @@ if (!parsed.success) {
     `Missing or invalid environment variable${count}:`,
     ...(parsed.error.errors.map(error => `  ${error.path}: ${error.message}`))
   ].join('\n') 
+  
+  // Always log errors
+  console.error(`\n${message}\n`)
 
   // Node
   if ('exit' in process) {
-    console.error(`\n${message}\n`)
     process.exit(1)
-  } else {
-    throw new Error(message)
   }
 }
 
 export type EnvType = z.infer<typeof envSchema>;
 
-export const env: Readonly<EnvType> = Object.freeze(parsed.data)
+export const env: Readonly<EnvType> = Object.freeze(parsed.success ? parsed.data : {})
 
 export default env
