@@ -13,7 +13,7 @@
     "db:pull": "supabase db pull --schema public,auth,storage",
     "db:push": "supabase db push --schema public,auth,storage",
     "db:up": "supabase migration up",
-    "db:types": "supabase gen types typescript --local --schema public,auth,storage > src/types/supabase.ts"
+    "db:types": "supabase gen types typescript --local --schema public,auth,storage,mesa > src/types/supabase.ts"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.4.2",
