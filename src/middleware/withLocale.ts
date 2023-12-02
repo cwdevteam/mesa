@@ -4,9 +4,10 @@ import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 
 import { MiddlewareFactory } from '@/middleware/util'
-import i18n from '@/../i18n.config'
+import i18n, { Locale } from '@/../i18n.config'
+import { pathnameWithLocale } from '@/lib/utils'
 
-const getLocale = (request: NextRequest): string | undefined => {
+const getLocale = (request: NextRequest): Locale | undefined => {
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {}
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
@@ -18,27 +19,14 @@ const getLocale = (request: NextRequest): string | undefined => {
     locales as string[]
   )
 
-  const locale = matchLocale(languages, locales, i18n.defaultLocale)
+  const locale = matchLocale(languages, locales, i18n.defaultLocale) as Locale
 
   return locale
 }
 
-
-
 export const withLocale: MiddlewareFactory = (next) => {
-  return async (req: NextRequest, event) => {
-    const pathname = req.nextUrl.pathname
-
-    // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
-    // If you have one
-    // if (
-    //   [
-    //     '/manifest.json',
-    //     '/favicon.ico',
-    //     // Your other files in `public`
-    //   ].includes(pathname)
-    // )
-    //   return
+  return async (request: NextRequest, event) => {
+    const { pathname } = request.nextUrl
 
     // Check if there is any supported locale in the pathname
     const currentLocale = i18n.locales.find(
@@ -47,26 +35,22 @@ export const withLocale: MiddlewareFactory = (next) => {
 
     // Redirect if there is no locale
     if (!currentLocale) {
-      const locale = getLocale(req)
-
-      // e.g. incoming request is /dashboard
-      // The new URL is now /en/dashboard
-      return NextResponse.redirect(
-        new URL(
-          `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-          req.url
-        )
-      )
+      const locale = getLocale(request)
+      const redirectTo = request.nextUrl.clone()
+      // Add the locale to the URL pathname
+      redirectTo.pathname = pathnameWithLocale(locale as Locale, pathname)
+      console.log(`Redirecting user from ${request.url} to ${redirectTo} ...`)
+      return NextResponse.redirect(redirectTo)
     }
 
     // Add the current locale to the request headers
-    req.headers.set(i18n.localeHeader, currentLocale)
+    request.headers.set(i18n.localeHeader, currentLocale)
 
-    const res = await next(req, event)
+    const response = await next(request, event)
 
     // Add the current locale to the response headers
-    res?.headers.set(i18n.localeHeader, currentLocale)
+    response?.headers.set(i18n.localeHeader, currentLocale)
 
-    return res
+    return response
   }
 }

@@ -2,15 +2,19 @@
 
 import { z } from 'zod';
 import { createHash } from "crypto";
-import { createServerActionClient, getUser } from '@/lib/supabase';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
+import { getUser } from '@/lib/supabase/server';
 import env from '@/env';
 
  // Ethereum addresses are 42 characters long
 const WalletAddressSchema = z.string().min(42).max(42)
 
 async function fetchAuthUser() {
-  const supabase = createServerActionClient()
-  const user = await getUser(supabase)
+  const cookieStore = cookies()
+  const supabase = createServerClient(cookieStore)
+
+  const user = await getUser(supabase as any)
   if (!user) {
     throw new Error('Not Authorized')
   }

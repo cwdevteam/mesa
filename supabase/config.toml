@@ -97,6 +97,27 @@ enable_confirmations = false
 # subject = "You have been invited"
 # content_path = "./supabase/templates/invite.html"
 
+[auth.email.template.invite]
+subject = "MESA: Your invitation"
+content_path = "./supabase/templates/invite.html"
+
+[auth.email.template.confirmation]
+subject = "MESA: Account confirmation"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "MESA: Account recovery"
+content_path = "./supabase/templates/recovery.html"
+
+[auth.email.template.magic_link]
+subject = "MESA: Sign in link"
+content_path = "./supabase/templates/magic_link.html"
+
+[auth.email.template.email_change]
+subject = "MESA: Email address change"
+content_path = "./supabase/templates/email_change.html"
+
+
 [analytics]
 enabled = true
 port = 23457

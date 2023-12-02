@@ -1,0 +1,8 @@
+<h2>MESA: Confirm your new Email Address</h2>
+
+<p>Follow this link to confirm the change from from {{ .Email }} to your new email address: {{ .NewEmail }}:</p>
+<p>
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email_change">
+    Change Email
+  </a>
+</p>

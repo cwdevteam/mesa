@@ -1,13 +1,12 @@
 
 // import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
-import { createServerComponentClient, getUser } from '@/lib/supabase'
+import { createServerClient, getUser } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 
-export const dynamic = 'force-dynamic'
-
 export default async function Dashboard() {
-  const supabase = createServerComponentClient()
+  const supabase = createServerClient(cookies())
   const user = await getUser(supabase)
   if (!user) {
     return <></>

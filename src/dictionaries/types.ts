@@ -1,5 +1,9 @@
 export type Dictionary = {
   auth: {
+    error: {
+      message: string,
+      instructions: string,
+    },
     emailAuthForm: {
       emailInputLabel: string,
       emailInputPlaceholder: string,

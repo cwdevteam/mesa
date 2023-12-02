@@ -1,32 +1,30 @@
-import { Database } from '@/types/supabase'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { NextResponse, NextRequest } from 'next/server'
-
-export const dynamic = 'force-dynamic'
+import { NextRequest, NextResponse } from 'next/server'
+import { createServerClient } from '@/lib/supabase/server'
 
 export async function GET(request: NextRequest, { params: { lang } }: { params: { lang: string } }) {
-  // The `/auth/callback` route is required for the server-side auth flow implemented
-  // by the Auth Helpers package. It exchanges an auth code for the user's session.
-  // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-sign-in-with-code-exchange
-  const requestUrl = request.nextUrl
-  const baseUrl = requestUrl.origin
-  const code = requestUrl.searchParams.get('code')
+  const { pathname, searchParams } =  request.nextUrl
+  const code = searchParams.get('code')
+  const next = searchParams.get('next') ?? '/'
+
+  const redirectTo = request.nextUrl.clone()
+  redirectTo.pathname = next
 
   if (code) {
-    try {
-      const supabase = createRouteHandlerClient<Database>({ cookies })
-      await supabase.auth.exchangeCodeForSession(code)
-    } catch (error: unknown) {
-      const message = 'An unexpected error occurred'
-      const params = `error=1&message=${encodeURIComponent(message)}`
-      console.error(message, error)
-      return NextResponse.redirect(
-        new URL(`/${lang}?${params}`, baseUrl)
-      )
+    const supabase = createServerClient(cookies())
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (error) {
+      console.log(`Error in ${pathname}: ${error.message}`)
+    } else {
+      return NextResponse.redirect(redirectTo)
     }
+  } else {
+    console.log(`Error in ${pathname} Missing auth code: ${code}`)
   }
 
-  // URL to redirect to after sign in process completes
-  return NextResponse.redirect(new URL(`/${lang}/dashboard`, baseUrl))
+  // redirect to the home page with error
+  redirectTo.pathname = `/${lang}`
+  redirectTo.searchParams.set('auth-code-error', 'true')
+  return NextResponse.redirect(redirectTo)
 }

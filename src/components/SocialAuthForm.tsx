@@ -6,13 +6,13 @@ import env from "@/env"
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { signInWithOAuth } from "@/app/actions/auth"
+import { signInWithOAuth } from "@/lib/supabase/auth/actions"
 import { useFormState, useFormStatus } from "react-dom"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
 import { Provider } from "@supabase/supabase-js"
 
-const initialState = {} as ReturnType<typeof signInWithOAuth>
+const initialState = {} as Awaited<ReturnType<typeof signInWithOAuth>>
 
 // TODO add more icons
 const providerIcons = {

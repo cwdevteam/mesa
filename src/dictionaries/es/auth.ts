@@ -1,6 +1,10 @@
 import { Dictionary } from "@/dictionaries/types"
 
 const auth: Dictionary['auth'] = {
+  error: {
+    message: "¡Vaya! Algo salió mal.",
+    instructions: "Por favor, inténtalo de nuevo",
+  },
   emailAuthForm: {
     emailInputLabel: "Correo electrónico",
     emailInputPlaceholder: "nombre@ejemplo.com",

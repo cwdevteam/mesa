@@ -9,8 +9,8 @@ import {
 } from '@thirdweb-dev/react';
 
 import { ClientToken } from '@/lib/ClientToken';
-import { mesaWallet } from '@/wallet/react/mesaWallet';
-import { fetchWalletId, fetchWalletToken } from '@/app/actions/wallet';
+import { mesaWallet } from '@/lib/wallet/react/mesaWallet';
+import { fetchWalletId, fetchWalletToken } from '@/lib/wallet/server/actions';
 
 export const WithWallet = ({ children }: { children: React.ReactNode }) => {
   const createWalletInstance = useCreateWalletInstance();

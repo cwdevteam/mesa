@@ -1,7 +1,7 @@
 import { WalletConfig } from "@thirdweb-dev/react";
 import { WalletOptions, createAsyncLocalStorage} from "@thirdweb-dev/wallets";
 
-import { MesaWallet } from "@/wallet/MesaWallet"
+import { MesaWallet } from "@/lib/wallet/MesaWallet"
 
 export type MesaWalletConfigOptions = {
   walletId: string;

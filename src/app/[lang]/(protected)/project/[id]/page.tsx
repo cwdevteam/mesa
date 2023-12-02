@@ -1,14 +1,14 @@
 import { ProjectCollaborators } from '@/components/ProjectCollaborators'
 import project from './project.json' // TODO
-// export const dynamic = 'force-dynamic'
 
 import ProjectDetailsCard from "@/components/ProjectDetailsCard"
 import ProjectTimeline from "@/components/ProjectTimeline"
 import { TimelineProvider } from "@/context/TimelineContext"
-import { createServerComponentClient, getUser } from "@/lib/supabase"
+import { createServerClient, getUser } from "@/lib/supabase/server"
+import { cookies } from 'next/headers'
 
 export default async function Project() {
-  const supabase = createServerComponentClient()
+  const supabase = createServerClient(cookies())
   const user = await getUser(supabase)
   if (!user) {
     return <></>

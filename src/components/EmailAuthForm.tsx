@@ -1,18 +1,18 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
-import { signInWithOtp } from "@/app/actions/auth"
+import { signInWithOtp } from "@/lib/supabase/auth/actions"
 import { useFormState, useFormStatus } from "react-dom"
 import { useLocale } from "@/context/LocaleContext"
 import { useDictionary } from "@/context/DictionaryContext"
 
-const initialState = {} as ReturnType<typeof signInWithOtp>
+const initialState = {} as Awaited<ReturnType<typeof signInWithOtp>>
 
 function EmailAuthFormFields() {
   const { pending } = useFormStatus()

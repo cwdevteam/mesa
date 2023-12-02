@@ -1,14 +1,13 @@
 'use server'
 
 import { Provider, SupabaseClient } from '@supabase/supabase-js'
-import { revalidatePath } from 'next/cache'
+import { createServerClient } from '@/lib/supabase/server'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { z } from 'zod'
 import { zfd } from 'zod-form-data'
-
+import { z } from 'zod'
+import { Locale } from '@/../i18n.config'
 import env from '@/env'
-import { createServerActionClient } from '@/lib/supabase'
 
 const schemas = {
   signInWithOtp: zfd.formData(z.object({
@@ -18,7 +17,8 @@ const schemas = {
     ...data,
     options: {
       shouldCreateUser: env.NEXT_PUBLIC_SIGNUPS_OPEN,
-      emailRedirectTo: `${getOrigin()}/${lang}/auth/callback`,
+      // Smuggle the lang via unused option
+      emailRedirectTo: `${origin()}/${lang}`,
     },
   }))),
   
@@ -28,24 +28,42 @@ const schemas = {
   }).transform(({lang, ...data}) => ({
     ...data,
     options: {
-      redirectTo: `${getOrigin()}/${lang}/auth/callback`,
+      redirectTo: `${origin()}/${lang}/auth/callback`,
     },
   }))),
 }
 
+type AuthError = {
+  data: null, error: {
+    message: string
+  }
+}
+
 type AuthMethod = keyof typeof schemas
 
-type AuthMethodFns = {
-  [M in AuthMethod]: (credentials: AuthCredentials[M]) => ReturnType<SupabaseClient['auth'][M]>
+type AuthResponse = {
+  [M in AuthMethod]: ReturnType<SupabaseClient['auth'][M]> 
 }
 
 type AuthCredentials = {
   [M in AuthMethod]: Parameters<SupabaseClient['auth'][M]>[0]
 }
 
-function getOrigin() {
+type AuthMethodFns = {
+  [M in AuthMethod]: (credentials: AuthCredentials[M]) => AuthResponse[M]
+}
+
+function origin() {
   // Get the server origin from the request
   const requestHeaders = headers()
+  
+  // Use origin header if present
+  const origin = requestHeaders.get('origin')
+  if (origin) {
+    return origin
+  }
+
+  // Construct origin from host and protocol
   const host = requestHeaders.get('host')
   if (host) {
     // Set the protocol based on the host
@@ -54,11 +72,11 @@ function getOrigin() {
     return `${protocol}://${host}`
   }
 
-  console.error('Error: Host is not defined')
+  console.error('Error: failed to determine request origin')
   return null
 }
 
-function errorResponse(error: unknown) {
+function errorResponse(error: unknown): AuthError {
   const message = `${error}` || 'Unknown Error'
   return {data: null, error: {message}}
 }
@@ -66,13 +84,14 @@ function errorResponse(error: unknown) {
 async function signInWithSupabase<M extends AuthMethod>(
   authMethod: M, 
   credentials: AuthCredentials[M]
-): Promise<ReturnType<AuthMethodFns[M] | typeof errorResponse>> {
+) {
   try {
-    const supabase = createServerActionClient()
+    // TODO pass Database type to client constructor
+    const cookieStore = cookies()
+    const supabase = createServerClient(cookieStore)
     const authMethodFn = supabase.auth[authMethod].bind(supabase.auth) as AuthMethodFns[M]
     const result = await authMethodFn(credentials)
     if (!result.error) {
-      revalidatePath('/')
       return result
     }
 
@@ -84,12 +103,14 @@ async function signInWithSupabase<M extends AuthMethod>(
   }
 }
 
-// function createSignInFunction() {
-function createSignInFunction<M extends AuthMethod>(
-  authMethod: M, 
-  callback?: (result: Awaited<ReturnType<typeof signInWithSupabase<M>>>) => void
+  function createSignInFunction<M extends AuthMethod>(
+    authMethod: M, 
+    callback?: (result: Awaited<AuthResponse[M]> | AuthError) => void
 ) {
-  return async function(prevState: any, formData: FormData) {
+  return async function(
+    state: Awaited<AuthResponse[M]> | AuthError,
+    formData: FormData
+  ): Promise<Awaited<AuthResponse[M]> | AuthError> {
     const schema = schemas[authMethod]
     const parsed = schema.safeParse(formData)
     if (!parsed.success) {
@@ -118,3 +139,10 @@ export const signInWithOAuth = createSignInFunction('signInWithOAuth', (result) 
     redirect(url)
   }
 })
+
+export const signOut = async (lang: Locale) => {
+  const cookieStore = cookies()
+  const supabase = createServerClient(cookieStore)
+  await supabase.auth.signOut()
+  return redirect(`/${lang}`)
+}
