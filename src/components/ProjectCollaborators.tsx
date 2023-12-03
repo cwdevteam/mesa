@@ -1,18 +1,19 @@
-type ProjectType = {
-  name: string;
-  description: string;
-  collaborators: Array<{name: string, percentage: string}>;
-}
+import { Database } from '@/types/supabase';
 
-export function ProjectCollaborators({project: {collaborators}}: { project: ProjectType}) {
+type ProjectUserType = Database['mesa']['Tables']['project_users']['Row'];
 
+type ProjectType = Database['mesa']['Tables']['projects']['Row'] & {
+  project_users: ProjectUserType[];
+};
+
+export function ProjectCollaborators({project}: { project: ProjectType }) {
   return (
     <section className="grid mt-4 max-w-prose">
       <h3 className="text-lg font-bold tracking-tight">Collaborators</h3>
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
-        {collaborators.map((collaborator: {name: string, percentage: string}, index: number) => (
+        {project.project_users.map((collaborator: ProjectUserType, index: number) => (
           <span key={index} className="mr-2">
-            <span className="font-medium">{collaborator.name}</span>: <span>{collaborator.percentage}</span>{index < collaborators.length - 1 && ','}
+            <span className="font-medium">{collaborator.user_name}</span>: <span>{(collaborator.user_bps ?? 0 * 100).toFixed(2)}%</span>{index < project.project_users.length - 1 && ','}
           </span>
         ))}
       </div>
