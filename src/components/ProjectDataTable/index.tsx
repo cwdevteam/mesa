@@ -4,7 +4,7 @@ import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReact
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table"
 import Link from "next/link"
-import { DateFormat } from "@/components/DateFormat"
+import { DateFormat, DateFormatProps } from "@/components/DateFormat"
 import { useLocale } from "@/context/LocaleContext"
 
 // Define the data typeV
@@ -15,6 +15,12 @@ type Project = {
   created_by: string | null;
   created_at: string | null;
   updated_at: string | null;
+}
+
+
+function DateFormatWithLang({date}: Omit<DateFormatProps, 'lang'>) {
+  const lang = useLocale();
+  return <DateFormat date={date} lang={lang} />; 
 }
 
 // Define the columns
@@ -37,8 +43,7 @@ const columns: ColumnDef<Project>[] = [
     id: "updated_at",
     header: "Last Updated",
     cell: ({ row }) => {
-      const lang = useLocale();
-      return <DateFormat date={row.original.updated_at!} lang={lang} />;
+      return <DateFormatWithLang date={row.original.updated_at!} />;
     },
   }
 ]

@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDistanceToNow, format } from 'date-fns';
 import { enUS, fr, de, es } from 'date-fns/locale';
 
-type DateFormatProps = {
+export type DateFormatProps = {
   date: string;
   lang: string;
 };
