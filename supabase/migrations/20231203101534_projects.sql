@@ -1,9 +1,15 @@
-alter table "mesa"."project_invitations" add column "user_bps" mesa.bps default 0;
+-- Add the user_name column as nullable
+ALTER TABLE mesa.project_invitations ADD COLUMN user_name mesa.name;
 
-alter table "mesa"."project_invitations" add column "user_name" mesa.name not null;
+-- Update null user_name values to default
+UPDATE mesa.project_invitations
+SET user_name = private.get_default_user_name(user_id)
+WHERE user_name IS NULL;
 
+-- Now alter the column to set it as non-nullable
+ALTER TABLE mesa.project_invitations ALTER COLUMN user_name SET NOT NULL;
 
--- set check_function_bodies = off;
+ALTER TABLE mesa.project_invitations ADD COLUMN user_bps mesa.bps DEFAULT 0;
 
 -- insert invitation when project is created by authenticated user.
 CREATE OR REPLACE FUNCTION private.mesa_handle_project_created() RETURNS TRIGGER AS $$
