@@ -1,10 +1,25 @@
 
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { NewProjectButton } from '@/components/NewProjectButton'
-import { createServerClient, getUser } from '@/lib/supabase/server'
+import { ServerClient, createServerClient, getUser } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import { Locale } from '@/../i18n.config'
 import { getDictionary } from '@/lib/dictionary'
+import { ProjectDataTable } from '@/components/ProjectDataTable'
+import { User } from '@supabase/supabase-js'
+
+async function getProjects(supabase: ServerClient, user: User) {
+  const { data: projects, error } = await supabase.schema('mesa')
+    .from('projects')
+    .select('*')
+    .order('updated_at', {ascending: false})
+
+  if (error) {
+    console.error(error)
+    return []
+  }
+  
+  return projects
+}
 
 export default async function Dashboard({
   params: { lang },
@@ -18,22 +33,15 @@ export default async function Dashboard({
     return <></>
   }
 
+  const projects = await getProjects(supabase, user)
   return (
-    <main className="grid place-items-center">
-      <NewProjectButton lang={lang} dict={dict.newProjectButton} />
-      {/* <Card className="grid grid-flow-row place-items-center gap-4 w-fit">
-        <CardHeader className="grid place-items-center text-center">
-          <CardTitle className="text-2xl font-semibold tracking-tight">
-            Welcome
-          </CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
-            Hey, {user.email}!
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <SignOutButton />
-        </CardContent>
-      </Card> */}
+    <main className="grid gap-4 container mx-auto py-4 content-start">
+      <div className="flex justify-between gap-4 py-6">
+        <h2 className="text-2xl font-semibold tracking-tight">Your Projects</h2>
+        <NewProjectButton lang={lang} dict={dict.newProjectButton} />
+      </div>
+      <ProjectDataTable data={projects} />
     </main>
   )
 }
+
