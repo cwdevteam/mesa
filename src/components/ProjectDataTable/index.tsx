@@ -22,7 +22,11 @@ const columns: ColumnDef<Project>[] = [
   {
     id: "title",
     header: "Title",
-    cell: ({ row }) => <Link href={`/project/${row.original.id}`}>{row.original.title}</Link>,
+    cell: ({ row }) => (
+      <Link href={`/project/${row.original.id}`} className="underline">
+        {row.original.title}
+      </Link>
+    ),
   },
   {
     id: "description",
