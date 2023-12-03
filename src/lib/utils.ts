@@ -9,3 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export const pathnameWithLocale = (locale: Locale, pathname: string) => (
   `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`
 )
+
+export const bpsToPercent = (bps: number) => (
+  `${(bps / 100).toFixed(2)}%`
+)

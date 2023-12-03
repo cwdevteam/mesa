@@ -1,3 +1,4 @@
+import { bpsToPercent } from '@/lib/utils';
 import { Database } from '@/types/supabase';
 
 type ProjectUserType = Database['mesa']['Tables']['project_users']['Row'];
@@ -13,7 +14,7 @@ export function ProjectCollaborators({project}: { project: ProjectType }) {
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
         {project.project_users.map((collaborator: ProjectUserType, index: number) => (
           <span key={index} className="mr-2">
-            <span className="font-medium">{collaborator.user_name}</span>: <span>{(collaborator.user_bps ?? 0 * 100).toFixed(2)}%</span>{index < project.project_users.length - 1 && ','}
+            <span className="font-medium">{collaborator.user_name}</span>: <span>{bpsToPercent(collaborator.user_bps ?? 0)}</span>{index < project.project_users.length - 1 && ','}
           </span>
         ))}
       </div>
