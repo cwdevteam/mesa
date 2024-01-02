@@ -628,6 +628,58 @@ export interface Database {
   }
   mesa: {
     Tables: {
+      project_events: {
+        Row: {
+          attestation: Json
+          attestation_uid: string | null
+          created_at: string
+          created_by: string | null
+          data: Json
+          id: string
+          project_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          attestation: Json
+          attestation_uid?: string | null
+          created_at?: string
+          created_by?: string | null
+          data: Json
+          id?: string
+          project_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          attestation?: Json
+          attestation_uid?: string | null
+          created_at?: string
+          created_by?: string | null
+          data?: Json
+          id?: string
+          project_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_events_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_events_project_id_fkey"
+            columns: ["project_id"]
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_events_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       project_invitations: {
         Row: {
           created_at: string | null
@@ -636,7 +688,9 @@ export interface Database {
           project_id: string | null
           status: Database["mesa"]["Enums"]["invitation_status"] | null
           updated_at: string | null
+          user_bps: number | null
           user_id: string | null
+          user_name: string
           user_role: Database["mesa"]["Enums"]["project_user_role"] | null
         }
         Insert: {
@@ -646,7 +700,9 @@ export interface Database {
           project_id?: string | null
           status?: Database["mesa"]["Enums"]["invitation_status"] | null
           updated_at?: string | null
+          user_bps?: number | null
           user_id?: string | null
+          user_name: string
           user_role?: Database["mesa"]["Enums"]["project_user_role"] | null
         }
         Update: {
@@ -656,7 +712,9 @@ export interface Database {
           project_id?: string | null
           status?: Database["mesa"]["Enums"]["invitation_status"] | null
           updated_at?: string | null
+          user_bps?: number | null
           user_id?: string | null
+          user_name?: string
           user_role?: Database["mesa"]["Enums"]["project_user_role"] | null
         }
         Relationships: [
