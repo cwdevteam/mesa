@@ -17,6 +17,8 @@
     "db:types": "supabase gen types typescript --local --schema public,auth,storage,mesa > src/types/supabase.ts"
   },
   "dependencies": {
+    "@ethereum-attestation-service/eas-contracts": "^1.3.7",
+    "@ethereum-attestation-service/eas-sdk": "^1.3.7",
     "@formatjs/intl-localematcher": "^0.4.2",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -33,7 +35,10 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
-    "ethers": "^5",
+    "ethers5": "npm:ethers@^5",
+    "ethers5_providers": "npm:@ethersproject/providers@^5",
+    "ethers5_web": "npm:@ethersproject/web@^5",
+    "ethers6": "npm:ethers@^6",
     "negotiator": "^0.6.3",
     "next": "^14",
     "next-themes": "^0.2.1",
