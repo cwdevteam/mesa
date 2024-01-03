@@ -1,26 +1,26 @@
 ---
-title: "Design Document for Todo List App"
+title: Design Document for Todo List App
 date: YYYY-MM-DD
-status: "Draft"
+status: Draft
 authors:
-  - "Author Name <author@email.com>"
-version: "v1.0"
-summary: "This document outlines the initial design for a Todo List application, focusing on the core functionality and user interface."
+  - Author Name <author@email.com>
+version: v1.0
+summary: This document outlines the initial design for a Todo List application, focusing on the core functionality and user interface.
 TODO:
-  - "Replace the title of the document with the title of your design document."
-  - "Replace the date with the date the document is created."
-  - "Update the status as the document progresses through its lifecycle (Draft, In Review, Approved, Implemented)."
-  - "Replace the author's name and email with the name and email of the author(s)."
-  - "Update the version as the document evolves."
-  - "Provide a brief summary of the design document in the 'summary' field."
-  - "In the 'Summary' section, provide a concise overview of the design and its purpose. This should be a high-level summary that gives the reader a basic understanding of the design."
-  - "In the 'Rationale' section, explain why this design is necessary and the problems it solves. This section should provide enough context for the reader to understand why the design was created."
-  - "In the 'User Interface' sub-section, break down the design into its components and explain each one in detail. This could include technical details, design choices, and the reasoning behind them."
-  - "In the 'Core Functionality' sub-section, continue to break down the design and explain each component. Each sub-section should focus on a different aspect of the design."
-  - "In the 'Requirements' section, list the specific requirements or steps needed to implement the design. This could include technical requirements, resources needed, and a timeline for implementation."
-  - "In the 'User Interface' requirements sub-section, explain each requirement in detail. This should include what needs to be done, how it should be done, and why it is necessary."
-  - "In the 'Core Functionality' requirements sub-section, continue to explain each requirement in detail. Each requirement should be clearly defined and explained."
-  - "In the 'Conclusion' section, summarize the design, its benefits, and any potential future adaptations or improvements. This section should wrap up the document and provide a clear conclusion."
+  - Replace the title of the document with the title of your design document.
+  - Replace the date with the date the document is created.
+  - Update the status as the document progresses through its lifecycle (Draft, In Review, Approved, Implemented).
+  - Replace the author's name and email with the name and email of the author(s).
+  - Update the version as the document evolves.
+  - Provide a brief summary of the design document in the 'summary' field.
+  - In the 'Summary' section, provide a concise overview of the design and its purpose. This should be a high-level summary that gives the reader a basic understanding of the design.
+  - In the 'Rationale' section, explain why this design is necessary and the problems it solves. This section should provide enough context for the reader to understand why the design was created.
+  - In the 'User Interface' sub-section, break down the design into its components and explain each one in detail. This could include technical details, design choices, and the reasoning behind them.
+  - In the 'Core Functionality' sub-section, continue to break down the design and explain each component. Each sub-section should focus on a different aspect of the design.
+  - In the 'Requirements' section, list the specific requirements or steps needed to implement the design. This could include technical requirements, resources needed, and a timeline for implementation.
+  - In the 'User Interface' requirements sub-section, explain each requirement in detail. This should include what needs to be done, how it should be done, and why it is necessary.
+  - In the 'Core Functionality' requirements sub-section, continue to explain each requirement in detail. Each requirement should be clearly defined and explained.
+  - In the 'Conclusion' section, summarize the design, its benefits, and any potential future adaptations or improvements. This section should wrap up the document and provide a clear conclusion.
 ---
 
 ## Summary
