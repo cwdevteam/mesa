@@ -35,10 +35,10 @@ export default async function Dashboard({
 
   const projects = await getProjects(supabase, user)
   return (
-    <main className="grid gap-4 container mx-auto py-4 content-start">
-      <div className="flex justify-between gap-4 py-6">
+    <main className="grid gap-10 container mx-auto py-10 content-start">
+      <div className="flex justify-between gap-4">
         <h2 className="text-2xl font-semibold tracking-tight">Your Projects</h2>
-        <NewProjectButton lang={lang} dict={dict.newProjectButton} />
+        <NewProjectButton user={user} lang={lang} dict={dict.newProjectButton} />
       </div>
       <ProjectDataTable data={projects} />
     </main>

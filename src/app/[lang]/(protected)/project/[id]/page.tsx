@@ -40,7 +40,7 @@ export default async function Project({
   
   return (
     <TimelineProvider>
-      <main className="grid grid-rows-[auto_minmax(0,1fr)] gap-6 container py-8 h-full">
+      <main className="grid grid-rows-[auto_minmax(0,1fr)] gap-6 container py-10 h-full">
         <div>
           <ProjectDetailsCard project={project} />
           <ProjectCollaborators project={project} />
