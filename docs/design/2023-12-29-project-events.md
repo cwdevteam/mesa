@@ -1,7 +1,7 @@
 ---
 title: "Design Document for Project Events Table"
 date: 2023-12-29
-status: "Draft"
+status: "Implemented"
 authors:
   - "Kevin Neaton <kevin@abstractgoods.cc>"
 version: "v1.1"

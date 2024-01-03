@@ -631,33 +631,42 @@ export interface Database {
       project_events: {
         Row: {
           attestation: Json
+          attestation_meta: Json
           attestation_uid: string | null
           created_at: string
           created_by: string | null
-          data: Json
           id: string
-          project_id: string | null
-          user_id: string | null
+          payload: Json | null
+          project_id: string
+          type: Database["mesa"]["Enums"]["project_event_type"]
+          updated_at: string
+          user_id: string
         }
         Insert: {
           attestation: Json
+          attestation_meta: Json
           attestation_uid?: string | null
           created_at?: string
           created_by?: string | null
-          data: Json
           id?: string
-          project_id?: string | null
-          user_id?: string | null
+          payload?: Json | null
+          project_id: string
+          type: Database["mesa"]["Enums"]["project_event_type"]
+          updated_at?: string
+          user_id: string
         }
         Update: {
           attestation?: Json
+          attestation_meta?: Json
           attestation_uid?: string | null
           created_at?: string
           created_by?: string | null
-          data?: Json
           id?: string
-          project_id?: string | null
-          user_id?: string | null
+          payload?: Json | null
+          project_id?: string
+          type?: Database["mesa"]["Enums"]["project_event_type"]
+          updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
@@ -842,6 +851,7 @@ export interface Database {
     }
     Enums: {
       invitation_status: "open" | "closed" | "accepted" | "rejected"
+      project_event_type: "mesa.project.create"
       project_user_role: "owner"
     }
     CompositeTypes: {

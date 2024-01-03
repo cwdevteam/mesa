@@ -13,6 +13,7 @@
     "db:pull": "supabase db pull --schema public,auth,storage,mesa",
     "db:push": "supabase db push",
     "db:up": "supabase migration up",
+    "db:dump": "supabase db dump --local > supabase/schema.sql",
     "db:types": "supabase gen types typescript --local --schema public,auth,storage,mesa > src/types/supabase.ts"
   },
   "dependencies": {

@@ -53,6 +53,12 @@ CREATE DOMAIN "mesa"."name" AS "text"
 
 ALTER DOMAIN "mesa"."name" OWNER TO "postgres";
 
+CREATE TYPE "mesa"."project_event_type" AS ENUM (
+    'mesa.project.create'
+);
+
+ALTER TYPE "mesa"."project_event_type" OWNER TO "postgres";
+
 CREATE TYPE "mesa"."project_user_role" AS ENUM (
     'owner'
 );
@@ -293,13 +299,16 @@ SET default_table_access_method = "heap";
 
 CREATE TABLE IF NOT EXISTS "mesa"."project_events" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
-    "project_id" "uuid",
-    "user_id" "uuid",
-    "data" "jsonb" NOT NULL,
+    "type" "mesa"."project_event_type" NOT NULL,
+    "project_id" "uuid" NOT NULL,
+    "user_id" "uuid" NOT NULL,
+    "payload" "jsonb",
     "attestation" "jsonb" NOT NULL,
-    "attestation_uid" "text" GENERATED ALWAYS AS ("substr"((("attestation" -> 'sig'::"text") ->> 'uid'::"text"), 3)) STORED,
-    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
-    "created_by" "uuid"
+    "attestation_meta" "jsonb" NOT NULL,
+    "attestation_uid" "text" GENERATED ALWAYS AS (TRIM(BOTH '"'::"text" FROM (("attestation" -> 'uid'::"text"))::"text")) STORED,
+    "created_by" "uuid",
+    "created_at" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updated_at" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 ALTER TABLE "mesa"."project_events" OWNER TO "postgres";

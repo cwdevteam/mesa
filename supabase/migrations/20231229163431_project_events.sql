@@ -1,17 +1,24 @@
 BEGIN;
 
+CREATE TYPE mesa.project_event_type AS ENUM (
+  'mesa.project.create'
+  -- TODO
+);
+
 -- Create the project_events table
 CREATE TABLE mesa.project_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  project_id UUID REFERENCES mesa.projects ON DELETE CASCADE,
-  user_id UUID REFERENCES auth.users,
-  data JSONB NOT NULL,
+  type mesa.project_event_type NOT NULL,
+  project_id UUID REFERENCES mesa.projects(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) NOT NULL,
+  payload JSONB,
   attestation JSONB NOT NULL,
-  attestation_uid text GENERATED ALWAYS AS (
-    substr((attestation->'sig'->>'uid')::text, 3)
-  ) STORED,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  created_by UUID REFERENCES auth.users
+  attestation_meta JSONB NOT NULL,
+  attestation_uid text GENERATED ALWAYS AS (trim(both '"' from (attestation->'uid')::text)) STORED,
+  -- metadata columns
+  created_by UUID REFERENCES auth.users(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Add a unique constraint on attestation_uid
