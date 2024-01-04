@@ -6,17 +6,16 @@ import { useWallet } from "@thirdweb-dev/react"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 import { SignedOffchainAttestation } from '@ethereum-attestation-service/eas-sdk';
 import { User } from "@supabase/supabase-js"
+import { serialize } from 'superjson';
 
 import { Icons } from "@/components/Icons"
 import { Button } from "@/components/ui/button"
 import { Dictionary } from "@/dictionaries/types"
 
-import { 
-  createClientWithMesaWallet,
-  createAndSignOffchainAttestation 
-} from "@/lib/eas/client"
-import { serialize } from 'superjson';
+import { useEASClient } from '@/context/EASClientProvider';
+import { createAndSignOffchainAttestation } from "@/lib/eas/client"
 import { MesaProjectCreateEvent } from '@/types/mesa';
+import { AttestationFormFields } from '../AttestationFormFields';
 
 function AttestationFields({
   attester,
@@ -50,6 +49,7 @@ export default function NewProjectButtonFormChildren({
   const { pending } = useFormStatus()
 
   const wallet = useWallet()
+  const eas = useEASClient()
 
   const [attester, setAttester] = useState<string | null>(null)
   const [attestation, setAttestation] = useState<SignedOffchainAttestation | null>(null);
@@ -57,7 +57,7 @@ export default function NewProjectButtonFormChildren({
 
   useEffect(() => {
     async function fetchData() {
-      if (!user || !wallet) {
+      if (!user || !wallet || !eas) {
         return
       }
       
@@ -67,25 +67,28 @@ export default function NewProjectButtonFormChildren({
         project_id: self.crypto.randomUUID()
       }
 
-      const eas = await createClientWithMesaWallet(wallet)
       setAttester((await wallet.getAddress()).toLowerCase())
       setAttestation(await createAndSignOffchainAttestation(
-        eas, 
+        eas,
+        // Use EAS wallet, which is a bare ethers v6 wallet.
         eas.getWallet(), 
         eventData
       ))
     }
 
     fetchData();
-  }, [wallet, user, toggle]);
+  }, [user, wallet, eas, toggle]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // Prevent default submit 
+    event.preventDefault();
     // Submit the form programmatically
     const form = event.currentTarget.form;
     if (form) {
       form.requestSubmit();
     }
 
+    // Reset state
     setAttester(null)
     setAttestation(null)
     setToggle(!toggle)
@@ -106,7 +109,7 @@ export default function NewProjectButtonFormChildren({
         )}{" "}
         {dict.buttonLabel}
       </Button>
-      <AttestationFields attester={attester} attestation={attestation} />
+      <AttestationFormFields attester={attester} attestation={attestation} />
     </>
   )
 }

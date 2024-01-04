@@ -20,7 +20,7 @@ export const DictionaryProvider = ({ children, dictionary }: DictionaryProviderP
 
 export const useDictionary = (): Dictionary => {
   const context = useContext(DictionaryContext)
-  if (context === undefined) {
+  if (typeof context === 'undefined') {
     throw new Error('useDictionary must be used within a DictionaryProvider')
   }
   return context

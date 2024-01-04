@@ -20,7 +20,7 @@ export const LocaleProvider = ({ children, locale }: LocaleProviderProps) => {
 
 export const useLocale = (): Locale => {
   const context = useContext(LocaleContext)
-  if (context === undefined) {
+  if (typeof context === 'undefined') {
     throw new Error('useLocale must be used within a LocaleProvider')
   }
   return context

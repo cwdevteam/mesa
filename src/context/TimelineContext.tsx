@@ -32,7 +32,7 @@ export function TimelineProvider({ children }: { children: ReactNode }) {
 
 export function useTimeline() {
   const context = useContext(TimelineContext);
-  if (context === undefined) {
+  if (typeof context === 'undefined') {
     throw new Error('useTimeline must be used within a TimelineProvider');
   }
   return context;

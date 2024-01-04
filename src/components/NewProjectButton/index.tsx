@@ -1,4 +1,3 @@
-
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { Locale } from "@/../i18n.config";
@@ -6,7 +5,7 @@ import { Locale } from "@/../i18n.config";
 import NewProjectButtonFormChildren from './Button.client'
 import { Dictionary } from '@/dictionaries/types';
 import { redirect } from 'next/navigation';
-import { PostgrestError, User } from '@supabase/supabase-js';
+import { User } from '@supabase/supabase-js';
 
 import { createClient, verifyOffchainAttestation } from '@/lib/eas/server';
 import { deserialize } from 'superjson';

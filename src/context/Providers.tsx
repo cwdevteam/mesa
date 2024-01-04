@@ -9,6 +9,7 @@ import { Locale } from '@/../i18n.config'
 
 import { Optimism } from "@thirdweb-dev/chains"
 import { ThirdwebProvider } from '@/components/Thirdweb'
+import EASClientProvider from './EASClientProvider'
 
 export default async function Providers({
   children,
@@ -32,7 +33,9 @@ export default async function Providers({
             supportedChains={[Optimism]}
             clientId={env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
           >
+            <EASClientProvider>
               {children}
+            </EASClientProvider>
           </ThirdwebProvider>
         </ThemeProvider>
       </DictionaryProvider>
