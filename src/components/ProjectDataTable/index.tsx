@@ -21,6 +21,8 @@ import {
 import { DateFormat, DateFormatProps } from "@/components/DateFormat"
 import { useLocale } from "@/context/LocaleContext"
 import { MesaProject } from "@/types/mesa"
+import { ProjectActionsMenu } from "@/components/ProjectActionsMenu"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 
 function DateFormatWithLang({date}: Omit<DateFormatProps, 'lang'>) {
   const lang = useLocale();
@@ -49,8 +51,29 @@ const columns: ColumnDef<MesaProject>[] = [
     cell: ({ row }) => {
       return <DateFormatWithLang date={row.original.updated_at!} />;
     },
-  }
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => (
+      <ProjectActionsMenu project={row.original}>
+        <Button
+          variant="ghost"
+          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+        >
+          <DotsHorizontalIcon className="h-4 w-4" />
+          <span className="sr-only">Open menu</span>
+        </Button>
+      </ProjectActionsMenu>
+    ),
+  },
 ]
+
+function headerClassName(
+  classMap: Record<number, string>, 
+  index: number
+) {
+  return classMap[index] || ''
+}
 
 // Define the DataTable component
 export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
@@ -69,7 +92,13 @@ export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header, index) => (
-                  <TableHead key={header.id} className={ index === 0 ? 'w-[160px]': ''}>
+                  <TableHead
+                    key={header.id}
+                    className={headerClassName({
+                      0: 'w-[160px]',
+                      [headerGroup.headers.length - 1]: 'w-12'
+                    }, index)}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())
