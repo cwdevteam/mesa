@@ -54,7 +54,8 @@ CREATE DOMAIN "mesa"."name" AS "text"
 ALTER DOMAIN "mesa"."name" OWNER TO "postgres";
 
 CREATE TYPE "mesa"."project_event_type" AS ENUM (
-    'mesa.project.create'
+    'mesa.project.create',
+    'mesa.project.update'
 );
 
 ALTER TYPE "mesa"."project_event_type" OWNER TO "postgres";

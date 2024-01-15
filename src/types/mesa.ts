@@ -24,5 +24,36 @@ export type MesaProjectCreateEvent = MesaProjectEventBase & {
   payload?: never,
 }
 
+type Insert<T> = {
+  new: T,
+  old: null,
+}
+
+type Update<T> = {
+  new: T,
+  old: T,
+}
+
+type Delete<T> = {
+  new: null,
+  old: T,
+}
+
+type InsertUpdateOrDelete<T> = Insert<T> | Update<T> | Delete<T>
+
+export type MesaProjectUpdateEvent = MesaProjectEventBase & {
+  type: 'mesa.project.update',
+  payload: {
+    title?: Update<string>,
+    description?: Update<string>,
+    users?: InsertUpdateOrDelete<{
+      user_id: string,
+      user_name: string,
+      user_bps: number,
+    }>[]
+  },
+}
+
 export type MesaProjectEvent = 
   | MesaProjectCreateEvent
+  | MesaProjectUpdateEvent

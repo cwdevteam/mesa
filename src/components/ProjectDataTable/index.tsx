@@ -1,22 +1,26 @@
 'use client'
 
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table"
 import Link from "next/link"
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable
+} from "@tanstack/react-table"
+
+import { Button } from "@/components/ui/button"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
+} from "@/components/ui/table"
+
 import { DateFormat, DateFormatProps } from "@/components/DateFormat"
 import { useLocale } from "@/context/LocaleContext"
-
-// Define the data typeV
-type Project = {
-  id: string;
-  title: string;
-  description: string | null;
-  created_by: string | null;
-  created_at: string | null;
-  updated_at: string | null;
-}
-
+import { MesaProject } from "@/types/mesa"
 
 function DateFormatWithLang({date}: Omit<DateFormatProps, 'lang'>) {
   const lang = useLocale();
@@ -24,7 +28,7 @@ function DateFormatWithLang({date}: Omit<DateFormatProps, 'lang'>) {
 }
 
 // Define the columns
-const columns: ColumnDef<Project>[] = [
+const columns: ColumnDef<MesaProject>[] = [
   {
     id: "title",
     header: "Title",
@@ -49,7 +53,7 @@ const columns: ColumnDef<Project>[] = [
 ]
 
 // Define the DataTable component
-export const ProjectDataTable = ({ data }: { data: Project[] }) => {
+export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
   const table = useReactTable({
     data,
     columns,
