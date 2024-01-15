@@ -1,4 +1,3 @@
-// import { ConnectionStatus } from "@/components/ConnectionStatus"
 import WithWallet from "./WithWallet"
 
 export default async function ProtectedLayout({
@@ -9,7 +8,6 @@ export default async function ProtectedLayout({
   return (
     <WithWallet>
       {children}
-      {/* <ConnectionStatus /> */}
     </WithWallet>
   )
 }
