@@ -46,7 +46,10 @@ export async function handleProjectForm(formData: FormData): Promise<MesaProject
 
   const project: MesaProject = await handleProjectEvent(supabase, eventData)
   
-  // Write project create event, after creating the project
+  // Write project event, after updating the project
+  // N.B. due to the lack of transactions here it is possible that the insert
+  // will fail. In that case, we log the eventData so that i cn be recovered
+  // from the logs if necessary.
   const { error: eventError } = await supabase.schema('mesa')
     .from('project_events')
     .insert({
@@ -55,12 +58,7 @@ export async function handleProjectForm(formData: FormData): Promise<MesaProject
       attestation_meta: attestationMeta,
     })
   if (eventError) {
-    try {
-      // remove project to approximate transaction
-      await supabase.schema('mesa').from('projects').delete().eq('id', project.id)
-    } catch (e) {
-      console.error(`Failed to remove project after error: ${project.id}`, e)
-    }
+    console.warn('Failed to store event data:', JSON.stringify(eventData))
     throw new Error(`Error inserting new '${eventData.type}' event in project_events`, {cause: eventError})
   }
 
