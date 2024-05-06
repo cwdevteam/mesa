@@ -36,19 +36,20 @@ The project is structured as follows:
 2. If you haven't already, setup Docker for local development: https://www.docker.com/get-started/
 
 3. Clone this repository to your local machine and install the dependencies:
-   ```bash
-   git clone https://github.com/cwdevteam/mesa.git
-   cd mesa && pnpm i
-   ```
+
+```bash
+git clone https://github.com/cwdevteam/mesa.git
+cd mesa && pnpm i
+```
 
 4. Rename `.env.local.example` to `.env.local` and update the following:
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+```
+NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
+NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
+```
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found on the [Supabase API settings](https://supabase.com/dashboard/project/ewvzsofyvxcctuxxqibo/settings/api) page.
+Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found on the [Supabase API settings](https://supabase.com/dashboard/project/ewvzsofyvxcctuxxqibo/settings/api) page.
 
 5. You can start the local database and development server with the following commands:
 
@@ -60,3 +61,7 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 See the [Supabase local development guide](https://supabase.com/docs/guides/local-development) for more information.
+
+6. Email authentication for local development:
+
+Supabase provides a local mailbox for email authentication, called Inbucket. After starting the local database, you can access Inbucket via [http://localhost:23454](http://localhost:23454) to receive auth emails and sign-in links.
