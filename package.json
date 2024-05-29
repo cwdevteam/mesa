@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "bun check-env && next build",
-    "check-env": "bun src/env.ts",
-    "dev": "bun check-env && next dev",
+    "build": "pnpm check-env && next build",
+    "check-env": "tsx src/env.ts",
+    "dev": "pnpm next dev",
     "lint": "next lint",
     "rebuild": "npm rebuild",
     "start": "next start",
