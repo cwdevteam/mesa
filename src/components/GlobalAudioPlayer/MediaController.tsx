@@ -5,11 +5,7 @@ import { Icons } from '@/components/Icons'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
 
 export interface MediaControllerProps {
-  musicMockup: {
-    avatar: string
-    name: string
-    url: string
-  }[]
+  musicMockup: any
 }
 export interface useAudioPlayerProps {
   audio: HTMLAudioElement | null
@@ -36,7 +32,7 @@ export const MediaController: React.FC<MediaControllerProps> = ({
     isPlaying,
     setIsPlaying
   }: useAudioPlayerProps = useAudioPlayer({
-    url: musicMockup[0].url
+    url: musicMockup?.url
   })
 
   const [volume, setVolume] = useState<number>(1)
@@ -102,7 +98,7 @@ export const MediaController: React.FC<MediaControllerProps> = ({
       <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap">
         <div className="flex-1 flex gap-3">
           <Image
-            src={musicMockup[0].avatar}
+            src={musicMockup?.avatar}
             alt=""
             width={50}
             height={50}
@@ -110,7 +106,7 @@ export const MediaController: React.FC<MediaControllerProps> = ({
           />
           <div className="flex flex-col">
             <div className="dark:text-white text-zinc-900 text-md font-sans hover:underline">
-              <b>{musicMockup[0].name}</b>
+              <b>{musicMockup?.name}</b>
             </div>
           </div>
         </div>
