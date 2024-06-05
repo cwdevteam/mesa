@@ -1,9 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { EASWithWallet } from "@/lib/eas/client";
 
-type EASClientContextValue = EASWithWallet | null;
+type EASClientContextValue = null;
 
 const EASClientContext = createContext<EASClientContextValue | undefined>(
   undefined
