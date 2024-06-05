@@ -62,9 +62,6 @@ importers:
       ethers5_providers:
         specifier: npm:@ethersproject/providers@^5
         version: '@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)'
-      ethers5_web:
-        specifier: npm:@ethersproject/web@^5
-        version: '@ethersproject/web@5.7.1'
       negotiator:
         specifier: ^0.6.3
         version: 0.6.3
