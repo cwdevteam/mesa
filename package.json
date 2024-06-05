@@ -37,7 +37,6 @@
     "ethers5": "npm:ethers@^5",
     "ethers5_providers": "npm:@ethersproject/providers@^5",
     "ethers5_web": "npm:@ethersproject/web@^5",
-    "ethers6": "npm:ethers@^6",
     "negotiator": "^0.6.3",
     "next": "^14",
     "next-themes": "^0.2.1",
