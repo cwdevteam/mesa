@@ -1,24 +1,21 @@
-import env from '@/env'
+import env from "@/env";
 
-import LocaleProvider from '@/context/LocaleContext'
-import DictionaryProvider from '@/context/DictionaryContext'
-import ThemeProvider from '@/context/ThemeProvider'
+import LocaleProvider from "@/context/LocaleContext";
+import DictionaryProvider from "@/context/DictionaryContext";
+import ThemeProvider from "@/context/ThemeProvider";
 
-import { getDictionary } from '@/lib/dictionary'
-import { Locale } from '@/../i18n.config'
-
-import { Optimism } from "@thirdweb-dev/chains"
-import { ThirdwebProvider } from '@/components/Thirdweb'
-import EASClientProvider from './EASClientProvider'
+import { getDictionary } from "@/lib/dictionary";
+import { Locale } from "@/../i18n.config";
+import EASClientProvider from "./EASClientProvider";
 
 export default async function Providers({
   children,
-  lang
+  lang,
 }: {
-  children: React.ReactNode,
-  lang: Locale
+  children: React.ReactNode;
+  lang: Locale;
 }) {
-  const dictionary = await getDictionary(lang)
+  const dictionary = await getDictionary(lang);
   return (
     <LocaleProvider locale={lang}>
       <DictionaryProvider dictionary={dictionary}>
@@ -28,17 +25,9 @@ export default async function Providers({
           enableSystem
           disableTransitionOnChange
         >
-          <ThirdwebProvider
-            activeChain={Optimism}
-            supportedChains={[Optimism]}
-            clientId={env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
-          >
-            <EASClientProvider>
-              {children}
-            </EASClientProvider>
-          </ThirdwebProvider>
+          <EASClientProvider>{children}</EASClientProvider>
         </ThemeProvider>
       </DictionaryProvider>
     </LocaleProvider>
-  )
+  );
 }
