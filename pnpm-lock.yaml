@@ -56,12 +56,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      ethers5:
-        specifier: npm:ethers@^5
-        version: ethers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      ethers5_providers:
-        specifier: npm:@ethersproject/providers@^5
-        version: '@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)'
       negotiator:
         specifier: ^0.6.3
         version: 0.6.3

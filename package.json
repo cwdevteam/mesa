@@ -34,8 +34,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
-    "ethers5": "npm:ethers@^5",
-    "ethers5_providers": "npm:@ethersproject/providers@^5",
     "negotiator": "^0.6.3",
     "next": "^14",
     "next-themes": "^0.2.1",
