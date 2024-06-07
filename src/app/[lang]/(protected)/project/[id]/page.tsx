@@ -9,6 +9,7 @@ import { cookies } from 'next/headers'
 import { User } from '@supabase/supabase-js'
 import { Locale } from '@/../i18n.config'
 
+
 async function getProject(supabase: ServerClient, user: User, id: string) {
   const { data: project, error } = await supabase.schema('mesa')
     .from('projects')
