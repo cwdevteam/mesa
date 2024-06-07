@@ -8,8 +8,6 @@ import { ServerClient, createServerClient, getUser } from "@/lib/supabase/server
 import { cookies } from 'next/headers'
 import { User } from '@supabase/supabase-js'
 import { Locale } from '@/../i18n.config'
-import MediaPlayer from '@/components/GlobalAudioPlayer/MediaPlayer'
-
 
 async function getProject(supabase: ServerClient, user: User, id: string) {
   const { data: project, error } = await supabase.schema('mesa')
@@ -48,7 +46,6 @@ export default async function Project({
         </div>
         {/* <ProjectTimeline /> */}
       </main>
-      <MediaPlayer />
     </TimelineProvider>
   )
 }

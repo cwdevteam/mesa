@@ -207,6 +207,26 @@ export const Icons = {
       ></path>
     </svg>
   ),
+  delete: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <path d="M3 6h18"></path>
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+      <line x1="10" x2="10" y1="11" y2="17"></line>
+      <line x1="14" x2="14" y1="11" y2="17"></line>
+    </svg>
+  ),
   voicenext: (props: IconProps) => (
     <svg
       width="15"
@@ -224,6 +244,63 @@ export const Icons = {
       ></path>
     </svg>
   ),
+  list: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="none"
+      className="h-5 w-5"
+    >
+      <rect x="4" y="3" width="12" height="2" rx="1" fill="currentColor"></rect>
+      <rect x="4" y="7" width="12" height="2" rx="1" fill="currentColor"></rect>
+      <rect x="4" y="11" width="3" height="2" rx="1" fill="currentColor"></rect>
+      <rect x="4" y="15" width="4" height="2" rx="1" fill="currentColor"></rect>
+      <rect
+        x="8.5"
+        y="11"
+        width="3"
+        height="2"
+        rx="1"
+        fill="currentColor"
+      ></rect>
+      <path
+        d="M17.154 11.346a1.182 1.182 0 0 0-1.671 0L11 15.829V17.5h1.671l4.483-4.483a1.182 1.182 0 0 0 0-1.671Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  ),
+  radio: (props: IconProps) => (
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 300 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="soundGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#00F" />
+          <stop offset="100%" stopColor="#0FF" />
+        </linearGradient>
+      </defs>
+      <g stroke="black" strokeWidth="5">
+        <circle cx="80" cy="150" r="50" fill="gray" />
+        <circle cx="80" cy="150" r="40" fill="black" />
+
+        <circle cx="220" cy="150" r="50" fill="gray" />
+        <circle cx="220" cy="150" r="40" fill="black" />
+
+        <path d="M80,100 Q150,20 220,100" fill="none" />
+
+        <polyline
+          points="100,150 110,140 120,160 130,130 140,170 150,100 160,200 170,130 180,170 190,140 200,150"
+          stroke="url(#soundGradient)"
+          strokeWidth="4"
+          fill="none"
+        />
+      </g>
+    </svg>
+  ),
   voicerepeat: (props: IconProps) => (
     <svg
       width="15"
@@ -238,6 +315,28 @@ export const Icons = {
         fill="currentColor"
         fillRule="evenodd"
         clipRule="evenodd"
+      ></path>
+    </svg>
+  ),
+  voiceinfinite: (props: IconProps) => (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 64 64"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M33.77051 22.09033h-1.248l.98047-.98047a1.5 1.5 0 00-2.12114-2.121l-3.53993 3.53993a1.51355 1.51355 0 000 2.12317l3.54 3.54a1.5 1.5 0 002.121-2.12116l-.98039-.9804c13.93867-.92188 15.36292 19.358 1.24782 20.01618a1.50014 1.50014 0 00.0003 2.99993C51.02795 47.39115 51.02166 22.80212 33.77051 22.09033zM30.40137 46.60645a1.51709 1.51709 0 00-.44049-1.06159l-3.54-3.54A1.5 1.5 0 0024.29985 44.126l.98042.98043A10.17027 10.17027 0 0114.02447 35.098 10.01958 10.01958 0 0124.0332 25.09033a1.5 1.5 0 000-3c-17.25929.71593-17.2518 25.304.0001 26.01614l1.247 0-.98047.98046a1.5 1.5 0 002.12114 2.121L29.96088 47.668A1.51776 1.51776 0 0030.40137 46.60645z"
+        fill="#ffffff"
+      ></path>
+      <path
+        d="M51.0332,3.5a9.47476,9.47476,0,0,0-8.87335,6.19678H8.541a5.04683,5.04683,0,0,0-5.041,5.041V55.459A5.04684,5.04684,0,0,0,8.541,60.5H49.2627a5.04683,5.04683,0,0,0,5.041-5.041V21.84A9.4605,9.4605,0,0,0,51.0332,3.5Zm.27051,51.959a2.04355,2.04355,0,0,1-2.041,2.041H8.541A2.04356,2.04356,0,0,1,6.5,55.459V14.73779a2.04355,2.04355,0,0,1,2.041-2.041c.09831.24856,33.54422-.469,33.02454.27006a9.47809,9.47809,0,0,0,9.46764,9.46773C51.75033,21.81124,51.08258,55.50125,51.30371,55.459ZM51.0332,19.43457a6.47491,6.47491,0,0,1-6.46777-6.46728c.30375-8.55895,12.63187-8.55776,12.93458.0001A6.4747,6.4747,0,0,1,51.0332,19.43457Z"
+        fill="#ffffff"
+      ></path>
+      <path
+        d="M52.18359,8.104c-1.04671-.6553-2.27741.64422-3.11037,1.12062a1.50892,1.50892,0,0,0,.90246,2.74655l-.00009,4.53713a1.50015,1.50015,0,0,0,3-.00007v-7.082A1.4999,1.4999,0,0,0,52.18359,8.104Z"
+        fill="#ffffff"
       ></path>
     </svg>
   ),
@@ -291,5 +390,5 @@ export const Icons = {
         clipRule="evenodd"
       ></path>
     </svg>
-  ),
+  )
 }

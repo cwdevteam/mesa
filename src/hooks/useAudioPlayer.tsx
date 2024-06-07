@@ -1,68 +1,84 @@
 import { useState, useEffect } from 'react'
+import { useMedia } from '@/context/MediaContext'
 
 interface UseAudioPlayerProps {
   url: string
   volume?: number
-  isMute?: boolean
 }
 
-export const useAudioPlayer = ({
-  url,
-  volume = 1,
-  isMute = false
-}: UseAudioPlayerProps) => {
+export const useAudioPlayer = ({ url, volume = 1 }: UseAudioPlayerProps) => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
-  const [duration, setDuration] = useState<number>(0)
   const [currentTime, setCurrentTime] = useState<number>(0)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (url) {
-      if (audio) {
-        audio.pause()
-      }
-      const newAudio = new Audio(url)
-      newAudio.volume = volume
-      newAudio.muted = isMute
-      setAudio(newAudio)
-    }
-  }, [url])
+  const {
+    isPlaying,
+    setIsPlaying,
+    handleSongEnded
+  } = useMedia()
 
   useEffect(() => {
     if (audio) {
-      setIsPlaying(true)
-      setCurrentTime(0)
+      audio.pause()
+      audio.src = url
+      audio.load()
+      audio.currentTime = currentTime
+      audio.volume = volume
 
-      audio.addEventListener('loadedmetadata', () => {
-        setDuration(audio.duration)
-        audio.play()
-      })
+      const handleLoadedMetadata = () => {
+        if (isPlaying) {
+          audio.play()
+        }
+      }
 
-      const updateTime = () => {
+      const handleTimeUpdate = () => {
         setCurrentTime(audio.currentTime)
       }
 
       const handleEnded = () => {
         setCurrentTime(0)
-        setIsPlaying(false)
+        handleSongEnded()
       }
 
-      audio.addEventListener('timeupdate', updateTime)
+      audio.addEventListener('loadedmetadata', handleLoadedMetadata)
+      audio.addEventListener('timeupdate', handleTimeUpdate)
       audio.addEventListener('ended', handleEnded)
 
       return () => {
-        audio.removeEventListener('timeupdate', updateTime)
+        audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
+        audio.removeEventListener('timeupdate', handleTimeUpdate)
         audio.removeEventListener('ended', handleEnded)
       }
     }
-  }, [audio])
+  }, [audio, url, currentTime, volume, isPlaying, setIsPlaying])
+
+  useEffect(() => {
+    const newAudio = new Audio(url)
+    setAudio(newAudio)
+
+    return () => {
+      newAudio.pause()
+      newAudio.src = ''
+    }
+  }, [url])
+
+  useEffect(() => {
+    if (audio) {
+      if (isPlaying) {
+        audio.play()
+      } else {
+        audio.pause()
+      }
+    }
+  }, [isPlaying, audio])
+
+  useEffect(() => {
+    if (audio) {
+      audio.volume = volume
+    }
+  }, [volume, audio])
 
   return {
     audio,
-    duration,
     currentTime,
-    setCurrentTime,
-    isPlaying,
-    setIsPlaying
+    setCurrentTime
   }
 }

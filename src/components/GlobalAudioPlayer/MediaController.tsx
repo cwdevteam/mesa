@@ -1,7 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { Icons } from '@/components/Icons'
+import { SheetDemo, useAudioPlayerProps } from '../Sheet/SheetDemo'
+import { PlayMode, useMedia } from '@/context/MediaContext'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
 
 export interface MediaControllerProps {
@@ -11,69 +12,83 @@ export interface MediaControllerProps {
     url: string
   }[]
 }
-export interface useAudioPlayerProps {
-  audio: HTMLAudioElement | null
-  duration: number
-  currentTime: number
-  setCurrentTime: (currentTime: number) => void
-  isPlaying: boolean
-  setIsPlaying: (isPlaying: boolean) => void
-}
 
-export const MediaController: React.FC<MediaControllerProps> = ({
-  musicMockup
-}) => {
+export const MediaController: React.FC = () => {
   const intoClass =
-    'w-full sticky bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500'
+    'w-full fixed bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500'
   const iconClass =
     'w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black'
-
-  const {
-    audio,
-    duration,
-    currentTime,
-    setCurrentTime,
-    isPlaying,
-    setIsPlaying
-  }: useAudioPlayerProps = useAudioPlayer({
-    url: musicMockup[0].url
-  })
-
   const [volume, setVolume] = useState<number>(1)
   const [isMute, setIsMute] = useState<boolean>(false)
+  const {
+    currentMedia,
+    medias,
+    isPlaying,
+    setIsPlaying,
+    setCurrentMedia,
+    playStatus,
+    setPlayStatus
+  } = useMedia()
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60)
-    const seconds = Math.floor(time % 60)
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
-      2,
-      '0'
-    )}`
+  const formatTime = (time: number | undefined) => {
+    if (time || time === 0) {
+      const hours = Math.floor(time / 3600);
+      const minutes = Math.floor((time % 3600) / 60);
+      const seconds = Math.floor(time % 60);
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+    return '00:00:00';
   }
 
-  const handlePlayPause = () => {
+  const { audio, currentTime, setCurrentTime }: useAudioPlayerProps =
+    useAudioPlayer({
+      url: medias[currentMedia].url,
+      volume
+    })
+
+  useEffect(() => {
     if (audio) {
       if (isPlaying) {
-        audio.pause()
-      } else {
         audio.play()
+      } else {
+        audio.pause()
       }
-      setIsPlaying(!isPlaying)
     }
+  }, [isPlaying, audio])
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying)
   }
 
   const handleMute = () => {
-    if (!audio) {
-      return
+    if (audio) {
+      if (isMute) {
+        setVolume(1)
+        audio.volume = 1
+      } else {
+        setVolume(0)
+        audio.volume = 0
+      }
+      setIsMute(!isMute)
     }
-    if (isMute) {
-      setVolume(1)
-      audio.volume = 1
+  }
+
+  const handleNext = (index: number) => {
+    if (medias.length === index + 1) {
+      setCurrentMedia(0)
     } else {
-      setVolume(0)
-      audio.volume = 0
+      setCurrentMedia(index + 1)
     }
-    setIsMute(!isMute)
+    setIsPlaying(true)
+  }
+
+  const handleBack = (index: number) => {
+    if (index === 0) {
+      setCurrentMedia(medias.length - 1)
+    } else {
+      setCurrentMedia(index - 1)
+    }
+    setIsPlaying(true)
   }
 
   const handleVolumeChange = (e: any) => {
@@ -96,30 +111,20 @@ export const MediaController: React.FC<MediaControllerProps> = ({
       setCurrentTime(newTime)
     }
   }
-
   return (
     <div className={intoClass}>
       <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap">
         <div className="flex-1 flex gap-3">
-          <Image
-            src={musicMockup[0].avatar}
-            alt=""
-            width={50}
-            height={50}
-            className="h-full"
-          />
-          <div className="flex flex-col">
+          <Icons.radio />
+          <div className="flex justify-center items-center flex-col">
             <div className="dark:text-white text-zinc-900 text-md font-sans hover:underline">
-              <b>{musicMockup[0].name}</b>
+              <b>{medias[currentMedia]?.name}</b>
             </div>
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-2">
           <div className="flex justify-center items-center gap-5">
-            <button>
-              <Icons.voicesuffle className={iconClass} />
-            </button>
-            <button>
+            <button onClick={() => handleBack(currentMedia)}>
               <Icons.voiceback className={iconClass} />
             </button>
             {isPlaying ? (
@@ -131,11 +136,17 @@ export const MediaController: React.FC<MediaControllerProps> = ({
                 <Icons.voiceplay className="w-7 h-7 text-zinc-500 hover:text-black dark:hover:text-white" />
               </button>
             )}
-            <button>
+            <button onClick={() => handleNext(currentMedia)}>
               <Icons.voicenext className={iconClass} />
             </button>
-            <button>
-              <Icons.voicerepeat className={iconClass} />
+            <button onClick={() => setPlayStatus((playStatus + 1) % 3)}>
+              {playStatus === PlayMode.CYCLE && (
+                <Icons.voicerepeat className="iconsClass" />
+              )}
+              {playStatus === PlayMode.INFINITE && <Icons.voiceinfinite />}
+              {playStatus === PlayMode.RANDOM && (
+                <Icons.voicesuffle className="iconsClass" />
+              )}
             </button>
           </div>
           <div className="flex justify-center items-center gap-2">
@@ -143,7 +154,7 @@ export const MediaController: React.FC<MediaControllerProps> = ({
             <input
               type="range"
               min="0"
-              max={duration}
+              max={medias[currentMedia]?.duration}
               minLength={0}
               step="0.01"
               value={currentTime}
@@ -152,7 +163,9 @@ export const MediaController: React.FC<MediaControllerProps> = ({
               onKeyUp={handleSliderChange}
               className="h-[3px] w-full bg-zinc-700"
             />
-            <p className="text-xs text-zinc-500">{formatTime(duration)}</p>
+            <p className="text-xs text-zinc-500">
+              {formatTime(medias[currentMedia]?.duration)}
+            </p>
           </div>
         </div>
         <div className="flex-1 flex items-center justify-end gap-3">
@@ -176,10 +189,8 @@ export const MediaController: React.FC<MediaControllerProps> = ({
               onChange={handleVolumeChange}
               className="hidden sm:block w-[120px] h-[3px]"
             />
+            <SheetDemo />
           </div>
-          <button>
-            <Icons.voiceexpend className={iconClass} />
-          </button>
         </div>
       </div>
     </div>
