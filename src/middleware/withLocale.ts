@@ -10,7 +10,7 @@ import { pathnameWithLocale } from '@/lib/utils'
 const getLocale = (request: NextRequest): Locale | undefined => {
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {}
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
+  request.headers.forEach((value: any, key: any) => (negotiatorHeaders[key] = value))
 
   const locales: readonly string[] = i18n.locales
 
