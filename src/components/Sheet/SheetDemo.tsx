@@ -60,8 +60,8 @@ export const SheetDemo: React.FC = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">
-          <Icons.list />
+        <Button className="border-none pl-2" variant={'outline'}>
+          <Icons.musiclist />
         </Button>
       </SheetTrigger>
       <SheetContent>
@@ -81,25 +81,13 @@ export const SheetDemo: React.FC = () => {
                 'shadow-[0_2px_2px_rgba(8,_112,_184,_0.7)]'
               } hover:bg-gray-900`}
             >
-              <div className="flex justify-center items-center w-full sm:w-[50%] sm:m-2 p-2 sm:p-0 border-b sm:border-b-0 sm:border-r border-[#313338] rounded-md">
-                {/* {music.avatar ? (
-                  <Image
-                    src={music.avatar}
-                    alt="music"
-                    width={50}
-                    height={50}
-                    className="h-full"
-                  />
-                ) : (
-                  <></>
-                )} */}
-              </div>
+              <div className="flex justify-center items-center w-full sm:w-[50%] sm:m-2 p-2 sm:p-0 border-b sm:border-b-0 sm:border-r border-[#313338] rounded-md"></div>
               <div className="w-full flex flex-col justify-center items-center text-lg group">
                 <div className="flex flex-row pt-2 justify-end w-full pr-4"></div>
                 <div className="flex h-[50%] justify-center custom-height transition-all items-center duration-300">
                   {displayText(music.name)}
                 </div>
-                <div className="h-[50%] flex flex-col sm:flex-row justify-center items-center text-lg group">
+                <div className="h-[2rem] flex flex-col sm:flex-row justify-center items-center text-lg group">
                   <div className="flex justify-center w-full sm:w-auto items-center group-hover:hidden">
                     {formatTime(music?.duration)}
                   </div>
