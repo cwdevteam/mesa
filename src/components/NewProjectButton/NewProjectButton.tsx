@@ -1,9 +1,9 @@
 import CreateProjectDialog from "./CreateProjectDialog";
 import CreateButton from "./CreateButton";
 
-const NewProjectButton = ({ handleSubmit }: { handleSubmit: () => void }) => (
+const NewProjectButton = () => (
   <CreateProjectDialog>
-    <CreateButton onClick={handleSubmit} />
+    <CreateButton />
   </CreateProjectDialog>
 );
 

@@ -2,7 +2,7 @@ import { SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 
 const getSchemaEncoder = () => {
   const schemaEncoder = new SchemaEncoder(
-    "uint256 fid, string castHash, uint256 tip, uint256 parentFid, string parentCastHash"
+    "string title,string metadataUri,string[] author,address[] author,bytes32[] contentHashes"
   );
 
   return schemaEncoder;

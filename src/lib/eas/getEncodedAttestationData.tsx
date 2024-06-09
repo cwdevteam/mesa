@@ -6,9 +6,14 @@ const getEncodedAttestationData = (
   metadataUri: string,
   author: string[],
   authorAddresses: Address[],
-  contentHashes: Address[]
+  contentHashes: string[]
 ) => {
   const schemaEncoder = getSchemaEncoder();
+  console.log("title", title);
+  console.log("metadataUri", metadataUri);
+  console.log("author", author);
+  console.log("authorAddresses", authorAddresses);
+  console.log("contentHashes", contentHashes);
   const encodedData = schemaEncoder.encodeData([
     { name: "title", value: title, type: "string" },
     { name: "metadataUri", value: metadataUri, type: "string" },

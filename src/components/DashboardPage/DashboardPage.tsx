@@ -21,7 +21,7 @@ const DashboardPage = ({ projects }: any) => {
     <main className="grid gap-10 container mx-auto py-10 content-start">
       <div className="flex justify-between gap-4">
         <h2 className="text-2xl font-semibold tracking-tight">Your Projects</h2>
-        <NewProjectButton handleSubmit={console.log} />
+        <NewProjectButton />
       </div>
       <ProjectDataTable data={projects} />
     </main>

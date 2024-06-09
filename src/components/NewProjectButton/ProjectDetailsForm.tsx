@@ -11,6 +11,7 @@ import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import { zeroAddress } from "viem";
 import CreateButton from "./CreateButton";
+import { ZERO_BYTES32 } from "@ethereum-attestation-service/eas-sdk";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,14 +23,17 @@ export default function ProjectDetailsForm() {
   const handleClick = async () => {
     console.log("clicked");
     setLoading(true);
+    console.log("clicked NEW");
+
     const encodedAttestation = getEncodedAttestationData(
       "title",
       "desc",
-      [""],
+      ["author"],
       [zeroAddress],
-      [zeroAddress]
+      [ZERO_BYTES32]
     );
     console.log("encodedAttestation", encodedAttestation);
+
     const args = getAttestArgs(encodedAttestation);
     console.log("args", args);
 
