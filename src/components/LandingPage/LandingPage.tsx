@@ -4,7 +4,7 @@ import env from "@/env";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import LoginButton from "../ConnectButton/LoginButton";
+import LoginButton from "../LoginButton";
 
 const LandingPage = ({ dict }: any) => {
   const { address } = useAccount();

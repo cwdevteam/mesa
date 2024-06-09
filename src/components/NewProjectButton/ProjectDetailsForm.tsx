@@ -29,17 +29,13 @@ export default function ProjectDetailsForm() {
     );
     const args = getAttestArgs(encodedAttestation);
     await attest(args);
-
     toast({
       title: "Success",
       description: "Project Created Successfully!",
       variant: "default",
     });
-    console.log("SWEETS TOASTED");
     setLoading(false);
-    console.log("SWEETS TOASTED");
     await push(`/projects/refId`);
-    console.log("SWEETS PUSHED");
   };
 
   return (

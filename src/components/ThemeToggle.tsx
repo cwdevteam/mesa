@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDictionary } from "@/context/DictionaryContext";
-import LoginButton from "./ConnectButton/LoginButton";
+import LoginButton from "./LoginButton";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
