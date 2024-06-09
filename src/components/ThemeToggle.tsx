@@ -3,7 +3,6 @@
 import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { useDictionary } from "@/context/DictionaryContext";
 import LoginButton from "./ConnectButton/LoginButton";
 
