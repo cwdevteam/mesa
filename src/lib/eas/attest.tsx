@@ -1,17 +1,21 @@
-import { getWalletClient } from "@wagmi/core";
-import wagmiConfig from "../wagmi/config";
+import { encodeFunctionData } from "viem";
 import { easAbi } from "../abi/eas";
 import { CHAIN, EAS } from "../consts";
 
-const attest = async (args: any[]) => {
-  const client = await getWalletClient(wagmiConfig);
-
+const attest = async (client: any, args: any[]) => {
+  console.log("SWEETS args", args);
   try {
-    const tx = await client.writeContract({
-      address: EAS,
+    const callData = encodeFunctionData({
       abi: easAbi,
       functionName: "attest",
       args,
+    });
+    // await client.switchChain(CHAIN);
+    const tx = await client.sendTransaction({
+      account: client.account,
+      to: EAS,
+      data: callData,
+      value: 0,
     });
     return tx;
   } catch (err) {

@@ -1,10 +1,10 @@
 import { Address, zeroAddress } from "viem";
 import generateAttestedEventTopics from "../eas/generateAttestedEventTopics";
 import getAlchemyRpcUrl from "./getAlchemyRpcUrl";
-import { baseSepolia } from "viem/chains";
+import { CHAIN_ID } from "../consts";
 
 export const ethGetLogs = async (address: Address = zeroAddress) => {
-  const endpoint = getAlchemyRpcUrl(baseSepolia.id);
+  const endpoint = getAlchemyRpcUrl(CHAIN_ID);
   const topics = generateAttestedEventTopics(address);
   const payload = {
     id: 1,
