@@ -18,7 +18,6 @@ export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const { push } = useRouter();
   const { address } = useAccount();
 
   const handleClick = async () => {
@@ -37,7 +36,7 @@ export default function ProjectDetailsForm() {
       description: "Project Created Successfully!",
       variant: "default",
     });
-    await push(`/projects/refId`);
+    location.reload();
   };
 
   return (

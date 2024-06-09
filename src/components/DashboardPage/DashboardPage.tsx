@@ -11,6 +11,7 @@ const DashboardPage = () => {
   const { isConnected } = useAccount();
   const { push } = useRouter();
   const { projects } = useProjects();
+
   useEffect(() => {
     if (!isConnected) {
       push("/");

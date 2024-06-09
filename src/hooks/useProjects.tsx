@@ -18,7 +18,7 @@ const useProjects = () => {
         const decodedAttestations = mapped.filter(
           (attestation: any) => attestation !== false
         );
-        setAttestations(decodedAttestations as any);
+        setAttestations(decodedAttestations.reverse() as any);
       } catch (error) {
         console.error("Failed to fetch attestations:", error);
       }
