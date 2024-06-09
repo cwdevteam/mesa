@@ -11,12 +11,15 @@ import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
+import { Address } from "viem";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const { push } = useRouter();
+  const { address } = useAccount();
 
   const handleClick = async () => {
     setLoading(true);
@@ -24,7 +27,7 @@ export default function ProjectDetailsForm() {
       title,
       description,
       [],
-      [],
+      [address as Address],
       []
     );
     const args = getAttestArgs(encodedAttestation);
@@ -34,7 +37,6 @@ export default function ProjectDetailsForm() {
       description: "Project Created Successfully!",
       variant: "default",
     });
-    setLoading(false);
     await push(`/projects/refId`);
   };
 
