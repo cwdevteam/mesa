@@ -21,10 +21,7 @@ export default function ProjectDetailsForm() {
   });
 
   const handleClick = async () => {
-    console.log("clicked");
     setLoading(true);
-    console.log("clicked NEW");
-
     const encodedAttestation = getEncodedAttestationData(
       "title",
       "desc",
@@ -32,11 +29,7 @@ export default function ProjectDetailsForm() {
       [zeroAddress],
       [ZERO_BYTES32]
     );
-    console.log("encodedAttestation", encodedAttestation);
-
     const args = getAttestArgs(encodedAttestation);
-    console.log("args", args);
-
     await attest(args);
   };
 
