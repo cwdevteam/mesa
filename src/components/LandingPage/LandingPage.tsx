@@ -12,7 +12,6 @@ const LandingPage = ({ dict }: any) => {
 
   useEffect(() => {
     if (address) {
-      console.log("SWEETS REDIRECT TO DASHBOARD", address);
       push("/dashboard");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
