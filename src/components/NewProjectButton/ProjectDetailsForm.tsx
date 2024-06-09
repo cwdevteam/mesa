@@ -3,34 +3,41 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
-import NewProjectButton from "../NewProjectButton";
 import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import attest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
-import { zeroAddress } from "viem";
 import CreateButton from "./CreateButton";
-import { ZERO_BYTES32 } from "@ethereum-attestation-service/eas-sdk";
+import { toast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
+import { Address } from "viem";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [state, setState] = useState<Partial<any>>({
-    title: "",
-    description: "",
-  });
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const { push } = useRouter();
+  const { address } = useAccount();
 
   const handleClick = async () => {
     setLoading(true);
     const encodedAttestation = getEncodedAttestationData(
-      "title",
-      "desc",
-      ["author"],
-      [zeroAddress],
-      [ZERO_BYTES32]
+      title,
+      description,
+      [],
+      [address as Address],
+      []
     );
     const args = getAttestArgs(encodedAttestation);
     await attest(args);
+    toast({
+      title: "Success",
+      description: "Project Created Successfully!",
+      variant: "default",
+    });
+    await push(`/projects/refId`);
   };
 
   return (
@@ -45,12 +52,7 @@ export default function ProjectDetailsForm() {
           autoCapitalize="none"
           autoCorrect="off"
           required
-          onBlur={(e) => {
-            setState({
-              ...state,
-              title: e.target.value,
-            });
-          }}
+          onBlur={(e) => setTitle(e.target.value)}
         />
       </div>
       <div className="grid gap-3">
@@ -61,12 +63,7 @@ export default function ProjectDetailsForm() {
           placeholder=""
           autoCapitalize="none"
           autoCorrect="off"
-          onBlur={(e) => {
-            setState({
-              ...state,
-              description: e.target.value,
-            });
-          }}
+          onBlur={(e) => setDescription(e.target.value)}
         />
       </div>
       <div className="flex gap-3 justify-end">
