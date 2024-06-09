@@ -4,10 +4,9 @@ import { ProjectDataTable } from "@/components/ProjectDataTable";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
 import NewProjectButton from "../NewProjectButton";
 
-const DashboardPage = ({ lang, dict, projects }: any) => {
+const DashboardPage = ({ projects }: any) => {
   const { isConnected } = useAccount();
   const { push } = useRouter();
 
