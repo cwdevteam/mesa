@@ -7,15 +7,15 @@ import { useRouter } from "next/navigation";
 import LoginButton from "../LoginButton";
 
 const LandingPage = ({ dict }: any) => {
-  const { address } = useAccount();
+  const { isConnected } = useAccount();
   const { push } = useRouter();
 
   useEffect(() => {
-    if (address) {
+    if (isConnected) {
       push("/dashboard");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+  }, [isConnected]);
 
   return (
     <main className="grid gap-6 sm:gap-12 md:gap-24">
