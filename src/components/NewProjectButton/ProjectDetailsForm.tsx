@@ -9,6 +9,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import attest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
+import { zeroAddress } from "viem";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,11 +22,11 @@ export default function ProjectDetailsForm() {
     console.log("clicked");
     setLoading(true);
     const encodedAttestation = getEncodedAttestationData(
-      1,
-      "0x0",
-      1,
-      1,
-      "string"
+      "title",
+      "desc",
+      [""],
+      [zeroAddress],
+      [zeroAddress]
     );
     console.log("encodedAttestation", encodedAttestation);
     const args = getAttestArgs(encodedAttestation);
