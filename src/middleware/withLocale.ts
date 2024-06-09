@@ -39,7 +39,6 @@ export const withLocale: MiddlewareFactory = (next) => {
       const redirectTo = request.nextUrl.clone()
       // Add the locale to the URL pathname
       redirectTo.pathname = pathnameWithLocale(locale as Locale, pathname)
-      console.log(`Redirecting user from ${request.url} to ${redirectTo} ...`)
       return NextResponse.redirect(redirectTo)
     }
 
