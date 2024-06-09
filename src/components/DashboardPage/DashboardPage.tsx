@@ -5,10 +5,12 @@ import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import NewProjectButton from "../NewProjectButton";
+import useProjects from "@/hooks/useProjects";
 
-const DashboardPage = ({ projects }: any) => {
+const DashboardPage = () => {
   const { isConnected } = useAccount();
   const { push } = useRouter();
+  const { projects } = useProjects();
 
   useEffect(() => {
     if (!isConnected) {

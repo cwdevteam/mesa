@@ -1,65 +1,78 @@
-'use client'
+"use client";
 
-import Link from "next/link"
+import Link from "next/link";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
-  useReactTable
-} from "@tanstack/react-table"
+  useReactTable,
+} from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TableRow
-} from "@/components/ui/table"
+  TableRow,
+} from "@/components/ui/table";
 
-import { DateFormat, DateFormatProps } from "@/components/DateFormat"
-import { useLocale } from "@/context/LocaleContext"
-import { MesaProject } from "@/types/mesa"
+import { DateFormat, DateFormatProps } from "@/components/DateFormat";
+import { useLocale } from "@/context/LocaleContext";
 
-function DateFormatWithLang({date}: Omit<DateFormatProps, 'lang'>) {
+function DateFormatWithLang({ date }: Omit<DateFormatProps, "lang">) {
   const lang = useLocale();
-  return <DateFormat date={date} lang={lang} />; 
+  return <DateFormat date={date} lang={lang} />;
 }
 
 // Define the columns
-const columns: ColumnDef<MesaProject>[] = [
+const columns: ColumnDef<any>[] = [
   {
     id: "title",
     header: "Title",
-    cell: ({ row }) => (
-      <Link href={`/project/${row.original.id}`} className="underline">
-        {row.original.title}
-      </Link>
-    ),
+    cell: ({ row }) => {
+      const title = row.original[0].value.value;
+      const uid = row.original[5].value.value[0];
+      return (
+        <Link href={`/project/${uid}`} className="underline">
+          {title}
+        </Link>
+      );
+    },
   },
   {
     id: "description",
     header: "Description",
-    cell: ({ row }) => <p className="truncate">{row.original.description}</p>,
+    cell: ({ row }) => (
+      <p className="truncate">{row.original[1].value.value}</p>
+    ),
   },
   {
-    id: "updated_at",
-    header: "Last Updated",
+    id: "uid",
+    header: "UID",
     cell: ({ row }) => {
-      return <DateFormatWithLang date={row.original.updated_at!} />;
+      const uid = row.original[5].value.value[0];
+      return (
+        <a
+          href={`https://base-sepolia.easscan.org/attestation/view/${uid}`}
+          target="_blank"
+        >
+          <p className="truncate underline">{uid}</p>
+        </a>
+      );
     },
-  }
-]
+  },
+];
 
 // Define the DataTable component
-export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
+export const ProjectDataTable = ({ data }: { data: any[] }) => {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-  })
+  });
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -69,11 +82,16 @@ export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header, index) => (
-                  <TableHead key={header.id} className={ index === 0 ? 'w-[160px]': ''}>
+                  <TableHead
+                    key={header.id}
+                    className={index === 0 ? "w-[160px]" : ""}
+                  >
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())
-                    }
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -85,14 +103,20 @@ export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -119,5 +143,5 @@ export const ProjectDataTable = ({ data }: { data: MesaProject[] }) => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
