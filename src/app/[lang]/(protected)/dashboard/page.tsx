@@ -1,8 +1,4 @@
-import {
-  ServerClient,
-  createServerClient,
-  getUser,
-} from "@/lib/supabase/server";
+import { ServerClient, createServerClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { Locale } from "@/../i18n.config";
 import { getDictionary } from "@/lib/dictionary";
@@ -14,12 +10,10 @@ async function getProjects(supabase: ServerClient) {
     .from("projects")
     .select("*")
     .order("updated_at", { ascending: false });
-
   if (error) {
     console.error(error);
     return [];
   }
-
   return projects;
 }
 
@@ -30,8 +24,6 @@ export default async function Dashboard({
 }) {
   const { dashboard: dict } = await getDictionary(lang);
   const supabase = createServerClient(cookies());
-  const user = await getUser(supabase);
   const projects = await getProjects(supabase);
-
   return <DashboardPage dict={dict} lang={lang} projects={projects} />;
 }
