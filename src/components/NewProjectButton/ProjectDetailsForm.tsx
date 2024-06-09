@@ -6,6 +6,9 @@ import { Textarea } from "../ui/textarea";
 import NewProjectButton from "../NewProjectButton";
 import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import attest from "@/lib/eas/attest";
+import getAttestArgs from "@/lib/eas/getAttestArgs";
+import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,6 +16,23 @@ export default function ProjectDetailsForm() {
     title: "",
     description: "",
   });
+
+  const handleClick = async () => {
+    console.log("clicked");
+    setLoading(true);
+    const encodedAttestation = getEncodedAttestationData(
+      1,
+      "0x0",
+      1,
+      1,
+      "string"
+    );
+    console.log("encodedAttestation", encodedAttestation);
+    const args = getAttestArgs(encodedAttestation);
+    console.log("args", args);
+
+    await attest(args);
+  };
 
   return (
     <div className="grid gap-6">
@@ -62,7 +82,7 @@ export default function ProjectDetailsForm() {
             Creating...
           </Button>
         ) : (
-          <NewProjectButton handleSubmit={() => setLoading(true)} />
+          <NewProjectButton handleSubmit={handleClick} />
         )}
       </div>
     </div>
