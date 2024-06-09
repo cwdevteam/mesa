@@ -10,6 +10,7 @@ import attest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import { zeroAddress } from "viem";
+import CreateButton from "./CreateButton";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -83,7 +84,7 @@ export default function ProjectDetailsForm() {
             Creating...
           </Button>
         ) : (
-          <NewProjectButton handleSubmit={handleClick} />
+          <CreateButton onClick={handleClick} />
         )}
       </div>
     </div>
