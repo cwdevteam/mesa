@@ -15,7 +15,6 @@ const useProjects = () => {
         const mapped = data.data.map((attestation: any) =>
           getDecodedAttestationData(attestation.result)
         );
-        console.log("SWEETS MAPPED", mapped);
         const decodedAttestations = mapped.filter(
           (attestation: any) => attestation !== false
         );

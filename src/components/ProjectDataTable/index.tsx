@@ -32,7 +32,6 @@ const columns: ColumnDef<any>[] = [
     id: "title",
     header: "Title",
     cell: ({ row }) => {
-      console.log("SWEETS ROW", row);
       const title = row.original[0].value.value;
       const uid = row.original[5].value.value[0];
       return (
