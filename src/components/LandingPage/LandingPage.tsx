@@ -1,10 +1,10 @@
 "use client";
 
 import env from "@/env";
-import ConnectButton from "../ConnectButton";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import LoginButton from "../ConnectButton/LoginButton";
 
 const LandingPage = ({ dict }: any) => {
   const { address } = useAccount();
@@ -24,7 +24,7 @@ const LandingPage = ({ dict }: any) => {
           <h1 className="text-4xl font-medium tracking-tight">
             {dict.welcome}
           </h1>
-          <ConnectButton />
+          <LoginButton />
           {!env.NEXT_PUBLIC_SIGNUPS_OPEN && (
             <p className="text-sm text-muted-foreground text-center max-w-[18em]">
               {dict.accessLimited}
