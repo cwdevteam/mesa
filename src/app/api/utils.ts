@@ -13,7 +13,7 @@ import {
   erc1967ProxyImplementationSlot,
   magicSpendAddress,
 } from "./constants";
-import { myNFTABI, myNFTAddress } from "@/ABIs/myNFT";
+import { myNFTABI, myNFTAddress } from "@/lib/abi/myNFT";
 import { getPublicClient } from "@/lib/clients";
 import { CHAIN_ID } from "@/lib/consts";
 
