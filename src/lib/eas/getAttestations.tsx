@@ -1,11 +1,10 @@
-import { baseSepolia } from "viem/chains";
 import { getPublicClient } from "../clients";
 import { easAbi } from "../abi/eas";
-import { EAS } from "../consts";
+import { CHAIN_ID, EAS } from "../consts";
 import getDecodedAttestedLog from "./getDecodedAttestedLog";
 
 const getAttestations = async (rawEvents: any[]) => {
-  const publicClient = getPublicClient(baseSepolia.id);
+  const publicClient = getPublicClient(CHAIN_ID);
   const wagmiContract = {
     address: EAS,
     abi: easAbi,

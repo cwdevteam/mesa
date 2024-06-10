@@ -1,6 +1,5 @@
 import {
   base,
-  baseGoerli,
   baseSepolia,
   goerli,
   mainnet,
