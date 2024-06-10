@@ -1,40 +1,41 @@
-import easAttest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import { Address } from "viem";
-import { useAccount, useWalletClient } from "wagmi";
-import { http } from "viem";
-import { baseSepolia } from "viem/chains";
-import {
-  createSmartAccountClient,
-  ENTRYPOINT_ADDRESS_V06,
-} from "permissionless";
-import { createPimlicoPaymasterClient } from "permissionless/clients/pimlico";
-import { CHAIN, RPC } from "@/lib/consts";
+import { useAccount } from "wagmi";
+import { CHAIN, EAS, RPC } from "@/lib/consts";
+import { useCapabilities, useWriteContracts } from "wagmi/experimental";
+import { useMemo, useState } from "react";
+import { easAbi } from "@/lib/abi/eas";
 
 const useAttest = () => {
-  const walletClient = useWalletClient();
   const account = useAccount();
+  const [id, setId] = useState<string | undefined>(undefined);
+  const { writeContracts } = useWriteContracts({
+    mutation: { onSuccess: (id) => setId(id) },
+  });
+  const { data: availableCapabilities } = useCapabilities({
+    account: account.address,
+  });
+
+  const capabilities = useMemo(() => {
+    if (!availableCapabilities || !account.chainId) return {};
+    const capabilitiesForChain = availableCapabilities[account.chainId];
+    if (
+      capabilitiesForChain["paymasterService"] &&
+      capabilitiesForChain["paymasterService"].supported
+    ) {
+      return {
+        paymasterService: {
+          url: `${document.location.origin}/api/paymaster`,
+        },
+      };
+    }
+    return {};
+  }, [availableCapabilities]);
+  console.log("SWEETS capabilities", capabilities);
 
   const attest = async (title: string, metadata: string) => {
-    const cloudPaymaster = createPimlicoPaymasterClient({
-      chain: CHAIN,
-      transport: http(RPC),
-      entryPoint: ENTRYPOINT_ADDRESS_V06,
-    });
-    console.log("SWEETS cloudPaymaster", cloudPaymaster);
-
-    const smartAccountClient = createSmartAccountClient({
-      account: account as any,
-      chain: CHAIN,
-      bundlerTransport: http(RPC),
-      // IMPORTANT: Set up Cloud Paymaster to sponsor your transaction
-      middleware: {
-        sponsorUserOperation: cloudPaymaster.sponsorUserOperation,
-      },
-    });
-    console.log("SWEETS smartAccountClient", smartAccountClient);
-
+    console.log("SWEETS ATTEST", title, metadata);
     const encodedAttestation = getEncodedAttestationData(
       title,
       metadata,
@@ -43,11 +44,22 @@ const useAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation);
+    console.log("SWEETS args", args);
 
-    return await easAttest(smartAccountClient, args);
+    writeContracts({
+      contracts: [
+        {
+          address: EAS,
+          abi: easAbi as any,
+          functionName: "attest",
+          args,
+        },
+      ],
+      capabilities,
+    });
   };
 
-  return { attest };
+  return { attest, id };
 };
 
 export default useAttest;

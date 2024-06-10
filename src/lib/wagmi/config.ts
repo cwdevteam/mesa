@@ -1,6 +1,6 @@
 import { http, createConfig } from "wagmi";
 import { coinbaseWallet } from "wagmi/connectors";
-import { CHAIN, CHAIN_ID } from "../consts";
+import { CHAIN, CHAIN_ID, RPC } from "../consts";
 
 const wagmiConfig = createConfig({
   chains: [CHAIN],
@@ -14,7 +14,7 @@ const wagmiConfig = createConfig({
   ],
   ssr: true,
   transports: {
-    [CHAIN_ID]: http(),
+    [CHAIN_ID]: http(RPC),
   } as any,
 });
 

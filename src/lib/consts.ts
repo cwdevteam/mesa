@@ -1,7 +1,7 @@
 import { base, baseSepolia } from "viem/chains";
 
 export const IS_TESTNET = process.env.NEXT_PUBLIC_TEST === "true"
-export const RPC = process.env.NEXT_PUBLIC_PRC
+export const RPC = process.env.NEXT_PUBLIC_RPC
 export const EAS = "0x4200000000000000000000000000000000000021";
 export const CHAIN = IS_TESTNET ? baseSepolia : base;
 export const CHAIN_ID = CHAIN.id;
