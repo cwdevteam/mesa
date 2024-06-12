@@ -26,7 +26,7 @@ const useAttest = () => {
     ) {
       return {
         paymasterService: {
-          url: `${document.location.origin}/api/paymaster`,
+          url: `https://9ecf-186-1-175-97.ngrok-free.app/api/paymaster`,
         },
       };
     }

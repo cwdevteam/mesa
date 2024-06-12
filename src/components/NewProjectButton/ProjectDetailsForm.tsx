@@ -11,13 +11,16 @@ import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import { useAccount } from "wagmi";
 import useAttest from "@/hooks/useAttest";
+import { useCapabilities } from "wagmi/experimental";
 
 export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const { attest } = useAttest();
-
+  const account = useAccount();
+  const { data: capabilities } = useCapabilities({ account: account.address });
+  console.log("SWEETS capabilities", capabilities);
   const handleClick = async () => {
     setLoading(true);
     await attest(title, description);
