@@ -5,10 +5,11 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger
+  SheetTrigger,
 } from '@/components/ui/sheet'
 import { Icons } from '../Icons'
 import { useMedia } from '@/context/MediaContext'
+import { formatTime } from '@/lib/utils'
 
 export interface useAudioPlayerProps {
   audio: HTMLAudioElement | null
@@ -16,14 +17,14 @@ export interface useAudioPlayerProps {
   setCurrentTime: (currentTime: number) => void
 }
 
-export const SheetDemo: React.FC = () => {
+export const MediaSheet: React.FC = () => {
   const {
     medias,
     currentMedia,
     setCurrentMedia,
     isPlaying,
     setIsPlaying,
-    handleRemove
+    handleRemove,
   } = useMedia()
 
   const displayText = (text: string) => {
@@ -42,19 +43,6 @@ export const SheetDemo: React.FC = () => {
     }
 
     setCurrentMedia(index)
-  }
-
-  const formatTime = (time: number | undefined) => {
-    if (time || time === 0) {
-      const hours = Math.floor(time / 3600)
-      const minutes = Math.floor((time % 3600) / 60)
-      const seconds = Math.floor(time % 60)
-      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-        2,
-        '0'
-      )}:${String(seconds).padStart(2, '0')}`
-    }
-    return '00:00:00'
   }
 
   return (
@@ -88,9 +76,6 @@ export const SheetDemo: React.FC = () => {
                   {displayText(music.name)}
                 </div>
                 <div className="h-[2rem] flex flex-col sm:flex-row justify-center items-center text-lg group">
-                  <div className="flex justify-center w-full sm:w-auto items-center group-hover:hidden">
-                    {formatTime(music?.duration)}
-                  </div>
                   <div className="justify-center items-center w-full sm:w-auto hidden group-hover:flex">
                     <button onClick={() => handlePlayPause(index)}>
                       {isPlaying && index === currentMedia ? (
@@ -113,4 +98,4 @@ export const SheetDemo: React.FC = () => {
   )
 }
 
-export default SheetDemo
+export default MediaSheet

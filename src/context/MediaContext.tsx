@@ -5,7 +5,6 @@ import React, {
   useContext,
   ReactNode,
   useState,
-  useEffect
 } from 'react'
 
 const MediaContext = createContext<
@@ -27,8 +26,6 @@ interface MediaProps {
   url: string
   avatar: string
   name: string
-  localUrl?: string
-  duration?: number
 }
 
 interface MediaProviderProps {
@@ -73,34 +70,6 @@ export const MediaProvider = ({ children }: MediaProviderProps) => {
   const [currentMedia, setCurrentMedia] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [playStatus, setPlayStatus] = useState<number>(0)
-
-  useEffect(() => {
-    const fetchFile = async () => {
-      try {
-        const response = await fetch(medias[currentMedia].url)
-        const blob = await response.blob()
-        const localUrl = URL.createObjectURL(blob)
-        const audio = new Audio(localUrl)
-
-        audio.onloadedmetadata = function () {
-          const duration = audio.duration
-
-          const updated = [...medias]
-          updated[currentMedia] = {
-            ...updated[currentMedia],
-            localUrl,
-            duration: duration
-          }
-          setMedias(updated)
-        }
-      } catch (error) {
-        console.error('Error fetching file from IPFS:', error)
-      }
-    }
-
-    if (medias.length > currentMedia && !medias[currentMedia].localUrl)
-      fetchFile()
-  }, [currentMedia, medias])
 
   const handleAddMedia = (media: MediaProps) => {}
 

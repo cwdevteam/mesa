@@ -1,9 +1,9 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Icons } from '@/components/Icons'
-import { SheetDemo, useAudioPlayerProps } from '../Sheet/SheetDemo'
+import { MediaSheet } from '../Sheet/MediaSheet'
 import { PlayMode, useMedia } from '@/context/MediaContext'
-import { useAudioPlayer } from '@/hooks/useAudioPlayer'
+import { formatTime } from '@/lib/utils'
 
 export interface MediaControllerProps {
   musicMockup: {
@@ -11,6 +11,10 @@ export interface MediaControllerProps {
     name: string
     url: string
   }[]
+}
+interface UseAudioPlayerProps {
+  url: string
+  volume?: number
 }
 
 export const MediaController: React.FC = () => {
@@ -20,6 +24,9 @@ export const MediaController: React.FC = () => {
     'w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black'
   const [volume, setVolume] = useState<number>(1)
   const [isMute, setIsMute] = useState<boolean>(false)
+  const [currentTime, setCurrentTime] = useState<number>(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const audio = audioRef.current
   const {
     currentMedia,
     medias,
@@ -27,24 +34,60 @@ export const MediaController: React.FC = () => {
     setIsPlaying,
     setCurrentMedia,
     playStatus,
-    setPlayStatus
+    setPlayStatus,
+    handleSongEnded,
   } = useMedia()
 
-  const formatTime = (time: number | undefined) => {
-    if (time || time === 0) {
-      const hours = Math.floor(time / 3600);
-      const minutes = Math.floor((time % 3600) / 60);
-      const seconds = Math.floor(time % 60);
-      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio) {
+      audio.src = medias[currentMedia]?.url
     }
-    return '00:00:00';
-  }
+  }, [currentMedia, medias])
 
-  const { audio, currentTime, setCurrentTime }: useAudioPlayerProps =
-    useAudioPlayer({
-      url: medias[currentMedia].url,
-      volume
-    })
+  useEffect(() => {
+    if (audio) {
+      audio.pause()
+      audio.src = medias[currentMedia]?.url
+      audio.load()
+      audio.currentTime = currentTime
+      audio.volume = volume
+
+      const handleLoadedMetadata = () => {
+        if (isPlaying) {
+          audio.play()
+        }
+      }
+
+      const handleTimeUpdate = () => {
+        setCurrentTime(audio.currentTime)
+      }
+
+      const handleEnded = () => {
+        setCurrentTime(0)
+        handleSongEnded()
+      }
+
+      audio.addEventListener('loadedmetadata', handleLoadedMetadata)
+      audio.addEventListener('timeupdate', handleTimeUpdate)
+      audio.addEventListener('ended', handleEnded)
+
+      return () => {
+        audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
+        audio.removeEventListener('timeupdate', handleTimeUpdate)
+        audio.removeEventListener('ended', handleEnded)
+      }
+    }
+  }, [
+    audio,
+    medias,
+    currentMedia,
+    handleSongEnded,
+    currentTime,
+    volume,
+    isPlaying,
+    setIsPlaying,
+  ])
 
   useEffect(() => {
     if (audio) {
@@ -55,6 +98,12 @@ export const MediaController: React.FC = () => {
       }
     }
   }, [isPlaying, audio])
+
+  useEffect(() => {
+    if (audio) {
+      audio.volume = volume
+    }
+  }, [volume, audio])
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying)
@@ -114,6 +163,7 @@ export const MediaController: React.FC = () => {
   return (
     <div className={intoClass}>
       <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap">
+        <audio ref={audioRef} hidden />
         <div className="flex-1 flex gap-3">
           <Icons.radio />
           <div className="flex justify-center items-center flex-col">
@@ -154,7 +204,7 @@ export const MediaController: React.FC = () => {
             <input
               type="range"
               min="0"
-              max={medias[currentMedia]?.duration}
+              max={audio?.duration}
               minLength={0}
               step="0.01"
               value={currentTime}
@@ -164,7 +214,7 @@ export const MediaController: React.FC = () => {
               className="h-[3px] w-full bg-zinc-700"
             />
             <p className="text-xs text-zinc-500">
-              {formatTime(medias[currentMedia]?.duration)}
+              {formatTime(audio?.duration)}
             </p>
           </div>
         </div>
@@ -189,7 +239,7 @@ export const MediaController: React.FC = () => {
               onChange={handleVolumeChange}
               className="hidden sm:block w-[120px] h-[3px]"
             />
-            <SheetDemo />
+            <MediaSheet />
           </div>
         </div>
       </div>
