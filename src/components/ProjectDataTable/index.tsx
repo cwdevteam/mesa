@@ -20,7 +20,6 @@ import {
 
 import { DateFormat, DateFormatProps } from "@/components/DateFormat";
 import { useLocale } from "@/context/LocaleContext";
-import UID from "../UID";
 
 function DateFormatWithLang({ date }: Omit<DateFormatProps, "lang">) {
   const lang = useLocale();
@@ -59,7 +58,7 @@ const columns: ColumnDef<any>[] = [
           href={`https://base-sepolia.easscan.org/attestation/view/${uid}`}
           target="_blank"
         >
-          <p className="truncate underline">{uid}</p>
+          <p className="truncate underline">{`${uid.substring(0,4)}...${uid.substring(uid.length - 4)}`}</p>
         </a>
       );
     },
@@ -102,18 +101,14 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => (
                 <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell, idx) => {
-                    const isLastElement =  idx === 2
-                    
-                    return (
-                      isLastElement ? <UID  key={cell.id} cell={cell} /> : <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    );
-                  })}
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))
             ) : (
