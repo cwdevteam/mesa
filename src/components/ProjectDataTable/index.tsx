@@ -55,7 +55,7 @@ const columns: ColumnDef<any>[] = [
       const uid = row.original[5].value.value[0];
       return (
         <a
-          href={`https://base-sepolia.easscan.org/attestation/view/${uid}`}
+          href={`https://base.easscan.org/attestation/view/${uid}`}
           target="_blank"
         >
           <p className="truncate underline">{uid}</p>
