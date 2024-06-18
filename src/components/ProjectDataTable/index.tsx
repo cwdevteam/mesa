@@ -20,6 +20,7 @@ import {
 
 import { DateFormat, DateFormatProps } from "@/components/DateFormat";
 import { useLocale } from "@/context/LocaleContext";
+import UID from "../UID";
 
 function DateFormatWithLang({ date }: Omit<DateFormatProps, "lang">) {
   const lang = useLocale();
@@ -101,15 +102,13 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => (
                 <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => {
-                    const isLastElement = table.getRowModel().rows?.length - 1 === index
-                    const firstFour = isLastElement ? String(cell.column.columnDef.cell)?.substring(0,4): '';
-                    const lastFour = isLastElement ? String(cell.column.columnDef.cell)?.substring(table.getRowModel().rows?.length - 4) : '';
-                    const slicedAddress = `${firstFour}...${lastFour}`
+                  {row.getVisibleCells().map((cell, idx) => {
+                    const isLastElement =  idx === 2
+                    
                     return (
-                      <TableCell key={cell.id}>
+                      isLastElement ? <UID  key={cell.id} cell={cell} /> : <TableCell key={cell.id}>
                         {flexRender(
-                          isLastElement ? slicedAddress  : cell.column.columnDef.cell,
+                          cell.column.columnDef.cell,
                           cell.getContext()
                         )}
                       </TableCell>
