@@ -50,7 +50,7 @@ const columns: ColumnDef<any>[] = [
   },
   {
     id: "uid",
-    header: "UID",
+    header: "Project ID",
     cell: ({ row }) => {
       const uid = row.original[5].value.value[0];
       return (
@@ -101,14 +101,20 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => (
                 <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    const isLastElement = table.getRowModel().rows?.length - 1 === index
+                    const firstFour = isLastElement ? String(cell.column.columnDef.cell)?.substring(0,4): '';
+                    const lastFour = isLastElement ? String(cell.column.columnDef.cell)?.substring(table.getRowModel().rows?.length - 4) : '';
+                    const slicedAddress = `${firstFour}...${lastFour}`
+                    return (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          isLastElement ? slicedAddress  : cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (
