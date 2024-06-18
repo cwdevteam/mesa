@@ -50,7 +50,7 @@ const columns: ColumnDef<any>[] = [
   },
   {
     id: "uid",
-    header: "UID",
+    header: "Project ID",
     cell: ({ row }) => {
       const uid = row.original[5].value.value[0];
       return (
@@ -58,7 +58,7 @@ const columns: ColumnDef<any>[] = [
           href={`https://base.easscan.org/attestation/view/${uid}`}
           target="_blank"
         >
-          <p className="truncate underline">{uid}</p>
+          <p className="truncate underline">{`${uid.substring(0,5)}...${uid.substring(uid.length - 4)}`}</p>
         </a>
       );
     },
