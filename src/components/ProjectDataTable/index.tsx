@@ -58,7 +58,7 @@ const columns: ColumnDef<any>[] = [
 
       return (
         <a
-          href={IS_TESTNET ? `https://base-sepolia.easscan.org/attestation/view/${uid}` : `https://base.easscan.org/attestation/view/${uid}`}
+          href={ `https://base${IS_TESTNET ? "-sepolia" : ""}.easscan.org/attestation/view/${uid}`}
           target="_blank"
         >
           <p className="truncate underline">{`${uid.substring(0,5)}...${uid.substring(uid.length - 4)}`}</p>
