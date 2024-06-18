@@ -58,7 +58,7 @@ const columns: ColumnDef<any>[] = [
           href={`https://base-sepolia.easscan.org/attestation/view/${uid}`}
           target="_blank"
         >
-          <p className="truncate underline">{`${uid.substring(0,4)}...${uid.substring(uid.length - 4)}`}</p>
+          <p className="truncate underline">{`${uid.substring(0,5)}...${uid.substring(uid.length - 4)}`}</p>
         </a>
       );
     },
