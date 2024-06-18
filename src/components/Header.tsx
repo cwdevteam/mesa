@@ -19,6 +19,7 @@ export default async function Header({
 }) {
   const supabase = createServerClient(cookies())
   const user = await getUser(supabase)
+  
   return (
     <header className="flex border-b border-foreground/20">
       <div className="flex container mx-auto py-4">
