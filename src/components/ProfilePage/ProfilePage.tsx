@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 
-const ProfilePage = ({ user }: { user: any }) => {
+const ProfilePage = ({ user }: { user?: any }) => {
   const { push } = useRouter();
   const { isConnected } = useAccount();
   const [avatarUrl, setAvatarUrl] = useState<string>("");
