@@ -20,6 +20,7 @@ import {
 
 import { DateFormat, DateFormatProps } from "@/components/DateFormat";
 import { useLocale } from "@/context/LocaleContext";
+import { IS_TESTNET } from "@/lib/consts";
 
 function DateFormatWithLang({ date }: Omit<DateFormatProps, "lang">) {
   const lang = useLocale();
@@ -50,15 +51,17 @@ const columns: ColumnDef<any>[] = [
   },
   {
     id: "uid",
-    header: "UID",
+    header: "Project ID",
     cell: ({ row }) => {
       const uid = row.original[5].value.value[0];
+
+
       return (
         <a
-          href={`https://base-sepolia.easscan.org/attestation/view/${uid}`}
+          href={ `https://base${IS_TESTNET ? "-sepolia" : ""}.easscan.org/attestation/view/${uid}`}
           target="_blank"
         >
-          <p className="truncate underline">{uid}</p>
+          <p className="truncate underline">{`${uid.substring(0,5)}...${uid.substring(uid.length - 4)}`}</p>
         </a>
       );
     },

@@ -909,6 +909,46 @@
     "@nomicfoundation/solidity-analyzer-linux-x64-musl" "0.1.2"
     "@nomicfoundation/solidity-analyzer-win32-x64-msvc" "0.1.2"
 
+"@oven/bun-darwin-aarch64@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-aarch64/-/bun-darwin-aarch64-1.1.13.tgz#58451df92d1da1ba42f99f352b3588ef0b3ded1e"
+  integrity sha512-XjnL/B3i7s3xR7f7rYtXU5fyVb27g1Hd5fsmkyi1sNmB/34Lt/KRMmhp4C7brjxFtbI3NSkrvF+b3PkprQzPCA==
+
+"@oven/bun-darwin-x64-baseline@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-x64-baseline/-/bun-darwin-x64-baseline-1.1.13.tgz#3ca6451dfa87099d538c2892613a97a4dc210f01"
+  integrity sha512-RvVAeFMIayd8HKJqkWnZdI9BQJbH87jAXhNVMLlHpGqP4JVvkPLCKJT5jr9/4FGeWtQmMMZufH6PzTxpHCc9HQ==
+
+"@oven/bun-darwin-x64@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-x64/-/bun-darwin-x64-1.1.13.tgz#ba4d1de3322dd2013744d71fb2b6b65a50d321f1"
+  integrity sha512-N9t2JHLIEs/n+d7R6ybU/3d7o7xGeKd1U3vip9RMLaEAaJM6mfByAHmhwaQesr3Z6ljcs1zkQJNaFMJA/cJqnA==
+
+"@oven/bun-linux-aarch64@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-aarch64/-/bun-linux-aarch64-1.1.13.tgz#4514beb71b85aaae40d7e2107b134386c41b0c64"
+  integrity sha512-5F9EKOjQauRXr+D3VjeMebKyq93xhdgrBOfpPnAn/C+NLFs1Wa2ZjwGAKjW2akmqht6milHft3sbsnCIR+MWIQ==
+
+"@oven/bun-linux-x64-baseline@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64-baseline/-/bun-linux-x64-baseline-1.1.13.tgz#14d9fadd81a3da68beb743730b56560298fc810d"
+  integrity sha512-0zhCVLsFcIyfqqsum7XUejuF3QhRkhI1DxgHQrLs16EKS4gt4X4A49jgTIHOvyedHcKb3FZOLsyjpOejB8kIpg==
+
+"@oven/bun-linux-x64@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64/-/bun-linux-x64-1.1.13.tgz#9f52066507bccc475ded6a77f265cd89e25647d6"
+  integrity sha512-3mq50HhwJbAwu0Dw6OCB5PS6uD1bpFGb8XrEgxnOB3ZydCBOVRRjoY1Jb8HjYHVKzFJZoPrUqulToA8od3IzeQ==
+
+"@oven/bun-windows-x64-baseline@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-windows-x64-baseline/-/bun-windows-x64-baseline-1.1.13.tgz#97c3235c8d1baf0950feb04e07922e62575e9792"
+  integrity sha512-7CVWrc/6LSRrdkxwBjAt4ehqQrLxC9k8+LI7VZKAYt1yNHM3JaOhcPyt3AJB10cmzc5HA/q/uSi6xcNUnlCWiA==
+
+"@oven/bun-windows-x64@1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@oven/bun-windows-x64/-/bun-windows-x64-1.1.13.tgz#f3afe49231e473bf14af400587c70e01d71e989b"
+  integrity sha512-PwFKQVFzhpUMAF86PwIEctfFT8ZQe1Gueqn1dKk07lwJOBve+Ou2NUEoQsq0eac0Cbw2C20fScjyVzDBwIMIPQ==
+
 "@parcel/watcher-android-arm64@2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.4.1.tgz#c2c19a3c442313ff007d2d7a9c2c1dd3e1c9ca84"
@@ -1758,9 +1798,9 @@
   integrity sha512-JkXTOdKs5MF086b/pt8C3+yVp3iDUwG635L7oCH6HvJvvr6lSUU5oe/gLXnPEfYRROHjJIPgCV6cuAg8gGkntQ==
 
 "@types/node@*", "@types/node@^20":
-  version "20.14.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.5.tgz#fe35e3022ebe58b8f201580eb24e1fcfc0f2487d"
-  integrity sha512-aoRR+fJkZT2l0aGOJhuA8frnCSoNX6W7U2mpNq63+BxBIj5BQFt8rHy627kijCmm63ijdSdwvGgpUsU6MBsZZA==
+  version "20.14.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.4.tgz#3426db474378502882036d595ec9e79a9b17d1e6"
+  integrity sha512-1ChboN+57suCT2t/f8lwtPY/k3qTpuD/qnqQuYoBg6OQOcPyaw7PiZVdGpaZYAvhDDtqrt0oAaM8+oSu1xsUGw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2626,6 +2666,20 @@ bufferutil@^4.0.8:
   dependencies:
     node-gyp-build "^4.3.0"
 
+bun@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/bun/-/bun-1.1.13.tgz#2a8e5db98cde53e7593408b384c1e2dd007c30bc"
+  integrity sha512-yrujTLEspzQJfh7hd2xkYM5skQsjBwVm/wq0cyYBkR5x4FRveOUqeAqtFOPH4aHvsDgwVN+dO0uIrlvE7dDsDQ==
+  optionalDependencies:
+    "@oven/bun-darwin-aarch64" "1.1.13"
+    "@oven/bun-darwin-x64" "1.1.13"
+    "@oven/bun-darwin-x64-baseline" "1.1.13"
+    "@oven/bun-linux-aarch64" "1.1.13"
+    "@oven/bun-linux-x64" "1.1.13"
+    "@oven/bun-linux-x64-baseline" "1.1.13"
+    "@oven/bun-windows-x64" "1.1.13"
+    "@oven/bun-windows-x64-baseline" "1.1.13"
+
 busboy@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/busboy/-/busboy-1.6.0.tgz#966ea36a9502e43cdb9146962523b92f531f6893"
@@ -3258,14 +3312,14 @@ end-of-stream@^1.1.0, end-of-stream@^1.4.0, end-of-stream@^1.4.1:
     once "^1.4.0"
 
 engine.io-client@~6.5.2:
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.5.4.tgz#b8bc71ed3f25d0d51d587729262486b4b33bd0d0"
-  integrity sha512-GeZeeRjpD2qf49cZQ0Wvh/8NJNfeXkXXcoGh+F77oEAgo9gUHwT1fCRxSNU+YEEaysOJTnsFHmM5oAcPy4ntvQ==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.5.3.tgz#4cf6fa24845029b238f83c628916d9149c399bc5"
+  integrity sha512-9Z0qLB0NIisTRt1DZ/8U2k12RJn8yls/nXMZLn+/N8hANT3TcYjKFKcwbw5zFQiN4NTde3TSY9zb79e1ij6j9Q==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
     engine.io-parser "~5.2.1"
-    ws "~8.17.1"
+    ws "~8.11.0"
     xmlhttprequest-ssl "~2.0.0"
 
 engine.io-parser@~5.2.1:
@@ -3738,9 +3792,9 @@ ethereumjs-util@^6.0.0, ethereumjs-util@^6.2.1:
     rlp "^2.2.3"
 
 ethers@^6.11.1:
-  version "6.13.1"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-6.13.1.tgz#2b9f9c7455cde9d38b30fe6589972eb083652961"
-  integrity sha512-hdJ2HOxg/xx97Lm9HdCWk949BfYqYWpyw4//78SiwOLgASyfrNszfMUNB2joKjvGUdwhHfaiMMFFwacVVoLR9A==
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-6.13.0.tgz#f342958d0f622cf06559f59fbccdc1d30fa64f50"
+  integrity sha512-+yyQQQWEntY5UVbCv++guA14RRVFm1rSnO1GoLFdrK7/XRWMoktNgyG9UjwxrQqGBfGyFKknNZ81YpUS2emCgg==
   dependencies:
     "@adraffy/ens-normalize" "1.10.1"
     "@noble/curves" "1.2.0"
@@ -3748,7 +3802,7 @@ ethers@^6.11.1:
     "@types/node" "18.15.13"
     aes-js "4.0.0-beta.5"
     tslib "2.4.0"
-    ws "8.17.1"
+    ws "8.5.0"
 
 ethjs-util@0.1.6, ethjs-util@^0.1.6:
   version "0.1.6"
@@ -5107,11 +5161,6 @@ lru_map@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.3.3.tgz#b5c8351b9464cbd750335a79650a0ec0e56118dd"
   integrity sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==
-
-lucide-react@^0.395.0:
-  version "0.395.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.395.0.tgz#f538cbabc9719c2258c03355524ffdea36301a5f"
-  integrity sha512-6hzdNH5723A4FLaYZWpK50iyZH8iS2Jq5zuPRRotOFkhu6kxxJiebVdJ72tCR5XkiIeYFOU5NUawFZOac+VeYw==
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -7378,15 +7427,25 @@ ws@8.13.0:
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.13.0.tgz#9a9fb92f93cf41512a0735c8f4dd09b8a1211cd0"
   integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
 
-ws@8.17.1, ws@^8.14.2, ws@~8.17.1:
+ws@8.17.1, ws@^8.14.2:
   version "8.17.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.1.tgz#9293da530bb548febc95371d90f9c878727d919b"
   integrity sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==
+
+ws@8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.5.0.tgz#bfb4be96600757fe5382de12c670dab984a1ed4f"
+  integrity sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==
 
 ws@^7.4.6, ws@^7.5.1:
   version "7.5.10"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.10.tgz#58b5c20dc281633f6c19113f39b349bd8bd558d9"
   integrity sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==
+
+ws@~8.11.0:
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.11.0.tgz#6a0d36b8edfd9f96d8b25683db2f8d7de6e8e143"
+  integrity sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==
 
 xmlhttprequest-ssl@~2.0.0:
   version "2.0.0"

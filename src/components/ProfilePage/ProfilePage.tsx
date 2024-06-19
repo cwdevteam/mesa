@@ -87,7 +87,7 @@ const ProfilePage = ({ user }: { user: any }) => {
                   className="text-red-500 border-red-500 hover:text-red-500 flex items-center gap-2"
                   variant={"outline"}
                   disabled={editable || uploadLoading}
-                  // onClick={handleRemoveAvatar}
+            
                 >
                   <FileMinusIcon width={16} height={16} />
                   Remove Photo
@@ -137,10 +137,6 @@ const ProfilePage = ({ user }: { user: any }) => {
                   <Input
                     id="user_name"
                     name="name"
-                    // value={userData.username}
-                    // onChange={(e) =>
-                    // setUserData({ ...userData, username: e.target.value })
-                    // }
                   />
                 </>
               ) : (
@@ -162,24 +158,10 @@ const ProfilePage = ({ user }: { user: any }) => {
                       <Input
                         id="user_first"
                         name="first_name"
-                        // value={userData.firstName}
-                        // onChange={(e) =>
-                        //   setUserData({
-                        //     ...userData,
-                        //     firstName: e.target.value,
-                        //   })
-                        // }
                       />
                       <Input
                         id="user_last"
                         name="last_name"
-                        // value={userData.lastName}
-                        // onChange={(e) =>
-                        //   setUserData({
-                        //     ...userData,
-                        //     lastName: e.target.value,
-                        //   })
-                        // }
                       />
                     </div>
                   </>
@@ -205,13 +187,6 @@ const ProfilePage = ({ user }: { user: any }) => {
                       <Input
                         id="user_first"
                         name="first_name"
-                        // value={userData.nickName}
-                        // onChange={(e) =>
-                        //   setUserData({
-                        //     ...userData,
-                        //     nickName: e.target.value,
-                        //   })
-                        // }
                       />
                     </div>
                   </>
