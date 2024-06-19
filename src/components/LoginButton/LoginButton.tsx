@@ -1,14 +1,15 @@
 import { useAccount } from "wagmi";
 import DisconnectButton from "./DisconnectButton";
-import { ConnectAccount } from "@coinbase/onchainkit/wallet";
+import { ConnectAccount,  } from "@coinbase/onchainkit/wallet";
 import NoSSR from "../NoSSR";
 
 const LoginButton = () => {
-  const { address } = useAccount();
+  const { address, } = useAccount();
 
-  return <div>
+  return <div className="flex gap-3 items-center">
     <NoSSR>
-      {address ? <DisconnectButton /> : <ConnectAccount />}
+      {address && <DisconnectButton />}
+       <ConnectAccount />
     </NoSSR>
     </div>;
 };

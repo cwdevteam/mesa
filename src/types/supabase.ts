@@ -330,7 +330,7 @@ export interface Database {
           }
         ]
       }
-      saml_relay_states: {
+      sal_relay_states: {
         Row: {
           created_at: string | null
           flow_state_id: string | null
