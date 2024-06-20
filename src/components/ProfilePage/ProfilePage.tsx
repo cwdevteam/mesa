@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ReloadIcon, FilePlusIcon, FileMinusIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import PersonalDetails from "./PersonalDetails";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = ({ user }: { user?: any }) => {
   const [avatarUrl, setAvatarUrl] = useState<string>(user?.avatarUrl || "");
@@ -11,6 +12,7 @@ const ProfilePage = ({ user }: { user?: any }) => {
   const [editable, setEditable] = useState<boolean>(false);
   const [uploadLoading, setUploadLoading] = useState<boolean>(false);
   const [removeLoading, setRemoveLoading] = useState<boolean>(false);
+  const { push } = useRouter();
 
   const onCancel = () => {
     setEditable(false);
@@ -20,6 +22,7 @@ const ProfilePage = ({ user }: { user?: any }) => {
     setLoading(true);
     setLoading(false);
     setEditable(false);
+    push("/dashboard");
   };
 
   return (

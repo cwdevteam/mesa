@@ -15,17 +15,6 @@ const DashboardPage = ({ email }: { email?: string }) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (isConnected && !email) {
-      toast({
-        description: "Email is missing.",
-      });
-      push("/profile");
-    }
-
-    setIsLoading(false);
-  }, [email]);
-
   return (
     <>
       {isLoading ? (
