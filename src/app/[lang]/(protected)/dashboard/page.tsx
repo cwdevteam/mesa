@@ -1,9 +1,8 @@
 import DashboardPage from "@/components/DashboardPage";
-import { createServerClient, getUser } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
+import { getUser, useSupabase } from "@/lib/supabase/server";
 
 const Dashboard = async () => {
-  const supabase = createServerClient(cookies());
+  const supabase = useSupabase();
   const user = await getUser(supabase);
 
   return <DashboardPage email={user?.email} />;
