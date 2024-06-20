@@ -366,6 +366,14 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
 
 ALTER TABLE "public"."profiles" OWNER TO "postgres";
 
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+create policy "Users can update their own profile."
+on profiles for update
+to authenticated
+using ( (select auth.uid()) = user_id )
+with check ( (select auth.uid()) = user_id );
+
 ALTER TABLE ONLY "mesa"."project_events"
     ADD CONSTRAINT "project_events_pkey" PRIMARY KEY ("id");
 

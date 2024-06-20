@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -38,11 +38,11 @@ const ProfilePage = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch('/api/profile', {
-        method: 'GET',
+      const response = await fetch("/api/profile", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
 
       if (!response.ok) {
@@ -69,27 +69,31 @@ const ProfilePage = () => {
     setLoading(true);
     try {
       let avatarUrlToUpdate = avatarUrl; // Use the locally set avatarUrl
-      if (fileToUpload) {
-        setUploadLoading(true);
-        const formData = new FormData();
-        formData.append('file', fileToUpload);
+      // if (fileToUpload) {
+      //   setUploadLoading(true);
+      //   const formData = new FormData();
+      //   formData.append("file", fileToUpload);
 
-        const response = await fetch('/api/upload/avatar', {
-          method: 'POST',
-          body: formData
-        });
+      //   const response = await fetch("/api/upload/avatar", {
+      //     method: "POST",
+      //     body: formData,
+      //   });
 
-        if (!response.ok) {
-          throw new Error(`Failed to upload file: ${response.statusText}`);
-        }
+      //   if (!response.ok) {
+      //     throw new Error(`Failed to upload file: ${response.statusText}`);
+      //   }
 
-        const data = await response.json();
-        avatarUrlToUpdate = data.url; // Update avatarUrl with the uploaded image URL
-        setUploadLoading(false);
-      }
+      //   const data = await response.json();
+      //   avatarUrlToUpdate = data.url; // Update avatarUrl with the uploaded image URL
+      //   setUploadLoading(false);
+      // }
 
       // Update user data with the latest changes
-      const updatedUserData = { ...userData!, avatar_url: avatarUrlToUpdate };
+      const updatedUserData = {
+        ...userData!,
+        id: "8b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        avatar_url: avatarUrlToUpdate,
+      };
       if (userData?.username !== initialUserData?.username) {
         updatedUserData.username = userData?.username;
       }
@@ -100,12 +104,12 @@ const ProfilePage = () => {
         updatedUserData.website = userData?.website;
       }
 
-      const response = await fetch('/api/profile', {
-        method: 'POST',
+      const response = await fetch("/api/profile", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: updatedUserData })
+        body: JSON.stringify({ user: updatedUserData }),
       });
 
       if (!response.ok) {
@@ -113,14 +117,14 @@ const ProfilePage = () => {
       }
 
       const data = await response.json();
-      console.log('User saved:', data);
-      setInitialUserData({ ...userData } as any); // Update initial user data after save
+      console.log("User saved:", data);
+      setInitialUserData({ ...userData } as any);
       setEditable(false);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      setUploadLoading(false)
+      setUploadLoading(false);
     }
   };
 
@@ -139,12 +143,12 @@ const ProfilePage = () => {
   const handleRemoveAvatar = async () => {
     setRemoveLoading(true);
     try {
-      const response = await fetch('/api/remove/avatar', {
-        method: 'POST',
+      const response = await fetch("/api/profile", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: userData?.id })
+        body: JSON.stringify({ userId: userData?.id }),
       });
 
       if (!response.ok) {
@@ -167,9 +171,11 @@ const ProfilePage = () => {
 
         <div className="flex items-center justify-start gap-5 py-5 w">
           <Avatar className="h-28 w-28">
-            <AvatarImage src={avatarUrl || ''} alt="avatar" />
+            <AvatarImage src={avatarUrl || ""} alt="avatar" />
             <AvatarFallback>
-              {userData?.username ? userData.username.charAt(0).toUpperCase() : ''}
+              {userData?.username
+                ? userData.username.charAt(0).toUpperCase()
+                : ""}
             </AvatarFallback>
           </Avatar>
 
@@ -266,7 +272,9 @@ const ProfilePage = () => {
                     id="user_name"
                     name="name"
                     value={userData?.username || ""}
-                    onChange={(e) => setUserData({ ...userData!, username: e.target.value })}
+                    onChange={(e) =>
+                      setUserData({ ...userData!, username: e.target.value })
+                    }
                   />
                 </>
               ) : (
@@ -288,7 +296,9 @@ const ProfilePage = () => {
                       id="user_full_name"
                       name="full_name"
                       value={userData?.full_name || ""}
-                      onChange={(e) => setUserData({ ...userData!, full_name: e.target.value })}
+                      onChange={(e) =>
+                        setUserData({ ...userData!, full_name: e.target.value })
+                      }
                     />
                   </>
                 ) : (
@@ -309,7 +319,9 @@ const ProfilePage = () => {
                       id="user_website"
                       name="website"
                       value={userData?.website || ""}
-                      onChange={(e) => setUserData({ ...userData!, website: e.target.value })}
+                      onChange={(e) =>
+                        setUserData({ ...userData!, website: e.target.value })
+                      }
                     />
                   </>
                 ) : (
