@@ -1,12 +1,11 @@
 import ProfilePage from "@/components/ProfilePage";
-import { createServerClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
+import { useSupabase } from "@/lib/supabase/server";
 
-export default async function  Profile() {
-    const cookieStore = cookies()
-    const supabase = createServerClient(cookieStore)
-    
-    const { data: { user } } = await supabase.auth.getUser()
+export default async function Profile() {
+  const supabase = useSupabase();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    return <ProfilePage user={user} />
+  return <ProfilePage user={user} />;
 }

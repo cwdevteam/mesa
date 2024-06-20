@@ -1,6 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
 type EASClientContextValue = null;
 
@@ -14,6 +16,16 @@ interface EASClientProviderProps {
 
 export const EASClientProvider = ({ children }: EASClientProviderProps) => {
   const [easClient, setEASClient] = useState<EASClientContextValue>(null);
+  const { push } = useRouter();
+  const { isConnected } = useAccount();
+
+  useEffect(() => {
+    if (!isConnected) {
+      push("/");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
 
   return (
     <EASClientContext.Provider value={easClient}>
