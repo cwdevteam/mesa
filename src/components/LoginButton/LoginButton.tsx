@@ -6,11 +6,11 @@ import NoSSR from "../NoSSR";
 const LoginButton = () => {
   const { address } = useAccount();
 
-  return <div>
-    <NoSSR>
-      {address ? <DisconnectButton /> : <ConnectAccount />}
-    </NoSSR>
-    </div>;
+  return (
+    <div>
+      <NoSSR>{address ? <DisconnectButton /> : <ConnectAccount />}</NoSSR>
+    </div>
+  );
 };
 
 export default LoginButton;
