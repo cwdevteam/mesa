@@ -2,10 +2,7 @@
 
 import React, { useState } from 'react';
 
-export type ProjectDetailsCardProps = {
-  projectName: string;
-  projectDescription: string;
-};
+import { ProjectDetailsCardProps } from '@/types/const';
 
 export default function ProjectDetailsCard({
   projectName,

@@ -2,9 +2,7 @@ import { useState } from 'react';
 
 import { Icons } from '../Icons';
 
-type ChatProps = {};
-
-function Chat({}: ChatProps) {
+const Chat = () => {
   const [message, setMessage] = useState<string>('');
   return (
     <div className="rounded-xl border bg-card text-card-foreground shadow min-h-[37rem]">

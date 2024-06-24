@@ -1,20 +1,7 @@
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
-
-type ContractDetailsPageProps = {
-  project: {
-    name: string;
-    description: string;
-    collaborators: {
-      name: string;
-      contractType: string;
-      role: string;
-      bps: string;
-    }[];
-  };
-  contractId: string | undefined;
-};
+import { ContractDetailsPageProps } from '@/types/const';
 
 const ContractDetailsPage = ({ project, contractId }: ContractDetailsPageProps) => {
   return (

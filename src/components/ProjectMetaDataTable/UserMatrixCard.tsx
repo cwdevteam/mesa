@@ -1,17 +1,7 @@
 import React from 'react';
 
 import { Icons } from '../Icons';
-
-export interface UserData {
-  name: string;
-  contractType: string;
-  role: string;
-  bps: string;
-}
-
-export interface UserMatrixCardProps {
-  data: UserData;
-}
+import { UserMatrixCardProps } from '@/types/const';
 
 const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
   return (

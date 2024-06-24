@@ -3,10 +3,7 @@ import React from 'react';
 import Chat from '@/components/ProjectChatBox/Chat';
 import { ProjectCollaborators } from '../ProjectCollaborators';
 import ProjectDetailsCard from '../ProjectDetailsCard';
-
-export type ProjectDetailsComponentProps = {
-  project: any;
-};
+import { ProjectDetailsComponentProps } from '@/types/const';
 
 const ProjectDetailsComponent = ({ project }: ProjectDetailsComponentProps) => {
   if (!project) {

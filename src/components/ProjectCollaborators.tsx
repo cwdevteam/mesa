@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 
-import UserMatrixCard, { UserData } from './ProjectMetaDataTable/UserMatrixCard';
+import UserMatrixCard from './ProjectMetaDataTable/UserMatrixCard';
 import { Button } from './ui/button';
+import { ProjectCollaboratorsProps, UserData } from '@/types/const';
 
-interface ProjectCollaboratorsProps {
-  project: any;
-}
 
 export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
-  // TODO use module for pagination
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 3;
   const totalPages = Math.ceil((project?.collaborators.length || 0) / itemsPerPage);
