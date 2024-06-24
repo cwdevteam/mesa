@@ -1,27 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react'
 
-import UserMatrixCard from './ProjectMetaDataTable/UserMatrixCard';
-import { Button } from './ui/button';
-import { ProjectCollaboratorsProps, UserData } from '@/types/const';
-
+import UserMatrixCard from './ProjectMetaDataTable/UserMatrixCard'
+import { Button } from './ui/button'
+import { ProjectCollaboratorsProps, UserData } from '@/types/const'
 
 export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 3;
-  const totalPages = Math.ceil((project?.collaborators.length || 0) / itemsPerPage);
-
-  const handleNext = () => {
-    setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages - 1));
-  };
-
-  const handlePrevious = () => {
-    setCurrentPage(prevPage => Math.max(prevPage - 1, 0));
-  };
-
-  const currentCollaborators = project?.collaborators.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage,
-  ) as UserData[];
+  const currentCollaborators = project?.collaborators as UserData[]
 
   return (
     <section className="grid mt-4 max-w-auto">
@@ -40,20 +24,7 @@ export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
             <UserMatrixCard key={index} data={collaborator} />
           ))}
         </div>
-        <div className="flex justify-between w-full mt-3 mb-4">
-          <Button variant="outline" size="sm" onClick={handlePrevious} disabled={currentPage === 0}>
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleNext}
-            disabled={currentPage === totalPages - 1}
-          >
-            Next
-          </Button>
-        </div>
       </div>
     </section>
-  );
+  )
 }

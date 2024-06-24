@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import React from 'react'
 
-import { Icons } from '../Icons';
+import { Icons } from '../Icons'
 
 const Chat = () => {
-  const [message, setMessage] = useState<string>('');
   return (
     <div className="rounded-xl border bg-card text-card-foreground shadow min-h-[37rem]">
       <div className="space-y-1.5 p-6 flex flex-row justify-center items-center"></div>
@@ -16,8 +15,6 @@ const Chat = () => {
                 className="flex mx-4 h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 flex-1 resize-none"
                 name="text"
                 placeholder="Type your message..."
-                value={message}
-                onChange={e => setMessage(e.target.value)}
                 rows={3}
               />
               <button
@@ -32,7 +29,7 @@ const Chat = () => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Chat;
+export default Chat

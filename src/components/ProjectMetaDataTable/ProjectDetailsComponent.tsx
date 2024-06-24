@@ -6,9 +6,6 @@ import ProjectDetailsCard from '../ProjectDetailsCard';
 import { ProjectDetailsComponentProps } from '@/types/const';
 
 const ProjectDetailsComponent = ({ project }: ProjectDetailsComponentProps) => {
-  if (!project) {
-    return null;
-  }
   return (
     <div className="flex flex-col items-center lg:items-start gap-2 w-full">
       <ProjectDetailsCard
