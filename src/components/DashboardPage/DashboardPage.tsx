@@ -7,26 +7,26 @@ import { useRouter } from "next/navigation";
 import NewProjectButton from "../NewProjectButton";
 import useProjects from "@/hooks/useProjects";
 import { useToast } from "../ui/use-toast";
+import { useUser } from "@/context/UserProvider";
 
-const DashboardPage =  ({email} : {email?: string} ) => {
+const DashboardPage = () => {
   const { isConnected } = useAccount();
   const { push } = useRouter();
   const { projects } = useProjects();
-  const { toast } = useToast()
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
-
-
+  const { user } = useUser();
 
   useEffect(() => {
-    if (isConnected && !email ) {
+    if (isConnected && !user?.username) {
       toast({
-        description: "Email is missing.",
-      })
-      push("/profile")
-    }else {
+        description: "Username is missing.",
+      });
+      push("/profile");
+    } else {
       setIsLoading(false);
     }
-  }, [email])
+  }, [user?.username]);
 
   useEffect(() => {
     if (!isConnected) {
@@ -35,8 +35,8 @@ const DashboardPage =  ({email} : {email?: string} ) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
 
-  if(isLoading) {
-    return <p className="mx-auto mt-8" >Loading...</p>
+  if (isLoading) {
+    return <p className="mx-auto mt-8">Loading...</p>;
   }
 
   return (

@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/dictionary";
 import { Locale } from "@/../i18n.config";
 import EASClientProvider from "./EASClientProvider";
 import WagmiProvider from "./WagmiProvider";
+import { UserProvider } from "./UserProvider";
 
 export default async function Providers({
   children,
@@ -25,7 +26,9 @@ export default async function Providers({
           disableTransitionOnChange
         >
           <WagmiProvider>
-            <EASClientProvider>{children}</EASClientProvider>
+            <EASClientProvider>
+              <UserProvider>{children}</UserProvider>
+            </EASClientProvider>
           </WagmiProvider>
         </ThemeProvider>
       </DictionaryProvider>
