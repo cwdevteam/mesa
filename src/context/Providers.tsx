@@ -26,9 +26,9 @@ export default async function Providers({
           disableTransitionOnChange
         >
           <WagmiProvider>
-            <EASClientProvider>
-              <AuthProvider>{children}</AuthProvider>
-            </EASClientProvider>
+            <AuthProvider>
+              <EASClientProvider>{children}</EASClientProvider>
+            </AuthProvider>
           </WagmiProvider>
         </ThemeProvider>
       </DictionaryProvider>
