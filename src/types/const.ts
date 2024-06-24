@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { Locale } from '@/../i18n.config';
 
 export type ProjectTab = 'project' | 'contract' | 'setting';
@@ -45,4 +47,21 @@ export interface UserMatrixCardProps {
 
 export interface ProjectCollaboratorsProps {
   project: any;
+}
+
+export interface MediaControllerProps {
+  musicMockup: {
+    avatar: string
+    name: string
+    url: string
+  }[]
+}
+
+export interface UseAudioPlayerProps {
+  url: string
+  volume?: number
+}
+
+export interface MediaProviderProps {
+  children: ReactNode
 }
