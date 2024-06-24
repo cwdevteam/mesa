@@ -23,7 +23,7 @@ const ProjectDetailsComponent = ({ project }: ProjectDetailsComponentProps) => {
           <ProjectCollaborators project={project} />
         </div>
         <div className="w-full lg:max-w-[400px]">
-          <Chat project={project} />
+          <Chat />
         </div>
       </div>
     </div>
