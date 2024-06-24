@@ -15,6 +15,14 @@ const DashboardPage = ({ email }: { email?: string }) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    if (isConnected && !email) {
+      push("/profile");
+    }
+
+    setIsLoading(false);
+  }, [email, isConnected]);
+
   return (
     <>
       {isLoading ? (
