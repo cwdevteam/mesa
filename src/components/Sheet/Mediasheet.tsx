@@ -19,9 +19,8 @@ export const MediaSheet: React.FC = () => {
   const displayText = (text: string) => {
     if (text.length > 10) {
       return text.slice(0, 2) + '...' + text.slice(-2)
-    } else {
-      return text
     }
+    return text
   }
 
   const handlePlayPause = (index: number) => {
