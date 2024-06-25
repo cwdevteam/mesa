@@ -1,10 +1,10 @@
 'use client'
 
 import React, { createContext, useContext, useState } from 'react'
-
 import { PlayMode } from '@/lib/enum'
 import { MediaProviderProps } from '@/types/const'
 import { Media } from '@/types/mesa'
+import MediaMockData from './Media.json'
 
 const MediaContext = createContext<
   | {
@@ -22,35 +22,8 @@ const MediaContext = createContext<
   | undefined
 >(undefined)
 
-const mockData = [
-  {
-    avatar: '/avatar.png',
-    name: 'horse.mp3',
-    url: 'https://ipfs.io/ipfs/QmeVPhqpAhJcdeP6CSFi75GHRFY8HHh7k5Vsn5fAg5SajZ',
-    duration: 0
-  },
-  {
-    avatar: '/avatar.png',
-    name: 'cat.mp3',
-    url: 'https://ipfs.io/ipfs/QmWGAPKwjUw1AqsEYnYjZyePnGXnBhGfB21D4eeZzFwzhZ',
-    duration: 0
-  },
-  {
-    avatar: '/avatar.png',
-    name: 'bird.mp3',
-    url: 'https://ipfs.io/ipfs/QmeVPhqpAhJcdeP6CSFi75GHRFY8HHh7k5Vsn5fAg5SajZ',
-    duration: 0
-  },
-  {
-    avatar: '/avatar.png',
-    name: 'dog.mp3',
-    url: 'https://ipfs.io/ipfs/QmWGAPKwjUw1AqsEYnYjZyePnGXnBhGfB21D4eeZzFwzhZ',
-    duration: 0
-  }
-]
-
 const MediaProvider = ({ children }: MediaProviderProps) => {
-  const [medias, setMedias] = useState<Media[]>(mockData)
+  const [medias, setMedias] = useState<Media[]>(MediaMockData)
   const [currentMedia, setCurrentMedia] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [refreshAudio, setRefreshAudio] = useState<number>(0)

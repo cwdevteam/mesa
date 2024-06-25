@@ -1,8 +1,6 @@
 'use client'
 
 import React from 'react'
-import { useAccount } from 'wagmi'
-
 import TimeSliderControls from './TimeSliderControls'
 import VolumeControls from './VolumeControls'
 import AudioPlayerControls from './AudioPlayerControls'
@@ -10,7 +8,6 @@ import { useMediaController } from '@/hooks/useMediaController'
 import { Icons } from '@/components/Icons'
 
 export const MediaController: React.FC = () => {
-  const { isConnected } = useAccount()
   const {
     currentMedia,
     medias,
@@ -26,10 +23,6 @@ export const MediaController: React.FC = () => {
     handleSliderChange,
     handleAudioMute
   } = useMediaController()
-
-  if (!isConnected) {
-    return null
-  }
 
   const audio = audioRef.current
 

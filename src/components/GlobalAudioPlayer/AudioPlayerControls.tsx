@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Icons } from '../Icons'
 import { AudioPlayerProps } from '@/types/const'
 import { PlayMode } from '@/lib/enum'
@@ -41,7 +40,7 @@ const AudioPlayerControls = ({
         )}
         {playStatus === PlayMode.INFINITE && <Icons.voiceinfinite />}
         {playStatus === PlayMode.RANDOM && (
-          <Icons.voicesuffle className="iconsClass" />
+          <Icons.shuffle className="iconsClass" />
         )}
       </button>
     </div>

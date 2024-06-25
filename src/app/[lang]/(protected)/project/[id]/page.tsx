@@ -1,9 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-
 import ContractDetailsPage from '@/components/ProjectContract/ContractDetailsPage';
 import ProjectDetailsComponent from '@/components/ProjectMetaDataTable/ProjectDetailsComponent';
-
 import MockData from './project.json';
 import ProjectTabs from '@/components/ProjectTabs';
 import { ProjectPageProps, ProjectTab } from '@/types/const';

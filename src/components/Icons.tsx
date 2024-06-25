@@ -384,7 +384,7 @@ export const Icons = {
       ></path>
     </svg>
   ),
-  voicesuffle: (props: IconProps) => (
+  shuffle: (props: IconProps) => (
     <svg
       width="15"
       height="15"
