@@ -1,25 +1,20 @@
 "use client";
+import { Button } from "@/components/ui/button";
+
+import { useEffect, useState } from "react";
+import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
+import ProjectColumns from "./ProjectColumns";
 import {
-  ColumnDef,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
+import { getColumns } from "./columns";
 
-import { bpsToPercent } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { InvitationNav } from "../ProjectCollaborators/InvitationNav";
-import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
-import CardComponent from "../ProjectCollaborators/CardComponent";
-
-type ProjectUserProps = any;
-type ProjectInvitationProps = any;
-type ProjectType = any;
-type User = any;
-
-const isInvitation = (obj: ProjectUserProps | ProjectInvitationProps) =>
-  !!(obj as any)?.status;
+export type ProjectUserProps = any;
+export type ProjectInvitationProps = any;
+export type ProjectType = any;
+export type User = any;
 
 export const ProjectMetaDataTable = ({
   project,
@@ -37,74 +32,13 @@ export const ProjectMetaDataTable = ({
   const [rows, setRows] = useState<
     (ProjectUserProps | ProjectInvitationProps)[]
   >([]);
+
   const handleActionClick = (userId: string) => {
     setSelectedUserId(userId);
     setEditModal(true);
   };
 
-  const columns: ColumnDef<ProjectUserProps | ProjectInvitationProps>[] = [
-    {
-      id: "user_name",
-      header: "Shareholder",
-      cell: ({ row }) => <p>{row.original.user_name}</p>,
-    },
-    {
-      id: "user_type",
-      header: "Type",
-      cell: ({ row }) => <p>{row.original.contract_type}</p>,
-    },
-    {
-      id: "status",
-      header: "Status",
-      cell: ({ row }) => (
-        <p>{isInvitation(row.original) ? "pending" : "active"}</p>
-      ),
-    },
-    {
-      id: "user_role",
-      header: "Role",
-      cell: ({ row }) => <p>{row.original.user_role}</p>,
-    },
-    {
-      id: "user_bps",
-      header: "%",
-      cell: ({ row }) => (
-        <span>{bpsToPercent(row.original.user_bps ?? 0)}</span>
-      ),
-    },
-    {
-      id: "info",
-      header: "Info",
-      cell: ({ row }) => {
-        const flag =
-          !isInvitation(row.original) &&
-          (project?.created_by === user.id || row.original.user_id === user.id);
-        return (
-          <>
-            {flag ? (
-              <span
-                className="cursor-pointer select-none"
-                onClick={() => {
-                  flag && handleActionClick(row.original.user_id);
-                }}
-              >
-                ...
-              </span>
-            ) : (
-              <>
-                {project?.created_by === user.id ? (
-                  <InvitationNav
-                    userId={row.original.user_id}
-                    invitationId={row.original.id}
-                  />
-                ) : null}
-              </>
-            )}
-          </>
-        );
-      },
-    },
-  ];
+  const columns = getColumns(user, handleActionClick, project);
 
   useEffect(() => {
     setRows([
@@ -127,22 +61,13 @@ export const ProjectMetaDataTable = ({
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      <div>
-        {table.getRowModel().rows.length ? (
-          table
-            .getRowModel()
-            .rows.map((row) => (
-              <CardComponent
-                key={row.id}
-                data={row.original}
-                allData={data}
-                project={project}
-              />
-            ))
-        ) : (
-          <></>
-        )}
-      </div>
+      <ProjectColumns
+        handleActionClick={handleActionClick}
+        user={user}
+        data={data}
+        project={project}
+        rows={rows}
+      />
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
