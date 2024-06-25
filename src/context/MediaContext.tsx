@@ -10,11 +10,12 @@ const MediaContext = createContext<
   | {
       medias: Media[]
       currentMedia: number
-      setCurrentMedia: (value: number) => void
+      playStatus: PlayMode
+      refreshAudio: number
       isPlaying: boolean
+      setCurrentMedia: (value: number) => void
       setIsPlaying: (isPlaying: boolean) => void
       handleRemove: (index: number) => void
-      playStatus: PlayMode
       setPlayStatus: (playStatus: number) => void
       handleSongEnded: () => void
     }
@@ -52,6 +53,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
   const [medias, setMedias] = useState<Media[]>(mockData)
   const [currentMedia, setCurrentMedia] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [refreshAudio, setRefreshAudio] = useState<number>(0)
   const [playStatus, setPlayStatus] = useState<number>(0)
 
   const handleRemove = (index: number) => {
@@ -77,8 +79,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         setCurrentMedia(0)
       }
     } else if (playStatus === PlayMode.INFINITE) {
-      setCurrentMedia(currentMedia + 1)
-      setTimeout(() => setCurrentMedia(currentMedia), 0)
+      setRefreshAudio(prev => prev + 1)
     } else if (playStatus === PlayMode.RANDOM) {
       const randomNumber = Math.floor(Math.random() * medias.length)
       setCurrentMedia(randomNumber)
@@ -90,11 +91,12 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
       value={{
         medias,
         currentMedia,
-        setCurrentMedia,
+        playStatus,
         isPlaying,
+        refreshAudio,
+        setCurrentMedia,
         setIsPlaying,
         handleRemove,
-        playStatus,
         setPlayStatus,
         handleSongEnded
       }}

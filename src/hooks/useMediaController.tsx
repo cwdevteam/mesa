@@ -8,6 +8,7 @@ export const useMediaController = () => {
     currentMedia,
     medias,
     isPlaying,
+    refreshAudio,
     setIsPlaying,
     setCurrentMedia,
     playStatus,
@@ -27,7 +28,7 @@ export const useMediaController = () => {
     if (audioRef.current) {
       audioRef.current.src = medias[currentMedia]?.url
     }
-  }, [currentMedia, medias, audioRef.current])
+  }, [currentMedia, medias, audioRef.current, refreshAudio])
 
   useEffect(() => {
     if (audioRef.current) {
