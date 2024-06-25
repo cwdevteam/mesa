@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon, FaceIcon } from "@radix-ui/react-icons";
 import { useState, useRef, KeyboardEvent, FormEvent } from "react";
 
 type ChatProps = {
@@ -113,7 +113,7 @@ const Chat = ({ project }: ChatProps) => {
                 setShowEmojiPicker(!showEmojiPicker);
               }}
             >
-              Smile
+              <FaceIcon />
             </button>
           </div>
           <form onSubmit={sendMessage} className="w-full">

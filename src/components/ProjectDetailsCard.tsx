@@ -1,23 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import { Database } from "@/types/supabase";
+import React, { useState } from "react";
 
-type ProjectUserType = Database["mesa"]["Tables"]["project_users"]["Row"];
-
-type ProjectType = Database["mesa"]["Tables"]["projects"]["Row"] & {
-  project_users: ProjectUserType[];
-};
+import { ProjectDetailsCardProps } from "@/types/const";
 
 export default function ProjectDetailsCard({
-  project,
-}: {
-  project: ProjectType;
-}) {
+  projectName,
+  projectDescription,
+}: ProjectDetailsCardProps) {
   const [expanded, setExpanded] = useState(false);
+
   return (
-    <section>
-      <h2 className="text-2xl font-bold tracking-tight">{project.title}</h2>
+    <section className="project-details-card">
+      <h2 className="text-2xl font-bold tracking-tight">{projectName}</h2>
+      <div
+        className={`max-w-prose ${
+          expanded ? "overflow-auto" : "overflow-hidden"
+        }`}
+      >
+        {expanded && (
+          <p className="text-muted-foreground">{projectDescription}</p>
+        )}
+        <button
+          className="text-blue-500 hover:underline mt-2"
+          onClick={() => setExpanded(!expanded)}
+          aria-expanded={expanded}
+        >
+          {expanded ? "Read Less" : "Read More"}
+        </button>
+      </div>
     </section>
   );
 }

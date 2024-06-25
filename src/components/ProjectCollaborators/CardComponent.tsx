@@ -37,6 +37,8 @@ const CardComponent: React.FC<CardProps> = ({ data, allData, project }) => {
   const [requestType, setRequestType] = useState<string>("");
   const [roleId, setRoleId] = useState<string>("");
 
+  console.log(data, "wedrfghjkjhgfdgfhjk");
+
   const handleActionClick = (
     userId: string,
     roleId: string,

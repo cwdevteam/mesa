@@ -1,21 +1,96 @@
 {
-  "name": "CC0lab", 
+  "name": "CC0lab",
   "description": "We are CC0lab – a group of musicians, devs, artists, and rabble-rousers focused on bringing open-source music to the Web3 multiverse. Born from the Headless Chaos project, we’re now aiming our Chaotic creative energy towards creating fully public domain musical works to be used by any and everyone in their web3 journeys.\n\nBy minting one of our NFTs, you can become part of the CC0lab journey. Your support will allow us to continue creating new works, pushing forward the radical CC0 open-source ethos. But that’s just the beginning. We’re planning plenty of utility for the CC0lab NFTs, including eligibility to participate in future remix competitions and virtual CC0lab minicamps.",
   "collaborators": [
-    {"name": "greydient", "percentage": "4.00%"},
-    {"name": "jamesgardin", "percentage": "4.00%"},
-    {"name": "anatu", "percentage": "4.00%"},
-    {"name": "kevin.neaton", "percentage": "4.00%"},
-    {"name": "iarabloomz", "percentage": "4.00%"},
-    {"name": "youngisdavid", "percentage": "4.00%"},
-    {"name": "diliprajan", "percentage": "4.00%"},
-    {"name": "levidowney", "percentage": "4.00%"},
-    {"name": "jackintheway", "percentage": "4.00%"},
-    {"name": "shamanicarts", "percentage": "4.00%"},
-    {"name": "larielmusic", "percentage": "4.00%"},
-    {"name": "pozibelle", "percentage": "4.00%"},
-    {"name": "oceantied", "percentage": "4.00%"},
-    {"name": "privatewoman", "percentage": "4.00%"},
-    {"name": "jennmorel", "percentage": "4.00%"}
+    {
+      "name": "greydient",
+      "contractType": "Master",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "jamesgardin",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "anatu",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "kevin.neaton",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "iarabloomz",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "youngisdavid",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "diliprajan",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "levidowney",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "jackintheway",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "shamanicarts",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "larielmusic",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "pozibelle",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "oceantied",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "privatewoman",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    },
+    {
+      "name": "jennmorel",
+      "contractType": "SongWriter",
+      "role": "Owner",
+      "bps": "4.00%"
+    }
   ]
 }

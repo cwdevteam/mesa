@@ -37,9 +37,10 @@ export default async function Project({
         <ProjectTabs
           project={{
             created_at: "10-12-2024",
-            created_by: "ertyu",
-            description: "WERTyu hjgjkopiojhgfut",
-            id: "sdertyuoihjvguihl",
+            created_by: "Hakob",
+            description:
+              "Description for project 132456 Description for project 132456 Description for project 132456 Description for project 132456",
+            id: "someTestId12343",
             project_users: [
               {
                 created_at: "05-06-2024",
@@ -61,7 +62,7 @@ export default async function Project({
           }}
           contractId={"5sadasdsadsadadssadsadsad"}
           contractHistories={[
-            { projectUser: { user_name: "asfadf" }, created_at: "5456" },
+            { projectUser: { user_name: "Project User" }, created_at: "5456" },
           ]}
           contractTime={null}
         />
@@ -69,62 +70,3 @@ export default async function Project({
     </TimelineProvider>
   );
 }
-
-/* <main className="grid grid-rows-[auto_minmax(0,1fr)] gap-6 container py-10 h-full">
-<div>
-  <ProjectDetailsCard
-    project={{
-      title: "Test title for ui change",
-      description: "Test description for ui change",
-      created_at: "14-04-2024",
-      created_by: "Test user",
-      project_users: [
-        {
-          created_at: "05-06-2024",
-          created_by: "Test proj user",
-          invitation_id:
-            "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-          project_id:
-            "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-          updated_at: "01-01-2024",
-          user_bps: 89987987,
-          user_id:
-            "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-          user_name: "Vagho",
-          user_role: "owner",
-        },
-      ],
-      id: "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-      updated_at: "15-05-2025",
-    }}
-  />
-  <ProjectCollaborators
-    project={{
-      title: "Test title for ui change",
-      description: "Test description for ui change",
-      created_at: "14-04-2024",
-      created_by: "Test user",
-      project_users: [
-        {
-          created_at: "05-06-2024",
-          created_by: "Test proj user",
-          invitation_id:
-            "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-          project_id:
-            "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-          updated_at: "01-01-2024",
-          user_bps: 89987987,
-          user_id:
-            "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-          user_name: "Vagho",
-          user_role: "owner",
-        },
-      ],
-      id: "0xfdaf6a25541eb40156f51190a435934d9d9b8584218e8b4b54e4b087c5da4e0d",
-      updated_at: "15-05-2025",
-    }}
-  />
-</div>
-asas
- <ProjectTimeline /> 
-</main> */
