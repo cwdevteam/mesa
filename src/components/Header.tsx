@@ -1,12 +1,14 @@
+"use server";
+import React from "react";
 import Link from "next/link";
+import { cookies } from "next/headers";
 
-import { getUser, useSupabase } from "@/lib/supabase/server";
+import { createServerClient, getUser } from "@/lib/supabase/server";
 import { Dictionary } from "@/dictionaries/types";
 import { Locale } from "@/../i18n.config";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
-import { SignOutButton } from "@/components/SignOutButton";
 import { UserNav } from "@/components/UserNav";
 
 export default async function Header({
@@ -16,9 +18,8 @@ export default async function Header({
   lang: Locale;
   dict: Dictionary;
 }) {
-  const supabase = useSupabase();
+  const supabase = createServerClient(cookies());
   const user = await getUser(supabase);
-
   return (
     <header className="flex border-b border-foreground/20">
       <div className="flex container mx-auto py-4">
