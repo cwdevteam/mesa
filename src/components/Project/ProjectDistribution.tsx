@@ -74,30 +74,18 @@ const ProjectDistribution = () => {
                 certain.
               </p>
             </div>
-            {loading ? (
-              <Button
-                size="icon"
-                className="w-auto px-5 cursor-default flex justify-center items-center"
-                variant={"default"}
-              >
-                <ReloadIcon
-                  color="currentColor"
-                  className="h-4 w-4 animate-spin mr-2"
-                />
-                Deleting...
-              </Button>
-            ) : (
-              <Button
-                className="text-red-500 hover:bg-red-500 hover:text-white"
-                variant={"default"}
-              >
-                Delete this project
-              </Button>
-            )}
+
+            <Button
+              className="text-red-500 hover:bg-red-500 hover:text-white"
+              variant={"default"}
+            >
+              Delete this project
+            </Button>
           </div>
         </div>
       </div>
     </main>
   );
 };
+
 export default ProjectDistribution;

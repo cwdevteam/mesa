@@ -37,9 +37,6 @@ const ProjectInviteDialog = ({
             this work in progress.
           </DialogDescription>
         </DialogHeader>
-        <div className="max-w-full">
-          {/* {project ? <ProjectInviteForm user={user} project={project} /> : null} */}
-        </div>
       </DialogContent>
     </Dialog>
   );

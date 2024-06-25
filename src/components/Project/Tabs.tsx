@@ -2,13 +2,13 @@
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ProjectDetailsCard from "@/components/ProjectDetailsCard";
-import Chat from "@/components/Project/Chat";
 import UploadButton from "@/components/Project/UploadButton";
 import ProjectDistribution from "./ProjectDistribution";
 import { Button } from "../ui/button";
 import { ProjectTabsProps } from "./types";
 import ContractHistoryTable from "./ContractHistoryTable";
-import CardComponent from "../ProjectCollaborators/CardComponent";
+import Chat from "../ProjectChatBox/Chat";
+import { ProjectCollaborators } from "../ProjectCollaborators";
 
 const ProjectTabs = ({
   project,
@@ -45,36 +45,16 @@ const ProjectTabs = ({
         <TabsContent value="project">
           <div className="flex flex-col items-center lg:items-start gap-2 w-full">
             <ProjectDetailsCard
-              projectDescription="Some project test description"
-              projectName="Some project test name"
+              projectDescription={String(project?.description)}
+              projectName={String(project?.name)}
             />
             <div className="flex flex-col lg:flex-row-reverse gap-8 w-full">
               <div className="w-full">
-                <CardComponent
-                  allData={[
-                    { user_id: "userId12334542", user_name: "New User Name" },
-                  ]}
-                  data={{
-                    roles: [
-                      {
-                        id: 1,
-                        created_at: "45-12-2024",
-                        contract_type: "Both",
-                        user_role: "Admin",
-                        user_bps: 145,
-                      },
-                    ],
-                  }}
-                  project={{
-                    projectUsers: [
-                      { user_id: "wertyuio", user_name: "User name" },
-                    ],
-                  }}
-                />
-                <UploadButton projectId={project.id} />
+                <ProjectCollaborators project={project} />
+                <UploadButton projectId={String(project.id)} />
               </div>
               <div className="w-full lg:max-w-[400px]">
-                <Chat project={project} />
+                <Chat />
               </div>
             </div>
           </div>

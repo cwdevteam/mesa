@@ -15,13 +15,15 @@ export interface ProjectUser {
 }
 
 export interface Project {
-  created_at: string;
-  created_by: string;
-  description: string;
-  id: string;
-  project_users: ProjectUser[];
-  updated_at: string;
-  title: string;
+  contractHistories?: any;
+  name?: string;
+  created_at?: string;
+  created_by?: string;
+  description?: string;
+  id?: string;
+  project_users?: ProjectUser[];
+  updated_at?: string;
+  title?: string;
 }
 
 export interface User {

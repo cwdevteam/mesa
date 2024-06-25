@@ -7,8 +7,6 @@ import { ProjectCollaboratorsProps, UserData } from "@/types/const";
 export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
   const currentCollaborators = project?.collaborators as UserData[];
 
-  console.log(currentCollaborators, "qwertyuio");
-
   return (
     <section className="grid mt-4 max-w-auto">
       <h3 className="text-lg font-bold tracking-tight">Collaborators</h3>
@@ -21,7 +19,7 @@ export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
         </Button>
       </div>
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
-        <div className="grid grid-cols-1 gap-4">
+        <div className="w-full grid grid-cols-1 gap-4">
           {currentCollaborators.map((collaborator, index) => (
             <UserMatrixCard key={index} data={collaborator} />
           ))}
