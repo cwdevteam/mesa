@@ -19,7 +19,6 @@ export interface ProjectDetailsCardProps {
   projectName: string;
   projectDescription: string;
 };
-
 export interface ContractDetailsPageProps {
   project: {
     name: string;
@@ -33,22 +32,18 @@ export interface ContractDetailsPageProps {
   };
   contractId: string | undefined;
 };
-
 export interface UserData {
   name: string;
   contractType: string;
   role: string;
   bps: string;
 }
-
 export interface UserMatrixCardProps {
   data: UserData;
 }
-
 export interface ProjectCollaboratorsProps {
   project: any;
 }
-
 export interface MediaControllerProps {
   musicMockup: {
     avatar: string
@@ -56,12 +51,16 @@ export interface MediaControllerProps {
     url: string
   }[]
 }
-
 export interface UseAudioPlayerProps {
   url: string
   volume?: number
 }
-
 export interface MediaProviderProps {
   children: ReactNode
+}
+
+export interface UseAudioProps {
+  audio: HTMLAudioElement | null
+  isPlaying: boolean
+  handleSongEnded: () => void
 }

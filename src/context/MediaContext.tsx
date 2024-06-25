@@ -26,26 +26,26 @@ const mockData = [
     avatar: '/avatar.png',
     name: 'horse.mp3',
     url: 'https://ipfs.io/ipfs/QmeVPhqpAhJcdeP6CSFi75GHRFY8HHh7k5Vsn5fAg5SajZ',
-    duration: 0,
+    duration: 0
   },
   {
     avatar: '/avatar.png',
     name: 'cat.mp3',
     url: 'https://ipfs.io/ipfs/QmWGAPKwjUw1AqsEYnYjZyePnGXnBhGfB21D4eeZzFwzhZ',
-    duration: 0,
+    duration: 0
   },
   {
     avatar: '/avatar.png',
     name: 'bird.mp3',
     url: 'https://ipfs.io/ipfs/QmeVPhqpAhJcdeP6CSFi75GHRFY8HHh7k5Vsn5fAg5SajZ',
-    duration: 0,
+    duration: 0
   },
   {
     avatar: '/avatar.png',
     name: 'dog.mp3',
     url: 'https://ipfs.io/ipfs/QmWGAPKwjUw1AqsEYnYjZyePnGXnBhGfB21D4eeZzFwzhZ',
-    duration: 0,
-  },
+    duration: 0
+  }
 ]
 
 const MediaProvider = ({ children }: MediaProviderProps) => {
@@ -77,7 +77,8 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         setCurrentMedia(0)
       }
     } else if (playStatus === PlayMode.INFINITE) {
-      setCurrentMedia(currentMedia)
+      setCurrentMedia(currentMedia + 1)
+      setTimeout(() => setCurrentMedia(currentMedia), 0)
     } else if (playStatus === PlayMode.RANDOM) {
       const randomNumber = Math.floor(Math.random() * medias.length)
       setCurrentMedia(randomNumber)
@@ -95,7 +96,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         handleRemove,
         playStatus,
         setPlayStatus,
-        handleSongEnded,
+        handleSongEnded
       }}
     >
       {children}
@@ -103,7 +104,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
   )
 }
 
-export const useMedia = () => {
+export const useMediaContext = () => {
   const context = useContext(MediaContext)
   if (typeof context === 'undefined') {
     throw new Error('useMedia must be used within a MediaProvider')

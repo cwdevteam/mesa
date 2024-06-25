@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useMedia } from '@/context/MediaContext'
+import { useMediaContext } from '@/context/MediaContext'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -14,7 +14,7 @@ import { Icons } from '../Icons'
 
 export const MediaSheet: React.FC = () => {
   const { medias, currentMedia, setCurrentMedia, isPlaying, setIsPlaying, handleRemove } =
-    useMedia()
+    useMediaContext()
 
   const displayText = (text: string) => {
     if (text.length > 10) {
