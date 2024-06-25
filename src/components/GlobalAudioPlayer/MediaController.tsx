@@ -3,11 +3,11 @@
 import React from 'react'
 import { useAccount } from 'wagmi'
 
-import MediaSheet from '../Sheet/Mediasheet'
+import TimeSliderControls from './TimeSliderControls'
+import VolumeControls from './VolumeControls'
+import AudioPlayerControls from './AudioPlayerControls'
 import { useMediaController } from '@/hooks/useMediaController'
 import { Icons } from '@/components/Icons'
-import { PlayMode } from '@/lib/enum'
-import { formatTime } from '@/lib/formatTime'
 
 export const MediaController: React.FC = () => {
   const { isConnected } = useAccount()
@@ -35,8 +35,6 @@ export const MediaController: React.FC = () => {
 
   const intoClass =
     'w-full fixed bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500'
-  const iconClass =
-    'w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black'
 
   return (
     <div className={intoClass}>
@@ -51,77 +49,28 @@ export const MediaController: React.FC = () => {
           </div>
         </div>
         <div className="flex-1 flex flex-col gap-2">
-          <div className="flex justify-center items-center gap-5">
-            <button onClick={() => handleBack(currentMedia)}>
-              <Icons.voiceback className={iconClass} />
-            </button>
-            {isPlaying ? (
-              <button onClick={handlePlayPause} aria-label="Pause">
-                <Icons.voicepause className="w-7 h-7 text-zinc-500 hover:text-black dark:hover:text-white" />
-              </button>
-            ) : (
-              <button onClick={handlePlayPause} aria-label="Play">
-                <Icons.voiceplay className="w-7 h-7 text-zinc-500 hover:text-black dark:hover:text-white" />
-              </button>
-            )}
-            <button onClick={() => handleNext(currentMedia)}>
-              <Icons.voicenext className={iconClass} />
-            </button>
-            <button
-              className="w-7"
-              onClick={() => setPlayStatus((playStatus + 1) % 3)}
-            >
-              {playStatus === PlayMode.CYCLE && (
-                <Icons.voicerepeat className="iconsClass" />
-              )}
-              {playStatus === PlayMode.INFINITE && <Icons.voiceinfinite />}
-              {playStatus === PlayMode.RANDOM && (
-                <Icons.voicesuffle className="iconsClass" />
-              )}
-            </button>
-          </div>
-          <div className="flex justify-center items-center gap-2">
-            <p className="text-xs text-zinc-500">
-              {formatTime(audio?.currentTime)}
-            </p>
-            <input
-              type="range"
-              min="0"
-              max={audio?.duration ?? 0}
-              minLength={0}
-              step="0.01"
-              value={audio?.currentTime ?? 0}
-              onChange={e => handleSliderChange(Number(e.target.value))}
-              className="h-[3px] w-full bg-zinc-700"
-            />
-            <p className="text-xs text-zinc-500">
-              {formatTime(audio?.duration)}
-            </p>
-          </div>
+          <AudioPlayerControls
+            isPlaying={isPlaying}
+            playStatus={playStatus}
+            handlePlayPause={handlePlayPause}
+            handleNext={handleNext}
+            handleBack={handleBack}
+            setPlayStatus={setPlayStatus}
+            currentMedia={currentMedia}
+          />
+          <TimeSliderControls
+            currentTime={audio?.currentTime ?? 0}
+            duration={audio?.duration ?? 0}
+            handleSliderChange={handleSliderChange}
+          />
         </div>
         <div className="flex-1 flex items-center justify-end gap-3">
-          <div className="flex items-center justify-center gap-2 mr-4 sm:mr-0">
-            {isMuted ? (
-              <button onClick={handleAudioMute}>
-                <Icons.voicemute className={iconClass} />
-              </button>
-            ) : (
-              <button onClick={handleAudioMute}>
-                <Icons.voiceunmute className={iconClass} />
-              </button>
-            )}
-            <input
-              type="range"
-              min="0"
-              max={1}
-              minLength={0}
-              step="0.01"
-              value={audio?.volume}
-              onChange={e => handleVolumeChange(parseFloat(e.target.value))}
-              className="hidden sm:block w-[120px] h-[3px]"
-            />
-            <MediaSheet />
-          </div>
+          <VolumeControls
+            isMuted={isMuted}
+            volume={audio?.volume ?? 1}
+            handleVolumeChange={handleVolumeChange}
+            handleAudioMute={handleAudioMute}
+          />
         </div>
       </div>
     </div>
