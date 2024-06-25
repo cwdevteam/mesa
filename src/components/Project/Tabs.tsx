@@ -62,7 +62,7 @@ const ProjectTabs = ({
         <TabsContent value="contract">
           <div className="w-full">
             <div className="text-center text-2xl font-bold w-full">
-              {project?.title}
+              {project?.name}
             </div>
             <div className="text-center">{project?.description}</div>
             {contractId ? (
