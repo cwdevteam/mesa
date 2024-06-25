@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ReloadIcon, FilePlusIcon, FileMinusIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { TUser } from "../LoginButton/LoginButton";
 import { useUser } from "@/context/UserProvider";
 import { useAccount } from "wagmi";
+import { UserDetailsProps } from "@/types/const";
 
 interface ProfileAvatarProps {
   editable: boolean;
@@ -13,10 +13,18 @@ interface ProfileAvatarProps {
 
 const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ editable }) => {
   const { address } = useAccount();
-  const { user, updateUser } = useUser();
+  const { user, updateUser, deleteAvatar } = useUser();
   const [uploadLoading, setUploadLoading] = useState(false);
   const [removeLoading, setRemoveLoading] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(user?.avatar_url || null);
+  const [avatarUrl, setAvatarUrl] = useState<string | ArrayBuffer | null>(
+    user?.avatar_url || null
+  );
+
+  useEffect(() => {
+    if (user?.avatar_url) {
+      setAvatarUrl(user?.avatar_url);
+    }
+  }, [user?.avatar_url]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -34,30 +42,15 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ editable }) => {
     }
   };
 
-  const uploadAvatar = async () => {
+  const uploadAvatar = () => {
     setUploadLoading(true);
     try {
-      const response = await fetch("/api/avatar", {
-        method: "POST",
-        body: JSON.stringify({ avatar_url: avatarUrl, userId: address }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to upload file: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      setAvatarUrl(data.url);
-
-      const updatedUserData: TUser = {
+      const updatedUserData: UserDetailsProps = {
         ...user!,
-        userId: address,
-        avatar_url: data.url,
+        userId: address as string,
+        avatar_url: avatarUrl as string | null,
       };
-
-      await updateUser(updatedUserData);
-
-      console.log("Avatar uploaded:", updatedUserData);
+      updateUser(updatedUserData);
     } catch (error) {
       console.error(error);
     } finally {
@@ -65,24 +58,10 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ editable }) => {
     }
   };
 
-  const handleRemoveAvatar = async () => {
+  const handleRemoveAvatar = () => {
     setRemoveLoading(true);
     try {
-      const response = await fetch("/api/avatar", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: address }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to remove avatar: ${response.statusText}`);
-      }
-
-      updateUser({ ...user!, avatar_url: null });
-
-      console.log("Avatar removed");
+      deleteAvatar(String(address));
     } catch (error) {
       console.error(error);
     } finally {
@@ -91,9 +70,9 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ editable }) => {
   };
 
   return (
-    <div className="flex items-center justify-start gap-5 py-5 w">
+    <div className="flex items-center justify-start gap-5 py-5">
       <Avatar className="h-28 w-28">
-        <AvatarImage src={user?.avatar_url || ""} alt="avatar" />
+        <AvatarImage src={(avatarUrl as string) || ""} alt="avatar" />
         <AvatarFallback>
           {user?.username ? user.username.charAt(0).toUpperCase() : ""}
         </AvatarFallback>
@@ -114,7 +93,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ editable }) => {
             <Button
               className="flex items-center gap-2"
               onClick={() => document.getElementById("fileUpload")?.click()}
-              disabled={editable || removeLoading}
+              disabled={!editable || removeLoading}
             >
               <FilePlusIcon width={16} height={16} />
               Upload Photo
@@ -149,7 +128,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ editable }) => {
             <Button
               className="text-red-500 border-red-500 hover:text-red-500 flex items-center gap-2"
               variant={"outline"}
-              disabled={editable || uploadLoading}
+              disabled={!editable || uploadLoading}
               onClick={handleRemoveAvatar}
             >
               <FileMinusIcon width={16} height={16} />

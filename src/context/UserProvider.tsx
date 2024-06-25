@@ -1,14 +1,15 @@
 "use client";
-import { TUser } from "@/components/LoginButton/LoginButton";
-import React, { createContext, useContext, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { UserDetailsProps } from "@/types/const";
+import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 interface UserContextType {
-  user: TUser | null;
-  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
-  updateUser: (updatedUser: TUser) => void;
+  user: UserDetailsProps | null;
+  setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
+  updateUser: (updatedUser: UserDetailsProps) => void;
   fetchUser: () => void;
-  updateAvatar: (userId: string, avatarUrl: string) => void;
   deleteAvatar: (userId: string) => void;
 }
 
@@ -25,8 +26,23 @@ export const useUser = () => {
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { address } = useAccount();
-  const [user, setUser] = useState<TUser | null>(null);
+  const { address, isConnected } = useAccount();
+  const [user, setUser] = useState<UserDetailsProps | null>(null);
+  const { toast } = useToast();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (!isConnected) {
+      push("/");
+    }
+
+    if (isConnected && !user?.username) {
+      toast({
+        description: "Username is missing.",
+      });
+      push("/profile");
+    }
+  }, [user?.username, isConnected]);
 
   const fetchUser = async () => {
     try {
@@ -43,18 +59,19 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const { data } = await response.json();
       setUser({
-        avatar_url: data?.avatar_url,
-        full_name: data?.full_name,
-        userId: data?.userId,
-        username: data?.username,
-        website: data?.website,
+        avatar_url: data?.avatar_url ?? null,
+        full_name: data?.full_name ?? "",
+        userId: data?.userId ?? "",
+        username: data?.username ?? "",
+        website: data?.website ?? "",
       });
     } catch (error) {
       console.error("Error fetching user data:", error);
+      setUser(null); // Ensure user state is properly reset on error
     }
   };
 
-  const updateUser = async (updatedUser: TUser) => {
+  const updateUser = async (updatedUser: UserDetailsProps) => {
     try {
       const response = await fetch("/api/profile", {
         method: "POST",
@@ -72,34 +89,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser(data.data);
     } catch (error) {
       console.error("Error updating user:", error);
-      throw error; // Rethrow the error to handle it outside
-    }
-  };
-
-  const updateAvatar = async (userId: string, avatarUrl: string) => {
-    try {
-      const response = await fetch("/api/avatar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, avatar_url: avatarUrl }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error updating avatar: ${response.statusText}`);
-      }
-
-      fetchUser();
-    } catch (error) {
-      console.error("Error updating avatar:", error);
       throw error;
     }
   };
 
   const deleteAvatar = async (userId: string) => {
     try {
-      const response = await fetch("/api/avatar", {
+      const response = await fetch("/api/profile", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -123,7 +119,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser,
     updateUser,
     fetchUser,
-    updateAvatar,
     deleteAvatar,
   };
 

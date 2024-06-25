@@ -3,16 +3,16 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { TUser } from "../LoginButton/LoginButton";
+import { UserDetailsProps } from "@/types/const";
 
 interface ProfileDetailsProps {
   editable: boolean;
   loading: boolean;
-  user: TUser | null;
+  user: UserDetailsProps | null;
   onSave: () => void;
   onCancel: () => void;
   setEditable: Dispatch<SetStateAction<boolean>>;
-  handleInputChange: (field: keyof TUser, value: string) => void;
+  handleInputChange: (field: keyof UserDetailsProps, value: string) => void;
 }
 
 const ProfileDetails: FC<ProfileDetailsProps> = ({

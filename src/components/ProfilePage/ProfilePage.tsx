@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import { useUser } from "@/context/UserProvider";
-import { TUser } from "../LoginButton/LoginButton";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileDetails from "./ProfileDetails";
+import { UserDetailsProps } from "@/types/const";
 
 const ProfilePage = () => {
   const { push } = useRouter();
   const { address, isConnected } = useAccount();
-  const [user, setUser] = useState<TUser | null>(null);
+  const [user, setUser] = useState<UserDetailsProps | null>(null);
   const [editable, setEditable] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const { user: initialUser, updateUser, fetchUser } = useUser();
@@ -18,9 +18,9 @@ const ProfilePage = () => {
   const onSave = async () => {
     setLoading(true);
     try {
-      const updatedUserData: TUser = {
+      const updatedUserData: UserDetailsProps = {
         ...user!,
-        userId: address,
+        userId: address as string,
       };
 
       await updateUser(updatedUserData);
@@ -39,7 +39,7 @@ const ProfilePage = () => {
     setUser(initialUser);
   };
 
-  const handleInputChange = (field: keyof TUser, value: string) => {
+  const handleInputChange = (field: keyof UserDetailsProps, value: string) => {
     setUser((prevUser) => ({
       ...prevUser!,
       [field]: value,

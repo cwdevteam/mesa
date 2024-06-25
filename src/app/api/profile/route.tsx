@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     let response: { data: TUser | null } = { data: null };
 
     if (existingUser) {
-      const allowedFields = ["username", "full_name", "website"];
+      const allowedFields = ["username", "full_name", "website", "avatar_url"];
       const updateData = Object.fromEntries(
         Object.entries(user).filter(([key]) => allowedFields.includes(key))
       );
@@ -70,11 +70,48 @@ export async function POST(req: NextRequest) {
         .single();
 
       response.data = updatedUser;
+    } else {
+      // Handle case where the user does not exist and needs to be created
+      const { data: newUser, error: createError } = await supabase
+        .from("profiles")
+        .insert(user)
+        .single();
+
+      if (createError) {
+        throw new Error(createError.message);
+      }
+
+      response.data = newUser;
     }
 
     return NextResponse.json({ data: response.data }, { status: 200 });
   } catch (error: any) {
     console.error(error);
+    return handleError(error.message, 500);
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { userId }: { userId: string } = await req.json();
+    const supabase = createServerClient(cookies());
+
+    const { error: updateError } = await supabase
+      .from("profiles")
+      .update({ avatar_url: null })
+      .eq("userId", userId);
+
+    if (updateError) {
+      console.error("Failed to delete avatar:", updateError.message);
+      return handleError("Failed to delete avatar", 500);
+    }
+
+    return NextResponse.json(
+      { message: "Avatar deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("Failed to delete avatar:", error.message);
     return handleError(error.message, 500);
   }
 }
