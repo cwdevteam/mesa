@@ -1,13 +1,12 @@
 "use client";
-
 import { ProjectDataTable } from "@/components/ProjectDataTable";
-import { useAccount } from "wagmi";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import NewProjectButton from "../NewProjectButton";
 import useProjects from "@/hooks/useProjects";
 import { useToast } from "../ui/use-toast";
 import { useUser } from "@/context/UserProvider";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
   const { isConnected } = useAccount();

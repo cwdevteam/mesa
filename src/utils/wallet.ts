@@ -1,5 +1,5 @@
 export const signInWithWallet = async (address: string, signature: string) => {
-  const response = await fetch("/api/auth", {
+  const response = await fetch("/api/createUser", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

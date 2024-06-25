@@ -1,6 +1,6 @@
 import DashboardPage from "@/components/DashboardPage";
 
-const Dashboard = async () => {
+const Dashboard = () => {
   return <DashboardPage />;
 };
 

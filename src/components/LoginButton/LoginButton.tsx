@@ -51,28 +51,7 @@ const LoginButton = () => {
 
   return (
     <div className="flex gap-3 items-center">
-      <NoSSR>
-        {loading ? (
-          <p>Loading...</p>
-        ) : address ? (
-          <>
-            <DisconnectButton />
-            <p>
-              {user
-                ? `Welcome, ${
-                    user.username ||
-                    `${user.userId?.substring(0, 5)}...${user.userId?.substring(
-                      user.userId?.length - 4
-                    )}`
-                  }`
-                : "Connected"}
-            </p>
-          </>
-        ) : (
-          <ConnectAccount />
-        )}
-        {error && <p className="text-red-500">{error}</p>}
-      </NoSSR>
+      <NoSSR>{address ? <DisconnectButton /> : <ConnectAccount />}</NoSSR>
     </div>
   );
 };

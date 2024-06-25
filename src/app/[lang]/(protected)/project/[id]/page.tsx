@@ -1,52 +1,34 @@
-import { ProjectCollaborators } from '@/components/ProjectCollaborators'
-import project from './project.json' // TODO
+'use client';
+import React, { useState } from 'react';
 
-import ProjectDetailsCard from "@/components/ProjectDetailsCard"
-import ProjectTimeline from "@/components/ProjectTimeline"
-import { TimelineProvider } from "@/context/TimelineContext"
-import { ServerClient, createServerClient, getUser } from "@/lib/supabase/server"
-import { cookies } from 'next/headers'
-import { User } from '@supabase/supabase-js'
-import { Locale } from '@/../i18n.config'
+import ContractDetailsPage from '@/components/ProjectContract/ContractDetailsPage';
+import ProjectDetailsComponent from '@/components/ProjectMetaDataTable/ProjectDetailsComponent';
 
+import MockData from './project.json';
+import ProjectTabs from '@/components/ProjectTabs';
+import { ProjectPageProps, ProjectTab } from '@/types/const';
 
-async function getProject(supabase: ServerClient, user: User, id: string) {
-  const { data: project, error } = await supabase.schema('mesa')
-    .from('projects')
-    .select('*, project_users(*)')
-    .eq('id', id)
-    .single()
+export default function Project({}: ProjectPageProps) {
+  const [tabContent, setTabContent] = useState<ProjectTab>('project');
 
-  if (error) {
-    console.error(error)
-    throw new Error(`Project with id: ${id} not found for user with id: ${user.id}`)
-  }
-  
-  return project
-}
+  const onTabChange = (tab: ProjectTab) => {
+    setTabContent(tab);
+  };
 
-export default async function Project({
-  params: { lang, id },
-}: {
-  params: { lang: Locale, id: string }
-}) {
-  const supabase = createServerClient(cookies())
-  const user = await getUser(supabase)
-  if (!user) {
-    return <></>
-  }
+  const currentProject = MockData;
 
-  const project = await getProject(supabase, user, id)
-  
   return (
-    <TimelineProvider>
-      <main className="grid grid-rows-[auto_minmax(0,1fr)] gap-6 container py-10 h-full">
-        <div>
-          <ProjectDetailsCard project={project} />
-          <ProjectCollaborators project={project} />
-        </div>
-        {/* <ProjectTimeline /> */}
-      </main>
-    </TimelineProvider>
-  )
+    <main className="container flex flex-col gap-6 py-10 items-center lg:items-start w-full">
+      <div className="mb-10 h-5">
+        <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
+      </div>
+      {tabContent === 'project' && currentProject && (
+        <ProjectDetailsComponent project={currentProject} />
+      )}
+      {tabContent === 'contract' && (
+        <ContractDetailsPage project={currentProject} contractId={undefined} />
+      )}
+      {tabContent === 'setting' && <div>Settings Component Placeholder</div>}
+    </main>
+  );
 }
