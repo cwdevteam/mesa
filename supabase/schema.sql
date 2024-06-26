@@ -366,8 +366,6 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
 
 ALTER TABLE "public"."profiles" OWNER TO "postgres";
 
-
-
 ALTER TABLE ONLY "mesa"."project_events"
     ADD CONSTRAINT "project_events_pkey" PRIMARY KEY ("id");
 

@@ -9,7 +9,6 @@ export async function getUser(supabase: ServerClient) {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-
   if (!user || error) {
     console.error("Error retrieving user:", error);
     return;
