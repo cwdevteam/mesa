@@ -1,26 +1,27 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useMediaContext } from '@/context/MediaContext'
-import useAudio from '@/hooks/useAudio'
+import useAudio from './useAudio'
 
 export const useMediaController = () => {
   const {
     currentMedia,
     medias,
     isPlaying,
-    refreshAudio,
+    playStatus,
+    audioRef,
     setIsPlaying,
     setCurrentMedia,
-    playStatus,
     setPlayStatus,
     handleSongEnded
   } = useMediaContext()
 
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const [currentTime, setCurrentTime] = useState<number>(0)
 
-  const { setRefresh } = useAudio({
+  useAudio({
     audio: audioRef.current,
     isPlaying,
+    setCurrentTime,
     handleSongEnded
   })
 
@@ -28,7 +29,7 @@ export const useMediaController = () => {
     if (audioRef.current) {
       audioRef.current.src = medias[currentMedia]?.url
     }
-  }, [currentMedia, medias, audioRef.current, refreshAudio])
+  }, [currentMedia, medias])
 
   useEffect(() => {
     if (audioRef.current) {
@@ -65,14 +66,12 @@ export const useMediaController = () => {
   const handleVolumeChange = (newVolume: number) => {
     if (audioRef.current) {
       audioRef.current.volume = newVolume
-      setRefresh(prev => prev + 1)
     }
   }
 
   const handleSliderChange = (newTime: number) => {
     if (audioRef.current) {
       audioRef.current.currentTime = newTime
-      setRefresh(prev => prev + 1)
     }
   }
 
@@ -85,12 +84,12 @@ export const useMediaController = () => {
       } else {
         audioRef.current.volume = 0
       }
-      setRefresh(prev => prev + 1)
     }
   }
 
   return {
     audioRef,
+    currentTime,
     currentMedia,
     medias,
     isPlaying,

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useRef, useState } from 'react'
 import { PlayMode } from '@/lib/enum'
 import { MediaProviderProps } from '@/types/const'
 import { Media } from '@/types/mesa'
@@ -10,9 +10,9 @@ const MediaContext = createContext<
   | {
       medias: Media[]
       currentMedia: number
-      playStatus: PlayMode
-      refreshAudio: number
       isPlaying: boolean
+      playStatus: PlayMode
+      audioRef: React.RefObject<HTMLAudioElement>
       setCurrentMedia: (value: number) => void
       setIsPlaying: (isPlaying: boolean) => void
       handleRemove: (index: number) => void
@@ -23,11 +23,11 @@ const MediaContext = createContext<
 >(undefined)
 
 const MediaProvider = ({ children }: MediaProviderProps) => {
-  const [medias, setMedias] = useState<Media[]>(MediaMockData)
+  const [medias, setMedias] = useState<Media[]>(MediaMockData.Music)
   const [currentMedia, setCurrentMedia] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [refreshAudio, setRefreshAudio] = useState<number>(0)
   const [playStatus, setPlayStatus] = useState<number>(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   const handleRemove = (index: number) => {
     if (index >= medias.length) return
@@ -52,10 +52,14 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         setCurrentMedia(0)
       }
     } else if (playStatus === PlayMode.INFINITE) {
-      setRefreshAudio(prev => prev + 1)
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0
+        audioRef.current.play()
+      }
     } else if (playStatus === PlayMode.RANDOM) {
       const randomNumber = Math.floor(Math.random() * medias.length)
       setCurrentMedia(randomNumber)
+      setIsPlaying(true)
     }
   }
 
@@ -66,7 +70,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         currentMedia,
         playStatus,
         isPlaying,
-        refreshAudio,
+        audioRef,
         setCurrentMedia,
         setIsPlaying,
         handleRemove,

@@ -63,6 +63,7 @@ export interface MediaProviderProps {
 export interface UseAudioProps {
   audio: HTMLAudioElement | null
   isPlaying: boolean
+  setCurrentTime: (value: number) => void;
   handleSongEnded: () => void
 }
 

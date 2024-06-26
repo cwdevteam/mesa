@@ -1,5 +1,4 @@
 import React from 'react'
-
 import MediaSheet from '../Sheet/Mediasheet'
 import { Icons } from '../Icons'
 import { VolumeControlsProps } from '@/types/const'

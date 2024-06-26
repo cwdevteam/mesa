@@ -10,6 +10,7 @@ import { Icons } from '@/components/Icons'
 export const MediaController: React.FC = () => {
   const {
     currentMedia,
+    currentTime,
     medias,
     isPlaying,
     playStatus,
@@ -52,7 +53,7 @@ export const MediaController: React.FC = () => {
             currentMedia={currentMedia}
           />
           <TimeSliderControls
-            currentTime={audio?.currentTime ?? 0}
+            currentTime={currentTime}
             duration={audio?.duration ?? 0}
             handleSliderChange={handleSliderChange}
           />
