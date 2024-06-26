@@ -1,7 +1,7 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { TUser } from "@/components/LoginButton/LoginButton";
+import { UserDetailsProps } from "@/types/const";
 
 export async function GET(req: NextRequest) {
   try {
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { user }: { user: TUser } = await req.json();
+    const { user }: { user: UserDetailsProps } = await req.json();
     const supabase = createServerClient(cookies());
 
     const { data: existingUser, error: existingUserError } = await supabase
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       return handleError(existingUserError.message, 500);
     }
 
-    let response: { data: TUser | null } = { data: null };
+    let response: { data: UserDetailsProps | null } = { data: null };
 
     if (existingUser) {
       const allowedFields = ["username", "full_name", "website", "avatar_url"];
@@ -63,11 +63,12 @@ export async function POST(req: NextRequest) {
         throw new Error(updateError.message);
       }
 
-      const { data: updatedUser } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("userId", user.userId as string)
-        .single();
+      const { data: updatedUser }: { data: UserDetailsProps | null } =
+        await supabase
+          .from("profiles")
+          .select("*")
+          .eq("userId", user.userId as string)
+          .single();
 
       response.data = updatedUser;
     } else {
