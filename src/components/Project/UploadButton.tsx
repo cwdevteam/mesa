@@ -36,19 +36,13 @@ const UploadButton = ({ projectId }: { projectId: string }) => {
       }
     } catch (err: any) {
       setLoading(false);
-      if (err.response?.data) {
-        toast({
-          title: "Error",
-          description: err.response.data,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong!",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Error",
+        description: err.response?.data
+          ? err.response.data
+          : "Something went wrong",
+        variant: "destructive",
+      });
     }
   };
 

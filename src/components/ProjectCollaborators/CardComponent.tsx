@@ -3,23 +3,9 @@ import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ProjectMetaDataDialog from "../ProjectMetaDataTable/ProjectMetaDataDialog";
 import CardMainData from "./CardMainData";
+import { CardProps, ProjectUserProps } from "./types";
+import { ProjectInvitationProps } from "../ProjectMetaDataTable";
 
-interface ProjectUserProps {
-  user_id: string;
-  user_name: string;
-}
-
-interface ProjectType {
-  projectUsers: ProjectUserProps[];
-}
-
-export interface CardProps {
-  data: any;
-  allData: ProjectUserProps[];
-  project?: ProjectType;
-}
-
-interface ProjectInvitationProps {}
 const isInvitation = (obj: ProjectUserProps | ProjectInvitationProps) =>
   !!(obj as any)?.status;
 

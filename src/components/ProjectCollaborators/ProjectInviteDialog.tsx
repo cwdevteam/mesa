@@ -7,9 +7,8 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-type User = any;
-type ProjectType = any;
+import { User } from "../Project/types";
+import { ProjectType } from "./types";
 
 type CreateProjectDialogProps = React.HTMLAttributes<HTMLDivElement> & {
   user: User;
