@@ -23,7 +23,7 @@ const MediaContext = createContext<
 >(undefined)
 
 const MediaProvider = ({ children }: MediaProviderProps) => {
-  const [medias, setMedias] = useState<Media[]>(MediaMockData.Music)
+  const [medias, setMedias] = useState<Media[]>(MediaMockData)
   const [currentMedia, setCurrentMedia] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [playStatus, setPlayStatus] = useState<number>(0)
@@ -75,7 +75,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         setIsPlaying,
         handleRemove,
         setPlayStatus,
-        handleSongEnded
+        handleSongEnded,
       }}
     >
       {children}

@@ -11,6 +11,7 @@ export const MediaController: React.FC = () => {
   const {
     currentMedia,
     currentTime,
+    volume,
     medias,
     isPlaying,
     playStatus,
@@ -61,7 +62,7 @@ export const MediaController: React.FC = () => {
         <div className="flex-1 flex items-center justify-end gap-3">
           <VolumeControls
             isMuted={isMuted}
-            volume={audio?.volume ?? 1}
+            volume={volume}
             handleVolumeChange={handleVolumeChange}
             handleAudioMute={handleAudioMute}
           />

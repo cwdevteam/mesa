@@ -17,11 +17,13 @@ export const useMediaController = () => {
   } = useMediaContext()
 
   const [currentTime, setCurrentTime] = useState<number>(0)
+  const [volume, setVolume] = useState<number>(1)
 
   useAudio({
     audio: audioRef.current,
     isPlaying,
     setCurrentTime,
+    setVolume,
     handleSongEnded
   })
 
@@ -90,6 +92,7 @@ export const useMediaController = () => {
   return {
     audioRef,
     currentTime,
+    volume,
     currentMedia,
     medias,
     isPlaying,
