@@ -1,23 +1,10 @@
 "use client";
-
 import { ProjectDataTable } from "@/components/ProjectDataTable";
-import { useAccount } from "wagmi";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import NewProjectButton from "../NewProjectButton";
 import useProjects from "@/hooks/useProjects";
 
-const DashboardPage = () => {
-  const { isConnected } = useAccount();
-  const { push } = useRouter();
+const DashboardPage = ({ email }: { email?: string }) => {
   const { projects } = useProjects();
-
-  useEffect(() => {
-    if (!isConnected) {
-      push("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected]);
 
   return (
     <main className="grid gap-10 container mx-auto py-10 content-start">

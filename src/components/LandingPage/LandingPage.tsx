@@ -12,7 +12,7 @@ const LandingPage = ({ dict }: any) => {
 
   useEffect(() => {
     if (isConnected) {
-      push("/dashboard");
+      push("/profile");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected]);
