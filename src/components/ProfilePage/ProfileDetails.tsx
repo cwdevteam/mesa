@@ -1,19 +1,9 @@
 "use client";
-import { Dispatch, FC, SetStateAction } from "react";
+import { FC } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { UserDetailsProps } from "@/types/const";
-
-interface ProfileDetailsProps {
-  editable: boolean;
-  loading: boolean;
-  user: UserDetailsProps | null;
-  onSave: () => void;
-  onCancel: () => void;
-  setEditable: Dispatch<SetStateAction<boolean>>;
-  handleInputChange: (field: keyof UserDetailsProps, value: string) => void;
-}
+import { ProfileDetailsProps } from "./types";
 
 const ProfileDetails: FC<ProfileDetailsProps> = ({
   user,
