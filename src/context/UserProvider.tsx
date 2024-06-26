@@ -46,7 +46,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchUser = async () => {
     try {
-      const response = await fetch(`/api/profile?userId=${address}`, {
+      const response = await fetch(`/api/profile?address=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

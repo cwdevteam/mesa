@@ -5,11 +5,10 @@ import { UserDetailsProps } from "@/types/const";
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.nextUrl);
-    const userId = url.searchParams.get("userId");
+    const address = new URL(req.nextUrl).searchParams.get("address");
 
-    if (!userId) {
-      return handleError("Missing userId parameter", 400);
+    if (!address) {
+      return handleError("Missing address parameter", 400);
     }
 
     const supabase = createServerClient(cookies());
@@ -17,7 +16,7 @@ export async function GET(req: NextRequest) {
     const { data, error } = await supabase
       .from("profiles")
       .select("*")
-      .eq("userId", userId as string)
+      .eq("userId", address as string)
       .single();
 
     if (error) {
