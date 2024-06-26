@@ -1,12 +1,11 @@
 "use client";
 import { Button } from "../ui/button";
 
-import { User } from "@supabase/supabase-js";
 import PopUp from "./PopUp";
 import { FileIcon } from "@radix-ui/react-icons";
 import ProjectInviteDialog from "./ProjectInviteDialog";
-
-type ProjectType = any;
+import { ProjectType } from "./types";
+import { User } from "../Project/types";
 
 const ProjectCollaborators = ({
   project,
@@ -22,48 +21,46 @@ const ProjectCollaborators = ({
   setContractId: (contractId?: string) => void;
   setContractTime: (contractTime: Date) => void;
   onMakeContract: () => void;
-}) => {
-  return (
-    <div>
-      <section className="grid mt-4 w-full gap-2">
-        <div className="flex justify-between">
-          <h3 className="text-lg font-bold tracking-tight">Collaborators</h3>
-          <div className="flex items-center gap-2">
-            {!contractId ? (
-              <PopUp
-                project={project}
-                setContractId={setContractId}
-                setContractTime={setContractTime}
-                onMakeContract={handleMakeContract}
-              >
-                <Button
-                  className="text-sm rounded-full px-[13px] py-2 sm:rounded-md sm:px-4 sm:py-2"
-                  variant="outline"
-                >
-                  <FileIcon
-                    className="text-black dark:text-white"
-                    style={{
-                      width: "20px",
-                      marginLeft: 5,
-                    }}
-                  />{" "}
-                  <span className="hidden sm:block ml-1">Make Contract</span>
-                </Button>
-              </PopUp>
-            ) : null}
-            <ProjectInviteDialog user={user} project={project}>
+}) => (
+  <div>
+    <section className="grid mt-4 w-full gap-2">
+      <div className="flex justify-between">
+        <h3 className="text-lg font-bold tracking-tight">Collaborators</h3>
+        <div className="flex items-center gap-2">
+          {!contractId ? (
+            <PopUp
+              project={project}
+              setContractId={setContractId}
+              setContractTime={setContractTime}
+              onMakeContract={handleMakeContract}
+            >
               <Button
-                variant="outline"
                 className="text-sm rounded-full px-[13px] py-2 sm:rounded-md sm:px-4 sm:py-2"
+                variant="outline"
               >
-                +<span className="hidden sm:block">&nbsp;Add Collaborator</span>
+                <FileIcon
+                  className="text-black dark:text-white"
+                  style={{
+                    width: "20px",
+                    marginLeft: 5,
+                  }}
+                />{" "}
+                <span className="hidden sm:block ml-1">Make Contract</span>
               </Button>
-            </ProjectInviteDialog>
-          </div>
+            </PopUp>
+          ) : null}
+          <ProjectInviteDialog user={user} project={project}>
+            <Button
+              variant="outline"
+              className="text-sm rounded-full px-[13px] py-2 sm:rounded-md sm:px-4 sm:py-2"
+            >
+              +<span className="hidden sm:block">&nbsp;Add Collaborator</span>
+            </Button>
+          </ProjectInviteDialog>
         </div>
-      </section>
-    </div>
-  );
-};
+      </div>
+    </section>
+  </div>
+);
 
 export default ProjectCollaborators;
