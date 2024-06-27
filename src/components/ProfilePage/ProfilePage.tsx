@@ -6,6 +6,7 @@ import { useUser } from "@/context/UserProvider";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileDetails from "./ProfileDetails";
 import { UserDetailsProps } from "@/types/const";
+import updateUser from "@/lib/supabase/user/updateUser";
 
 const ProfilePage = () => {
   const { push } = useRouter();
@@ -13,7 +14,7 @@ const ProfilePage = () => {
   const [user, setUser] = useState<UserDetailsProps | null>(null);
   const [editable, setEditable] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { user: initialUser, updateUser, fetchUser } = useUser();
+  const { user: initialUser, fetchUser } = useUser();
 
   const onSave = async () => {
     setLoading(true);

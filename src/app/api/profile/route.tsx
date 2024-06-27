@@ -2,6 +2,9 @@ import { createServerClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { UserDetailsProps } from "@/types/const";
+import getUserByAddress from "@/lib/supabase/user/getUserByAddress";
+import { Address } from "viem";
+import updateExistingUser from "@/lib/supabase/user/updateExistingUser";
 
 export async function GET(req: NextRequest) {
   try {
@@ -32,39 +35,21 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { user }: { user: UserDetailsProps } = await req.json();
+    console.log("SWEETS updating user API", user);
     const supabase = createServerClient(cookies());
+    const existingUser = await getUserByAddress(user.userId as Address);
+    console.log("SWEETS existingUser", existingUser[0]);
 
-    const { data: existingUser, error: existingUserError } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("userId", String(user.userId))
-      .single();
-
-    if (existingUserError && existingUserError.code !== "PGRST116") {
-      console.error("Error fetching user:", existingUserError.message);
-      return handleError(existingUserError.message, 500);
-    }
-
-    let response: { data: UserDetailsProps | null } = { data: null };
+    let response: UserDetailsProps;
 
     if (existingUser) {
-      const allowedFields = ["username", "full_name", "website", "avatar_url"];
-      const updateData = Object.fromEntries(
-        Object.entries(user).filter(([key]) => allowedFields.includes(key))
-      );
+      const { id } = existingUser[0];
+      console.log("SWEETS id", id);
 
-      const { data: updatedUser, error: updateError } = await supabase
-        .from("profiles")
-        .update(updateData)
-        .eq("userId", user.userId as string)
-        .select()
-        .single();
+      const responseFromLib = await updateExistingUser(id as string, user);
+      console.log("SWEETS responseFromLib", responseFromLib);
 
-      if (updateError) {
-        throw new Error(updateError.message);
-      }
-
-      response.data = updatedUser;
+      response = responseFromLib;
     } else {
       // Handle case where the user does not exist and needs to be created
       const { data: newUser, error: createError } = await supabase

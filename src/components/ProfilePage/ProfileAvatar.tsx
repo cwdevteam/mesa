@@ -5,12 +5,13 @@ import { useUser } from "@/context/UserProvider";
 import { useAccount } from "wagmi";
 import { UserDetailsProps } from "@/types/const";
 import ProfileAvatarButtons from "./ProfileAvatarButtons";
+import updateUser from "@/lib/supabase/user/updateUser";
 
 const ProfileAvatar: React.FC<{
   editable: boolean;
 }> = ({ editable }) => {
   const { address } = useAccount();
-  const { user, updateUser, deleteAvatar } = useUser();
+  const { user, deleteAvatar } = useUser();
   const [uploadLoading, setUploadLoading] = useState(false);
   const [removeLoading, setRemoveLoading] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | ArrayBuffer | null>(

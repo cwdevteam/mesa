@@ -38,7 +38,6 @@ export interface ContractDetailsPageProps {
 export interface UserContextType {
   user: UserDetailsProps | null;
   setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
-  updateUser: (updatedUser: UserDetailsProps) => void;
   fetchUser: () => void;
   deleteAvatar: (userId: string) => void;
   signUpUser: () => void;
@@ -49,6 +48,7 @@ export interface UserDetailsProps {
   userId: string;
   username: string | null;
   website: string | null;
+  id: string
 }
 
 export interface UserData {
