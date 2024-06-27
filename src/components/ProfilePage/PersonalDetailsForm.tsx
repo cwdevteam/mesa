@@ -1,15 +1,10 @@
 import React, { FC, useState } from "react";
 import { Input } from "../ui/input";
+import { useProfileProvider } from "@/context/ProfileProvider";
 
-interface PersonalDetailsFormProps {
-  editable: boolean;
-  user: any;
-}
+const PersonalDetailsForm: FC = () => {
+  const { user, editing } = useProfileProvider();
 
-const PersonalDetailsForm: FC<PersonalDetailsFormProps> = ({
-  editable,
-  user,
-}) => {
   const [username, setUsername] = useState<string>(user?.username || "");
   const [firstName, setFirstName] = useState<string>(user?.firstName || "");
   const [lastName, setLastName] = useState<string>(user?.lastName || "");
@@ -18,7 +13,7 @@ const PersonalDetailsForm: FC<PersonalDetailsFormProps> = ({
   return (
     <div className="p-5 flex flex-col gap-3">
       <div>
-        {editable ? (
+        {editing ? (
           <>
             <label htmlFor="user_name" className="text-sm">
               Username
@@ -40,7 +35,7 @@ const PersonalDetailsForm: FC<PersonalDetailsFormProps> = ({
 
       <div className="flex items-center justify-center gap-5">
         <div className="flex-1">
-          {editable ? (
+          {editing ? (
             <>
               <label htmlFor="user_first" className="text-sm">
                 Legal Name
@@ -70,7 +65,7 @@ const PersonalDetailsForm: FC<PersonalDetailsFormProps> = ({
       </div>
       <div className="flex items-center justify-center gap-5">
         <div className="flex-1">
-          {editable ? (
+          {editing ? (
             <>
               <label htmlFor="nick_name" className="text-sm">
                 Artist Nick name

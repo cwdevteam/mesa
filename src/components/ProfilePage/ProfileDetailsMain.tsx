@@ -1,21 +1,21 @@
-import React from "react";
 import { Input } from "../ui/input";
 import { UserDetailsProps } from "@/types/const";
-import { useUser } from "@/context/UserProvider";
+import { useProfileProvider } from "@/context/ProfileProvider";
 
-const ProfileDetailsMain = ({
-  editable,
-  handleInputChange,
-}: {
-  editable: boolean;
-  handleInputChange: (field: keyof UserDetailsProps, value: string) => void;
-}) => {
-  const { user } = useUser();
+const ProfileDetailsMain = () => {
+  const { user, editing, setUser } = useProfileProvider();
+
+  const handleInputChange = (field: keyof UserDetailsProps, value: string) => {
+    setUser((prevUser: any) => ({
+      ...prevUser!,
+      [field]: value,
+    }));
+  };
 
   return (
     <div className="p-5 flex flex-col gap-3">
       <div>
-        {editable ? (
+        {editing ? (
           <>
             <label htmlFor="user_name" className="text-sm">
               Username
@@ -37,7 +37,7 @@ const ProfileDetailsMain = ({
 
       <div className="flex items-center justify-center gap-5">
         <div className="flex-1">
-          {editable ? (
+          {editing ? (
             <>
               <label htmlFor="user_full_name" className="text-sm">
                 Full Name
@@ -58,7 +58,7 @@ const ProfileDetailsMain = ({
         </div>
 
         <div className="flex-1">
-          {editable ? (
+          {editing ? (
             <>
               <label htmlFor="user_website" className="text-sm">
                 Website

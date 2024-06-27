@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { UserContextType, UserDetailsProps } from "@/types/const";
 import { useAccount } from "wagmi";
 import fetchUserByAddress from "@/lib/supabase/user/fetchUserByAddress";
@@ -22,10 +29,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<UserDetailsProps | null>(null);
   useAuthRedirect();
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     const response = await fetchUserByAddress(address as Address);
     setUser(response);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const contextValue: UserContextType = {
     user,
