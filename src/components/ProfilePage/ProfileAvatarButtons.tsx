@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { FilePlusIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { uploadFile } from "@/lib/ipfs/uploadToIpfs";
-import { useUser } from "@/context/UserProvider";
 import { UserDetailsProps } from "@/types/const";
 import updateUser from "@/lib/supabase/user/updateUser";
+import { useUserProvider } from "@/context/UserProvider";
 
 const ProfileAvatarButtons = () => {
   const [uploading, setUploading] = useState<boolean>(false);
-  const { user, fetchUser } = useUser();
+  const { user, fetchUser } = useUserProvider();
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>

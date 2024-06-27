@@ -1,50 +1,29 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
-import { UserContextType, UserDetailsProps } from "@/types/const";
-import { useAccount } from "wagmi";
-import fetchUserByAddress from "@/lib/supabase/user/fetchUserByAddress";
-import { Address } from "viem";
-import useAuthRedirect from "@/hooks/useAuthRedirect";
+import useUser from "@/hooks/useUser";
+import { ReactNode, createContext, useContext, useMemo } from "react";
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext({} as any);
 
-export const useUser = () => {
+const UserProvider = ({ children }: { children: ReactNode }) => {
+  const user = useUser();
+
+  const value = useMemo(
+    () => ({
+      ...user,
+    }),
+    [user]
+  );
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};
+
+export const useUserProvider = () => {
   const context = useContext(UserContext);
-  if (!context) throw new Error("useUser must be used within a UserProvider");
+  if (!context) {
+    throw new Error("useUserProvider must be used within a UserProvider");
+  }
   return context;
 };
 
-export const UserProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const { address } = useAccount();
-  const [user, setUser] = useState<UserDetailsProps | null>(null);
-  useAuthRedirect();
-
-  const fetchUser = useCallback(async () => {
-    const response = await fetchUserByAddress(address as Address);
-    setUser(response);
-  }, []);
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const contextValue: UserContextType = {
-    user,
-    setUser,
-    fetchUser,
-  };
-
-  return (
-    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
-  );
-};
+export default UserProvider;
