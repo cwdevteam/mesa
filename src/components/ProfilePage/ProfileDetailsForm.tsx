@@ -1,4 +1,3 @@
-import { useProfileProvider } from "@/context/ProfileProvider";
 import UsernameInput from "./UsernameInput";
 import NameInput from "./NameInput";
 import WebsiteInput from "./WebsiteInput";
