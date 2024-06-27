@@ -11,10 +11,10 @@ export interface ProjectPageProps {
 
 export interface UserDetailsProps {
   avatar_url: string | null;
-  full_name: string;
+  full_name: string | null;
   userId: string;
-  username: string;
-  website: string;
+  username: string | null;
+  website: string | null;
 }
 
 export interface ProjectDetailsComponentProps {

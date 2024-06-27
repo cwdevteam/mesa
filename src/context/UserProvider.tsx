@@ -2,8 +2,15 @@
 import { useToast } from "@/components/ui/use-toast";
 import { UserDetailsProps } from "@/types/const";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useAccount } from "wagmi";
+import { v4 as uuidv4 } from "uuid";
 
 interface UserContextType {
   user: UserDetailsProps | null;
@@ -11,6 +18,7 @@ interface UserContextType {
   updateUser: (updatedUser: UserDetailsProps) => void;
   fetchUser: () => void;
   deleteAvatar: (userId: string) => void;
+  signUpUser: () => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -30,6 +38,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<UserDetailsProps | null>(null);
   const { toast } = useToast();
   const { push } = useRouter();
+  const [signupInitiated, setSignupInitiated] = useState(false);
 
   useEffect(() => {
     if (!isConnected) {
@@ -67,7 +76,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       });
     } catch (error) {
       console.error("Error fetching user data:", error);
-      setUser(null); // Ensure user state is properly reset on error
+      setUser(null);
     }
   };
 
@@ -114,9 +123,41 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const signUpUser = useCallback(async () => {
+    try {
+      const id = uuidv4();
+      const response = await fetch("/api/profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: { id, userId: address } }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error signing up user: ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log(data, "------------------->");
+      setUser(data.data);
+    } catch (error) {
+      console.error("Error signing up user:", error);
+      throw error;
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (isConnected && !user && !signupInitiated) {
+      signUpUser();
+      setSignupInitiated(true);
+      console.log("auauau");
+    }
+  }, [isConnected]);
+
   const contextValue: UserContextType = {
     user,
     setUser,
+    signUpUser,
     updateUser,
     fetchUser,
     deleteAvatar,

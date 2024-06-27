@@ -53,21 +53,16 @@ export async function POST(req: NextRequest) {
         Object.entries(user).filter(([key]) => allowedFields.includes(key))
       );
 
-      const { error: updateError } = await supabase
+      const { data: updatedUser, error: updateError } = await supabase
         .from("profiles")
         .update(updateData)
-        .eq("userId", user.userId as string);
+        .eq("userId", user.userId as string)
+        .select()
+        .single();
 
       if (updateError) {
         throw new Error(updateError.message);
       }
-
-      const { data: updatedUser }: { data: UserDetailsProps | null } =
-        await supabase
-          .from("profiles")
-          .select("*")
-          .eq("userId", user.userId as string)
-          .single();
 
       response.data = updatedUser;
     } else {
@@ -75,6 +70,7 @@ export async function POST(req: NextRequest) {
       const { data: newUser, error: createError } = await supabase
         .from("profiles")
         .insert(user)
+        .select()
         .single();
 
       if (createError) {

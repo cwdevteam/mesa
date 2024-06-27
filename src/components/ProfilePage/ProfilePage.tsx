@@ -27,6 +27,7 @@ const ProfilePage = () => {
 
       console.log("User saved:", updatedUserData);
       setEditable(false);
+      push("/dashboard");
     } catch (error) {
       console.error(error);
     } finally {
@@ -57,16 +58,10 @@ const ProfilePage = () => {
   }, [initialUser]);
 
   useEffect(() => {
-    if (!initialUser && address) {
+    if (!user) {
       fetchUser();
     }
-  }, [
-    initialUser?.avatar_url,
-    initialUser?.full_name,
-    initialUser?.username,
-    initialUser?.website,
-    address,
-  ]);
+  }, []);
 
   return (
     <main className="container py-10 mx-auto max-w-5xl">
