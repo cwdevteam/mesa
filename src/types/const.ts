@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 import { Locale } from "@/../i18n.config";
 import { PlayMode } from "@/lib/enum";
+import { Address } from "viem";
 
 export type ProjectTab = "project" | "contract" | "setting";
 
@@ -40,7 +41,6 @@ export interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
   fetchUser: () => void;
   deleteAvatar: (userId: string) => void;
-  signUpUser: () => void;
 }
 export interface UserDetailsProps {
   avatar_url: string | null;
@@ -48,7 +48,8 @@ export interface UserDetailsProps {
   userId: string;
   username: string | null;
   website: string | null;
-  id: string
+  id: string;
+  addresses: Address[] | null;
 }
 
 export interface UserData {

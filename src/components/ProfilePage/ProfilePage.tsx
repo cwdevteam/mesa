@@ -7,10 +7,11 @@ import ProfileAvatar from "./ProfileAvatar";
 import ProfileDetails from "./ProfileDetails";
 import { UserDetailsProps } from "@/types/const";
 import updateUser from "@/lib/supabase/user/updateUser";
+import { Address } from "viem";
 
 const ProfilePage = () => {
   const { push } = useRouter();
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const [user, setUser] = useState<UserDetailsProps | null>(null);
   const [editable, setEditable] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,7 +22,7 @@ const ProfilePage = () => {
     try {
       const updatedUserData: UserDetailsProps = {
         ...user!,
-        userId: address as string,
+        addresses: [address as Address],
       };
 
       await updateUser(updatedUserData);

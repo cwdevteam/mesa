@@ -6,15 +6,12 @@ const updateExistingUser = async (
   id: string,
   newUserDetails: UserDetailsProps
 ) => {
-  console.log("SWEETS updating id", id);
-  console.log("SWEETS updating user API", newUserDetails);
   const allowedFields = ["username", "full_name", "website", "avatar_url"];
   const updateData = Object.fromEntries(
     Object.entries(newUserDetails).filter(([key]) =>
       allowedFields.includes(key)
     )
   );
-
   const supabase = createServerClient(cookies());
   const { data: updatedUser, error: updateError } = await supabase
     .from("profiles")
@@ -25,7 +22,7 @@ const updateExistingUser = async (
   if (updateError) {
     throw new Error(updateError.message);
   }
-  return updatedUser as UserDetailsProps;
+  return updatedUser as any as UserDetailsProps;
 };
 
 export default updateExistingUser;

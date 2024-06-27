@@ -1,5 +1,5 @@
 import ProfilePage from "@/components/ProfilePage";
 
-export default function Profile() {
-  return <ProfilePage />;
-}
+const Profile = () => <ProfilePage />;
+
+export default Profile;

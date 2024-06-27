@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -6,13 +7,13 @@ import {
   ReactNode,
   useState,
 } from "react";
-import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { UserContextType, UserDetailsProps } from "@/types/const";
 import { useFetchUser } from "@/hooks/useFetchUser";
 import { useDeleteAvatar } from "@/hooks/useDeleteAvatar";
-import { useSignUpUser } from "@/hooks/useSignUpUser";
 import { useAccount } from "wagmi";
+import fetchUserByAddress from "@/lib/supabase/user/fetchUserByAddress";
+import { Address } from "viem";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -27,28 +28,32 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const { address, isConnected } = useAccount();
   const [user, setUser] = useState<UserDetailsProps | null>(null);
-  const fetchUser = useFetchUser({ address: String(address), setUser });
   const deleteAvatar = useDeleteAvatar();
-  const signUpUser = useSignUpUser({ address: String(address), setUser });
-  const { toast } = useToast();
   const { push } = useRouter();
 
   useEffect(() => {
-    if (!isConnected) push("/");
-    if (isConnected && !user?.username) {
-      toast({ description: "Username is missing." });
-      push("/profile");
-    }
-  }, [user?.username, isConnected]);
+    const checkUser = async () => {
+      const responseLib = await fetchUserByAddress(address as Address);
+      console.log("SWEETS responseLib", responseLib);
+      if (!responseLib) return push("/profile");
+      push("/dashboard");
+    };
 
-  useEffect(() => {
-    if (isConnected && !user) signUpUser();
-  }, [isConnected]);
+    if (!(isConnected && address)) {
+      return push("/");
+    }
+    checkUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, address]);
+
+  const fetchUser = async () => {
+    const response = await fetchUserByAddress(address as Address);
+    setUser(response);
+  };
 
   const contextValue: UserContextType = {
     user,
     setUser,
-    signUpUser,
     fetchUser,
     deleteAvatar,
   };
