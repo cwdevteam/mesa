@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { FileMinusIcon, FilePlusIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { FilePlusIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { uploadFile } from "@/lib/ipfs/uploadToIpfs";
+import { useUser } from "@/context/UserProvider";
+import { UserDetailsProps } from "@/types/const";
+import updateUser from "@/lib/supabase/user/updateUser";
 
-const ProfileAvatarButtons = ({
-  uploadLoading,
-  removeLoading,
-  editable,
-  handleFileChange,
-  handleRemoveAvatar,
-  uploadAvatar,
-  avatarUrl,
-}: {
-  uploadLoading: boolean;
-  removeLoading: boolean;
-  editable: boolean;
-  handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleRemoveAvatar: () => void;
-  uploadAvatar: () => void;
-  avatarUrl: string | null | ArrayBuffer;
-}) => {
+const ProfileAvatarButtons = () => {
+  const [uploading, setUploading] = useState<boolean>(false);
+  const { user, fetchUser } = useUser();
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setUploading(true);
+      const { uri } = await uploadFile(file);
+      const updatedUserData: UserDetailsProps = {
+        ...user!,
+        avatar_url: uri,
+      };
+      await updateUser(updatedUserData);
+      await fetchUser();
+      setUploading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2 flex-1">
       <h4 className="text-lg font-semibold">Upload your photo...</h4>
@@ -26,7 +35,7 @@ const ProfileAvatarButtons = ({
         Photo should be at least 300px X 300px
       </p>
       <div className="flex gap-5">
-        {uploadLoading ? (
+        {uploading ? (
           <Button className="flex gap-2">
             <ReloadIcon className="animate-spin" />
             Uploading...
@@ -35,7 +44,6 @@ const ProfileAvatarButtons = ({
           <Button
             className="flex items-center gap-2"
             onClick={() => document.getElementById("fileUpload")?.click()}
-            disabled={!editable || removeLoading}
           >
             <FilePlusIcon width={16} height={16} />
             Upload Photo
@@ -48,33 +56,6 @@ const ProfileAvatarButtons = ({
           accept=".png, .jpg"
           onChange={handleFileChange}
         />
-
-        <Button
-          className="flex items-center gap-2"
-          onClick={uploadAvatar}
-          disabled={!avatarUrl || uploadLoading || removeLoading}
-        >
-          <FilePlusIcon width={16} height={16} />
-          Save Photo
-        </Button>
-
-        <Button
-          className="flex gap-2 items-center text-red-500 border-red-500 hover:text-red-500"
-          variant={"outline"}
-          onClick={removeLoading ? () => null : handleRemoveAvatar}
-        >
-          {removeLoading ? (
-            <>
-              <ReloadIcon className="animate-spin" />
-              Removing... :
-            </>
-          ) : (
-            <>
-              <FileMinusIcon width={16} height={16} />
-              Remove Photo
-            </>
-          )}
-        </Button>
       </div>
     </div>
   );

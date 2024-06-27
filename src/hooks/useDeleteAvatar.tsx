@@ -5,7 +5,7 @@ export const useDeleteAvatar = () => {
   const deleteAvatar = useCallback(async (userId: string) => {
     try {
       const response = await fetch("/api/profile", {
-        method: "DELETE",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
       });
