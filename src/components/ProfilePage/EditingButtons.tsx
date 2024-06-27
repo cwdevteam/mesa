@@ -7,7 +7,7 @@ import { Address } from "viem";
 import { useAccount } from "wagmi";
 import { useState } from "react";
 import updateUser from "@/lib/supabase/user/updateUser";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const EditingButtons = () => {
   const { user, setUser, setEditing } = useProfileProvider();

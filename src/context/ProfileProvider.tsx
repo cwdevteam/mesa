@@ -1,36 +1,18 @@
 "use client";
 
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { useUser } from "./UserProvider";
-import { UserDetailsProps } from "@/types/const";
+import { ReactNode, createContext, useContext, useMemo } from "react";
+import useProfile from "@/hooks/useProfile";
 
 const ProfileContext = createContext({} as any);
 
 const ProfileProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<UserDetailsProps | null>(null);
-  const [editing, setEditing] = useState<boolean>(false);
-  const { user: initialUser } = useUser();
-
-  useEffect(() => {
-    console.log("SWEETS initialUser", initialUser);
-    setUser(initialUser);
-  }, [initialUser]);
+  const profile = useProfile();
 
   const value = useMemo(
     () => ({
-      user,
-      setUser,
-      editing,
-      setEditing,
+      ...profile,
     }),
-    [user, setUser, editing, setEditing]
+    [profile]
   );
 
   return (
