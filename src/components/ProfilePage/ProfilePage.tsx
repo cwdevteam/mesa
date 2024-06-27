@@ -24,11 +24,9 @@ const ProfilePage = () => {
         ...user!,
         addresses: [address as Address],
       };
-
       await updateUser(updatedUserData);
-
+      await push("/dashboard");
       setEditable(false);
-      push("/dashboard");
     } catch (error) {
       console.error(error);
     } finally {
