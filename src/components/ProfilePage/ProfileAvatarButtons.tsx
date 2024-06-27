@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Button } from "../ui/button";
 import { FilePlusIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { uploadFile } from "@/lib/ipfs/uploadToIpfs";
 import { UserDetailsProps } from "@/types/const";
 import updateUser from "@/lib/supabase/user/updateUser";
 import { useUserProvider } from "@/context/UserProvider";
+import { useAccount } from "wagmi";
 
 const ProfileAvatarButtons = () => {
   const [uploading, setUploading] = useState<boolean>(false);
   const { user, fetchUser } = useUserProvider();
+  const { address } = useAccount();
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -21,6 +23,7 @@ const ProfileAvatarButtons = () => {
       const updatedUserData: UserDetailsProps = {
         ...user!,
         avatar_url: uri,
+        addresses: [address],
       };
       await updateUser(updatedUserData);
       await fetchUser();
