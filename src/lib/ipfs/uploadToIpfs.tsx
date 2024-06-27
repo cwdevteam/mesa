@@ -60,7 +60,6 @@ export async function uploadFile(
   const root = await ipfs.add(file, {
     ...defaultIpfsOptions,
     progress: (bytes: number) => {
-      console.log("---- progress::", bytes, file.size);
       onProgress?.((bytes / file.size) * 100);
     },
   });

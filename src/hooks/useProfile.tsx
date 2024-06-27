@@ -15,7 +15,6 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    console.log("SWEETS initialUser", initialUser);
     setUser(initialUser);
   }, [initialUser]);
 

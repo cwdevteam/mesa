@@ -1,7 +1,6 @@
 import { UserDetailsProps } from "@/types/const";
 
 const updateUser = async (updatedUser: UserDetailsProps) => {
-  console.log("SWEETS updating user", updatedUser);
   try {
     const response = await fetch("/api/profile", {
       method: "POST",
