@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useUser } from "@/context/UserProvider";
 import ProfileAvatarButtons from "./ProfileAvatarButtons";
 import getIpfsLink from "@/lib/ipfs/getIpfsLink";
 import { useProfileProvider } from "@/context/ProfileProvider";
@@ -12,7 +11,6 @@ const ProfileAvatar: React.FC = () => {
   const [avatarUrl, setAvatarUrl] = useState<string | ArrayBuffer | null>(
     user?.avatar_url || null
   );
-  console.log("SWEETS user", user);
 
   useEffect(() => {
     if (user?.avatar_url) {

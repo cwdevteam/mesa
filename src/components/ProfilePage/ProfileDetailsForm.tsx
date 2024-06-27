@@ -2,7 +2,7 @@ import { Input } from "../ui/input";
 import { UserDetailsProps } from "@/types/const";
 import { useProfileProvider } from "@/context/ProfileProvider";
 
-const ProfileDetailsMain = () => {
+const ProfileDetailsForm = () => {
   const { user, editing, setUser } = useProfileProvider();
 
   const handleInputChange = (field: keyof UserDetailsProps, value: string) => {
@@ -82,4 +82,4 @@ const ProfileDetailsMain = () => {
   );
 };
 
-export default ProfileDetailsMain;
+export default ProfileDetailsForm;
