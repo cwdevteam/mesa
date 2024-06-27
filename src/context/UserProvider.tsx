@@ -2,7 +2,6 @@
 
 import { createContext, useContext, ReactNode, useState } from "react";
 import { UserContextType, UserDetailsProps } from "@/types/const";
-import { useDeleteAvatar } from "@/hooks/useDeleteAvatar";
 import { useAccount } from "wagmi";
 import fetchUserByAddress from "@/lib/supabase/user/fetchUserByAddress";
 import { Address } from "viem";
@@ -21,7 +20,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const { address } = useAccount();
   const [user, setUser] = useState<UserDetailsProps | null>(null);
-  const deleteAvatar = useDeleteAvatar();
   useAuthRedirect();
 
   const fetchUser = async () => {
@@ -33,7 +31,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     user,
     setUser,
     fetchUser,
-    deleteAvatar,
   };
 
   return (

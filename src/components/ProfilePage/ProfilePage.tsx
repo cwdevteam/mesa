@@ -68,7 +68,6 @@ const ProfilePage = () => {
           onCancel={onCancel}
           onSave={onSave}
           setEditable={setEditable}
-          user={user}
         />
       </div>
     </main>

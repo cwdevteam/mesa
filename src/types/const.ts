@@ -40,7 +40,6 @@ export interface UserContextType {
   user: UserDetailsProps | null;
   setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
   fetchUser: () => void;
-  deleteAvatar: (userId: string) => void;
 }
 export interface UserDetailsProps {
   avatar_url: string | null;

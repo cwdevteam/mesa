@@ -1,13 +1,11 @@
 "use client";
+
 import { FC } from "react";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { ProfileDetailsProps } from "./types";
 import ProfileDetailsMain from "./ProfileDetailsMain";
 
-const ProfileDetails: FC<ProfileDetailsProps> = ({
-  user,
+const ProfileDetails: FC<any> = ({
   onSave,
   loading,
   onCancel,
@@ -39,7 +37,6 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({
     <ProfileDetailsMain
       editable={editable}
       handleInputChange={handleInputChange}
-      user={user}
     />
   </div>
 );

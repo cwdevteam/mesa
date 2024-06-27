@@ -1,16 +1,17 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { UserDetailsProps } from "@/types/const";
+import { useUser } from "@/context/UserProvider";
 
 const ProfileDetailsMain = ({
   editable,
   handleInputChange,
-  user,
 }: {
   editable: boolean;
-  user: UserDetailsProps | null;
   handleInputChange: (field: keyof UserDetailsProps, value: string) => void;
 }) => {
+  const { user } = useUser();
+
   return (
     <div className="p-5 flex flex-col gap-3">
       <div>
