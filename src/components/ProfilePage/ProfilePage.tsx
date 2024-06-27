@@ -25,7 +25,6 @@ const ProfilePage = () => {
 
       await updateUser(updatedUserData);
 
-      console.log("User saved:", updatedUserData);
       setEditable(false);
       push("/dashboard");
     } catch (error) {
@@ -46,12 +45,6 @@ const ProfilePage = () => {
       [field]: value,
     }));
   };
-
-  useEffect(() => {
-    if (!isConnected) {
-      push("/");
-    }
-  }, [isConnected]);
 
   useEffect(() => {
     setUser(initialUser);
