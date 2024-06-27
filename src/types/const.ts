@@ -1,4 +1,7 @@
+import { ReactNode } from "react";
+
 import { Locale } from "@/../i18n.config";
+import { PlayMode } from "@/lib/enum";
 
 export type ProjectTab = "project" | "contract" | "setting";
 
@@ -7,14 +10,6 @@ export interface ProjectPageProps {
     lang: Locale;
     id: string;
   };
-}
-
-export interface UserDetailsProps {
-  avatar_url: string | null;
-  full_name: string | null;
-  userId: string;
-  username: string | null;
-  website: string | null;
 }
 
 export interface ProjectDetailsComponentProps {
@@ -40,17 +35,67 @@ export interface ContractDetailsPageProps {
   contractId: string | undefined;
 }
 
+export interface UserDetailsProps {
+  avatar_url: string | null;
+  full_name: string | null;
+  userId: string;
+  username: string | null;
+  website: string | null;
+}
+
 export interface UserData {
   name: string;
   contractType: string;
   role: string;
   bps: string;
 }
-
 export interface UserMatrixCardProps {
   data: UserData;
 }
-
 export interface ProjectCollaboratorsProps {
   project: any;
+}
+export interface MediaControllerProps {
+  musicMockup: {
+    avatar: string;
+    name: string;
+    url: string;
+  }[];
+}
+export interface UseAudioPlayerProps {
+  url: string;
+  volume?: number;
+}
+export interface MediaProviderProps {
+  children: ReactNode;
+}
+
+export interface UseAudioProps {
+  audio: HTMLAudioElement | null;
+  isPlaying: boolean;
+  setCurrentTime: (value: number) => void;
+  setVolume: (value: number) => void;
+  handleSongEnded: () => void;
+}
+
+export interface TimeSliderControllerProps {
+  currentTime: number;
+  duration: number;
+  handleSliderChange: (value: number) => void;
+}
+
+export interface VolumeControlsProps {
+  isMuted: boolean;
+  volume: number;
+  handleVolumeChange: (value: number) => void;
+  handleAudioMute: () => void;
+}
+export interface AudioPlayerProps {
+  isPlaying: boolean;
+  playStatus: PlayMode;
+  currentMedia: number;
+  handlePlayPause: () => void;
+  handleNext: (currentMedia: number) => void;
+  handleBack: (currentMedia: number) => void;
+  setPlayStatus: (playStatus: PlayMode) => void;
 }

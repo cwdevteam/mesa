@@ -1,5 +1,4 @@
 import React from 'react'
-
 import UserMatrixCard from './ProjectMetaDataTable/UserMatrixCard'
 import { Button } from './ui/button'
 import { ProjectCollaboratorsProps, UserData } from '@/types/const'
