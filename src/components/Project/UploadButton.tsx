@@ -1,49 +1,21 @@
 "use client";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { FilePlusIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { toast } from "../ui/use-toast";
-import { useRouter } from "next/navigation";
+
 const UploadButton = ({ projectId }: { projectId: string }) => {
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const newFile: File | null = e.target.files ? e.target.files[0] : null;
+    const newFile: File | null = e.target.files ? e.target.files[0] : null;
 
-      if (newFile) {
-        setLoading(true);
-        const formData = new FormData();
-        formData.append("file", newFile);
-        formData.append("projectId", projectId);
-
-        const response = await fetch("/api/upload/get", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await response.json();
-
-        if (data && data.status) {
-          router.refresh();
-          toast({
-            title: "Success",
-            description: "Successfully Uploaded",
-          });
-        }
-        setLoading(false);
-      }
-    } catch (err: any) {
-      setLoading(false);
-      toast({
-        title: "Error",
-        description: err.response?.data
-          ? err.response.data
-          : "Something went wrong",
-        variant: "destructive",
-      });
+    if (newFile) {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("file", newFile);
+      formData.append("projectId", projectId);
     }
+    setLoading(false);
   };
 
   return (

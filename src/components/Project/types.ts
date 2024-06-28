@@ -1,6 +1,4 @@
-// types.ts
-
-export type UserRole = "owner" | "collaborator" | "viewer"; // Example roles, add more if needed
+export type UserRole = "owner" | "collaborator" | "viewer";
 
 export interface ProjectUser {
   created_at: string | null;
