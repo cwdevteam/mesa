@@ -33,7 +33,12 @@ export interface ContractDetailsPageProps {
       bps: string;
     }[];
   };
+  contractTime: string | null;
   contractId: string | undefined;
+  contractHistories?: {
+    projectUser: { user_name: string };
+    created_at: string;
+  }[];
 }
 
 export interface UserContextType {
@@ -41,6 +46,7 @@ export interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
   fetchUser: () => void;
 }
+
 export interface UserDetailsProps {
   avatar_url: string | null;
   full_name: string | null;
