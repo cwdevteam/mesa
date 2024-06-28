@@ -6,18 +6,6 @@ import { FilePlusIcon, ReloadIcon } from "@radix-ui/react-icons";
 const UploadButton = ({ projectId }: { projectId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFile: File | null = e.target.files ? e.target.files[0] : null;
-
-    if (newFile) {
-      setLoading(true);
-      const formData = new FormData();
-      formData.append("file", newFile);
-      formData.append("projectId", projectId);
-    }
-    setLoading(false);
-  };
-
   return (
     <div>
       {loading ? (
@@ -37,7 +25,6 @@ const UploadButton = ({ projectId }: { projectId: string }) => {
         type="file"
         id="fileUpload"
         style={{ display: "none" }}
-        onChange={handleFileChange}
         accept=".mp3, .wav, .aif, .aiff"
       />
     </div>
