@@ -8,16 +8,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface ContractHistoryTableProps {
+const ContractHistoryTable: React.FC<{
   contractHistories: {
     projectUser: { user_name: string };
     created_at: string;
   }[];
-}
-
-const ContractHistoryTable: React.FC<ContractHistoryTableProps> = ({
-  contractHistories,
-}) => (
+}> = ({ contractHistories }) => (
   <Table>
     <TableCaption>
       {contractHistories.length ? "List of Signers" : "No signer yet"}
