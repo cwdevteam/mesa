@@ -1,17 +1,17 @@
-import { getWalletClient } from "@wagmi/core";
-import wagmiConfig from "../wagmi/config";
 import { easAbi } from "../abi/eas";
-import { CHAIN, EAS } from "../consts";
+import { EAS } from "../consts";
 
-const attest = async (args: any[]) => {
-  const client = await getWalletClient(wagmiConfig);
-
+const attest = async (writeContracts: any, args: any[]) => {
   try {
-    const tx = await client.writeContract({
-      address: EAS,
-      abi: easAbi,
-      functionName: "attest",
-      args,
+    const tx = await writeContracts({
+      contracts: [
+        {
+          address: EAS,
+          abi: easAbi,
+          functionName: "attest",
+          args
+        }
+      ]
     });
     return tx;
   } catch (err) {
