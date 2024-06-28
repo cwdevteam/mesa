@@ -1,9 +1,9 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { ProjectUserProps, ProjectInvitationProps, ProjectType, User } from ".";
 import { isInvitation } from "./utils";
 import { bpsToPercent } from "@/lib/utils";
 import { InvitationNav } from "../ProjectCollaborators/InvitationNav";
+import { Project, ProjectUser } from "../Project/types";
 
 const InfoCell = ({
   row,
@@ -12,8 +12,8 @@ const InfoCell = ({
   handleActionClick,
 }: {
   row: any;
-  user: User;
-  project?: ProjectType;
+  user: any;
+  project?: Project;
   handleActionClick: (userId: string) => void;
 }) => {
   const flag =
@@ -45,10 +45,10 @@ const InfoCell = ({
 };
 
 export const getColumns = (
-  user: User,
+  user: ProjectUser,
   handleActionClick: (userId: string) => void,
-  project?: ProjectType
-): ColumnDef<ProjectUserProps | ProjectInvitationProps>[] => [
+  project?: Project
+): ColumnDef<any>[] => [
   {
     id: "user_name",
     header: "Shareholder",

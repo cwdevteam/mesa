@@ -1,22 +1,22 @@
-import { Locale } from '@/../i18n.config';
+import { Locale } from "@/../i18n.config";
 
-export type ProjectTab = 'project' | 'contract' | 'setting';
+export type ProjectTab = "project" | "contract" | "setting";
 
 export interface ProjectPageProps {
   params: {
     lang: Locale;
     id: string;
   };
-};
+}
 
 export interface ProjectDetailsComponentProps {
   project: any;
-};
+}
 
 export interface ProjectDetailsCardProps {
   projectName: string;
   projectDescription: string;
-};
+}
 
 export interface ContractDetailsPageProps {
   project: {
@@ -29,8 +29,13 @@ export interface ContractDetailsPageProps {
       bps: string;
     }[];
   };
+  contractTime: string | null;
   contractId: string | undefined;
-};
+  contractHistories?: {
+    projectUser: { user_name: string };
+    created_at: string;
+  }[];
+}
 
 export interface UserData {
   name: string;

@@ -8,7 +8,7 @@ export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
   const currentCollaborators = project?.collaborators as UserData[];
 
   return (
-    <section className="grid mt-4 max-w-auto">
+    <section className="w-full grid mt-4 max-w-auto">
       <h3 className="text-lg font-bold tracking-tight">Collaborators</h3>
       <div className="flex items-center gap-2 justify-end mb-2">
         <Button
