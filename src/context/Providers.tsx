@@ -1,12 +1,11 @@
 import LocaleProvider from "@/context/LocaleContext";
 import DictionaryProvider from "@/context/DictionaryContext";
 import ThemeProvider from "@/context/ThemeProvider";
-
 import { getDictionary } from "@/lib/dictionary";
 import { Locale } from "@/../i18n.config";
 import EASClientProvider from "./EASClientProvider";
 import WagmiProvider from "./WagmiProvider";
-import { AuthProvider } from "./AuthProvider";
+import UserProvider from "./UserProvider";
 
 export default async function Providers({
   children,
@@ -26,9 +25,9 @@ export default async function Providers({
           disableTransitionOnChange
         >
           <WagmiProvider>
-            <AuthProvider>
+            <UserProvider>
               <EASClientProvider>{children}</EASClientProvider>
-            </AuthProvider>
+            </UserProvider>
           </WagmiProvider>
         </ThemeProvider>
       </DictionaryProvider>
