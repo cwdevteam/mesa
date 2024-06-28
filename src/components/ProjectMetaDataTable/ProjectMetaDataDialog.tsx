@@ -6,19 +6,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-type ProjectType = any;
-type ProjectUserProps = any;
-
-export interface ProjectMetaDataDialogProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  project?: ProjectType;
-  selectedUser?: ProjectUserProps;
-  request?: string;
-  roleId?: string;
-  open?: boolean;
-  setOpen?: (value: boolean) => void;
-}
+import { ProjectMetaDataDialogProps } from "../ProjectCollaborators/types";
 
 const ProjectMetaDataDialog = ({
   project,

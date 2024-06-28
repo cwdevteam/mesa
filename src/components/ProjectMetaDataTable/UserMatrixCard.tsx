@@ -5,10 +5,7 @@ import { UserMatrixCardProps } from "@/types/const";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
 import UserMatrixCardDetails from "./UserMatrixCardDetails";
-
-interface ProjectInvitationProps {}
-const isInvitation = (obj: UserMatrixCardProps | ProjectInvitationProps) =>
-  !!(obj as any)?.status;
+import { isInvitation } from "./utils";
 
 const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
   const [selectedUserId, setSelectedUserId] = useState("");
