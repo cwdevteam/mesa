@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 const useProjects = () => {
-  const { address, isConnected, status } = useAccount();
+  const { address } = useAccount();
   const [attestations, setAttestations] = useState<any[]>([]);
 
   useEffect(() => {
@@ -23,9 +23,9 @@ const useProjects = () => {
         console.error("Failed to fetch attestations:", error);
       }
     };
-    if (!address || !isConnected || status === ("disconnected" as any)) return;
+    if (!address) return;
     init();
-  }, [address, isConnected, status]);
+  }, [address]);
 
   return { projects: attestations };
 };

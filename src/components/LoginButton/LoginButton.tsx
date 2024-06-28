@@ -6,8 +6,6 @@ import { useAccount } from "wagmi";
 const LoginButton = () => {
   const { status } = useAccount();
 
-  console.log(status, "poik");
-
   return (
     <div>
       {status === "disconnected" ? <ConnectAccount /> : <DisconnectButton />}
