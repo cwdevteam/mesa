@@ -1,8 +1,7 @@
-import React from "react";
+"use client";
+import { useAccount } from "wagmi";
 import DisconnectButton from "./DisconnectButton";
 import { ConnectAccount } from "@coinbase/onchainkit/wallet";
-import { useAccount } from "wagmi";
-
 const LoginButton = () => {
   const { status } = useAccount();
 

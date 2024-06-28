@@ -1,22 +1,26 @@
-import { Locale } from '@/../i18n.config';
+import { ReactNode } from "react";
 
-export type ProjectTab = 'project' | 'contract' | 'setting';
+import { Locale } from "@/../i18n.config";
+import { PlayMode } from "@/lib/enum";
+import { Address } from "viem";
+
+export type ProjectTab = "project" | "contract" | "setting";
 
 export interface ProjectPageProps {
   params: {
     lang: Locale;
     id: string;
   };
-};
+}
 
 export interface ProjectDetailsComponentProps {
   project: any;
-};
+}
 
 export interface ProjectDetailsCardProps {
   projectName: string;
   projectDescription: string;
-};
+}
 
 export interface ContractDetailsPageProps {
   project: {
@@ -29,8 +33,29 @@ export interface ContractDetailsPageProps {
       bps: string;
     }[];
   };
+  contractTime: string | null;
   contractId: string | undefined;
-};
+  contractHistories?: {
+    projectUser: { user_name: string };
+    created_at: string;
+  }[];
+}
+
+export interface UserContextType {
+  user: UserDetailsProps | null;
+  setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
+  fetchUser: () => void;
+}
+
+export interface UserDetailsProps {
+  avatar_url: string | null;
+  full_name: string | null;
+  userId: string;
+  username: string | null;
+  website: string | null;
+  id: string;
+  addresses: Address[] | null;
+}
 
 export interface UserData {
   name: string;
@@ -38,11 +63,53 @@ export interface UserData {
   role: string;
   bps: string;
 }
-
 export interface UserMatrixCardProps {
   data: UserData;
 }
-
 export interface ProjectCollaboratorsProps {
   project: any;
+}
+export interface MediaControllerProps {
+  musicMockup: {
+    avatar: string;
+    name: string;
+    url: string;
+  }[];
+}
+export interface UseAudioPlayerProps {
+  url: string;
+  volume?: number;
+}
+export interface MediaProviderProps {
+  children: ReactNode;
+}
+
+export interface UseAudioProps {
+  audio: HTMLAudioElement | null;
+  isPlaying: boolean;
+  setCurrentTime: (value: number) => void;
+  setVolume: (value: number) => void;
+  handleSongEnded: () => void;
+}
+
+export interface TimeSliderControllerProps {
+  currentTime: number;
+  duration: number;
+  handleSliderChange: (value: number) => void;
+}
+
+export interface VolumeControlsProps {
+  isMuted: boolean;
+  volume: number;
+  handleVolumeChange: (value: number) => void;
+  handleAudioMute: () => void;
+}
+export interface AudioPlayerProps {
+  isPlaying: boolean;
+  playStatus: PlayMode;
+  currentMedia: number;
+  handlePlayPause: () => void;
+  handleNext: (currentMedia: number) => void;
+  handleBack: (currentMedia: number) => void;
+  setPlayStatus: (playStatus: PlayMode) => void;
 }
