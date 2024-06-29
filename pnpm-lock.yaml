@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@0xsplits/splits-sdk':
+        specifier: ^4.0.3
+        version: 4.0.3(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))
       '@coinbase/onchainkit':
         specifier: ^0.19.6
         version: 0.19.6(g6ksk7igqw537n77l5vbgm6o6m)
@@ -65,6 +68,9 @@ importers:
       '@wagmi/core':
         specifier: ^2.10.5
         version: 2.10.5(@tanstack/query-core@5.40.0)(@types/react@18.2.46)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4)
+      '@zoralabs/protocol-sdk':
+        specifier: ^0.7.1
+        version: 0.7.1(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))
       bun:
         specifier: ^1.1.13
         version: 1.1.17
@@ -164,6 +170,22 @@ importers:
         version: 5.3.3
 
 packages:
+
+  '@0no-co/graphql.web@1.0.7':
+    resolution: {integrity: sha512-E3Qku4mTzdrlwVWGPxklDnME5ANrEGetvYw4i2GCRlppWXXE4QD66j7pwb8HelZwS6LnqEChhrSOGCXpbiu6MQ==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    peerDependenciesMeta:
+      graphql:
+        optional: true
+
+  '@0xsplits/splits-sdk@4.0.3':
+    resolution: {integrity: sha512-qok+mpSM/8prYMJgZr/FubhUotWHPAhaI3pm4ABac5Uu7gBY5Xa2BBjDrLBDx5aF9Rk+BRrkMLVhR5Kl0gvQRQ==}
+    peerDependencies:
+      viem: ^1.0.0 || ^2.0.0
+    peerDependenciesMeta:
+      viem:
+        optional: true
 
   '@aashutoshrathi/word-wrap@1.2.6':
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
@@ -2598,6 +2620,9 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
+  '@urql/core@4.3.0':
+    resolution: {integrity: sha512-wT+FeL8DG4x5o6RfHEnONNFVDM3616ouzATMYUClB6CB+iIu2mwfBKd7xSUxYOZmwtxna5/hDRQdMl3nbQZlnw==}
+
   '@wagmi/connectors@5.0.9':
     resolution: {integrity: sha512-3T3OqMw7wHk5QTBKZ9mW1iH5NSvtGwy59JuApylR5RkVlOP7iYwfGEILYxqBhX8VwTONKkb4G4sxphEQQOYSjg==}
     peerDependencies:
@@ -2706,6 +2731,14 @@ packages:
 
   '@xmtp/proto@3.56.0':
     resolution: {integrity: sha512-zW8/s7x9je0keYjJpu/c5zmYK5wE14MxcDWLkxzMwRmrajwdy69BNN0NgVJ1uBzMUqGTjnGQJANDev8lpa58qQ==}
+
+  '@zoralabs/protocol-deployments@0.1.13':
+    resolution: {integrity: sha512-pAJ+rr7Q6RsulTl2EB+osUJMldGx+Sj/XfrkfOQsScL/RQlu+H6sL0sRVdaG3VLWVd9ua8szIRSeJ+RqwEZNyg==}
+
+  '@zoralabs/protocol-sdk@0.7.1':
+    resolution: {integrity: sha512-WQKYePQGI5e9N/aWdD8V1EVnYGPLWyfVTtz9JHdTEvxvvyaTnVX6IJttgCPU4e1F+wITgM5io1aUGBVljuIjjw==}
+    peerDependencies:
+      viem: ^2.11.1
 
   abitype@0.9.8:
     resolution: {integrity: sha512-puLifILdm+8sjyss4S+fsUN09obiT1g2YW6CtcQF+QDzxR0euzgEB29MZujC6zMk2a6SVmtttq1fc6+YFA7WYQ==}
@@ -2952,6 +2985,9 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  base-64@1.0.0:
+    resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
+
   base-x@3.0.9:
     resolution: {integrity: sha512-H7JU6iBHTal1gp56aKoaa//YUxEaAOUiydvrV/pILqIHXTtqxSkATOnDA2u+jZ/61sD+L/412+7kzXRtWukhpQ==}
 
@@ -3056,7 +3092,6 @@ packages:
 
   bun@1.1.17:
     resolution: {integrity: sha512-x2vUqI75XQ11Qxb3FzQCd/AkbA8A3AiJ35xfw49JeNgu0MTi0RCuW+1zOyFf5iJM0xU07LKf2H69n4ASuEqhtQ==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -5892,6 +5927,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.6.2:
+    resolution: {integrity: sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   send@0.18.0:
     resolution: {integrity: sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==}
     engines: {node: '>= 0.8.0'}
@@ -6593,6 +6633,9 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
+  wonka@6.3.4:
+    resolution: {integrity: sha512-CjpbqNtBGNAeyNS/9W6q3kSkKE52+FjIj7AkFlLr11s/VWGUu6a2CdYSdGxocIhIVjaW/zchesBQUKPVU69Cqg==}
+
   workerpool@6.2.1:
     resolution: {integrity: sha512-ILEIE97kDZvF9Wb9f6h5aXK4swSlKGUcOEGiIYb2OOu/IrDU9iwj0fD//SsA6E5ibwJxpEvhullJY4Sl4GcpAw==}
 
@@ -6782,6 +6825,19 @@ packages:
         optional: true
 
 snapshots:
+
+  '@0no-co/graphql.web@1.0.7(graphql@16.8.1)':
+    optionalDependencies:
+      graphql: 16.8.1
+
+  '@0xsplits/splits-sdk@4.0.3(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))':
+    dependencies:
+      '@urql/core': 4.3.0(graphql@16.8.1)
+      base-64: 1.0.0
+      graphql: 16.8.1
+      lodash: 4.17.21
+    optionalDependencies:
+      viem: 2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4)
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
 
@@ -10074,6 +10130,13 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
+  '@urql/core@4.3.0(graphql@16.8.1)':
+    dependencies:
+      '@0no-co/graphql.web': 1.0.7(graphql@16.8.1)
+      wonka: 6.3.4
+    transitivePeerDependencies:
+      - graphql
+
   '@wagmi/connectors@5.0.9(@types/react@18.2.46)(@wagmi/core@2.10.5(@tanstack/query-core@5.40.0)(@types/react@18.2.46)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4))(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react-i18next@13.5.0(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.2.46)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(utf-8-validate@5.0.10))(react@18.2.0))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.2.46)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(utf-8-validate@5.0.10))(react@18.2.0)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4)':
     dependencies:
       '@coinbase/wallet-sdk': 4.0.3
@@ -10468,6 +10531,14 @@ snapshots:
       rxjs: 7.8.1
       undici: 5.28.2
 
+  '@zoralabs/protocol-deployments@0.1.13': {}
+
+  '@zoralabs/protocol-sdk@0.7.1(viem@2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4))':
+    dependencies:
+      '@zoralabs/protocol-deployments': 0.1.13
+      semver: 7.6.2
+      viem: 2.13.7(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+
   abitype@0.9.8(typescript@5.3.3)(zod@3.22.4):
     optionalDependencies:
       typescript: 5.3.3
@@ -10724,6 +10795,8 @@ snapshots:
       - '@babel/core'
 
   balanced-match@1.0.2: {}
+
+  base-64@1.0.0: {}
 
   base-x@3.0.9:
     dependencies:
@@ -11443,7 +11516,7 @@ snapshots:
       eslint: 8.56.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.56.0))(eslint@8.56.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.56.0)
       eslint-plugin-react: 7.33.2(eslint@8.56.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.56.0)
@@ -11467,7 +11540,7 @@ snapshots:
       enhanced-resolve: 5.15.0
       eslint: 8.56.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.2
       is-core-module: 2.13.1
@@ -11489,7 +11562,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.17.0(eslint@8.56.0)(typescript@5.3.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0):
     dependencies:
       array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.3
@@ -14215,6 +14288,8 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
+  semver@7.6.2: {}
+
   send@0.18.0:
     dependencies:
       debug: 2.6.9
@@ -14988,6 +15063,8 @@ snapshots:
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  wonka@6.3.4: {}
 
   workerpool@6.2.1: {}
 
