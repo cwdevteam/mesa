@@ -34,7 +34,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.38.2",
-    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-query": "^5.49.0",
     "@tanstack/react-table": "^8.10.7",
     "@types/uuid": "^10.0.0",
     "@wagmi/core": "^2.10.5",
