@@ -12,6 +12,7 @@ const useAuthRedirect = () => {
   useEffect(() => {
     const checkUser = async () => {
       const responseLib = await fetchUserByAddress(address as Address);
+      if (pathname.endsWith("/zora")) return; // TODO: remove this
       if (!responseLib) return push("/profile");
       if (pathname === "/en") push("/dashboard");
     };
