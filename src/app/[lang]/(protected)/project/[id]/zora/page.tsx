@@ -1,25 +1,32 @@
 "use client";
 
-import { Chain, HttpTransport, PublicClient } from "viem";
+import { Chain, HttpTransport, PublicClient, getAddress } from "viem";
 import { useAccount, useWalletClient, usePublicClient } from "wagmi";
 import usePredictedSplits from "@/hooks/usePredictedSplits";
 import SplitsCard from "./SplitsCard";
 import ZoraCard from "./ZoraCard";
+import { generatePrivateKey, privateKeyToAddress } from "viem/accounts";
 
-// NOTE: addresses must have valid checksums or splits client will hang
+// TODO: replace dummy splits config with real splits data from project.
+const dummyAddresses = [generatePrivateKey(), generatePrivateKey()].map((key) =>
+  getAddress(privateKeyToAddress(key))
+);
+
+// NOTE: addresses must have valid checksums and percentages or splits client will hang.
 const dummySplitsConfig = {
   recipients: [
     {
-      address: "0xDADe31b9CdA249f9C241114356Ba81349Ca920aB",
-      percentAllocation: 95,
+      address: dummyAddresses[0],
+      percentAllocation: 80,
     },
     {
-      address: "0xbC4D657fAbEe03181d07043E00dbC5751800Ee05",
-      percentAllocation: 5,
+      address: dummyAddresses[1],
+      percentAllocation: 20,
     },
   ],
   distributorFeePercent: 0,
 };
+console.log(dummySplitsConfig);
 
 export default function Zora() {
   const creatorAccount = useAccount().address!; // TODO: Handle null case
