@@ -33,7 +33,12 @@ export interface ContractDetailsPageProps {
       bps: string;
     }[];
   };
+  contractTime: string | null;
   contractId: string | undefined;
+  contractHistories?: {
+    projectUser: { user_name: string };
+    created_at: string;
+  }[];
 }
 
 export interface UserContextType {
@@ -41,6 +46,7 @@ export interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;
   fetchUser: () => void;
 }
+
 export interface UserDetailsProps {
   avatar_url: string | null;
   full_name: string | null;
@@ -106,4 +112,14 @@ export interface AudioPlayerProps {
   handleNext: (currentMedia: number) => void;
   handleBack: (currentMedia: number) => void;
   setPlayStatus: (playStatus: PlayMode) => void;
+}
+
+export interface PaymastersProviderProps {
+  children: ReactNode;
+}
+
+export interface PaymasterContextProps {
+  writeContracts: any;
+  capabilities: any;
+  id: string | undefined;
 }

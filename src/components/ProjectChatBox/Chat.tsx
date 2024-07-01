@@ -1,6 +1,7 @@
-import React from 'react'
+import React from "react";
 
-import { Icons } from '../Icons'
+import { Icons } from "../Icons";
+import { FaceIcon } from "@radix-ui/react-icons";
 
 const Chat = () => {
   return (
@@ -11,6 +12,7 @@ const Chat = () => {
         <div className="flex flex-row w-full">
           <form className="w-full">
             <div className="flex items-center justify-between">
+              <FaceIcon />
               <textarea
                 className="flex mx-4 h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 flex-1 resize-none"
                 name="text"
@@ -29,7 +31,7 @@ const Chat = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;
