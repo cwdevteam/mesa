@@ -9,22 +9,13 @@ import React, {
 } from "react";
 import { useAccount } from "wagmi";
 import { useCapabilities, useWriteContracts } from "wagmi/experimental";
-
-export interface PaymastersProps {
-  children: ReactNode;
-}
-
-interface PaymasterContextProps {
-  writeContracts: any;
-  capabilities: any;
-  id: string | undefined;
-}
+import { PaymasterContextProps, PaymastersProviderProps } from "@/types/const";
 
 const PaymasterContext = createContext<PaymasterContextProps | undefined>(
   undefined
 );
 
-const PaymasterProvider = ({ children }: PaymastersProps) => {
+const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   const account = useAccount();
   const [id, setId] = useState<string | undefined>(undefined);
 
