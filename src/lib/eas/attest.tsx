@@ -1,7 +1,7 @@
 import { easAbi } from "../abi/eas";
 import { EAS } from "../consts";
 
-const attest = async (writeContracts: any, args: any[]) => {
+const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
   try {
     const tx = await writeContracts({
       contracts: [
@@ -11,7 +11,8 @@ const attest = async (writeContracts: any, args: any[]) => {
           functionName: "attest",
           args
         }
-      ]
+      ],
+      capabilities
     });
     return tx;
   } catch (err) {

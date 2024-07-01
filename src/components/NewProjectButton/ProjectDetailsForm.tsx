@@ -12,11 +12,11 @@ import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import { useAccount } from "wagmi";
 import { Address } from "viem";
-import { usePaymaster } from "../../context/Paymasters";
+import { usePaymasterProvider } from "../../context/Paymasters";
 
 export default function ProjectDetailsForm() {
   const { address } = useAccount();
-  const { writeContracts, id } = usePaymaster();
+  const { writeContracts, capabilities, id } = usePaymasterProvider();
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -53,7 +53,7 @@ export default function ProjectDetailsForm() {
         []
       );
       const args = getAttestArgs(encodedAttestation);
-      await attest(writeContracts, args);
+      await attest(writeContracts, capabilities, args);
     } catch (error) {
       toast({
         title: "Error",
@@ -77,7 +77,7 @@ export default function ProjectDetailsForm() {
           autoCapitalize="none"
           autoCorrect="off"
           required
-          onBlur={(e) => setTitle(e.target.value)}
+          onBlur={e => setTitle(e.target.value)}
         />
       </div>
       <div className="grid gap-3">
@@ -88,7 +88,7 @@ export default function ProjectDetailsForm() {
           placeholder=""
           autoCapitalize="none"
           autoCorrect="off"
-          onBlur={(e) => setDescription(e.target.value)}
+          onBlur={e => setDescription(e.target.value)}
         />
       </div>
       <div className="flex gap-3 justify-end">

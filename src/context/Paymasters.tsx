@@ -62,7 +62,7 @@ const PaymasterProvider = ({ children }: PaymastersProps) => {
   );
 };
 
-const usePaymaster = () => {
+const usePaymasterProvider = () => {
   const context = useContext(PaymasterContext);
   if (!context) {
     throw new Error("usePaymaster must be used within a PaymasterProvider");
@@ -70,4 +70,4 @@ const usePaymaster = () => {
   return context;
 };
 
-export { PaymasterProvider, usePaymaster };
+export { PaymasterProvider, usePaymasterProvider };
