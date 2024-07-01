@@ -48,7 +48,7 @@ const PaymasterProvider = ({ children }: PaymastersProps) => {
     ) {
       return {
         paymasterService: {
-          url: process.env.PAYMASTER_SERVICE_URL
+          url: process.env.NEXT_PUBLIC_PAYMASTER_SERVICE_URL
         }
       };
     }
