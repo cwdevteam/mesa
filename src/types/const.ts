@@ -113,3 +113,13 @@ export interface AudioPlayerProps {
   handleBack: (currentMedia: number) => void;
   setPlayStatus: (playStatus: PlayMode) => void;
 }
+
+export interface PaymastersProviderProps {
+  children: ReactNode;
+}
+
+export interface PaymasterContextProps {
+  writeContracts: any;
+  capabilities: any;
+  id: string | undefined;
+}
