@@ -42,10 +42,6 @@ const envSchema = z.object({
   NEXT_PUBLIC_TOS_URL: z.string().url().optional(),
   NEXT_PUBLIC_PP_URL: z.string().url().optional(),
   NEXT_PUBLIC_ACCESS_FORM_URL: z.string().url().optional(),
-  NEXT_PUBLIC_SIGNUPS_OPEN: z.string()
-    .default('')
-    .transform(val => val === 'true' || val === '1')
-    .pipe(z.coerce.boolean()),
   NEXT_PUBLIC_OAUTH_PROVIDERS: z.string()
     .transform(val => val.split(/[, ]+/).filter(Boolean))
     .transform(val => val.length > 0 ? val : undefined)
@@ -63,17 +59,6 @@ const envSchema = z.object({
   NEXT_PUBLIC_SITE_TITLE: z.string().min(3),
   NEXT_PUBLIC_SITE_DESCRIPTION: z.string().min(4),
 })
-.refine(value => {
-  // OAuth is disabled when signups are closed to prevent automatic account
-  // creation. Assumes that OAuth providers array is not empty if present.
-  if (!value.NEXT_PUBLIC_SIGNUPS_OPEN && value.NEXT_PUBLIC_OAUTH_PROVIDERS) {
-    return false
-  }
-  return true
-}, {
-  path: ['NEXT_PUBLIC_OAUTH_PROVIDERS'],
-  message: "OAuth providers not supported while signups are closed",
-})
 
 // Parse and validate env variables.  Without explicit mapping, the bundler may
 // replace process.env with {} and all values will be undefined.
@@ -88,7 +73,6 @@ const parsed = envSchema.safeParse({
   NEXT_PUBLIC_TOS_URL: process.env.NEXT_PUBLIC_TOS_URL,
   NEXT_PUBLIC_PP_URL: process.env.NEXT_PUBLIC_PP_URL,
   NEXT_PUBLIC_ACCESS_FORM_URL: process.env.NEXT_PUBLIC_ACCESS_FORM_URL,
-  NEXT_PUBLIC_SIGNUPS_OPEN: process.env.NEXT_PUBLIC_SIGNUPS_OPEN,
   NEXT_PUBLIC_THIRDWEB_CLIENT_ID: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID,
   NEXT_PUBLIC_SITE_TITLE: process.env.NEXT_PUBLIC_SITE_TITLE,
   NEXT_PUBLIC_SITE_DESCRIPTION: process.env.NEXT_PUBLIC_SITE_DESCRIPTION,

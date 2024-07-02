@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDictionary } from "@/context/DictionaryContext";
-import LoginButton from "./LoginButton";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
@@ -28,7 +27,6 @@ export function ThemeToggle() {
           <span className="sr-only">{dict.toggle}</span>
         </Button>
       </DropdownMenuTrigger>
-      <LoginButton />
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           {dict.light}

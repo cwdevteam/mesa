@@ -123,3 +123,7 @@ export interface PaymasterContextProps {
   capabilities: any;
   id: string | undefined;
 }
+
+export interface ConnectButtonProps {
+  showTextInMobile: boolean;
+}
