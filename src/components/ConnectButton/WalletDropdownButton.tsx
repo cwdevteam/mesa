@@ -11,22 +11,24 @@ import {
 import { Icons } from "../Icons";
 import NoSSR from "../NoSSR";
 import { Button } from "@/components/ui/button";
-import ConnectButton from "./ConnectButton";
+import ConnectButton from ".";
+import { truncateAddress } from "@/lib/utils";
+import useClipboard from "@/hooks/useClipboard";
 
 export default function WalletDropdownButton() {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const { push } = useRouter();
+  const { setClipboard } = useClipboard();
   const [isCopied, setIsCopied] = useState(false);
 
   const onCopyAddress = () => {
-    navigator.clipboard.writeText(address as string);
+    if (!address) return;
+    
+    setClipboard(address);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
-
-  const abbrAddress: any = (addr: `string`) =>
-    addr ? addr.slice(0, 5) + "..." + addr.slice(37, 42) : "";
 
   const redirectProfile = () => {
     push("/profile");
@@ -39,7 +41,9 @@ export default function WalletDropdownButton() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               <Icons.Wallet />
-              <div className="ml-3 hidden sm:block">{abbrAddress(address)}</div>
+              <div className="ml-3 hidden sm:block">
+                {truncateAddress(address)}
+              </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
