@@ -1,10 +1,17 @@
+import { useState } from "react";
+
 const useClipboard = () => {
-  const setClipboard = (text: string) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text as string);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   return {
-    setClipboard
+    isCopied,
+    copyToClipboard
   };
 };
 

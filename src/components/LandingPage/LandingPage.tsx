@@ -1,6 +1,5 @@
 "use client";
 
-import env from "@/env";
 import { useAccount } from "wagmi";
 import ConnectButton from "../ConnectButton";
 
@@ -14,25 +13,6 @@ const LandingPage = ({ dict }: any) => {
             {dict.welcome}
           </h1>
           {!address && <ConnectButton showTextInMobile={false} />}
-          {!env.NEXT_PUBLIC_SIGNUPS_OPEN && (
-            <p className="text-sm text-muted-foreground text-center max-w-[18em]">
-              {dict.accessLimited}
-              {env.NEXT_PUBLIC_ACCESS_FORM_URL && (
-                <>
-                  <br />
-                  <br />
-                  <a
-                    href={env.NEXT_PUBLIC_ACCESS_FORM_URL}
-                    className="underline underline-offset-4 hover:text-primary"
-                    rel="noreferrer noopener"
-                    target="_blank"
-                  >
-                    {dict.signUp}
-                  </a>
-                </>
-              )}
-            </p>
-          )}
         </section>
       </div>
     </main>
