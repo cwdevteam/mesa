@@ -1,14 +1,16 @@
 "use client";
 
 import env from "@/env";
-import LoginButton from "../LoginButton";
+import ConnectButton from "../ConnectButton/ConnectButton";
 
 const LandingPage = ({ dict }: any) => (
   <main className="grid gap-6 sm:gap-12 md:gap-24">
     <div className="grid grid-rows-[1fr_auto_2fr]">
       <section className="row-start-2 grid gap-4 place-items-center container w-fit p-8">
-        <h1 className="text-4xl font-medium tracking-tight">{dict.welcome}</h1>
-        <LoginButton />
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight">
+          {dict.welcome}
+        </h1>
+        <ConnectButton showTextInMobile={false} />
         {!env.NEXT_PUBLIC_SIGNUPS_OPEN && (
           <p className="text-sm text-muted-foreground text-center max-w-[18em]">
             {dict.accessLimited}

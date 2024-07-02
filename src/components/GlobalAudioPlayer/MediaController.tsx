@@ -32,8 +32,8 @@ export const MediaController: React.FC = () => {
     'w-full fixed bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500'
 
   return (
-    <div className={intoClass}>
-      <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap">
+    <div className={`${intoClass} ${'overflow-x-auto sm:overflow-x-hidden'}`}>
+      <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap min-w-[500px]">
         <audio ref={audioRef} hidden />
         <div className="flex-1 flex gap-3">
           <Icons.radio />

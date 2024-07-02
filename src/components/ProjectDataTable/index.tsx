@@ -24,9 +24,9 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <div className="rounded-md border col-span-full">
-        <Table className="table-fixed w-full">
+    <div className="grid grid-cols-1 gap-4 -mt-7">
+      <div className="overflow-x-auto">
+        <Table className="min-w-full divide-y divide-gray-200 border">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -73,7 +73,7 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4 -mt-6">
         <Button
           variant="outline"
           size="sm"
