@@ -1,12 +1,15 @@
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import { use, useState } from "react";
+import usePaymasterAttest from "@/hooks/usePaymasterAttest";
 
 const UpdateProjectButton = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { attest } = usePaymasterAttest();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setLoading(true);
+    await attest();
     setLoading(false);
   };
 
