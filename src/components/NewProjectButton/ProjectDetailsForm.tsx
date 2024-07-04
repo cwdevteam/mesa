@@ -17,7 +17,6 @@ export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const { name, setName, setDescription } = useProjectProvider();
 
-  console.log("SWEETS TITLE", name);
   useEffect(() => {
     if (id !== undefined) {
       toast({
