@@ -1,10 +1,13 @@
 import CreateProjectDialog from "./CreateProjectDialog";
 import CreateButton from "./CreateButton";
+import ProjectProvider from "@/context/ProjectProvider";
 
 const NewProjectButton = () => (
-  <CreateProjectDialog>
-    <CreateButton />
-  </CreateProjectDialog>
+  <ProjectProvider>
+    <CreateProjectDialog>
+      <CreateButton />
+    </CreateProjectDialog>
+  </ProjectProvider>
 );
 
 export default NewProjectButton;
