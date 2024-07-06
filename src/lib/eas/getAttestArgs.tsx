@@ -1,7 +1,7 @@
 import { zeroAddress } from "viem";
 import { ATTESTATION_REF_UID, ATTESTATION_SCHEMA } from "../consts";
 
-const getAttestArgs = (encodedData: string, refUID?: string | string[]) => [
+const getAttestArgs = (encodedData: string, refUID?: string) => [
   {
     schema: ATTESTATION_SCHEMA,
     data: {

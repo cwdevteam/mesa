@@ -11,7 +11,7 @@ const usePaymasterAttest = () => {
   const { name, description } = useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
-  const {id} = useParams()
+  const {id} = useParams<string>()
 
   const attest = async () => {
     const encodedAttestation = getEncodedAttestationData(
