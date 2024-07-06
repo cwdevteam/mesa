@@ -7,11 +7,15 @@ import { Address } from "viem";
 import { useAccount } from "wagmi";
 import { useParams } from 'next/navigation'
 
+type Params = {
+  id: string;
+}
+
 const usePaymasterAttest = () => {
   const { name, description } = useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
-  const {id} = useParams<string>()
+  const { id } = useParams<Params>();
 
   const attest = async () => {
     const encodedAttestation = getEncodedAttestationData(
