@@ -127,3 +127,7 @@ export interface PaymasterContextProps {
 export interface ConnectButtonProps {
   showTextInMobile: boolean;
 }
+
+export interface ProjectIDType {
+  id: string;
+}

@@ -11,11 +11,11 @@ export async function GET(req: NextRequest) {
     const address = searchParams.get("address");
     const logs = await ethGetLogs(address as Address);
     const attestations = await getAttestations(logs);
-    const serializedAttestations = attestations.map((attestation: any) => ({
+    let serializedAttestations = attestations.map((attestation: any) => ({
       ...attestation,
-      result: attestation.result.map((value: any) =>
-        typeof value === "bigint" ? value.toString() : value
-      ),
+      result: attestation.result.map((value: any) => {
+        return typeof value === "bigint" ? value.toString() : value;
+      }),
     }));
 
     return NextResponse.json({ data: serializedAttestations }, { status: 200 });

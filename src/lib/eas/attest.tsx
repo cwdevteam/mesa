@@ -9,10 +9,10 @@ const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
           address: EAS,
           abi: easAbi,
           functionName: "attest",
-          args
-        }
+          args,
+        },
       ],
-      capabilities
+      capabilities,
     });
     return tx;
   } catch (err) {

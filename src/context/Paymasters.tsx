@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useMemo,
-  useState
-} from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { useCapabilities, useWriteContracts } from "wagmi/experimental";
 import { PaymasterContextProps, PaymastersProviderProps } from "@/types/const";
@@ -18,16 +12,24 @@ const PaymasterContext = createContext<PaymasterContextProps | undefined>(
 const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   const account = useAccount();
   const [id, setId] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const { writeContracts } = useWriteContracts({
     mutation: {
       onSuccess: (id: string) => setId(id),
-      onError: (error: any) => setId(error.message)
-    }
+      onError: (error: any) => {
+        setIsSuccess(false);
+        // localStorage.removeItem("name");
+        // localStorage.removeItem("description");
+        setId(error.message);
+        setError(error.message);
+      },
+    },
   });
 
   const { data: availableCapabilities } = useCapabilities({
-    account: account.address
+    account: account.address,
   });
 
   const capabilities = useMemo(() => {
@@ -39,15 +41,17 @@ const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
     ) {
       return {
         paymasterService: {
-          url: process.env.NEXT_PUBLIC_PAYMASTER_SERVICE_URL
-        }
+          url: process.env.NEXT_PUBLIC_PAYMASTER_SERVICE_URL,
+        },
       };
     }
     return {};
   }, [availableCapabilities, account.chainId]);
 
   return (
-    <PaymasterContext.Provider value={{ writeContracts, capabilities, id }}>
+    <PaymasterContext.Provider
+      value={{ writeContracts, capabilities, id, isSuccess, error }}
+    >
       {children}
     </PaymasterContext.Provider>
   );
