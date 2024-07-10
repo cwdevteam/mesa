@@ -28,7 +28,7 @@ const ProjectPage = () => {
   const fetchAttestation = useCallback(async () => {
     const queryParam = address ? `?address=${address}` : "";
     const projects: any = await getProjects(queryParam);
-    debugger;
+
     if (projects?.data.length > 0) {
       let refAttestation = projects.data[projects.data.length - 1];
       refUid = refAttestation.result[5];
