@@ -13,15 +13,11 @@ const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   const account = useAccount();
   const [id, setId] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const { writeContracts } = useWriteContracts({
     mutation: {
       onSuccess: (id: string) => setId(id),
       onError: (error: any) => {
-        setIsSuccess(false);
-        // localStorage.removeItem("name");
-        // localStorage.removeItem("description");
         setId(error.message);
         setError(error.message);
       },
@@ -50,7 +46,7 @@ const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
 
   return (
     <PaymasterContext.Provider
-      value={{ writeContracts, capabilities, id, isSuccess, error }}
+      value={{ writeContracts, capabilities, id, error }}
     >
       {children}
     </PaymasterContext.Provider>
