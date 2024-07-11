@@ -25,10 +25,7 @@ const ProjectPage = () => {
   let uid = id;
   let accountAddress = address;
 
-  const fetchAttestation = useCallback(async () => {
-    const queryParam = address ? `?address=${address}` : "";
-    const projects: any = await getProjects(queryParam);
-
+  const getAddress = (projects: any) => {
     if (projects?.data.length > 0) {
       let refAttestation = projects.data[projects.data.length - 1];
       refUid = refAttestation.result[5];
@@ -37,6 +34,12 @@ const ProjectPage = () => {
         accountAddress = refAttestation.result[7];
       }
     }
+  };
+
+  const fetchAttestation = useCallback(async () => {
+    const queryParam = address ? `?address=${address}` : "";
+    const projects: any = await getProjects(queryParam);
+    getAddress(projects);
     const response = await fetch(
       `/api/attestation?address=${accountAddress}&uid=${uid}`
     );

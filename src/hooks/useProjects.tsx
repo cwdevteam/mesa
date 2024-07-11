@@ -9,8 +9,6 @@ const useProjects = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        // localStorage.removeItem("name");
-        // localStorage.removeItem("description");
         const queryParam = address ? `?address=${address}` : "";
         const data: any = await getProjects(queryParam);
         const decodedAttestations = getDecodedProjectsData(data);

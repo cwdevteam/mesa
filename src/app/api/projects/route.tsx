@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import getAttestations from "@/lib/eas/getAttestations";
 import { ethGetLogs } from "@/lib/alchemy/eth_getLogs";
 import { Address } from "viem";
+import { findUniqueMatches } from "@/lib/eas/getProjects";
 
 export const runtime = "edge";
 
@@ -18,7 +19,14 @@ export async function GET(req: NextRequest) {
       }),
     }));
 
-    return NextResponse.json({ data: serializedAttestations }, { status: 200 });
+    serializedAttestations = findUniqueMatches(
+      serializedAttestations.reverse()
+    );
+
+    return NextResponse.json(
+      { data: serializedAttestations.reverse() },
+      { status: 200 }
+    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
