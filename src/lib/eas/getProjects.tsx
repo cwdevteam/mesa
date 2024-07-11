@@ -33,12 +33,12 @@ export const findUniqueMatches = (attestations: any[]) => {
     }
   }
 
-  // Step 4: Include only one attestation per unique 5th index and not excluded
-  for (let [fifthIndexValue, index] of fifthIndexMap) {
+  // Convert Map to array to iterate over it
+  Array.from(fifthIndexMap.entries()).forEach(([fifthIndexValue, index]) => {
     if (!excludeIndices.has(index)) {
       filteredResults.push(attestations[index]);
     }
-  }
+  });
 
   return filteredResults;
 };
