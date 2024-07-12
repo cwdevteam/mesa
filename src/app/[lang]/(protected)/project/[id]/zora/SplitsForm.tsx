@@ -8,10 +8,10 @@ import { Icons } from "@/components/Icons";
 import type { CreateSplitMutation } from "@/hooks/usePredictedSplits";
 
 export default function SplitsDeployCard({
-  splitsConfig,
+  splitConfig,
   createSplitMutation,
 }: {
-  splitsConfig: CreateSplitConfig;
+  splitConfig: CreateSplitConfig;
   createSplitMutation: CreateSplitMutation;
 }) {
   const [splitsDeployed, setSplitsDeployed] = useState(false);
@@ -35,7 +35,7 @@ export default function SplitsDeployCard({
           <summary>View Config</summary>
           <div className="p-6 rounded-lg bg-muted">
             <pre>
-              <code>{JSON.stringify(splitsConfig, null, 2)}</code>
+              <code>{JSON.stringify(splitConfig, null, 2)}</code>
             </pre>
           </div>
         </details>

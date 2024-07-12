@@ -12,12 +12,12 @@ import SplitsLogo from "./SplitsLogo";
 export default function SplitsCard({
   splitAddress,
   splitExists,
-  splitsConfig,
+  splitConfig,
   createSplitMutation,
 }: {
   splitAddress: Address | undefined;
   splitExists: boolean | undefined;
-  splitsConfig: CreateSplitConfig;
+  splitConfig: CreateSplitConfig;
   createSplitMutation: CreateSplitMutation;
 }) {
   return (
@@ -36,7 +36,7 @@ export default function SplitsCard({
           return (
             <SplitsForm
               createSplitMutation={createSplitMutation}
-              splitsConfig={splitsConfig}
+              splitConfig={splitConfig}
             />
           );
         }

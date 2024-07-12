@@ -19,13 +19,18 @@ import { CHAIN, CHAIN_ID } from "@/lib/consts";
 import { getSplitsClient } from "@/lib/clients/splits";
 
 interface UsePredictedSplitsProps {
-  splitConfig: CreateSplitConfig;
-  publicClient: PublicClient<HttpTransport, Chain>;
-  walletClient: WalletClient;
-  creatorAccount: Address;
+  splitConfig: CreateSplitConfig | null;
+  publicClient: PublicClient<HttpTransport, Chain> | null;
+  walletClient: WalletClient | null;
+  creatorAccount: Address | null;
 }
 
-export type CreateSplitMutation = UseMutationResult<Hash, Error, void, unknown>;
+export type CreateSplitMutation = UseMutationResult<
+  Hash | null,
+  Error,
+  void,
+  unknown
+>;
 
 const usePredictedSplits = ({
   splitConfig,
@@ -40,23 +45,34 @@ const usePredictedSplits = ({
     splitConfig,
   ];
 
-  const splitsClient = getSplitsClient({
-    chainId: CHAIN_ID,
-    publicClient: publicClient,
-  });
+  const splitsClient =
+    publicClient &&
+    getSplitsClient({
+      chainId: CHAIN_ID,
+      publicClient,
+    });
+
+  const enabled =
+    !!splitsClient &&
+    !!splitConfig &&
+    !!publicClient &&
+    !!walletClient &&
+    !!creatorAccount;
 
   const predictedSplitAddressQuery = useQuery({
     queryKey: predictedSplitAddressQueryKey,
     queryFn: async () => {
-      return splitsClient.predictImmutableSplitAddress(splitConfig);
+      return splitsClient!.predictImmutableSplitAddress(splitConfig!);
     },
     staleTime: (query) => {
       return query.state.data?.splitExists ? Infinity : 30000;
     },
+    enabled,
   });
 
   const createSplitMutation: CreateSplitMutation = useMutation({
     mutationFn: async () => {
+      if (!enabled) return null;
       const { data, address } = await splitsClient.callData.createSplit(
         splitConfig
       );
