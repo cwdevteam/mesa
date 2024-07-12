@@ -20,7 +20,7 @@ const useUser = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { user, fetchUser };
+  return { user, fetchUser, setUser };
 };
 
 export default useUser;

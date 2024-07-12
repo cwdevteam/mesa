@@ -6,7 +6,7 @@ import { ReactNode, createContext, useContext, useMemo } from "react";
 const UserContext = createContext({} as any);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const user = useUser();
+  const { user, setUser } = useUser();
 
   const value = useMemo(
     () => ({
@@ -15,7 +15,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     [user]
   );
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ value, user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export const useUserProvider = () => {

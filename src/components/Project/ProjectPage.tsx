@@ -21,7 +21,12 @@ const ProjectPage = () => {
         <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
       </div>
       {tabContent === "project" && MockData && (
-        <ProjectDetailsComponent project={MockData} />
+        <ProjectDetailsComponent
+          setTabContent={(tab: ProjectTab) => {
+            onTabChange(tab);
+          }}
+          project={MockData}
+        />
       )}
       {tabContent === "contract" && (
         <ContractDetailsPage
