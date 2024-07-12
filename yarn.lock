@@ -1841,6 +1841,11 @@
   resolved "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
+"@soundxyz/sdk@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@soundxyz/sdk/-/sdk-7.1.0.tgz#a2a492ddc19b0ac988043c099e5b19abeb0b0d8a"
+  integrity sha512-B18CeqoMN70Xib1Uwcua7GoT1JKjPAp6QZ2IGV3hhbjUH9Cv87VHmGgpSCgw90Nm7KAnebp94SdHrocUEONnJA==
+
 "@stablelib/aead@^1.0.1":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@stablelib/aead/-/aead-1.0.1.tgz"
