@@ -122,8 +122,13 @@ export interface PaymasterContextProps {
   writeContracts: any;
   capabilities: any;
   id: string | undefined;
+  error: string | undefined;
 }
 
 export interface ConnectButtonProps {
   showTextInMobile: boolean;
 }
+
+export type ProjectIDType = {
+  id: string;
+};

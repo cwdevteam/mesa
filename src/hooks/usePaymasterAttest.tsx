@@ -5,11 +5,14 @@ import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import { Address } from "viem";
 import { useAccount } from "wagmi";
+import { useParams } from "next/navigation";
+import { ProjectIDType } from "@/types/const";
 
 const usePaymasterAttest = () => {
   const { name, description } = useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
+  const { id } = useParams<ProjectIDType>();
 
   const attest = async () => {
     const encodedAttestation = getEncodedAttestationData(
@@ -19,7 +22,7 @@ const usePaymasterAttest = () => {
       [address as Address],
       []
     );
-    const args = getAttestArgs(encodedAttestation);
+    const args = getAttestArgs(encodedAttestation, id);
     easAttest(writeContracts, capabilities, args);
   };
 
