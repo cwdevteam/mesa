@@ -9,10 +9,7 @@ import UploadButton from "../Project/UploadButton";
 const ProjectDetailsComponent = ({ project }: ProjectDetailsComponentProps) => {
   return (
     <div className="flex flex-col items-center lg:items-start gap-2 w-full">
-      <ProjectDetailsCard
-        projectDescription={String(project?.description)}
-        projectName={String(project?.name)}
-      />
+      <ProjectDetailsCard />
       <div className="flex flex-col lg:flex-row-reverse gap-8 w-full">
         <div className="w-full">
           <ProjectCollaborators project={project} />
