@@ -7,18 +7,13 @@ import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsCompo
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
-import { useAccount } from "wagmi";
 import { useProjectProvider } from "@/context/ProjectProvider";
-import { usePaymasterProvider } from "@/context/Paymasters";
-import { fetchAttestation } from "@/lib/eas/fetchAttestation";
 import useAttestation from "@/hooks/useAttestation";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
   const [data, setData] = useState(null);
-  const { address } = useAccount();
   const { setName, setDescription } = useProjectProvider();
-  const { error }: any = usePaymasterProvider();
   const { dashboardData }: any = useAttestation();
 
   const fetchData = async () => {
