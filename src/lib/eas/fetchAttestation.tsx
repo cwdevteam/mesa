@@ -4,7 +4,7 @@ import MockData from "@/components/Project/project.json";
 export const fetchAttestation = async (attestation: any) => {
   const mapped = getDecodedAttestationData(attestation);
   const extractedData: any = {};
-  mapped.flat().forEach((item) => {
+  mapped.flat().forEach((item: any) => {
     if (item.value && item.value.name) {
       const key = item.name === "metadataUri" ? "description" : item.name;
       extractedData[key] = item.value.value;

@@ -4,7 +4,7 @@ import { fetchAttestation } from "@/lib/eas/fetchAttestation";
 import useAttestationRead from "@/hooks/useAttestationRead";
 
 const useAttestation = () => {
-  const { attestationData } = useAttestationRead();
+  const { attestationData }: any = useAttestationRead();
   const [dashboardData, setDashboardData] = useState<UserDetailsProps | null>(
     null
   );
