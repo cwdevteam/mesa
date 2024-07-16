@@ -15,24 +15,15 @@ import { fetchAttestation } from "@/lib/eas/fetchAttestation";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
-  const [mockData, setMockData] = useState(null);
+  const [data, setData] = useState(null);
   const { address } = useAccount();
   const { setName, setDescription } = useProjectProvider();
   const { id } = useParams<ProjectIDType>();
   const { error }: any = usePaymasterProvider();
-  let refUid = "";
-  let uid = id;
-  let accountAddress = address;
 
   const fetchData = async () => {
-    let { dashboardData }: any = await fetchAttestation(
-      address,
-      refUid,
-      accountAddress,
-      uid,
-      id
-    );
-    setMockData(dashboardData);
+    let { dashboardData }: any = await fetchAttestation(address, id);
+    setData(dashboardData);
     setName(dashboardData["name"]);
     setDescription(dashboardData["description"]);
   };
@@ -51,8 +42,8 @@ const ProjectPage = () => {
       <div className="mb-10 h-5">
         <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
       </div>
-      {tabContent === "project" && mockData && (
-        <ProjectDetailsComponent project={mockData} />
+      {tabContent === "project" && data && (
+        <ProjectDetailsComponent project={data} />
       )}
       {tabContent === "contract" && (
         <ContractDetailsPage
