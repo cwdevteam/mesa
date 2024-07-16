@@ -4,15 +4,15 @@ import MockData from "@/components/Project/project.json";
 import { getAddress } from "@/lib/eas/getAddress";
 
 export const fetchAttestation = async (
-  address,
-  refUid,
-  accountAddress,
-  uid,
-  id
+  address: any,
+  refUid: string,
+  accountAddress: any,
+  uid: string,
+  id: string
 ) => {
   const queryParam = address ? `?address=${address}` : "";
   const projects: any = await getProjects(queryParam);
-  let addressData = getAddress(projects, refUid, accountAddress, uid, id);
+  let addressData: any = getAddress(projects, refUid, accountAddress, uid, id);
   const response = await fetch(
     `/api/attestation?address=${addressData.accountAddress}&uid=${addressData.uid}`
   );

@@ -25,7 +25,7 @@ const ProjectPage = () => {
   let accountAddress = address;
 
   const fetchData = async () => {
-    let { dashboardData } = await fetchAttestation(
+    let { dashboardData }: any = await fetchAttestation(
       address,
       refUid,
       accountAddress,
