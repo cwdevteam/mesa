@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectTabs from "../ProjectTabs";
 import { ProjectIDType, ProjectTab } from "@/types/const";
 import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsComponent";
@@ -8,11 +8,10 @@ import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
 import { useAccount } from "wagmi";
-import getDecodedAttestationData from "@/lib/eas/getDecodedAttestationData";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import { useParams } from "next/navigation";
 import { usePaymasterProvider } from "@/context/Paymasters";
-import { getProjects } from "@/lib/eas/getProjects";
+import { fetchAttestation } from "@/lib/eas/fetchAttestation";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
@@ -25,47 +24,21 @@ const ProjectPage = () => {
   let uid = id;
   let accountAddress = address;
 
-  const getAddress = (projects: any) => {
-    if (projects?.data.length > 0) {
-      let refAttestation = projects.data[projects.data.length - 1];
-      refUid = refAttestation.result[5];
-      if (refUid === id) {
-        uid = refAttestation.result[0];
-        accountAddress = refAttestation.result[7];
-      }
-    }
-  };
-
-  const fetchAttestation = useCallback(async () => {
-    const queryParam = address ? `?address=${address}` : "";
-    const projects: any = await getProjects(queryParam);
-    getAddress(projects);
-    const response = await fetch(
-      `/api/attestation?address=${accountAddress}&uid=${uid}`
+  const fetchData = async () => {
+    let { dashboardData } = await fetchAttestation(
+      address,
+      refUid,
+      accountAddress,
+      uid,
+      id
     );
-    if (!response.ok) return false;
-    const data = await response.json();
-    const mapped = data.data.map((attestation: any) =>
-      getDecodedAttestationData(attestation.result)
-    );
-    const extractedData: any = {};
-    mapped.forEach((subArray: any) => {
-      subArray.forEach((item: any) => {
-        const key = item.name === "metadataUri" ? "description" : item.name;
-        extractedData[key] = item?.value?.value;
-      });
-    });
-    let dashboardData: any = MockData;
-    dashboardData["name"] = extractedData["title"];
-    dashboardData["description"] = extractedData["description"];
     setMockData(dashboardData);
     setName(dashboardData["name"]);
     setDescription(dashboardData["description"]);
-    return extractedData;
-  }, []);
+  };
 
   useEffect(() => {
-    fetchAttestation();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 

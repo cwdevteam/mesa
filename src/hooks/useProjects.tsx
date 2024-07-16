@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { getDecodedProjectsData, getProjects } from "@/lib/eas/getProjects";
+import { getProjects } from "@/lib/eas/getProjects";
+import { getDecodedProjectsData } from "@/lib/eas/getDecodedProjectsData";
 
 const useProjects = () => {
   const { address } = useAccount();
