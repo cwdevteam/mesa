@@ -1,16 +1,13 @@
-import { getProjects } from "@/lib/eas/getProjects";
 import getDecodedAttestationData from "@/lib/eas/getDecodedAttestationData";
 import MockData from "@/components/Project/project.json";
 import { getAddress } from "@/lib/eas/getAddress";
 
-export const fetchAttestation = async (address: any, id: string) => {
-  let refUid = "";
-  let uid = id;
-  let accountAddress = address;
-
-  const queryParam = address ? `?address=${address}` : "";
-  const projects: any = await getProjects(queryParam);
-  let addressData: any = getAddress(projects, refUid, accountAddress, uid, id);
+export const fetchAttestation = async (
+  projects: any,
+  address: any,
+  id: string
+) => {
+  let addressData: any = getAddress(projects, address, id);
   const response = await fetch(
     `/api/attestation?address=${addressData.accountAddress}&uid=${addressData.uid}`
   );

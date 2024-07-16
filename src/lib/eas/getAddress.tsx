@@ -1,16 +1,12 @@
-export const getAddress = (
-  projects: any,
-  refUid: string,
-  accountAddress: string,
-  uid: string,
-  id: string
-) => {
-  if (projects?.data.length > 0) {
-    let refAttestation = projects.data[projects.data.length - 1];
-    refUid = refAttestation.result[5];
-    if (refUid === id) {
-      uid = refAttestation.result[0];
-      accountAddress = refAttestation.result[7];
+export const getAddress = (projects: any, address: string, uid: string) => {
+  let refUid = "";
+  let accountAddress = address;
+  if (projects?.length > 0) {
+    let refAttestation = projects[projects.length - 1];
+    refUid = refAttestation[5].value.value[5];
+    if (refUid === uid) {
+      uid = refAttestation[5].value.value[0];
+      accountAddress = refAttestation[5].value.value[7];
     }
   }
   return { uid, accountAddress };
