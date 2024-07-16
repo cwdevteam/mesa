@@ -10,7 +10,7 @@ const useAttestationRead = () => {
   const attestationData = useContractRead({
     address: EAS,
     abi: easAbi,
-    functionName: "getAttestation", // The function name in your smart contract
+    functionName: "getAttestation",
     args: [id],
   });
 
