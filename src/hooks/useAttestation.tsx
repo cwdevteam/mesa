@@ -1,34 +1,25 @@
-import { ProjectIDType, UserDetailsProps } from "@/types/const";
+import { UserDetailsProps } from "@/types/const";
 import { useCallback, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
 import { fetchAttestation } from "@/lib/eas/fetchAttestation";
-import { useParams } from "next/navigation";
-import useProjects from "@/hooks/useProjects";
+import useAttestationRead from "@/hooks/useAttestationRead";
 
 const useAttestation = () => {
-  const { address } = useAccount();
-  const { id } = useParams<ProjectIDType>();
-  const { projects } = useProjects();
-
+  const { attestationData } = useAttestationRead();
   const [dashboardData, setDashboardData] = useState<UserDetailsProps | null>(
     null
   );
 
   const fetchData = useCallback(async () => {
-    if (projects.length > 0 && address) {
-      let { dashboardData }: any = await fetchAttestation(
-        projects,
-        address,
-        id
-      );
+    if (attestationData.data.length > 0) {
+      let { dashboardData }: any = await fetchAttestation(attestationData.data);
       setDashboardData(dashboardData);
     }
-  }, [projects, address]);
+  }, [attestationData]);
 
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projects, address]);
+  }, [attestationData]);
 
   return { dashboardData };
 };

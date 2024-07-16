@@ -1,31 +1,17 @@
 import getDecodedAttestationData from "@/lib/eas/getDecodedAttestationData";
 import MockData from "@/components/Project/project.json";
-import { getAddress } from "@/lib/eas/getAddress";
 
-export const fetchAttestation = async (
-  projects: any,
-  address: any,
-  id: string
-) => {
-  let addressData: any = getAddress(projects, address, id);
-  const response = await fetch(
-    `/api/attestation?address=${addressData.accountAddress}&uid=${addressData.uid}`
-  );
-  if (!response.ok) return false;
-  const data = await response.json();
-  const mapped = data.data.map((attestation: any) =>
-    getDecodedAttestationData(attestation.result)
-  );
+export const fetchAttestation = async (attestation: any) => {
+  const mapped = getDecodedAttestationData(attestation);
   const extractedData: any = {};
-  mapped.forEach((subArray: any) => {
-    subArray.forEach((item: any) => {
+  mapped.flat().forEach((item) => {
+    if (item.value && item.value.name) {
       const key = item.name === "metadataUri" ? "description" : item.name;
-      extractedData[key] = item?.value?.value;
-    });
+      extractedData[key] = item.value.value;
+    }
   });
   let dashboardData: any = MockData;
   dashboardData["name"] = extractedData["title"];
   dashboardData["description"] = extractedData["description"];
-
   return { extractedData, dashboardData };
 };
