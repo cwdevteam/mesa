@@ -1,4 +1,4 @@
-const getAddress = (projects: any, refUid, accountAddress, uid, id) => {
+export const getAddress = (projects: any, refUid, accountAddress, uid, id) => {
   if (projects?.data.length > 0) {
     let refAttestation = projects.data[projects.data.length - 1];
     refUid = refAttestation.result[5];

@@ -1,6 +1,7 @@
 import { getProjects } from "@/lib/eas/getProjects";
 import getDecodedAttestationData from "@/lib/eas/getDecodedAttestationData";
 import MockData from "@/components/Project/project.json";
+import { getAddress } from "@/lib/eas/getAddress";
 
 export const fetchAttestation = async (
   address,
