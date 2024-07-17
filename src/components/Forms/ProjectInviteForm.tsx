@@ -10,10 +10,9 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import InviteProjectButton from "../InviteProjectButton";
 import { useState } from "react";
-import axios from "axios";
-import { User } from "@/components/Project/types";
 import { ProjectType } from "@/components/ProjectCollaborators/types";
 import { ProjectIDType } from "@/types/const";
+import axios from "axios";
 
 export default function ProjectInviteForm({
   user,

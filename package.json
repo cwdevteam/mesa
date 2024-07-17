@@ -37,6 +37,7 @@
     "@tanstack/react-table": "^8.10.7",
     "@types/uuid": "^10.0.0",
     "@wagmi/core": "^2.10.5",
+    "axios": "^1.7.2",
     "bun": "^1.1.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
