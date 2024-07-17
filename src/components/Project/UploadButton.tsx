@@ -15,10 +15,7 @@ const UploadButton = () => {
   const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("SWEETS", file.name);
-      console.log("Selected file:", file);
       const { uri } = await uploadFile(file);
-      console.log("IPFS URI:", uri);
       setContentHash(uri);
       setFileSelected(true);
     }

@@ -16,14 +16,10 @@ const usePaymasterAttest = () => {
   const { id } = useParams<ProjectIDType>();
 
   const attest = async () => {
-    console.log("Attesting to project", id);
-    console.log("name", name);
-    console.log("address", address);
     const { uri: metadataUri } = await uploadJson({
       description: description,
       animation_url: contentHash,
     });
-    console.log("metadataUri", metadataUri);
     const encodedAttestation = getEncodedAttestationData(
       name,
       metadataUri,
