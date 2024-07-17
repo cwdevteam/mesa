@@ -28,6 +28,7 @@ const EditingButtons = () => {
         ...user!,
         addresses: [address as Address],
       };
+      console.log("SWEETS Updated User Data", updatedUserData);
       await updateUser(updatedUserData);
       await push("/dashboard");
       setEditing(false);
