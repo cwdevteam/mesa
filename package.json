@@ -18,6 +18,7 @@
     "db:types": "supabase gen types typescript --local --schema public,auth,storage,mesa > src/types/supabase.ts"
   },
   "dependencies": {
+    "@0xsplits/splits-sdk": "^4.0.3",
     "@coinbase/onchainkit": "^0.19.6",
     "@coinbase/wallet-sdk": "^4.0.3",
     "@ethereum-attestation-service/eas-contracts": "^1.3.7",
@@ -33,10 +34,11 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.38.2",
-    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-query": "^5.49.0",
     "@tanstack/react-table": "^8.10.7",
     "@types/uuid": "^10.0.0",
     "@wagmi/core": "^2.10.5",
+    "@zoralabs/protocol-sdk": "^0.7.1",
     "bun": "^1.1.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -77,5 +79,6 @@
   ],
   "overrides": {
     "next": "^14"
-  }
+  },
+  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }
