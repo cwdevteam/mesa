@@ -36,7 +36,7 @@ export const MediaSheet: React.FC = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="border-none pl-2" variant={'outline'}>
+        <Button className="border-none pl-2" variant={'link'}>
           <Icons.musiclist />
         </Button>
       </SheetTrigger>
@@ -52,7 +52,7 @@ export const MediaSheet: React.FC = () => {
               key={index}
               className={`flex flex-col sm:flex-row sm:h-auto my-5 mx-2 rounded-md border hover:shadow-md border-[#313338] ${
                 index === currentMedia && 'shadow-[0_2px_2px_rgba(8,_112,_184,_0.7)]'
-              } hover:bg-gray-900`}
+              } hover:bg-gray-600`}
             >
               <div className="flex justify-center items-center w-full sm:w-[50%] sm:m-2 p-2 sm:p-0 border-b sm:border-b-0 sm:border-r border-[#313338] rounded-md"></div>
               <div className="w-full flex flex-col justify-center items-center text-lg group">

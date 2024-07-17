@@ -1,7 +1,7 @@
 import React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 import { ProjectTab } from "@/types/const";
+import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 
 const ProjectTabs = ({
   tabContent,

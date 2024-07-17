@@ -1,14 +1,11 @@
 "use client";
-
-import Link from "next/link";
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
+import { columns } from "./ProjectDataTableColumns";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -18,57 +15,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { DateFormat, DateFormatProps } from "@/components/DateFormat";
-import { useLocale } from "@/context/LocaleContext";
-import { IS_TESTNET } from "@/lib/consts";
-
-function DateFormatWithLang({ date }: Omit<DateFormatProps, "lang">) {
-  const lang = useLocale();
-  return <DateFormat date={date} lang={lang} />;
-}
-
-// Define the columns
-const columns: ColumnDef<any>[] = [
-  {
-    id: "title",
-    header: "Title",
-    cell: ({ row }) => {
-      const title = row.original[0].value.value;
-      const uid = row.original[5].value.value[0];
-      return (
-        <Link href={`/project/${uid}`} className="underline">
-          {title}
-        </Link>
-      );
-    },
-  },
-  {
-    id: "description",
-    header: "Description",
-    cell: ({ row }) => (
-      <p className="truncate">{row.original[1].value.value}</p>
-    ),
-  },
-  {
-    id: "uid",
-    header: "Project ID",
-    cell: ({ row }) => {
-      const uid = row.original[5].value.value[0];
-
-
-      return (
-        <a
-          href={ `https://base${IS_TESTNET ? "-sepolia" : ""}.easscan.org/attestation/view/${uid}`}
-          target="_blank"
-        >
-          <p className="truncate underline">{`${uid.substring(0,5)}...${uid.substring(uid.length - 4)}`}</p>
-        </a>
-      );
-    },
-  },
-];
-
-// Define the DataTable component
 export const ProjectDataTable = ({ data }: { data: any[] }) => {
   const table = useReactTable({
     data,
@@ -78,9 +24,9 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      <div className="rounded-md border col-span-full">
-        <Table className="table-fixed w-full">
+    <div className="grid grid-cols-1 gap-4 -mt-7">
+      <div className="overflow-x-auto">
+        <Table className="min-w-full divide-y divide-gray-200 border">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -127,7 +73,7 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4 -mt-6">
         <Button
           variant="outline"
           size="sm"

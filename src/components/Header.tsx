@@ -9,7 +9,7 @@ import { Locale } from "@/../i18n.config";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
-import { UserNav } from "@/components/UserNav";
+import WalletDropdownButton from "./ConnectButton/WalletDropdownButton";
 
 export default async function Header({
   lang,
@@ -28,9 +28,7 @@ export default async function Header({
         </Link>
         <div className="flex gap-4 ml-auto">
           <ThemeToggle />
-          {user && (
-            <UserNav user={user} lang={lang} dict={dict.auth.signOutButton} />
-          )}
+          <WalletDropdownButton />
         </div>
       </div>
     </header>

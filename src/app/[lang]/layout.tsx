@@ -12,6 +12,7 @@ import MediaPlayer from '@/components/GlobalAudioPlayer/MediaPlayer'
 import '@/app/globals.css'
 import { getDictionary } from '@/lib/dictionary'
 import { ToastQuery } from '@/components/ToastQuery'
+import { PaymasterProvider } from '@/context/Paymasters'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -41,7 +42,7 @@ export default async function RootLayout({
         <Providers lang={lang}>
           <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-full h-fit max-h-full">
             <Header lang={lang} dict={dict} />
-            {children}
+            <PaymasterProvider>{children}</PaymasterProvider>
             <MediaPlayer />
           </div>
           <ToastQuery />

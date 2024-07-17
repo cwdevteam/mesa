@@ -1,0 +1,18 @@
+{
+  "name": "CC0lab",
+  "contractHistories": [
+    {
+      "projectUser": { "user_name": "User new name" },
+      "created_at": "10-02-2024"
+    }
+  ],
+  "description": "We are CC0lab – a group of musicians, devs, artists, and rabble-rousers focused on bringing open-source music to the Web3 multiverse. Born from the Headless.",
+  "collaborators": [
+    {
+      "name": "greydient",
+      "contractType": "Master",
+      "role": "Owner",
+      "bps": "4.00%"
+    }
+  ]
+}
