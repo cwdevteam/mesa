@@ -881,6 +881,37 @@ export interface Database {
   };
   public: {
     Tables: {
+      collaborators: {
+        Row: {
+          id?: string;
+          member_name: string | null;
+          email: string | null;
+          message: string | null;
+          owner: string | null;
+          project_id: string | null;
+          invite_person_name: string | null;
+        };
+        Insert: {
+          id?: string;
+          member_name: string | null;
+          email: string | null;
+          message: string | null;
+          owner: string | null;
+          project_id: string | null;
+          invite_person_name: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          member_name: string | null;
+          email: string | null;
+          message: string | null;
+          owner: string | null;
+          project_id: string | null;
+          invite_person_name: string | null;
+          updated_at?: string | null;
+        };
+      };
       profiles: {
         Row: {
           id?: string;
