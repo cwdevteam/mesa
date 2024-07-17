@@ -1,6 +1,7 @@
 import { IS_TESTNET } from "@/lib/consts";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import Description from "./Description";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -19,9 +20,9 @@ export const columns: ColumnDef<any>[] = [
   {
     id: "description",
     header: "Description",
-    cell: ({ row }) => (
-      <p className="truncate">{row.original[1].value.value}</p>
-    ),
+    cell: ({ row }) => {
+      return <Description row={row} />;
+    },
   },
   {
     id: "uid",
