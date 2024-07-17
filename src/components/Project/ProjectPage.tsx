@@ -9,25 +9,32 @@ import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import useAttestation from "@/hooks/useAttestation";
+import axios from "axios";
+import { useUserProvider } from "@/context/UserProvider";
+import { getCollaboratorData } from "@/lib/collaborator/getCollaborator";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
   const [data, setData] = useState(null);
   const { setName, setDescription } = useProjectProvider();
   const { dashboardData }: any = useAttestation();
+  const { user } = useUserProvider();
 
   const fetchData = async () => {
     if (dashboardData) {
-      setData(dashboardData);
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
+      const { data } = await axios.get("/api/collaborators/");
+      let collaborators = getCollaboratorData(data, user);
+      dashboardData["collaborators"] = collaborators;
+      setData(dashboardData);
     }
   };
 
   useEffect(() => {
-    dashboardData && fetchData();
+    dashboardData && user && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboardData]);
+  }, [dashboardData, user]);
 
   const onTabChange = (tab: ProjectTab) => {
     setTabContent(tab);

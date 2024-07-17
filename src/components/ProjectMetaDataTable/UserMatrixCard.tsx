@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-
 import { UserMatrixCardProps } from "@/types/const";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
@@ -27,15 +26,12 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
   return (
     <div className="w-full rounded-md overflow-hidden shadow-lg border  my-4">
       <div className="px-6 py-4 flex w-full">
-        <Avatar className="h-7 w-7">
-          <AvatarImage
-            src={`https://avatar.vercel.sh/${"user?.id"}.svg`}
-            alt="avatar"
-          />
+        <Avatar className="h-9 w-9">
+          <AvatarImage src={"/static/default-avatar.png"} alt="avatar" />
           <AvatarFallback> ME</AvatarFallback>
         </Avatar>
         <div className="font-bold w-full text-lg flex ml-6 items-center">
-          <div>{data.name || "Username"}</div>
+          <div className="w-[200px]">{data.name || "Username"}</div>
           <div>
             {isInvitation(data) === false ? (
               <div className="ml-3 w-3 h-3 bg-green-600 rounded-md"></div>
@@ -53,14 +49,19 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
           </div>
         </div>
       </div>
-      <UserMatrixCardDetails data={data} />
-      <ProjectMetaDataDialog
-        open={editModal}
-        setOpen={setEditModal}
-        request={requestType}
-        roleId={roleId}
-        project={data}
-      />
+
+      {!data.status && (
+        <>
+          <UserMatrixCardDetails data={data} />
+          <ProjectMetaDataDialog
+            open={editModal}
+            setOpen={setEditModal}
+            request={requestType}
+            roleId={roleId}
+            project={data}
+          />
+        </>
+      )}
     </div>
   );
 };

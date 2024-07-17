@@ -62,6 +62,7 @@ export interface UserData {
   contractType: string;
   role: string;
   bps: string;
+  status: boolean;
 }
 export interface UserMatrixCardProps {
   data: UserData;

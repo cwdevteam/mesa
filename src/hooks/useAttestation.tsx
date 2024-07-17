@@ -10,7 +10,7 @@ const useAttestation = () => {
   );
 
   const fetchData = useCallback(async () => {
-    if (attestationData.data.length > 0) {
+    if (attestationData?.data?.length > 0) {
       let { dashboardData }: any = await fetchAttestation(attestationData.data);
       setDashboardData(dashboardData);
     }
