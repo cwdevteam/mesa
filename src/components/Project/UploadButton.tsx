@@ -8,7 +8,7 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import { useState } from "react";
 
 const UploadButton = () => {
-  const { setContentHash } = useProjectProvider();
+  const { setAnimationUrl } = useProjectProvider();
   const { attest } = usePaymasterAttest();
   const [fileSelected, setFileSelected] = useState(false);
 
@@ -16,7 +16,7 @@ const UploadButton = () => {
     const file = event.target.files[0];
     if (file) {
       const { uri } = await uploadFile(file);
-      setContentHash(uri);
+      setAnimationUrl(uri);
       setFileSelected(true);
     }
   };

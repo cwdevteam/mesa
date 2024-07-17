@@ -4,7 +4,7 @@ const useProject = () => {
   const [id, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [contentHash, setContentHash] = useState<string>("");
+  const [animationUrl, setAnimationUrl] = useState<string>("");
 
   return {
     id,
@@ -13,8 +13,8 @@ const useProject = () => {
     setName,
     description,
     setDescription,
-    contentHash,
-    setContentHash,
+    animationUrl,
+    setAnimationUrl,
   };
 };
 
