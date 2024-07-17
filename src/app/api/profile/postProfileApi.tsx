@@ -9,7 +9,6 @@ import createNewUser from "@/lib/supabase/user/createNewUser";
 const postProfileApi = async (req: NextRequest) => {
   try {
     const { user }: { user: UserDetailsProps } = await req.json();
-    console.log("SWEETS user", user);
     const { userId } = user;
     if (!userId) {
       const data = await createNewUser(user);
@@ -17,7 +16,6 @@ const postProfileApi = async (req: NextRequest) => {
       return NextResponse.json({ data: response }, { status: 200 });
     }
     const existingUser = await getUserByAddress(user.userId as Address);
-    console.log("SWEETS existingUser", existingUser);
     const { id } = existingUser[0];
     const data = await updateExistingUser(id as string, user);
     const response = data as UserDetailsProps;

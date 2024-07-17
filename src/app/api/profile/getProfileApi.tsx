@@ -6,12 +6,10 @@ import { Address } from "viem";
 const getProfileApi = async (req: NextRequest) => {
   try {
     const address = new URL(req.nextUrl).searchParams.get("address");
-    console.log("SWEETS address", address);
     if (!address) {
       return handleError("Missing address parameter", 400);
     }
     const existingUser = await getUserByAddress(address as Address);
-    console.log("SWEETS existingUser", existingUser);
     return NextResponse.json({ data: existingUser }, { status: 200 });
   } catch (error: any) {
     return handleError(error.message, 500);
