@@ -11,6 +11,8 @@ const useAuthRedirect = () => {
 
   useEffect(() => {
     const checkUser = async () => {
+      console.log("SWEEET address", address);
+      console.log("SWEEET isConnected", isConnected);
       const responseLib = await fetchUserByAddress(address as Address);
       console.log("SWEEET fetchUserByAddress", responseLib);
       if (!responseLib) return push("/profile");
