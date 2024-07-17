@@ -11,8 +11,8 @@ const fetchUri = async (uri: string) => {
           return await response.json();
         }
     } catch (error) {
-    console.error("Failed to fetch IPFS link:", error);
-    return uri
+        console.error("Failed to fetch IPFS link:", error);
+        return uri
     }
 }
 
