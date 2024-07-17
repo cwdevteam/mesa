@@ -7,17 +7,26 @@ import { Address } from "viem";
 import { useAccount } from "wagmi";
 import { useParams } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
+import { uploadJson } from "@/lib/ipfs/uploadJson";
 
 const usePaymasterAttest = () => {
-  const { name, description } = useProjectProvider();
+  const { name, description, contentHash } = useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
 
   const attest = async () => {
+    console.log("Attesting to project", id);
+    console.log("name", name);
+    console.log("address", address);
+    const { uri: metadataUri } = await uploadJson({
+      description: description,
+      animation_url: contentHash,
+    });
+    console.log("metadataUri", metadataUri);
     const encodedAttestation = getEncodedAttestationData(
       name,
-      description,
+      metadataUri,
       [],
       [address as Address],
       []
