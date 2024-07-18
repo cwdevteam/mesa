@@ -13,6 +13,7 @@ const useAuthRedirect = () => {
     const checkUser = async () => {
       const responseLib = await fetchUserByAddress(address as Address);
       if (pathname.includes("/invite")) return;
+      if (pathname.endsWith("/create")) return;
       if (!responseLib) return push("/profile");
       if (pathname === "/en") push("/dashboard");
     };

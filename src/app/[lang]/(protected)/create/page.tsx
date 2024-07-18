@@ -5,7 +5,7 @@ const DynamicZoraPage = dynamic(() => import("./ZoraPage"), {
   loading: () => <div>Loading page...</div>,
 });
 
-export default function Zora() {
+export default function Create() {
   return (
     <main className="flex flex-col gap-12 container mx-auto py-10 content-start">
       <DynamicZoraPage />
