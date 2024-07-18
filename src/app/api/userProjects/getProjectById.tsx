@@ -2,7 +2,7 @@ import handleError from "./handleError";
 import { NextRequest, NextResponse } from "next/server";
 import { getProjectById } from "@/lib/supabase/projects/getProjectById";
 
-const getProjectsApi = async (req: NextRequest) => {
+const getProjectsByIdApi = async (req: NextRequest) => {
   try {
     const id: any = new URL(req.nextUrl).searchParams.get("id");
     const response = await getProjectById(id);
@@ -13,4 +13,4 @@ const getProjectsApi = async (req: NextRequest) => {
   }
 };
 
-export default getProjectsApi;
+export default getProjectsByIdApi;

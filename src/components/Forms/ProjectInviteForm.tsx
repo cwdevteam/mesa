@@ -13,6 +13,8 @@ import { useState } from "react";
 import { ProjectType } from "@/components/ProjectCollaborators/types";
 import { ProjectIDType } from "@/types/const";
 import axios from "axios";
+import { invitationHandler } from "@/lib/projects/invitationHandler";
+import { addRoleHandler } from "@/lib/projects/addRoleHandler";
 
 export default function ProjectInviteForm({
   user,
@@ -35,24 +37,43 @@ export default function ProjectInviteForm({
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      let apiData = {
+      await invitationHandler(
+        state.description,
+        state.name,
+        user,
+        id,
+        "Pending",
+        state.email.split("@")[0],
+        state.email
+      );
+      let link =
+        window.location.origin +
+        `/en/invite?projectId=${id}&email=${state.email}`;
+
+      const { data: email } = await axios.post("/api/email/", {
         ...state,
-        owner: user.id,
-        project_id: id,
-        invite_person_name: user.full_name,
         username: user.username,
+        link: link,
+      });
+
+      let roleData = {
+        project_id: id,
+        user_role: "Artist",
+        contract_type: "Master",
+        user_bps: 1000,
       };
+      await addRoleHandler(id, "Artist", "Master");
 
-      const { data } = await axios.post("/api/collaborators/", apiData);
-
-      if (data && data.to) {
+      if (email && email.to) {
         toast({
           title: "Success",
-          description: `Successfully email sent to ${data.to}`,
+          description: `Successfully email sent to ${email.to}`,
           variant: "default",
         });
         showInviteDialogueHandler();
-        router.push(id);
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       }
       setLoading(false);
     } catch (err: any) {

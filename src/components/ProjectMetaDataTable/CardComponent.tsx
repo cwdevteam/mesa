@@ -18,8 +18,7 @@ export interface CardProps {
   project?: ProjectType;
 }
 
-const isInvitation = (obj: ProjectUserProps | ProjectInvitationProps) =>
-  !!(obj as any)?.status;
+const isInvitation = (obj: any) => obj.status === "Accepted";
 
 const CardComponent: React.FC<CardProps> = ({ data, allData, project }) => {
   const [selectedUserId, setSelectedUserId] = useState("");
@@ -57,9 +56,9 @@ const CardComponent: React.FC<CardProps> = ({ data, allData, project }) => {
           <AvatarFallback> ME</AvatarFallback>
         </Avatar>
         <div className="font-bold w-screen text-lg flex ml-6 items-center">
-          <div className="w-[200px]">{data.name}</div>
+          <div className="w-[200px]">{data.user_name}</div>
           <div>
-            {isInvitation(data) === false ? (
+            {!isInvitation(data) === false ? (
               <div className="ml-3 w-3 h-3 bg-green-600 rounded-md"></div>
             ) : (
               <div className="ml-3 w-3 h-3 bg-red-600 rounded-md"></div>

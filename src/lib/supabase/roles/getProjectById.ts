@@ -6,8 +6,7 @@ export const getProjectById = async (id: string) => {
   const supabase = createServerClient(cookies());
   let { data: projects, error } = await supabase
     .from("projects")
-    .select("*, invitations!inner(*), roles(*)")
-    .eq("roles.contract_type", "Owner")
+    .select("*, invitations!inner(*)")
     .eq("id", id);
 
   const processedData = projects.map((project) => {

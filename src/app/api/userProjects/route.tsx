@@ -1,8 +1,22 @@
 import { NextRequest } from "next/server";
-import getProjectsApi from "@/app/api/userProjects/getProject";
+import getProjectsByIdApi from "@/app/api/userProjects/getProjectById";
+import addProjectRole from "@/app/api/userProjects/addProjectRole";
+import getAllProjectsApi from "@/app/api/userProjects/getAllProject";
 
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
-  return await getProjectsApi(req);
+  const { searchParams } = new URL(req.url);
+  const projectId = searchParams.get("id");
+  const action = searchParams.get("action");
+
+  if (projectId && action == "byId") {
+    return await getProjectsByIdApi(req);
+  } else {
+    return await getAllProjectsApi(req);
+  }
+}
+
+export async function POST(req: NextRequest) {
+  return await addProjectRole(req);
 }

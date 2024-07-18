@@ -11,9 +11,10 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import useAttestation from "@/hooks/useAttestation";
 import axios from "axios";
 import { useUserProvider } from "@/context/UserProvider";
-import { getCollaboratorData } from "@/lib/collaborator/getCollaborator";
-import { Address } from "viem";
 import { useParams } from "next/navigation";
+import { addProjectHandler } from "@/lib/projects/addProjectHandler";
+import { addRoleHandler } from "@/lib/projects/addRoleHandler";
+import { invitationHandler } from "@/lib/projects/invitationHandler";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
@@ -24,49 +25,40 @@ const ProjectPage = () => {
   const { id } = useParams<ProjectIDType>();
 
   const fetchProjectByID = async () => {
-    const { data } = await axios.get(`/api/userProjects?id=${id}`);
-    return data;
+    const { data } = await axios.get(`/api/userProjects?id=${id}&action=byId`);
+    const { data: allInvitations } = await axios.get(
+      `/api/userProjects?id=${user.id}`
+    );
+    return { data, allInvitations };
   };
 
   const addCollaborator = async (name: string, description: string) => {
-    let apiData = {
-      id: id,
-      title: name,
+    let project = await addProjectHandler(id, name, description, user.id);
+    await addRoleHandler(id, "Master", "Owner");
+    await invitationHandler(
       description,
-      created_by: user.id,
-    };
-    let { data: project } = await axios.post("/api/projects/", apiData);
-    let invitationData = {
-      contract_type: "Master",
-      created_by: user.id,
-      description,
-      title: name,
-      status: "Accepted",
-      user_bps: 1000,
-      user_email: user.username,
-      user_id: user.id,
-      user_name: user.username,
-      user_role: "Owner",
-      project_id: project.id,
-    };
-    await axios.post("/api/invitations/", invitationData);
+      name,
+      user,
+      project.id,
+      "Accepted",
+      user.username,
+      user.email
+    );
   };
 
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
-      let collaborators = await fetchProjectByID();
+      let { data: collaborators, allInvitations } = await fetchProjectByID();
       if (collaborators.length === 0) {
         await addCollaborator(
           dashboardData["name"],
           dashboardData["description"]
         );
       }
-      // debugger;
-      // const { data } = await axios.get("/api/collaborators/");
-      // let collaborators = getCollaboratorData(data, user);
       dashboardData["collaborators"] = collaborators;
+      dashboardData["projectInvitations"] = allInvitations;
       setData(dashboardData);
     }
   };

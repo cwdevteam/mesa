@@ -25,8 +25,7 @@ import {
 } from "@/components/ProjectCollaborators/types";
 import { User } from "@/components/Project/types";
 
-const isInvitation = (obj: ProjectUserProps | ProjectInvitationProps) =>
-  !!(obj as any)?.status;
+const isInvitation = (obj: any) => obj.status === "Accepted";
 
 export const ProjectMetaDataTable = ({
   project,
@@ -39,8 +38,6 @@ export const ProjectMetaDataTable = ({
   user: User;
   invitations: ProjectInvitationProps[];
 }) => {
-  console.log("data", data);
-  console.log(project);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [editModal, setEditModal] = useState<boolean>(false);
   const [rows, setRows] = useState<
@@ -66,7 +63,7 @@ export const ProjectMetaDataTable = ({
       id: "status",
       header: "Status",
       cell: ({ row }) => (
-        <p>{isInvitation(row.original) ? "pending" : "active"}</p>
+        <p>{!isInvitation(row.original) ? "pending" : "active"}</p>
       ),
     },
     {
@@ -152,7 +149,7 @@ export const ProjectMetaDataTable = ({
           <></>
         )}
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4 mb-[100px]">
         <Button
           variant="outline"
           size="sm"

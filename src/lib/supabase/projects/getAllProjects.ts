@@ -2,13 +2,12 @@ import { createServerClient } from "../server";
 import { cookies } from "next/headers";
 import { ProjectProps } from "@/types/const";
 
-export const getProjectById = async (id: string) => {
+export const getAllProjects = async (userId: string) => {
   const supabase = createServerClient(cookies());
   let { data: projects, error } = await supabase
-    .from("projects")
-    .select("*, invitations!inner(*), roles(*)")
-    .eq("roles.contract_type", "Owner")
-    .eq("id", id);
+    .from("invitations")
+    .select("*")
+    .eq("user_id", userId);
 
   const processedData = projects.map((project) => {
     if (project.invitations && project.invitations.length > 0) {
