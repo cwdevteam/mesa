@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const addProjectHandler = async (
   id: string,
   name: string,
@@ -12,7 +10,14 @@ export const addProjectHandler = async (
     description,
     created_by: userId,
   };
-  let { data: project } = await axios.post("/api/projects/", apiData);
 
-  return project;
+  const response = await fetch("/api/projects/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(apiData),
+  });
+
+  return await response.json();
 };

@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const addRoleHandler = async (
   id: string,
   user_role: string,
@@ -13,7 +11,13 @@ export const addRoleHandler = async (
     user_bps: 10000,
     invitation_id: invitationIdd,
   };
-  let { data: role } = await axios.post("/api/userProjects/", roleData);
+  const response = await fetch("/api/userProjects/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(roleData),
+  });
 
-  return role;
+  return await response.json();
 };

@@ -4,43 +4,29 @@ import {
   DropdownMenuItem,
   //   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import axios from 'axios'
-import { useRouter } from 'next/router'
-import { toast } from '../ui/use-toast'
+} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/router";
+import { toast } from "../ui/use-toast";
 
 export const InvitationNav = ({
   userId,
   invitationId,
 }: {
-  userId: string
-  invitationId: string
+  userId: string;
+  invitationId: string;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleCancelInvitation = async () => {
     try {
-      const { data } = await axios.post('/api/project_invitation/cancel', {
-        userId,
-        invitationId,
-      })
-
-      if (data && data.status) {
-        router.reload()
-        toast({
-          title: 'Success',
-          description: 'Cancel invitation successfully',
-          variant: 'default',
-        })
-      }
     } catch (err: any) {
       toast({
-        title: 'Failed',
-        description: 'Something went wrong!',
-        variant: 'destructive',
-      })
+        title: "Failed",
+        description: "Something went wrong!",
+        variant: "destructive",
+      });
     }
-  }
+  };
 
   return (
     <DropdownMenu>
@@ -66,5 +52,5 @@ export const InvitationNav = ({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
+  );
+};

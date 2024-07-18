@@ -9,10 +9,8 @@ import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import useAttestation from "@/hooks/useAttestation";
-import axios from "axios";
 import { useUserProvider } from "@/context/UserProvider";
 import { useParams } from "next/navigation";
-import { addProjectHandler } from "@/lib/projects/addProjectHandler";
 import { addRoleHandler } from "@/lib/projects/addRoleHandler";
 import { invitationHandler } from "@/lib/projects/invitationHandler";
 
@@ -25,10 +23,12 @@ const ProjectPage = () => {
   const { id } = useParams<ProjectIDType>();
 
   const fetchProjectByID = async () => {
-    const { data } = await axios.get(`/api/userProjects?id=${id}&action=byId`);
-    const { data: allInvitations } = await axios.get(
+    const response = await fetch(`/api/userProjects?id=${id}&action=byId`);
+    let data = await response.json();
+    const inviteResponse = await fetch(
       `/api/userProjects?id=${user.id}&projectId=${id}`
     );
+    let allInvitations = await inviteResponse.json();
     return { data, allInvitations };
   };
 
@@ -43,16 +43,15 @@ const ProjectPage = () => {
       user.email,
       "Owner"
     );
-
     let roleData = await addRoleHandler(
       id,
       "Master",
       "Owner",
-      collaborators.data.id
+      collaborators.id
     );
-    let collabData = collaborators.data;
-    collaborators.data["roles"] = [roleData];
-    return [collabData];
+
+    let data = { ...collaborators, roles: [roleData] };
+    return [data];
   };
 
   const fetchData = async () => {

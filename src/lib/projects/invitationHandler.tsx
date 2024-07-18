@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const invitationHandler = async (
   description: string,
   name: string,
@@ -23,5 +21,14 @@ export const invitationHandler = async (
     user_role: role,
     project_id: projectId,
   };
-  return await axios.post("/api/invitations/", invitationData);
+
+  const response = await fetch("/api/invitations/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(invitationData),
+  });
+
+  return await response.json();
 };

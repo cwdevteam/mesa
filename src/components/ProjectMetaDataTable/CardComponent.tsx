@@ -2,7 +2,6 @@
 import { bpsToPercent } from "@/lib/utils";
 import React, { useState } from "react";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
-import axios from "axios";
 import { Icons } from "../Icons";
 import {
   ProjectType,
@@ -35,14 +34,7 @@ const CardComponent: React.FC<CardProps> = ({ data, allData, project }) => {
     setEditModal(true);
   };
 
-  const handleDelete = async (id: string) => {
-    const { data: result } = await axios.post("/api/project_user/delete", {
-      id,
-    });
-    if (result && result.status) {
-      window.location.reload();
-    }
-  };
+  const handleDelete = async (id: string) => {};
 
   return (
     <div className="max-w-max rounded-md overflow-hidden shadow-lg border mx-4 my-4">

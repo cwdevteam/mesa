@@ -12,7 +12,6 @@ import InviteProjectButton from "../InviteProjectButton";
 import { useState } from "react";
 import { ProjectType } from "@/components/ProjectCollaborators/types";
 import { ProjectIDType } from "@/types/const";
-import axios from "axios";
 import { invitationHandler } from "@/lib/projects/invitationHandler";
 import { addRoleHandler } from "@/lib/projects/addRoleHandler";
 
@@ -51,14 +50,20 @@ export default function ProjectInviteForm({
         window.location.origin +
         `/en/invite?projectId=${id}&email=${state.email}`;
 
-      const { data: email } = await axios.post("/api/email/", {
-        ...state,
-        username: user.username,
-        link: link,
+      const response = await fetch("/api/email/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...state,
+          username: user.username,
+          link: link,
+        }),
       });
 
-      await addRoleHandler(id, "Artist", "Master", invitation.data.id);
-
+      let email = await response.json();
+      await addRoleHandler(id, "Artist", "Master", invitation.id);
       if (email && email.to) {
         toast({
           title: "Success",

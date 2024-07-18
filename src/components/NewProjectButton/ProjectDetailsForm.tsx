@@ -10,7 +10,6 @@ import { toast } from "../ui/use-toast";
 import { usePaymasterProvider } from "../../context/Paymasters";
 import usePaymasterAttest from "@/hooks/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
-import axios from "axios";
 import { useUserProvider } from "@/context/UserProvider";
 
 export default function ProjectDetailsForm() {

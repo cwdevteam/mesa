@@ -38,7 +38,6 @@
     "@tanstack/react-table": "^8.10.7",
     "@types/uuid": "^10.0.0",
     "@wagmi/core": "^2.10.5",
-    "axios": "^1.7.2",
     "@zoralabs/protocol-sdk": "^0.7.1",
     "bun": "^1.1.13",
     "class-variance-authority": "^0.7.0",

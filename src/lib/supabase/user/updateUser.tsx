@@ -1,14 +1,22 @@
 import { UserDetailsProps } from "@/types/const";
-import axios from "axios";
 
 const updateUser = async (updatedUser: UserDetailsProps) => {
   try {
-    const response = await axios.post("/api/profile", {
+    let payload = {
       user: updatedUser,
+    };
+    const response = await fetch("/api/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
     });
-    if (response.status !== 200)
+    let data = await response.json();
+
+    if (!response.ok)
       throw new Error(`Error updating user: ${response.statusText}`);
-    return response.data;
+    return data;
   } catch (error) {
     console.error("Error updating user:", error);
     throw error;
