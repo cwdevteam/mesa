@@ -42,7 +42,9 @@ export default function ProjectInviteForm({
         invite_person_name: user.full_name,
         username: user.username,
       };
+
       const { data } = await axios.post("/api/collaborators/", apiData);
+
       if (data && data.to) {
         toast({
           title: "Success",

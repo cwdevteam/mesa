@@ -3,7 +3,7 @@ export const getCollaboratorData = (data: any, user: any) => {
     let username = collaborator.email.split("@")[0];
     return {
       name: username,
-      contractType: "Master",
+      contract_type: "Master",
       role: "Owner",
       bps: "100.00%",
       status: true,
@@ -11,7 +11,7 @@ export const getCollaboratorData = (data: any, user: any) => {
   });
   collaborators.unshift({
     name: user.username,
-    contractType: "Master",
+    contract_type: "",
     role: "Owner",
     bps: "100.00%",
     status: false,

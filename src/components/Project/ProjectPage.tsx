@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProjectTabs from "../ProjectTabs";
-import { ProjectTab } from "@/types/const";
+import { ProjectIDType, ProjectTab } from "@/types/const";
 import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsComponent";
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
@@ -12,6 +12,8 @@ import useAttestation from "@/hooks/useAttestation";
 import axios from "axios";
 import { useUserProvider } from "@/context/UserProvider";
 import { getCollaboratorData } from "@/lib/collaborator/getCollaborator";
+import { Address } from "viem";
+import { useParams } from "next/navigation";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
@@ -19,6 +21,15 @@ const ProjectPage = () => {
   const { setName, setDescription } = useProjectProvider();
   const { dashboardData }: any = useAttestation();
   const { user } = useUserProvider();
+  const { id } = useParams<ProjectIDType>();
+
+  const fetchProjectByID = async () => {
+    const response = await fetch(`/api/projects/getProject?id=${id}`);
+    debugger;
+    if (!response.ok) return false;
+    const data = await response.json();
+    return data.data[0];
+  };
 
   const fetchData = async () => {
     if (dashboardData) {
@@ -28,6 +39,7 @@ const ProjectPage = () => {
       let collaborators = getCollaboratorData(data, user);
       dashboardData["collaborators"] = collaborators;
       setData(dashboardData);
+      fetchProjectByID();
     }
   };
 

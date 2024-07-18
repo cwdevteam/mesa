@@ -881,6 +881,29 @@ export interface Database {
   };
   public: {
     Tables: {
+      projects: {
+        Row: {
+          id?: string;
+          title: string | null;
+          description: string | null;
+          updated_at?: string | null;
+          created_at?: string | null;
+        };
+        Insert: {
+          id?: string;
+          title: string | null;
+          description: string | null;
+          updated_at?: string | null;
+          created_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          title: string | null;
+          description: string | null;
+          updated_at?: string | null;
+          created_at?: string | null;
+        };
+      };
       collaborators: {
         Row: {
           id?: string;
