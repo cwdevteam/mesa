@@ -9,7 +9,6 @@ export default function Create() {
   return (
     <main className="flex flex-col gap-12 container mx-auto py-10 content-start">
       <DynamicZoraPage />
-      <div className="h-20 flex-none"></div>
     </main>
   );
 }
