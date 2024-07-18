@@ -12,7 +12,6 @@ import useZoraToken from "@/hooks/useZoraToken";
 import { CHAIN, IS_TESTNET } from "@/lib/consts";
 
 import StepCard from "./StepCard";
-import ZoraLogo from "./ZoraLogo";
 import ZoraTokenForm from "./ZoraTokenForm";
 import ExternalLinkButton from "./ExternalLinkButton";
 
@@ -48,7 +47,6 @@ export default function ZoraCard({
 
   return (
     <StepCard className="w-full p-6">
-      <ZoraLogo className="h-10 w-auto text-foreground" />
       {(() => {
         if (tokenQuery.data) {
           const { url: explorerUrl, name: explorerName } =

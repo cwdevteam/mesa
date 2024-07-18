@@ -7,7 +7,6 @@ import type { CreateSplitMutation } from "@/hooks/usePredictedSplits";
 import StepCard from "./StepCard";
 import ExternalLinkButton from "./ExternalLinkButton";
 import SplitsForm from "./SplitsForm";
-import SplitsLogo from "./SplitsLogo";
 
 export default function SplitsCard({
   splitAddress,
@@ -22,7 +21,6 @@ export default function SplitsCard({
 }) {
   return (
     <StepCard className="w-full p-6 items-center">
-      <SplitsLogo className="h-10 w-auto text-foreground" />
       {(() => {
         if (!splitAddress) {
           return (

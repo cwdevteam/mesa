@@ -13,7 +13,6 @@ import usePredictedSplits from "@/hooks/usePredictedSplits";
 import SplitsCard from "./SplitsCard";
 import ZoraCard from "./ZoraCard";
 import StepCard from "./StepCard";
-import SplitsLogo from "./SplitsLogo";
 
 const dummyAddresses = [generatePrivateKey(), generatePrivateKey()].map((key) =>
   getAddress(privateKeyToAddress(key))
@@ -103,7 +102,6 @@ export default function ZoraPage() {
           Step 0: Confirm Splits configuration
         </h2>
         <StepCard className="w-full p-6 items-center">
-          <SplitsLogo className="h-10 w-auto text-foreground" />
           <div className="flex flex-col gap-4 flex-1">
             <textarea
               className="text-sm text-muted-foreground p-6 rounded-lg bg-muted"
