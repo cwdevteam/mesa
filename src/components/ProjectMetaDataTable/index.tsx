@@ -1,18 +1,10 @@
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@/components/ui/table";
 import { bpsToPercent } from "@/lib/utils";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
 import { useEffect, useState } from "react";
@@ -20,10 +12,8 @@ import { InvitaionNav } from "./InvitaionNav";
 import CardComponent from "./CardComponent";
 import {
   ProjectInvitationProps,
-  ProjectType,
   ProjectUserProps,
 } from "@/components/ProjectCollaborators/types";
-import { User } from "@/components/Project/types";
 
 const isInvitation = (obj: any) => obj.status === "Accepted";
 
@@ -33,9 +23,9 @@ export const ProjectMetaDataTable = ({
   user,
   invitations,
 }: {
-  project?: ProjectType;
+  project?: any;
   data: ProjectUserProps[];
-  user: User;
+  user: any;
   invitations: ProjectInvitationProps[];
 }) => {
   const [selectedUserId, setSelectedUserId] = useState("");
@@ -48,7 +38,7 @@ export const ProjectMetaDataTable = ({
     setEditModal(true);
   };
 
-  const columns: ColumnDef<ProjectUserProps | ProjectInvitationProps>[] = [
+  const columns: ColumnDef<any>[] = [
     {
       id: "user_name",
       header: "Shareholder",
@@ -116,8 +106,8 @@ export const ProjectMetaDataTable = ({
     setRows([
       ...data,
       ...invitations
-        .filter((item) => item.status === "Pending")
-        .map((obj) => ({
+        .filter((item: any) => item.status === "Pending")
+        .map((obj: any) => ({
           ...obj,
           user_name: obj.user_name ?? obj.user_email?.split("@")[0],
         })),

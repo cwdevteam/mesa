@@ -44,7 +44,8 @@ export default function ProjectInviteForm({
         id,
         "Pending",
         state.email.split("@")[0],
-        state.email
+        state.email,
+        "Artist"
       );
       let link =
         window.location.origin +

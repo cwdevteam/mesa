@@ -7,19 +7,20 @@ export const invitationHandler = async (
   projectId: string,
   status: string,
   userName: string,
-  email: string
+  email: string,
+  role: string
 ) => {
   let invitationData = {
     contract_type: "Master",
     created_by: user.id,
     description,
     title: name,
-    status: "Accepted",
+    status: status,
     user_bps: 10000,
     user_email: email,
     user_id: user.id,
     user_name: userName,
-    user_role: "Owner",
+    user_role: role,
     project_id: projectId,
   };
   return await axios.post("/api/invitations/", invitationData);

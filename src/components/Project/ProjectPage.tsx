@@ -27,7 +27,7 @@ const ProjectPage = () => {
   const fetchProjectByID = async () => {
     const { data } = await axios.get(`/api/userProjects?id=${id}&action=byId`);
     const { data: allInvitations } = await axios.get(
-      `/api/userProjects?id=${user.id}`
+      `/api/userProjects?id=${user.id}&projectId=${id}`
     );
     return { data, allInvitations };
   };
@@ -35,24 +35,27 @@ const ProjectPage = () => {
   const addCollaborator = async (name: string, description: string) => {
     let project = await addProjectHandler(id, name, description, user.id);
     await addRoleHandler(id, "Master", "Owner");
-    await invitationHandler(
+    let collaborators: any = await invitationHandler(
       description,
       name,
       user,
       project.id,
       "Accepted",
       user.username,
-      user.email
+      user.email,
+      "Owner"
     );
+    return [collaborators.data];
   };
 
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
-      let { data: collaborators, allInvitations } = await fetchProjectByID();
+      let { data, allInvitations } = await fetchProjectByID();
+      let collaborators = data;
       if (collaborators.length === 0) {
-        await addCollaborator(
+        collaborators = await addCollaborator(
           dashboardData["name"],
           dashboardData["description"]
         );

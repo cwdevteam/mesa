@@ -3,10 +3,8 @@ import { bpsToPercent } from "@/lib/utils";
 import React, { useState } from "react";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { Icons } from "../Icons";
 import {
-  ProjectInvitationProps,
   ProjectType,
   ProjectUserProps,
 } from "@/components/ProjectCollaborators/types";
@@ -25,7 +23,6 @@ const CardComponent: React.FC<CardProps> = ({ data, allData, project }) => {
   const [editModal, setEditModal] = useState<boolean>(false);
   const [requestType, setRequestType] = useState<string>("");
   const [roleId, setRoleId] = useState<string>("");
-  const router = useRouter();
 
   const handleActionClick = (
     userId: string,
@@ -43,7 +40,7 @@ const CardComponent: React.FC<CardProps> = ({ data, allData, project }) => {
       id,
     });
     if (result && result.status) {
-      router.reload();
+      window.location.reload();
     }
   };
 
