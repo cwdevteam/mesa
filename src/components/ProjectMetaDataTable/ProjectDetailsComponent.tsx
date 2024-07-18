@@ -13,7 +13,7 @@ const ProjectDetailsComponent = ({ project }: ProjectDetailsComponentProps) => {
       <div className="flex flex-col lg:flex-row-reverse gap-8 w-full">
         <div className="w-full">
           <ProjectCollaborators project={project} />
-          <UploadButton projectId={String(project.id)} />
+          <UploadButton />
         </div>
         <div className="w-full lg:max-w-[400px]">
           <Chat />

@@ -3,7 +3,7 @@ import { ProjectDataTable } from "@/components/ProjectDataTable";
 import NewProjectButton from "../NewProjectButton";
 import useProjects from "@/hooks/useProjects";
 
-const DashboardPage = ({ email }: { email?: string }) => {
+const DashboardPage = () => {
   const { projects } = useProjects();
 
   return (
