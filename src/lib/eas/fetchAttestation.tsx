@@ -11,8 +11,8 @@ export const fetchAttestation = async (attestation: any) => {
       if (isMetadata) {
         const metadataUri = item.value.value;
         try {
-          const response = await fetchUri(metadataUri);
-          extractedData["description"] = response.description;
+          const response: any = await fetchUri(metadataUri);
+          extractedData["description"] = response?.description;
         } catch (error) {
           console.error("Failed to fetch metadata URI:", error);
           extractedData["description"] = "Failed to fetch description";
