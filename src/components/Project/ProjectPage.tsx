@@ -33,19 +33,26 @@ const ProjectPage = () => {
   };
 
   const addCollaborator = async (name: string, description: string) => {
-    let project = await addProjectHandler(id, name, description, user.id);
-    await addRoleHandler(id, "Master", "Owner");
     let collaborators: any = await invitationHandler(
       description,
       name,
       user,
-      project.id,
+      id,
       "Accepted",
       user.username,
       user.email,
       "Owner"
     );
-    return [collaborators.data];
+
+    let roleData = await addRoleHandler(
+      id,
+      "Master",
+      "Owner",
+      collaborators.data.id
+    );
+    let collabData = collaborators.data;
+    collaborators.data["roles"] = [roleData];
+    return [collabData];
   };
 
   const fetchData = async () => {

@@ -37,7 +37,7 @@ export default function ProjectInviteForm({
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      await invitationHandler(
+      let invitation = await invitationHandler(
         state.description,
         state.name,
         user,
@@ -57,13 +57,7 @@ export default function ProjectInviteForm({
         link: link,
       });
 
-      let roleData = {
-        project_id: id,
-        user_role: "Artist",
-        contract_type: "Master",
-        user_bps: 1000,
-      };
-      await addRoleHandler(id, "Artist", "Master");
+      await addRoleHandler(id, "Artist", "Master", invitation.data.id);
 
       if (email && email.to) {
         toast({
