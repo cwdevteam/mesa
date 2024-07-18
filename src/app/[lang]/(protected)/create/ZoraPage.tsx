@@ -97,9 +97,9 @@ export default function ZoraPage() {
   }
   if (!splitConfig) {
     return (
-      <section className="flex flex-col gap-4 max-w-screen-lg">
+      <section className="flex flex-col gap-4 max-w-screen-md">
         <h2 className="cursor-pointer text-2xl font-bold">
-          Step 0: Confirm Splits configuration
+          Step 0: Confirm splits configuration
         </h2>
         <StepCard className="w-full p-6 items-center">
           <div className="flex flex-col gap-4 flex-1">
@@ -120,9 +120,9 @@ export default function ZoraPage() {
 
   return (
     <>
-      <section className="flex flex-col gap-4 max-w-screen-lg">
+      <section className="flex flex-col gap-4 max-w-screen-md">
         <h2 className="cursor-pointer text-2xl font-bold">
-          Step 1: Deploy Splits contract
+          Step 1: Deploy splits contract
         </h2>
         <SplitsCard
           splitAddress={payoutRecipient}
@@ -131,9 +131,9 @@ export default function ZoraPage() {
           createSplitMutation={createSplit}
         />
       </section>
-      <section className="flex flex-col gap-4 max-w-screen-lg">
+      <section className="flex flex-col gap-4 max-w-screen-md">
         <h2 className="cursor-pointer text-2xl font-bold">
-          Step 2: Create token on Zora
+          Step 2: Create token
         </h2>
         <ZoraCard
           publicClient={publicClient}

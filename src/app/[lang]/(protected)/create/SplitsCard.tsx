@@ -30,27 +30,52 @@ export default function SplitsCard({
           );
         }
 
-        if (!splitExists) {
-          return (
-            <SplitsForm
-              createSplitMutation={createSplitMutation}
-              splitConfig={splitConfig}
-            />
-          );
-        }
-
         return (
           <>
-            <div className="flex items-center flex-1">
+            <div className="flex flex-col items-center md:items-stretch text-center md:text-left gap-4 flex-1">
               <p className="text-muted-foreground">
-                Your splits have been deployed.
+                {splitExists
+                  ? "Your Splits smart contract has been deployed."
+                  : "Your Splits smart contract is ready to deploy."}
               </p>
+              <p className="text-sm text-muted-foreground italic">
+                This contract will be used to distribute on-chain payments from
+                the sale of your NFT.
+                <br />
+                <br />
+                Visit{" "}
+                <a
+                  className="underline"
+                  href="https://splits.org"
+                  target="_blank"
+                >
+                  Splits.org
+                </a>{" "}
+                to learn more.
+              </p>
+              {!splitExists && (
+                <details className="text-sm text-muted-foreground">
+                  <summary>View Config</summary>
+                  <div className="p-6 rounded-lg bg-muted text-left">
+                    <pre className="whitespace-pre-wrap">
+                      <code>{JSON.stringify(splitConfig, null, 2)}</code>
+                    </pre>
+                  </div>
+                </details>
+              )}
             </div>
-            <ExternalLinkButton
-              href={`https://app.splits.org/accounts/${splitAddress}?chainId=${CHAIN_ID}`}
-            >
-              View on Splits
-            </ExternalLinkButton>
+            {splitExists ? (
+              <ExternalLinkButton
+                href={`https://app.splits.org/accounts/${splitAddress}?chainId=${CHAIN_ID}`}
+              >
+                View on Splits
+              </ExternalLinkButton>
+            ) : (
+              <SplitsForm
+                createSplitMutation={createSplitMutation}
+                splitConfig={splitConfig}
+              />
+            )}
           </>
         );
       })()}
