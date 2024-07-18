@@ -10,12 +10,15 @@ import { toast } from "../ui/use-toast";
 import { usePaymasterProvider } from "../../context/Paymasters";
 import usePaymasterAttest from "@/hooks/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
+import axios from "axios";
+import { useUserProvider } from "@/context/UserProvider";
 
 export default function ProjectDetailsForm() {
   const { id } = usePaymasterProvider();
   const { attest } = usePaymasterAttest();
   const [loading, setLoading] = useState<boolean>(false);
-  const { name, setName, setDescription } = useProjectProvider();
+  const { name, setName, setDescription, description } = useProjectProvider();
+  const { user } = useUserProvider();
 
   useEffect(() => {
     if (id !== undefined) {
@@ -37,9 +40,7 @@ export default function ProjectDetailsForm() {
       });
       return;
     }
-
     setLoading(true);
-
     try {
       await attest();
     } catch (error) {

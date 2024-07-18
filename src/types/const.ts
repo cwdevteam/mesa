@@ -133,3 +133,10 @@ export interface ConnectButtonProps {
 export type ProjectIDType = {
   id: string;
 };
+
+export interface ProjectProps {
+  description: string;
+  title: string | null;
+  id: string;
+  created_by: string;
+}

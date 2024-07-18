@@ -5,18 +5,23 @@ import { getEmailHtmlText } from "@/lib/nodemailer/getBodyText";
 import { getEmailOptions } from "@/lib/nodemailer/getEmailOptions";
 import { addNewCollaborator } from "@/lib/supabase/collaborators/addCollaborator";
 
-const addCollaboratorApi = async (req: NextRequest) => {
+const sendEmailApi = async (req: NextRequest) => {
   try {
     const data = await req.json();
-    const response: any = await addNewCollaborator(data);
     const transporter = getNodeMailerClient();
-    const emailHtml = getEmailHtmlText(data.username, data.description, "");
+    const emailHtml = getEmailHtmlText(
+      data.username,
+      data.description,
+      data.link
+    );
 
     try {
       await transporter.sendMail(getEmailOptions(data.email, emailHtml));
-      response["to"] = data.email;
     } catch (error) {}
 
+    let response = {
+      to: data.email,
+    };
     return NextResponse.json(response, { status: 200 });
   } catch (error: any) {
     console.error(error);
@@ -24,4 +29,4 @@ const addCollaboratorApi = async (req: NextRequest) => {
   }
 };
 
-export default addCollaboratorApi;
+export default sendEmailApi;

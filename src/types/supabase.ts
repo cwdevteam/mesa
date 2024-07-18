@@ -881,6 +881,29 @@ export interface Database {
   };
   public: {
     Tables: {
+      projects: {
+        Row: {
+          id?: string;
+          title: string | null;
+          description: string | null;
+          updated_at?: string | null;
+          created_at?: string | null;
+        };
+        Insert: {
+          id?: string;
+          title: string | null;
+          description: string | null;
+          updated_at?: string | null;
+          created_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          title: string | null;
+          description: string | null;
+          updated_at?: string | null;
+          created_at?: string | null;
+        };
+      };
       collaborators: {
         Row: {
           id?: string;
@@ -946,6 +969,96 @@ export interface Database {
             columns: ["id"];
             isOneToOne: true;
             referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      invitations: {
+        Row: {
+          id?: string;
+          created_at: string | null;
+          contract_type: string | null;
+          created_by: string | null;
+          description: string | null;
+          status: string | null;
+          updated_at: string | null;
+          user_bps: string | null;
+          user_email: string | null;
+          user_id: string | null;
+          user_name: string | null;
+          user_role: string | null;
+          title: string | null;
+          project_id: string | null;
+        };
+        Insert: {
+          id?: string;
+          created_at: string | null;
+          contract_type: string | null;
+          created_by: string | null;
+          description: string | null;
+          status: string | null;
+          updated_at: string | null;
+          user_bps: string | null;
+          user_email: string | null;
+          user_id: string | null;
+          user_name: string | null;
+          user_role: string | null;
+          title: string | null;
+          project_id: string | null;
+        };
+        Update: {
+          id?: string;
+          created_at: string | null;
+          contract_type: string | null;
+          created_by: string | null;
+          description: string | null;
+          status: string | null;
+          updated_at: string | null;
+          user_bps: string | null;
+          user_email: string | null;
+          user_id: string | null;
+          user_name: string | null;
+          user_role: string | null;
+          title: string | null;
+          project_id: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "project_id";
+            columns: ["id"];
+            isOneToOne: true;
+            referencedRelation: "project_id";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      roles: {
+        Row: {
+          id?: string;
+          created_at: string | null;
+          contract_type: string | null;
+          user_bps: string;
+        };
+        Insert: {
+          id?: string;
+          created_at: string | null;
+          contract_type: string | null;
+          user_bps: string;
+        };
+        Update: {
+          id?: string;
+          created_at: string | null;
+          contract_type: string | null;
+          user_bps: string;
+          user_role: string;
+          project_id: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "project_id";
+            columns: ["id"];
+            isOneToOne: true;
+            referencedRelation: "project_id";
             referencedColumns: ["id"];
           }
         ];
