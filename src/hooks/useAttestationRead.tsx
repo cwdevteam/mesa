@@ -13,10 +13,7 @@ const useAttestationRead = () => {
     functionName: "getAttestation",
     args: [id],
   });
-
-  return {
-    attestationData,
-  };
+  return attestationData;
 };
 
 export default useAttestationRead;

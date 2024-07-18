@@ -8,6 +8,7 @@ const postProfileApi = async (req: NextRequest) => {
   try {
     const { user }: { user: UserDetailsProps } = await req.json();
     const { id } = user;
+
     if (!id) {
       const data = (await createNewUser(user)) as UserDetailsProps;
       const response = data;
