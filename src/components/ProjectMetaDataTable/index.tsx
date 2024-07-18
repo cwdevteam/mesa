@@ -39,6 +39,8 @@ export const ProjectMetaDataTable = ({
   user: User;
   invitations: ProjectInvitationProps[];
 }) => {
+  console.log("data", data);
+  console.log(project);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [editModal, setEditModal] = useState<boolean>(false);
   const [rows, setRows] = useState<
@@ -53,7 +55,7 @@ export const ProjectMetaDataTable = ({
     {
       id: "user_name",
       header: "Shareholder",
-      cell: ({ row }) => <p>{row.original.name}</p>,
+      cell: ({ row }) => <p>{row.original.user_name}</p>,
     },
     {
       id: "user_type",
@@ -70,7 +72,7 @@ export const ProjectMetaDataTable = ({
     {
       id: "user_role",
       header: "Role",
-      cell: ({ row }) => <p>{row.original.role}</p>,
+      cell: ({ row }) => <p>{row.original.user_role}</p>,
     },
     {
       id: "user_bps",

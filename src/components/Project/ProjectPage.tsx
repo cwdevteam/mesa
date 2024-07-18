@@ -24,22 +24,50 @@ const ProjectPage = () => {
   const { id } = useParams<ProjectIDType>();
 
   const fetchProjectByID = async () => {
-    const response = await fetch(`/api/projects/getProject?id=${id}`);
-    debugger;
-    if (!response.ok) return false;
-    const data = await response.json();
-    return data.data[0];
+    const { data } = await axios.get(`/api/userProjects?id=${id}`);
+    return data;
+  };
+
+  const addCollaborator = async (name: string, description: string) => {
+    let apiData = {
+      id: id,
+      title: name,
+      description,
+      created_by: user.id,
+    };
+    let { data: project } = await axios.post("/api/projects/", apiData);
+    let invitationData = {
+      contract_type: "Master",
+      created_by: user.id,
+      description,
+      title: name,
+      status: "Accepted",
+      user_bps: 1000,
+      user_email: user.username,
+      user_id: user.id,
+      user_name: user.username,
+      user_role: "Owner",
+      project_id: project.id,
+    };
+    await axios.post("/api/invitations/", invitationData);
   };
 
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
-      const { data } = await axios.get("/api/collaborators/");
-      let collaborators = getCollaboratorData(data, user);
+      let collaborators = await fetchProjectByID();
+      if (collaborators.length === 0) {
+        await addCollaborator(
+          dashboardData["name"],
+          dashboardData["description"]
+        );
+      }
+      // debugger;
+      // const { data } = await axios.get("/api/collaborators/");
+      // let collaborators = getCollaboratorData(data, user);
       dashboardData["collaborators"] = collaborators;
       setData(dashboardData);
-      fetchProjectByID();
     }
   };
 

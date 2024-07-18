@@ -42,28 +42,6 @@ export default function ProjectDetailsForm() {
     }
     setLoading(true);
     try {
-      let apiData = {
-        id: "0x1efff88047617230331397441e185091df2bdfe00237232764d1c67e6ea62311",
-        title: name,
-        description,
-        created_by: user.id,
-      };
-      let { data: project } = await axios.post("/api/projects/", apiData);
-      debugger;
-      let invitationData = {
-        contract_type: "Master",
-        created_by: user.id,
-        description,
-        title: name,
-        status: "Accepted",
-        user_bps: 1000,
-        user_email: user.username,
-        user_id: user.id,
-        user_name: user.username,
-        user_role: "Owner",
-        project_id: project.id,
-      };
-      await axios.post("/api/invitations/", invitationData);
       await attest();
     } catch (error) {
       toast({
