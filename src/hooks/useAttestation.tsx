@@ -4,14 +4,15 @@ import { fetchAttestation } from "@/lib/eas/fetchAttestation";
 import useAttestationRead from "@/hooks/useAttestationRead";
 
 const useAttestation = () => {
-  const { attestationData }: any = useAttestationRead();
+  const attestationData: any = useAttestationRead();
   const [dashboardData, setDashboardData] = useState<UserDetailsProps | null>(
     null
   );
 
   const fetchData = useCallback(async () => {
-    if (attestationData?.data?.length > 0) {
-      let { dashboardData }: any = await fetchAttestation(attestationData.data);
+    let data = attestationData.data;
+    if (data) {
+      let { dashboardData }: any = await fetchAttestation(data);
       setDashboardData(dashboardData);
     }
   }, [attestationData]);

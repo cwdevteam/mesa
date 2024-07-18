@@ -11,6 +11,7 @@ const postProfileApi = async (req: NextRequest) => {
     const { user }: { user: UserDetailsProps } = await req.json();
     const existingUser = await getUserByAddress(user.userId as Address);
     let response: UserDetailsProps;
+
     if (existingUser[0]) {
       const { id } = existingUser[0];
       const data = await updateExistingUser(id as string, user);
