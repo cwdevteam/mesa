@@ -8,12 +8,14 @@ import { useAccount } from "wagmi";
 import { useParams } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
+import { useUserProvider } from "@/context/UserProvider";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl } = useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
+  const { user } = useUserProvider();
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
@@ -23,7 +25,7 @@ const usePaymasterAttest = () => {
     const encodedAttestation = getEncodedAttestationData(
       name,
       metadataUri,
-      [],
+      [user?.full_name || ""],
       [address as Address],
       []
     );
