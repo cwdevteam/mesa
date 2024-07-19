@@ -1,6 +1,7 @@
 export interface ProjectUserProps {
   user_id: string;
   user_name: string;
+  roles: any[];
 }
 
 export interface ProjectType {
