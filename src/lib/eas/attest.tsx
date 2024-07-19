@@ -14,7 +14,6 @@ const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
       ],
       capabilities,
     });
-    console.log("tx", tx);
     return tx;
   } catch (err) {
     console.error("Error during attestation:", err);
