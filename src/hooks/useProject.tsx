@@ -1,13 +1,5 @@
-import { useUserProvider } from "@/context/UserProvider";
-import { ContractType, Credit, UserRole } from "@/types/projectMetadataForm";
-import { useEffect, useState } from "react";
-
-const defaultCredit = {
-  contractType: ContractType.Songwriting,
-  collaboratorType: UserRole.Owner,
-  name: "",
-  splitBps: 10000,
-};
+import { Credit, defaultCredit } from "@/types/projectMetadataForm";
+import { useState } from "react";
 
 const useProject = () => {
   const [id, setId] = useState<string>("");

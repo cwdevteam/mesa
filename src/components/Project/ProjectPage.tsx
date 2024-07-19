@@ -9,6 +9,7 @@ import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import useAttestation from "@/hooks/useAttestation";
+import { defaultCredit } from "@/types/projectMetadataForm";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
@@ -19,7 +20,7 @@ const ProjectPage = () => {
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
-      setCredits(dashboardData["credits"]);
+      setCredits(dashboardData["credits"] || [defaultCredit]);
     }
   };
 

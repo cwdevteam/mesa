@@ -46,3 +46,10 @@ export type Credit = {
   name: string;
   splitBps: number;
 };
+
+export const defaultCredit = {
+  contractType: ContractType.Songwriting,
+  collaboratorType: UserRole.Owner,
+  name: "",
+  splitBps: 10000,
+};
