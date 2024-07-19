@@ -14,7 +14,6 @@ const CloseButton = ({ request }: any) => {
     try {
       setLoading(true);
       await attest();
-      console.log("Attest finished, reloading...");
       setLoading(false);
     } catch (err: any) {
       setLoading(false);
