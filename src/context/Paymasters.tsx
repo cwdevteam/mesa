@@ -14,9 +14,14 @@ const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   const [id, setId] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
 
+  const onSuccess = (id: string) => {
+    setId(id);
+    window.location.reload();
+  };
+
   const { writeContracts } = useWriteContracts({
     mutation: {
-      onSuccess: (id: string) => setId(id),
+      onSuccess,
       onError: (error: any) => {
         setId(error.message);
         setError(error.message);
