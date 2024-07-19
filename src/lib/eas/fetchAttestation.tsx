@@ -14,10 +14,10 @@ export const fetchAttestation = async (attestation: any) => {
         try {
           const response = await fetchUri(metadataUri);
           dashboardData["credits"] = response.credits;
-          extractedData["description"] = response.description;
+          dashboardData["description"] = response.description;
         } catch (error) {
           console.error("Failed to fetch metadata URI:", error);
-          extractedData["description"] = "Failed to fetch description";
+          dashboardData["description"] = "Failed to fetch description";
         }
         continue;
       }
@@ -26,6 +26,5 @@ export const fetchAttestation = async (attestation: any) => {
     }
   }
   dashboardData["name"] = extractedData["title"];
-  dashboardData["description"] = extractedData["description"];
   return { extractedData, dashboardData };
 };
