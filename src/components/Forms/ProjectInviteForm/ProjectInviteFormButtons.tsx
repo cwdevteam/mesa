@@ -9,12 +9,12 @@ import { useProjectInviteProvider } from "@/context/ProjectInviteProvider";
 
 const ProjectInviteFormButtons = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { name, email } = useProjectInviteProvider();
+  const { name, email, message } = useProjectInviteProvider();
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      await sendInviteEmail(email, name);
+      await sendInviteEmail(email, name, message);
       toast({
         title: "Success",
         description: `Successfully email sent to ${email}`,
