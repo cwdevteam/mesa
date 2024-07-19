@@ -1,3 +1,3 @@
-import ProjectMetadataForm from "./ProjectMetaDataForm";
+import ProjectMetadataForm from "./ProjectMetadataForm";
 
 export default ProjectMetadataForm;

@@ -32,11 +32,7 @@ const ProjectMetaDataDialog = ({
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className="max-w-full">
-          <ProjectMetadataForm
-            request={request}
-            selectedUser={selectedUser}
-            roleId={roleId}
-          />
+          <ProjectMetadataForm request={request} />
         </div>
       </DialogContent>
     </Dialog>
