@@ -1,10 +1,11 @@
 import React from "react";
 import UserMatrixCard from "./ProjectMetaDataTable/UserMatrixCard";
 import { Button } from "./ui/button";
-import { ProjectCollaboratorsProps, UserData } from "@/types/const";
+import { useProjectProvider } from "@/context/ProjectProvider";
+import { Credit } from "@/types/projectMetadataForm";
 
-export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
-  const currentCollaborators = project?.collaborators as UserData[];
+const ProjectCollaborators = () => {
+  const { credits } = useProjectProvider();
 
   return (
     <section className="w-full grid mt-4 max-w-auto">
@@ -19,11 +20,13 @@ export function ProjectCollaborators({ project }: ProjectCollaboratorsProps) {
       </div>
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
         <div className="w-full grid grid-cols-1 gap-4">
-          {currentCollaborators.map((collaborator, index) => (
+          {credits.map((collaborator: Credit, index: number) => (
             <UserMatrixCard key={index} data={collaborator} />
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default ProjectCollaborators;

@@ -11,7 +11,7 @@ import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
 
 const usePaymasterAttest = () => {
-  const { name, description, animationUrl } = useProjectProvider();
+  const { name, description, animationUrl, credits } = useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
@@ -21,6 +21,7 @@ const usePaymasterAttest = () => {
     const { uri: metadataUri } = await uploadJson({
       description: description,
       animation_url: animationUrl,
+      credits,
     });
     const encodedAttestation = getEncodedAttestationData(
       name,

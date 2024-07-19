@@ -17,6 +17,7 @@ const useAttestation = () => {
   }, [attestationData]);
 
   useEffect(() => {
+    if (!attestationData?.data) return;
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attestationData]);

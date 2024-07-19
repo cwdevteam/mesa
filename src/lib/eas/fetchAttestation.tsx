@@ -5,6 +5,7 @@ import fetchUri from "../ipfs/fetchUri";
 export const fetchAttestation = async (attestation: any) => {
   const mapped = getDecodedAttestationData(attestation);
   const extractedData: any = {};
+  const dashboardData: any = MockData;
   for (const item of mapped.flat()) {
     if (item.value && item.value.name) {
       const isMetadata = item.value.name === "metadataUri";
@@ -12,10 +13,11 @@ export const fetchAttestation = async (attestation: any) => {
         const metadataUri = item.value.value;
         try {
           const response = await fetchUri(metadataUri);
-          extractedData["description"] = response.description;
+          dashboardData["credits"] = response.credits;
+          dashboardData["description"] = response.description;
         } catch (error) {
           console.error("Failed to fetch metadata URI:", error);
-          extractedData["description"] = "Failed to fetch description";
+          dashboardData["description"] = "Failed to fetch description";
         }
         continue;
       }
@@ -23,8 +25,6 @@ export const fetchAttestation = async (attestation: any) => {
       extractedData[key] = item.value.value;
     }
   }
-  const dashboardData: any = MockData;
   dashboardData["name"] = extractedData["title"];
-  dashboardData["description"] = extractedData["description"];
   return { extractedData, dashboardData };
 };
