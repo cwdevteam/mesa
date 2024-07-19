@@ -4,20 +4,25 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import InviteProjectButton from "./InviteProjectButton";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
+import sendInviteEmail from "@/lib/email/sendInviteEmail";
+import { useProjectInviteProvider } from "@/context/ProjectInviteProvider";
 
 const ProjectInviteFormButtons = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { name, email, message } = useProjectInviteProvider();
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      await sendInviteEmail(email, name, message);
       toast({
         title: "Success",
-        description: `Successfully email sent to INSERT_EMAIL`,
+        description: `Successfully email sent to ${email}`,
         variant: "default",
       });
       setLoading(false);
     } catch (err: any) {
+      console.error(err);
       setLoading(false);
       toast({
         title: "Failed",
