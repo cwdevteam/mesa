@@ -4,6 +4,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { useCapabilities, useWriteContracts } from "wagmi/experimental";
 import { PaymasterContextProps, PaymastersProviderProps } from "@/types/const";
+import { useRouter } from "next/navigation";
 
 const PaymasterContext = createContext<PaymasterContextProps | undefined>(
   undefined
@@ -13,10 +14,11 @@ const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   const account = useAccount();
   const [id, setId] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
+  const { push } = useRouter();
 
   const onSuccess = (id: string) => {
     setId(id);
-    window.location.reload();
+    push("/dashboard");
   };
 
   const { writeContracts } = useWriteContracts({

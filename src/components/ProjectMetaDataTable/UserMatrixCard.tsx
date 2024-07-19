@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
 
+import { useState } from "react";
 import { UserMatrixCardProps } from "@/types/const";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
@@ -8,19 +8,13 @@ import UserMatrixCardDetails from "./UserMatrixCardDetails";
 import { isInvitation } from "./utils";
 
 const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
-  const [selectedUserId, setSelectedUserId] = useState("");
   const [editModal, setEditModal] = useState<boolean>(false);
   const [requestType, setRequestType] = useState<string>("");
   const [roleId, setRoleId] = useState<string>("");
 
-  const handleActionClick = (
-    userId: string,
-    roleId: string,
-    request: string
-  ) => {
+  const handleActionClick = (roleId: string, request: string) => {
     setRequestType(request);
     setRoleId(roleId);
-    setSelectedUserId(userId);
     setEditModal(true);
   };
 
@@ -46,7 +40,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
           <div className="text-sm w-full ml-17 flex justify-end">
             <button
               className="inline-flex items-center justify-center whitespace-nowrap text-md font-x1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 w-8 shrink-0 rounded-full"
-              onClick={() => handleActionClick(data.bps, "ididid", "create")}
+              onClick={() => handleActionClick("ididid", "create")}
             >
               +
             </button>

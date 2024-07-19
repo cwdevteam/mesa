@@ -39,3 +39,17 @@ export interface IUserRole {
   user_role: string;
   user_bps: number;
 }
+
+export type Credit = {
+  contractType: ContractType;
+  collaboratorType: UserRole;
+  name: string;
+  splitBps: number;
+};
+
+export const defaultCredit = {
+  contractType: ContractType.Songwriting,
+  collaboratorType: UserRole.Owner,
+  name: "",
+  splitBps: 10000,
+};

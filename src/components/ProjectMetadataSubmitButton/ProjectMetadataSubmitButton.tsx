@@ -16,7 +16,7 @@ const ProjectMetadataSubmitButton = ({
     ) : (
       <Pencil1Icon color="currentColor" className="h-4 w-4" />
     )}
-    {request === "edit" ? "Update" : "Create"}
+    Update
   </Button>
 );
 

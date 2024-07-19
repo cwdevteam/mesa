@@ -7,8 +7,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const ProjectmetadataSelect = ({ value, label, options }: any) => (
-  <Select value={value}>
+const ProjectMetadataSelect = ({
+  value,
+  label,
+  options,
+  handleChange,
+}: any) => (
+  <Select value={value} onValueChange={handleChange}>
     <SelectTrigger className="bg-card border-none">
       <div className="flex items-center gap-2">
         <SelectValue className="text-sm font-semibold">{label}</SelectValue>
@@ -30,4 +35,4 @@ const ProjectmetadataSelect = ({ value, label, options }: any) => (
   </Select>
 );
 
-export default ProjectmetadataSelect;
+export default ProjectMetadataSelect;

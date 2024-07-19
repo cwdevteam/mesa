@@ -9,18 +9,18 @@ import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import useAttestation from "@/hooks/useAttestation";
+import { defaultCredit } from "@/types/projectMetadataForm";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
-  const [data, setData] = useState(null);
-  const { setName, setDescription } = useProjectProvider();
+  const { setName, setDescription, setCredits } = useProjectProvider();
   const { dashboardData }: any = useAttestation();
 
   const fetchData = async () => {
     if (dashboardData) {
-      setData(dashboardData);
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
+      setCredits(dashboardData["credits"] || [defaultCredit]);
     }
   };
 
@@ -38,9 +38,7 @@ const ProjectPage = () => {
       <div className="mb-10 h-5">
         <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
       </div>
-      {tabContent === "project" && data && (
-        <ProjectDetailsComponent project={data} />
-      )}
+      {tabContent === "project" && <ProjectDetailsComponent />}
       {tabContent === "contract" && (
         <ContractDetailsPage
           project={MockData}
