@@ -5,15 +5,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { bpsToPercent } from "@/lib/utils";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
 import { useEffect, useState } from "react";
-import { InvitaionNav } from "./InvitaionNav";
 import CardComponent from "./CardComponent";
 import {
   ProjectInvitationProps,
   ProjectUserProps,
 } from "@/components/ProjectCollaborators/types";
+import bpsToPercent from "@/lib/bpsToPercent";
 
 const isInvitation = (obj: any) => obj.status === "Accepted";
 
@@ -76,27 +75,14 @@ export const ProjectMetaDataTable = ({
           !isInvitation(row.original) &&
           (project?.created_by === user.id || row.original.user_id === user.id);
         return (
-          <>
-            {flag ? (
-              <span
-                className="cursor-pointer select-none"
-                onClick={() => {
-                  flag && handleActionClick(row.original.user_id);
-                }}
-              >
-                ...
-              </span>
-            ) : (
-              <>
-                {project?.created_by === user.id ? (
-                  <InvitaionNav
-                    userId={row.original.user_id}
-                    invitationId={row.original.id}
-                  />
-                ) : null}
-              </>
-            )}
-          </>
+          <span
+            className="cursor-pointer select-none"
+            onClick={() => {
+              flag && handleActionClick(row.original.user_id);
+            }}
+          >
+            ...
+          </span>
         );
       },
     },

@@ -37,7 +37,6 @@ const ProjectMetaDataDialog = ({
             project={project}
             selectedUser={selectedUser}
             roleId={roleId}
-            onSubmit={() => setOpen && setOpen(false)}
           />
         </div>
       </DialogContent>

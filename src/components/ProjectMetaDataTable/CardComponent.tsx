@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-import { bpsToPercent } from "@/lib/utils";
 import React, { useState } from "react";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
 import { Icons } from "../Icons";
@@ -8,6 +6,7 @@ import {
   ProjectUserProps,
 } from "@/components/ProjectCollaborators/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import bpsToPercent from "@/lib/bpsToPercent";
 
 export interface CardProps {
   data: any;
