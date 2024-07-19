@@ -1,4 +1,4 @@
-import ProjectMetaDataSubmitButton from "@/components/ProjectMetaDataSubmitButton";
+import ProjectMetadataSubmitButton from "@/components/ProjectMetadataSubmitButton";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
@@ -32,7 +32,7 @@ const CloseButton = ({ request }: any) => {
           Close
         </Button>
       </DialogClose>
-      <ProjectMetaDataSubmitButton
+      <ProjectMetadataSubmitButton
         handleSubmit={handleSubmit}
         loading={loading}
         request={request}

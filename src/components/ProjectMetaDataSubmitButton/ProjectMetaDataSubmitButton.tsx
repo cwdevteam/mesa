@@ -1,7 +1,7 @@
 import { Pencil1Icon, ReloadIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 
-const ProjectMetaDataSubmitButton = ({
+const ProjectMetadataSubmitButton = ({
   handleSubmit,
   loading,
   request,
@@ -20,4 +20,4 @@ const ProjectMetaDataSubmitButton = ({
   </Button>
 );
 
-export default ProjectMetaDataSubmitButton;
+export default ProjectMetadataSubmitButton;

@@ -1,3 +1,3 @@
-import ProjectMetaDataSubmitButton from "./ProjectMetaDataSubmitButton";
+import ProjectMetadataSubmitButton from "./ProjectMetadataSubmitButton";
 
-export default ProjectMetaDataSubmitButton;
+export default ProjectMetadataSubmitButton;
