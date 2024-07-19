@@ -53,7 +53,10 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
           </div>
         </div>
       </div>
-      <UserMatrixCardDetails data={data} />
+      <UserMatrixCardDetails
+        handleActionClick={handleActionClick}
+        data={data}
+      />
       <ProjectMetaDataDialog
         open={editModal}
         setOpen={setEditModal}

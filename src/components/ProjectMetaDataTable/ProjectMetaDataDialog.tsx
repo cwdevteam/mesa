@@ -32,15 +32,13 @@ const ProjectMetaDataDialog = ({
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className="max-w-full">
-          {selectedUser && (
-            <ProjectMetaDataForm
-              request={request}
-              project={project}
-              selectedUser={selectedUser}
-              roleId={roleId}
-              onSubmit={() => setOpen && setOpen(false)}
-            />
-          )}
+          <ProjectMetaDataForm
+            request={request}
+            project={project}
+            selectedUser={selectedUser}
+            roleId={roleId}
+            onSubmit={() => setOpen && setOpen(false)}
+          />
         </div>
       </DialogContent>
     </Dialog>

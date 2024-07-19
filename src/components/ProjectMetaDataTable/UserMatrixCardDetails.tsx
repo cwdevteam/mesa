@@ -1,7 +1,13 @@
 import React from "react";
 import { Icons } from "../Icons";
 
-const UserMatrixCardDetails = ({ data }: { data: any }) => (
+const UserMatrixCardDetails = ({
+  data,
+  handleActionClick,
+}: {
+  data: any;
+  handleActionClick: Function;
+}) => (
   <div className="w-full rounded-md overflow-hidden shadow-lg border">
     <div className="w-full overflow-x-auto">
       <table className="min-w-full caption-bottom text-sm">
@@ -53,7 +59,10 @@ const UserMatrixCardDetails = ({ data }: { data: any }) => (
               </div>
             </th>
             <th className="h-10 px-2 sm:px-0 text-center cursor-pointer flex flex-row justify-center items-center align-middle font-medium text-muted-foreground">
-              <div className=" inline-flex justify-center items-center text-center">
+              <div
+                className=" inline-flex justify-center items-center text-center"
+                onClick={() => handleActionClick()}
+              >
                 <Icons.Edit />
               </div>
             </th>
