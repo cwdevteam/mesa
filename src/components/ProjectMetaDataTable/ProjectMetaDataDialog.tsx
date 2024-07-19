@@ -26,9 +26,7 @@ const ProjectMetaDataDialog = ({
         {...props}
       >
         <DialogHeader>
-          <DialogTitle>
-            {request === "create" ? "Create" : "Update"} Project Meta Data
-          </DialogTitle>
+          <DialogTitle>Update Project Metadata</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className="max-w-full">
