@@ -5,15 +5,16 @@ import InviteProjectButton from "./InviteProjectButton";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import sendInviteEmail from "@/lib/email/sendInviteEmail";
+import { useProjectInviteProvider } from "@/context/ProjectInviteProvider";
 
 const ProjectInviteFormButtons = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { name, email } = useProjectInviteProvider();
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const email = "sweetmantech@gmail.com";
-      await sendInviteEmail(email, "sweetman.eth");
+      await sendInviteEmail(email, name);
       toast({
         title: "Success",
         description: `Successfully email sent to ${email}`,
