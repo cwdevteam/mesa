@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useUserProvider } from "@/context/UserProvider";
+import { ContractType, Credit, UserRole } from "@/types/projectMetadataForm";
+import { useEffect, useState } from "react";
+
+const defaultCredit = {
+  contractType: ContractType.Songwriting,
+  collaboratorType: UserRole.Owner,
+  name: "",
+  splitBps: 10000,
+};
 
 const useProject = () => {
+  const { user } = useUserProvider();
   const [id, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [animationUrl, setAnimationUrl] = useState<string>("");
+  const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
+
+  useEffect(() => {
+    if (!user) return;
+    setCredits([{ ...defaultCredit, name: user?.full_name }]);
+  }, [user]);
 
   return {
+    credits,
+    setCredits,
     id,
     setId,
     name,

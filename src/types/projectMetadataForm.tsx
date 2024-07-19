@@ -39,3 +39,10 @@ export interface IUserRole {
   user_role: string;
   user_bps: number;
 }
+
+export type Credit = {
+  contractType: ContractType;
+  collaboratorType: UserRole;
+  name: string;
+  splitBps: number;
+};
