@@ -12,9 +12,9 @@ const ProjectMetaDataSubmitButton = ({
 }) => (
   <Button className="inline-flex gap-2" onClick={handleSubmit}>
     {loading ? (
-      <Pencil1Icon color="currentColor" className="h-4 w-4" />
-    ) : (
       <ReloadIcon color="currentColor" className="h-4 w-4 animate-spin" />
+    ) : (
+      <Pencil1Icon color="currentColor" className="h-4 w-4" />
     )}
     {request === "edit" ? "Update" : "Create"}
   </Button>
