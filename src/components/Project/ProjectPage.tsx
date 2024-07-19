@@ -2,32 +2,80 @@
 
 import { useEffect, useState } from "react";
 import ProjectTabs from "../ProjectTabs";
-import { ProjectTab } from "@/types/const";
+import { ProjectIDType, ProjectTab } from "@/types/const";
 import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsComponent";
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import useAttestation from "@/hooks/useAttestation";
+import { useUserProvider } from "@/context/UserProvider";
+import { useParams } from "next/navigation";
+import { addRoleHandler } from "@/lib/projects/addRoleHandler";
+import { invitationHandler } from "@/lib/projects/invitationHandler";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
   const [data, setData] = useState(null);
   const { setName, setDescription } = useProjectProvider();
   const { dashboardData }: any = useAttestation();
+  const { user } = useUserProvider();
+  const { id } = useParams<ProjectIDType>();
+
+  const fetchProjectByID = async () => {
+    const response = await fetch(`/api/userProjects?id=${id}&action=byId`);
+    let data = await response.json();
+    const inviteResponse = await fetch(
+      `/api/userProjects?id=${user.id}&projectId=${id}`
+    );
+    let allInvitations = await inviteResponse.json();
+    return { data, allInvitations };
+  };
+
+  const addCollaborator = async (name: string, description: string) => {
+    let collaborators: any = await invitationHandler(
+      description,
+      name,
+      user,
+      id,
+      "Accepted",
+      user.username,
+      user.email,
+      "Owner"
+    );
+    let roleData = await addRoleHandler(
+      id,
+      "Master",
+      "Owner",
+      collaborators.id
+    );
+
+    let data = { ...collaborators, roles: [roleData] };
+    return [data];
+  };
 
   const fetchData = async () => {
     if (dashboardData) {
-      setData(dashboardData);
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
+      let { data, allInvitations } = await fetchProjectByID();
+      let collaborators = data;
+      if (collaborators.length === 0) {
+        collaborators = await addCollaborator(
+          dashboardData["name"],
+          dashboardData["description"]
+        );
+      }
+      dashboardData["collaborators"] = collaborators;
+      dashboardData["projectInvitations"] = allInvitations;
+      setData(dashboardData);
     }
   };
 
   useEffect(() => {
-    dashboardData && fetchData();
+    dashboardData && user && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboardData]);
+  }, [dashboardData, user]);
 
   const onTabChange = (tab: ProjectTab) => {
     setTabContent(tab);

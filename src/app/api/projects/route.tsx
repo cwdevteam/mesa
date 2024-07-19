@@ -3,6 +3,7 @@ import getAttestations from "@/lib/eas/getAttestations";
 import { ethGetLogs } from "@/lib/alchemy/eth_getLogs";
 import { Address } from "viem";
 import { findUniqueMatches } from "@/lib/eas/findUniqueMatches";
+import addProject from "@/app/api/projects/addProject";
 
 export const runtime = "edge";
 
@@ -30,4 +31,8 @@ export async function GET(req: NextRequest) {
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+}
+
+export async function POST(req: NextRequest) {
+  return await addProject(req);
 }
