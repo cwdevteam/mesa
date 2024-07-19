@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { Locale } from "@/../i18n.config";
 import { PlayMode } from "@/lib/enum";
 import { Address } from "viem";
+import { Credit } from "./projectMetadataForm";
 
 export type ProjectTab = "project" | "contract" | "setting";
 
@@ -11,10 +12,6 @@ export interface ProjectPageProps {
     lang: Locale;
     id: string;
   };
-}
-
-export interface ProjectDetailsComponentProps {
-  project: any;
 }
 
 export interface ProjectDetailsCardProps {
@@ -64,7 +61,7 @@ export interface UserData {
   bps: string;
 }
 export interface UserMatrixCardProps {
-  data: UserData;
+  data: Credit;
 }
 export interface ProjectCollaboratorsProps {
   project: any;

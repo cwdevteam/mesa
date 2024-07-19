@@ -10,17 +10,11 @@ const defaultCredit = {
 };
 
 const useProject = () => {
-  const { user } = useUserProvider();
   const [id, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [animationUrl, setAnimationUrl] = useState<string>("");
   const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
-
-  useEffect(() => {
-    if (!user) return;
-    setCredits([{ ...defaultCredit, name: user?.full_name }]);
-  }, [user]);
 
   return {
     credits,

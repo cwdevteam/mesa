@@ -1,5 +1,5 @@
 import { Label } from "@/components/ui/label";
-import { Credit, UserRole, userRoleOptions } from "@/types/projectMetadataForm";
+import { Credit, userRoleOptions } from "@/types/projectMetadataForm";
 import ProjectmetadataSelect from "./ProjectMetadataSelect";
 import { useProjectProvider } from "@/context/ProjectProvider";
 
