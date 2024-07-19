@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ProjectMetaDataDialogProps } from "../ProjectCollaborators/types";
-import ProjectMetaDataForm from "../Forms/ProjectMetaDataForm";
+import ProjectMetadataForm from "../Forms/ProjectMetadataForm";
 
 const ProjectMetaDataDialog = ({
   project,
@@ -32,9 +32,8 @@ const ProjectMetaDataDialog = ({
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className="max-w-full">
-          <ProjectMetaDataForm
+          <ProjectMetadataForm
             request={request}
-            project={project}
             selectedUser={selectedUser}
             roleId={roleId}
           />
