@@ -7,10 +7,8 @@ const UserRoleSelect = () => {
   const { credits, setCredits } = useProjectProvider();
   const userRole = credits[0].collaboratorType;
   const label = userRoleOptions.find((v) => v.value === userRole)?.label;
-  console.log("sweets credits", credits);
 
   const handleChange = (e: any) => {
-    console.log("sweets handleChange", e);
     const credit = {
       ...credits[0],
       collaboratorType: e,
