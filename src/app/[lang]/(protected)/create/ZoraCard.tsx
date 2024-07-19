@@ -81,8 +81,8 @@ export default function ZoraCard({
           return (
             <div className="flex items-center flex-1">
               <p className="text-muted-foreground">
-                Missing "tokenKey" parameter. Please check the URL and try
-                again.
+                Missing &ldquo;tokenKey&rdquo; parameter. Please check the URL
+                and try again.
               </p>
             </div>
           );
