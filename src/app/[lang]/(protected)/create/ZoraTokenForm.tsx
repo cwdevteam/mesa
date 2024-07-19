@@ -9,7 +9,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Icons } from "@/components/Icons";
 
 import type { Create1155TokenMutation } from "@/hooks/useZoraToken";
-import { IS_TESTNET } from "@/lib/consts";
 
 interface ZoraCardProps {
   payoutRecipient: Address;
@@ -22,7 +21,9 @@ export default function ZoraTokenForm({
 }: ZoraCardProps) {
   const [tokenCreated, setTokenCreated] = useState(false);
 
-  const createToken = async (event: React.FormEvent<HTMLFormElement>) => {
+  const createTokenAndCollection = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -30,15 +31,20 @@ export default function ZoraTokenForm({
     const description = formData.get("description") as string;
     const mediaFile = formData.get("mediaFile") as File;
     const thumbnailFile = formData.get("thumbnailFile") as File;
-    const creatorContract = formData.get("creatorContract") as Address;
+
+    const contract = {
+      // See https://ipfs.decentralized-content.com/ipfs/bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae
+      uri: "ipfs://bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae", // TODO: replace with custom metadata uri
+      name: "MESA Artist",
+    };
 
     create1155Token.mutateAsync(
       {
+        contract,
         name,
         description,
         mediaFile,
         thumbnailFile,
-        creatorContract,
         payoutRecipient,
       },
       {
@@ -52,32 +58,8 @@ export default function ZoraTokenForm({
   return (
     <form
       className="flex flex-col gap-8 max-w-md flex-1"
-      onSubmit={createToken}
+      onSubmit={createTokenAndCollection}
     >
-      <div className="grid w-full items-center gap-1.5">
-        <Label htmlFor="creatorContract">Collection Address:</Label>
-        <Input
-          type="text"
-          name="creatorContract"
-          id="creatorContract"
-          placeholder="0x..."
-          pattern="0x[a-fA-F0-9]{40}"
-          required
-        />
-        <div className="text-sm text-muted-foreground">
-          Find your collection address on{" "}
-          <a
-            className="underline"
-            href={`https://${IS_TESTNET ? "testnet." : ""}zora.co/manage`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Zora
-          </a>
-          .
-        </div>
-      </div>
-
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="name">Title:</Label>
         <Input type="text" name="name" id="name" required />

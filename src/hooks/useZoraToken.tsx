@@ -8,6 +8,7 @@ import {
   WalletClient,
 } from "viem";
 import {
+  ContractType,
   TokenMetadataJson,
   createCreatorClient,
   makeMediaTokenMetadata,
@@ -26,15 +27,15 @@ const STORAGE_PREFIX = `zora-token/${CHAIN_ID}`;
 export type TokenResult = {
   transactionHash: string;
   tokenMetadata: TokenMetadataJson;
-  tokenMetadataUri: string;
+  tokenMetadataURI: string;
 };
 
 type Create1155TokenMutationProps = {
+  contract: ContractType;
   name: string;
   description: string;
   mediaFile: File;
   thumbnailFile: File;
-  creatorContract: Address;
   payoutRecipient: Address;
 };
 
@@ -46,19 +47,17 @@ export type Create1155TokenMutation = UseMutationResult<
 >;
 
 export default function useZoraToken({
-  id,
+  tokenKey,
   publicClient,
   walletClient,
-  // payoutRecipient,
   creatorAccount,
 }: {
-  id: string;
+  tokenKey: string | null;
   publicClient: PublicClient<HttpTransport, Chain>;
   walletClient: WalletClient;
-  // payoutRecipient: Address | undefined;
   creatorAccount: Address;
 }) {
-  const storageKey = `${STORAGE_PREFIX}/${id}`;
+  const storageKey = `${STORAGE_PREFIX}/${tokenKey}`;
   const queryKey = [storageKey];
   const queryClient = useQueryClient();
 
@@ -78,15 +77,16 @@ export default function useZoraToken({
       return null;
     },
     staleTime: Infinity,
+    enabled: !!tokenKey,
   });
 
   const create1155TokenMutation: Create1155TokenMutation = useMutation({
     mutationFn: async ({
+      contract,
       name,
       description,
       mediaFile,
       thumbnailFile,
-      creatorContract,
       payoutRecipient,
     }: Create1155TokenMutationProps) => {
       // Step 1: Create the token metadata
@@ -107,7 +107,7 @@ export default function useZoraToken({
         "token.json"
       );
 
-      const { uri: tokenMetadataUri } = await uploadFile(tokenMetadataJson);
+      const { uri: tokenMetadataURI } = await uploadFile(tokenMetadataJson);
 
       // Step 2: Create the 1155 token
       const creatorClient = createCreatorClient({
@@ -116,9 +116,9 @@ export default function useZoraToken({
       });
 
       const { parameters } = await creatorClient.create1155({
-        contract: creatorContract,
+        contract,
         token: {
-          tokenMetadataURI: tokenMetadataUri,
+          tokenMetadataURI,
           payoutRecipient,
         },
         account: creatorAccount,
@@ -131,7 +131,7 @@ export default function useZoraToken({
       const result: TokenResult = {
         transactionHash,
         tokenMetadata,
-        tokenMetadataUri,
+        tokenMetadataURI,
       };
 
       return result;

@@ -6,6 +6,7 @@ import { Chain, HttpTransport, PublicClient, getAddress } from "viem";
 import { generatePrivateKey, privateKeyToAddress } from "viem/accounts";
 import { useAccount, useWalletClient, usePublicClient } from "wagmi";
 import type { CreateSplitConfig } from "@0xsplits/splits-sdk/types";
+import { v4 as uuid } from "uuid";
 
 import { Button } from "@/components/ui/button";
 import usePredictedSplits from "@/hooks/usePredictedSplits";
@@ -65,14 +66,14 @@ export default function ZoraPage() {
     }
   }, [searchParams, setSplitsConfig]);
 
-  const handleSubmit = () => {
+  const generateURL = () => {
     try {
       const newConfig = textareaRef.current
         ? JSON.parse(textareaRef.current.value)
         : null;
       if (!newConfig) throw new Error("Missing splits config");
       const encodedConfig = encodeURIComponent(JSON.stringify(newConfig));
-      router.push(`?splits=${encodedConfig}`);
+      router.push(`?uid=${uuid()}&splits=${encodedConfig}`);
     } catch (e) {
       alert("Invalid JSON configuration.");
       console.error(e);
@@ -111,7 +112,7 @@ export default function ZoraPage() {
               cols={60}
               required={true}
             />
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button onClick={generateURL}>Generate URL</Button>
           </div>
         </StepCard>
       </section>
@@ -142,6 +143,7 @@ export default function ZoraPage() {
           payoutRecipient={payoutRecipient}
           splitExists={splitExists}
           isLoading={predictedSplitsQuery.isLoading}
+          tokenKey={searchParams.get("uid") || null}
         />
       </section>
     </>

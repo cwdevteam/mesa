@@ -22,9 +22,8 @@ interface ZoraCardProps {
   payoutRecipient: Address | undefined;
   splitExists: boolean | undefined;
   isLoading: boolean;
+  tokenKey: string | null;
 }
-
-const dummyId = "test"; // TODO: Replace with project ID from URL
 
 export default function ZoraCard({
   publicClient,
@@ -33,13 +32,14 @@ export default function ZoraCard({
   payoutRecipient,
   splitExists,
   isLoading,
+  tokenKey,
 }: ZoraCardProps) {
   const {
     create1155Token,
     query: tokenQuery,
     // reset: resetToken,
   } = useZoraToken({
-    id: dummyId,
+    tokenKey,
     publicClient,
     walletClient,
     creatorAccount,
@@ -74,6 +74,17 @@ export default function ZoraCard({
                 </ExternalLinkButton>
               </div>
             </>
+          );
+        }
+
+        if (!tokenKey) {
+          return (
+            <div className="flex items-center flex-1">
+              <p className="text-muted-foreground">
+                Missing "tokenKey" parameter. Please check the URL and try
+                again.
+              </p>
+            </div>
           );
         }
 
