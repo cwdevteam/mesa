@@ -127,5 +127,5 @@ export interface ConnectButtonProps {
 }
 
 export type ProjectIDType = {
-  id: string;
+  id: Address;
 };
