@@ -12,12 +12,13 @@ const useAuthRedirect = () => {
   useEffect(() => {
     const checkUser = async () => {
       const responseLib = await fetchUserByAddress(address as Address);
+      if (pathname.includes("/invite")) return;
       if (!responseLib) return push("/profile");
       if (pathname === "/en") push("/dashboard");
     };
 
     if (!(isConnected && address)) {
-      if (pathname.endsWith("/invite")) return;
+      if (pathname.includes("/invite")) return;
       push("/");
       return;
     }

@@ -8,6 +8,8 @@ const useAttestation = () => {
   const [dashboardData, setDashboardData] = useState<UserDetailsProps | null>(
     null
   );
+  console.log("SWEETS attestationData", attestationData);
+  console.log("SWEETS dashboardData", dashboardData);
 
   const fetchData = useCallback(async () => {
     if (attestationData.data.length > 0) {
