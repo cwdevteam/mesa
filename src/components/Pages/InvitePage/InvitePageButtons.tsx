@@ -1,14 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import useConnectSmartWallet from "@/hooks/useConnectSmartWallet";
+import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import { useRouter } from "next/navigation";
 
 const InvitePageButtons = () => {
   const { toast } = useToast();
+  const { attest } = usePaymasterAttest();
+  const { push } = useRouter();
+  const { connect } = useConnectSmartWallet();
 
   const handleSubmit = async (accepted: boolean) => {
+    connect();
     try {
+      if (!accepted) {
+        toast({
+          title: "Declined",
+          description: "Declined Invitation",
+          variant: "default",
+        });
+        push("/");
+        return;
+      }
+      await attest();
       toast({
         title: "Success",
-        description: `${accepted ? "Accepted" : "Declined"} Invitation`,
+        description: "Accepted Invitation",
         variant: "default",
       });
     } catch (err: any) {

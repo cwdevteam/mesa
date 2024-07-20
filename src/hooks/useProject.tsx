@@ -1,18 +1,30 @@
 import { Credit, defaultCredit } from "@/types/projectMetadataForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAttestation from "./useAttestation";
 
 const useProject = () => {
-  const [id, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [animationUrl, setAnimationUrl] = useState<string>("");
   const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
+  const { dashboardData }: any = useAttestation();
+
+  const fetchData = async () => {
+    if (dashboardData) {
+      setName(dashboardData["name"]);
+      setDescription(dashboardData["description"]);
+      setCredits(dashboardData["credits"] || [defaultCredit]);
+    }
+  };
+
+  useEffect(() => {
+    dashboardData && fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dashboardData]);
 
   return {
     credits,
     setCredits,
-    id,
-    setId,
     name,
     setName,
     description,

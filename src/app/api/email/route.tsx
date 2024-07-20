@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, name, message = "" } = body;
+    const { email, name, message = "", referenceAttestation } = body;
     if (!email || !name) {
       return new Response(JSON.stringify({ error: "Missing email or name" }), {
         status: 400,
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       from: "Mesa <mesa@onchainmagic.xyz>",
       to: [email],
       subject: "Mesa - Project Invite",
-      react: InviteEmail({ name, message }),
+      react: InviteEmail({ name, message, referenceAttestation }),
     } as any);
 
     if (error) {

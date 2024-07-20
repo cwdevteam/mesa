@@ -1,33 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProjectTabs from "../ProjectTabs";
 import { ProjectTab } from "@/types/const";
 import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsComponent";
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
-import { useProjectProvider } from "@/context/ProjectProvider";
-import useAttestation from "@/hooks/useAttestation";
-import { defaultCredit } from "@/types/projectMetadataForm";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
-  const { setName, setDescription, setCredits } = useProjectProvider();
-  const { dashboardData }: any = useAttestation();
-
-  const fetchData = async () => {
-    if (dashboardData) {
-      setName(dashboardData["name"]);
-      setDescription(dashboardData["description"]);
-      setCredits(dashboardData["credits"] || [defaultCredit]);
-    }
-  };
-
-  useEffect(() => {
-    dashboardData && fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboardData]);
 
   const onTabChange = (tab: ProjectTab) => {
     setTabContent(tab);
