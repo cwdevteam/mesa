@@ -1,22 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import useConnectSmartWallet from "@/hooks/useConnectSmartWallet";
 import usePaymasterAttest from "@/hooks/usePaymasterAttest";
 import { useRouter } from "next/navigation";
-import { useConnect } from "wagmi";
 
 const InvitePageButtons = () => {
   const { toast } = useToast();
   const { attest } = usePaymasterAttest();
   const { push } = useRouter();
-  const { connect, connectors, data } = useConnect();
+  const { connect } = useConnectSmartWallet();
 
   const handleSubmit = async (accepted: boolean) => {
-    const coinbaseWalletConnector = connectors.find(
-      (connector) => connector.id === "coinbaseWalletSDK"
-    );
-    if (coinbaseWalletConnector && !data) {
-      connect({ connector: coinbaseWalletConnector });
-    }
+    connect();
     try {
       if (!accepted) {
         toast({
