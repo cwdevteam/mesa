@@ -1,14 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import { useRouter } from "next/navigation";
 
 const InvitePageButtons = () => {
   const { toast } = useToast();
+  const { attest } = usePaymasterAttest();
+  const { push } = useRouter();
 
   const handleSubmit = async (accepted: boolean) => {
     try {
+      if (!accepted) {
+        toast({
+          title: "Declined",
+          description: "Declined Invitation",
+          variant: "default",
+        });
+        push("/");
+        return;
+      }
+      await attest();
       toast({
         title: "Success",
-        description: `${accepted ? "Accepted" : "Declined"} Invitation`,
+        description: "Accepted Invitation",
         variant: "default",
       });
     } catch (err: any) {
