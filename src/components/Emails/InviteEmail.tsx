@@ -1,14 +1,16 @@
 import * as React from "react";
-import Image from "next/image";
+import { Address } from "viem";
 
 interface InviteEmailProps {
   name: string;
   message?: string;
+  referenceAttestation: Address;
 }
 
 export const InviteEmail: React.FC<Readonly<InviteEmailProps>> = ({
   name,
   message = "",
+  referenceAttestation,
 }) => (
   <div>
     <h1>Welcome, {name}!</h1>
@@ -16,7 +18,10 @@ export const InviteEmail: React.FC<Readonly<InviteEmailProps>> = ({
     <h3>Message: {message}</h3>
     <div>
       View the invitation:{" "}
-      <a href="https://mesa-wallet.vercel.app/invite" target="_blank">
+      <a
+        href={`https://mesa-wallet.vercel.app/invite?referenceAttestation=${referenceAttestation}`}
+        target="_blank"
+      >
         here
       </a>
     </div>

@@ -1,14 +1,17 @@
+import { Address } from "viem";
+
 const sendInviteEmail = async (
   email: string,
   name: string,
-  message: string
+  message: string,
+  referenceAttestation: Address
 ) => {
   const response = await fetch("/api/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, name, message }),
+    body: JSON.stringify({ email, name, message, referenceAttestation }),
   });
 
   if (!response.ok) {

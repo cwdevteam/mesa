@@ -6,15 +6,19 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import sendInviteEmail from "@/lib/email/sendInviteEmail";
 import { useProjectInviteProvider } from "@/context/ProjectInviteProvider";
+import { useParams } from "next/navigation";
+import { ProjectIDType } from "@/types/const";
 
 const ProjectInviteFormButtons = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { name, email, message } = useProjectInviteProvider();
+  const { id } = useParams<ProjectIDType>();
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      await sendInviteEmail(email, name, message);
+      console.log("SWEETS ID", id);
+      await sendInviteEmail(email, name, message, id);
       toast({
         title: "Success",
         description: `Successfully email sent to ${email}`,
