@@ -17,7 +17,6 @@ const ProjectInviteFormButtons = () => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      console.log("SWEETS ID", id);
       await sendInviteEmail(email, name, message, id);
       toast({
         title: "Success",

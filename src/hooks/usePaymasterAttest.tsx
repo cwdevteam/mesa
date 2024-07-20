@@ -17,8 +17,6 @@ const usePaymasterAttest = () => {
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
 
-  console.log("SWEETS name", name);
-
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
       description: description,
