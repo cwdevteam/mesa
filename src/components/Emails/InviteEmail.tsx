@@ -19,7 +19,7 @@ export const InviteEmail: React.FC<Readonly<InviteEmailProps>> = ({
     <div>
       View the invitation:{" "}
       <a
-        href={`https://mesa-wallet.vercel.app/invite?referenceAttestation=${referenceAttestation}`}
+        href={`https://mesa-wallet.vercel.app/invite/${referenceAttestation}`}
         target="_blank"
       >
         here
