@@ -22,7 +22,6 @@ const ZoraSuccess = ({ tokenQuery }: any) => {
       <div className="flex items-center flex-grow min-w-12">
         <p className="text-muted-foreground">Your token has been created.</p>
       </div>
-      {/* TODO: get contract address from transaction receipt and link to zora.co */}
       <div className="flex justify-center md:justify-end flex-wrap gap-2">
         <ExternalLinkButton href={zoraTokenUrl}>
           Manage on Zora
