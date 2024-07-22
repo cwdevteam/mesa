@@ -44,8 +44,7 @@ export default function ZoraTokenForm({
     const pricePerToken = parseEther(priceEth.toString());
 
     const contract = {
-      // See https://ipfs.decentralized-content.com/ipfs/bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae
-      uri: "ipfs://bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae", // TODO: replace with custom metadata uri
+      uri: "ipfs://bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae",
       name,
     };
 
