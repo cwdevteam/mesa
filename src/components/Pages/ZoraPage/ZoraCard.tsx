@@ -7,13 +7,11 @@ import {
   PublicClient,
   WalletClient,
 } from "viem";
-
 import useZoraToken from "@/hooks/useZoraToken";
 import { CHAIN, IS_TESTNET } from "@/lib/consts";
-
-import StepCard from "./StepCard";
 import ZoraTokenForm from "./ZoraTokenForm";
 import ExternalLinkButton from "./ExternalLinkButton";
+import StepCard from "./StepCard";
 
 interface ZoraCardProps {
   publicClient: PublicClient<HttpTransport, Chain>;
