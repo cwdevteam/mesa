@@ -2,40 +2,15 @@
 
 import { CHAIN, IS_TESTNET } from "@/lib/consts";
 import ExternalLinkButton from "@/components/Pages/ZoraPage/ExternalLinkButton";
-import { useEffect, useState } from "react";
-import { usePublicClient } from "wagmi";
-import { Address, parseEventLogs } from "viem";
-import {
-  zoraCreator1155FactoryImplABI,
-  zoraCreator1155FactoryImplAddress,
-  zoraCreator1155ImplABI,
-} from "@zoralabs/protocol-deployments";
+import useSetupNewTokenLog from "@/hooks/useSetupNewTokenLog";
 
 const ZoraSuccess = ({ tokenQuery }: any) => {
   const { url: explorerUrl, name: explorerName } = CHAIN.blockExplorers.default;
   const { transactionHash } = tokenQuery.data;
-  const publicClient = usePublicClient() as any;
-  const [setupNewTokenLog, setSetupNewTokenLog] = useState<any>();
+  const { data: setupNewTokenLog } = useSetupNewTokenLog({
+    hash: transactionHash,
+  });
 
-  useEffect(() => {
-    const init = async () => {
-      const transaction = await publicClient.getTransactionReceipt({
-        hash: transactionHash,
-      });
-      const { logs } = transaction;
-      const parsedLogs = parseEventLogs({
-        abi: zoraCreator1155ImplABI,
-        logs,
-        eventName: "SetupNewToken",
-      });
-      setSetupNewTokenLog(parsedLogs[0]);
-    };
-    if (!transactionHash) return;
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transactionHash]);
-
-  console.log("SWEETS setupNewTokenLog", setupNewTokenLog);
   const zoraTokenUrl = setupNewTokenLog
     ? `https://${IS_TESTNET ? "testnet." : ""}zora.co/collect/${
         IS_TESTNET ? "bsep" : "base"

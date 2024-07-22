@@ -23,10 +23,24 @@ export default function ZoraTokenForm({
   const { name, description } = useProjectProvider();
   const [priceEth, setPriceEth] = useState(0);
   const [tokenCreated, setTokenCreated] = useState(false);
+  const [mediaFile, setMediaFile] = useState<any>();
+  const [thumbnailFile, setThumbnailFile] = useState<any>();
+
+  const handleMediaFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0] || null;
+    setMediaFile(file as File);
+  };
+
+  const handleThumbnailFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0] || null;
+    setThumbnailFile(file as File);
+  };
 
   const createTokenAndCollection = async () => {
-    const mediaFile = ""; // formData.get("mediaFile") as File;
-    const thumbnailFile = ""; // formData.get("thumbnailFile") as File;
     const pricePerToken = parseEther(priceEth.toString());
 
     const contract = {
@@ -82,11 +96,23 @@ export default function ZoraTokenForm({
       </div>
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="mediaFile">Media File:</Label>
-        <Input type="file" name="mediaFile" id="mediaFile" required />
+        <Input
+          type="file"
+          name="mediaFile"
+          id="mediaFile"
+          required
+          onChange={handleMediaFileChange}
+        />
       </div>
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="thumbnailFile">Thumbnail File:</Label>
-        <Input type="file" name="thumbnailFile" id="thumbnailFile" required />
+        <Input
+          type="file"
+          name="thumbnailFile"
+          id="thumbnailFile"
+          required
+          onChange={handleThumbnailFileChange}
+        />
       </div>
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="tokenPrice">Price per token (ETH):</Label>
