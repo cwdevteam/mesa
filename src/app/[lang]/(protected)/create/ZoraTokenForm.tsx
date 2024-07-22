@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Address } from "viem";
+import { Address, parseEther } from "viem";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,6 +31,7 @@ export default function ZoraTokenForm({
     const description = formData.get("description") as string;
     const mediaFile = formData.get("mediaFile") as File;
     const thumbnailFile = formData.get("thumbnailFile") as File;
+    const pricePerToken = parseEther(formData.get("tokenPrice") as string);
 
     const contract = {
       // See https://ipfs.decentralized-content.com/ipfs/bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae
@@ -41,11 +42,16 @@ export default function ZoraTokenForm({
     create1155Token.mutateAsync(
       {
         contract,
-        name,
-        description,
-        mediaFile,
-        thumbnailFile,
-        payoutRecipient,
+        token: {
+          name,
+          description,
+          mediaFile,
+          thumbnailFile,
+          payoutRecipient,
+          salesConfig: {
+            pricePerToken,
+          },
+        },
       },
       {
         onSuccess: () => {
@@ -75,6 +81,18 @@ export default function ZoraTokenForm({
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="thumbnailFile">Thumbnail File:</Label>
         <Input type="file" name="thumbnailFile" id="thumbnailFile" required />
+      </div>
+      <div className="grid w-full items-center gap-2">
+        <Label htmlFor="tokenPrice">Price per token (ETH):</Label>
+        <Input
+          type="text"
+          name="tokenPrice"
+          id="tokenPrice"
+          defaultValue="0"
+          inputMode="decimal"
+          pattern="^\d+(\.\d+)?$"
+          required
+        />
       </div>
 
       <Button

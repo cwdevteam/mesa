@@ -9,6 +9,7 @@ import {
 } from "viem";
 import {
   ContractType,
+  CreateNew1155TokenProps,
   TokenMetadataJson,
   createCreatorClient,
   makeMediaTokenMetadata,
@@ -32,11 +33,12 @@ export type TokenResult = {
 
 type Create1155TokenMutationProps = {
   contract: ContractType;
-  name: string;
-  description: string;
-  mediaFile: File;
-  thumbnailFile: File;
-  payoutRecipient: Address;
+  token: Omit<CreateNew1155TokenProps, "tokenMetadataURI"> & {
+    name: string;
+    description: string;
+    mediaFile: File;
+    thumbnailFile: File;
+  };
 };
 
 export type Create1155TokenMutation = UseMutationResult<
@@ -83,11 +85,7 @@ export default function useZoraToken({
   const create1155TokenMutation: Create1155TokenMutation = useMutation({
     mutationFn: async ({
       contract,
-      name,
-      description,
-      mediaFile,
-      thumbnailFile,
-      payoutRecipient,
+      token: { name, description, mediaFile, thumbnailFile, ...tokenProps },
     }: Create1155TokenMutationProps) => {
       // Step 1: Create the token metadata
       const [mediaUpload, thumbnailUpload] = await Promise.all([
@@ -119,7 +117,7 @@ export default function useZoraToken({
         contract,
         token: {
           tokenMetadataURI,
-          payoutRecipient,
+          ...tokenProps,
         },
         account: creatorAccount,
       });
