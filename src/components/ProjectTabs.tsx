@@ -21,6 +21,9 @@ const ProjectTabs = ({
       <TabsTrigger value="setting" onClick={() => onTabChange("setting")}>
         Setting
       </TabsTrigger>
+      <TabsTrigger value="zora" onClick={() => onTabChange("zora")}>
+        Zora
+      </TabsTrigger>
     </TabsList>
   </Tabs>
 );

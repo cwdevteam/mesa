@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const DynamicZoraPage = dynamic(() => import("./ZoraPage"), {
+const DynamicZoraPage = dynamic(() => import("@/components/Pages/ZoraPage"), {
   ssr: false,
   loading: () => <div>Loading page...</div>,
 });

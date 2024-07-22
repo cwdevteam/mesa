@@ -5,7 +5,7 @@ import { PlayMode } from "@/lib/enum";
 import { Address } from "viem";
 import { Credit } from "./projectMetadataForm";
 
-export type ProjectTab = "project" | "contract" | "setting";
+export type ProjectTab = "project" | "contract" | "setting" | "zora";
 
 export interface ProjectPageProps {
   params: {

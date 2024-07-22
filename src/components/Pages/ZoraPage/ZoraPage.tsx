@@ -1,40 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Chain, HttpTransport, PublicClient, getAddress } from "viem";
-import { generatePrivateKey, privateKeyToAddress } from "viem/accounts";
 import { useAccount, useWalletClient, usePublicClient } from "wagmi";
 import type { CreateSplitConfig } from "@0xsplits/splits-sdk/types";
-import { v4 as uuid } from "uuid";
-
-import { Button } from "@/components/ui/button";
 import usePredictedSplits from "@/hooks/usePredictedSplits";
-
 import SplitsCard from "./SplitsCard";
 import ZoraCard from "./ZoraCard";
-import StepCard from "./StepCard";
-
-const dummyAddresses = [generatePrivateKey(), generatePrivateKey()].map((key) =>
-  getAddress(privateKeyToAddress(key))
-);
-
-const dummySplitsConfig: CreateSplitConfig = {
-  recipients: [
-    {
-      address: dummyAddresses[0],
-      percentAllocation: 50,
-    },
-    {
-      address: dummyAddresses[1],
-      percentAllocation: 50,
-    },
-  ],
-  distributorFeePercent: 0,
-};
+import ConfirmSplitsSection from "./ConfirmSplitsSection";
 
 export default function ZoraPage() {
-  const router = useRouter();
   const creatorAccount = useAccount().address || null;
   const walletClient = useWalletClient().data || null;
   const publicClient = usePublicClient() as PublicClient<
@@ -46,7 +22,6 @@ export default function ZoraPage() {
     null
   );
   const searchParams = useSearchParams();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     const splitsParam = searchParams.get("splits");
@@ -66,20 +41,6 @@ export default function ZoraPage() {
     }
   }, [searchParams, setSplitsConfig]);
 
-  const generateURL = () => {
-    try {
-      const newConfig = textareaRef.current
-        ? JSON.parse(textareaRef.current.value)
-        : null;
-      if (!newConfig) throw new Error("Missing splits config");
-      const encodedConfig = encodeURIComponent(JSON.stringify(newConfig));
-      router.push(`?uid=${uuid()}&splits=${encodedConfig}`);
-    } catch (e) {
-      alert("Invalid JSON configuration.");
-      console.error(e);
-    }
-  };
-
   const { query: predictedSplitsQuery, createSplit } = usePredictedSplits({
     splitConfig,
     publicClient,
@@ -97,26 +58,7 @@ export default function ZoraPage() {
     return <div>Connect your wallet to continue.</div>;
   }
   if (!splitConfig) {
-    return (
-      <section className="flex flex-col gap-4 max-w-screen-md">
-        <h2 className="cursor-pointer text-2xl font-bold">
-          Step 0: Confirm splits configuration
-        </h2>
-        <StepCard className="w-full p-6 items-center">
-          <div className="flex flex-col gap-4 flex-1">
-            <textarea
-              className="text-sm text-muted-foreground p-6 rounded-lg bg-muted"
-              ref={textareaRef}
-              defaultValue={JSON.stringify(dummySplitsConfig, null, 2)}
-              rows={10}
-              cols={60}
-              required={true}
-            />
-            <Button onClick={generateURL}>Generate URL</Button>
-          </div>
-        </StepCard>
-      </section>
-    );
+    return <ConfirmSplitsSection />;
   }
 
   return (
