@@ -7,6 +7,7 @@ import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsCompo
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
+import Zora from "../Zora";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
@@ -30,6 +31,7 @@ const ProjectPage = () => {
         />
       )}
       {tabContent === "setting" && <ProjectDistribution />}
+      {tabContent === "zora" && <Zora />}
     </main>
   );
 };
