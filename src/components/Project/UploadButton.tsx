@@ -13,7 +13,6 @@ const UploadButton = () => {
   const { setAnimationUrl } = useProjectProvider();
   const { attest } = usePaymasterAttest();
   const [fileSelected, setFileSelected] = useState(false);
-  const { handleAdd } = useMediaContext();
 
   const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
@@ -21,12 +20,6 @@ const UploadButton = () => {
       const { uri } = await uploadFile(file);
       setAnimationUrl(uri);
       setFileSelected(true);
-      const media = {
-        avatar: "/avatar.png",
-        name: "upload.mp3",
-        url: getIpfsLink(uri),
-      };
-      handleAdd(media);
     }
   };
 

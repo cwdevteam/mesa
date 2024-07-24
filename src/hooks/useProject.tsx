@@ -1,6 +1,9 @@
 import { Credit, defaultCredit } from "@/types/projectMetadataForm";
 import { useEffect, useState } from "react";
 import useAttestation from "./useAttestation";
+import getIpfsLink from "@/lib/ipfs/getIpfsLink";
+import { useMediaContext } from "@/context/MediaContext";
+import useProjectMedia from "./useProjectMedia";
 
 const useProject = () => {
   const [name, setName] = useState<string>("");
@@ -9,12 +12,14 @@ const useProject = () => {
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
   const { dashboardData }: any = useAttestation();
+  useProjectMedia(animationUrl);
 
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
       setCredits(dashboardData["credits"] || [defaultCredit]);
+      setAnimationUrl(dashboardData["animationUrl"] || "");
     }
   };
 
