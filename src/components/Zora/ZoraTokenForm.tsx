@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Icons } from "@/components/Icons";
-
 import type { Create1155TokenMutation } from "@/hooks/useZoraToken";
 import { useProjectProvider } from "@/context/ProjectProvider";
 
