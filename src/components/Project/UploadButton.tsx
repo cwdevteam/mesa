@@ -6,8 +6,6 @@ import { FilePlusIcon } from "@radix-ui/react-icons";
 import usePaymasterAttest from "@/hooks/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import { useState } from "react";
-import { useMediaContext } from "@/context/MediaContext";
-import getIpfsLink from "@/lib/ipfs/getIpfsLink";
 
 const UploadButton = () => {
   const { setAnimationUrl } = useProjectProvider();
