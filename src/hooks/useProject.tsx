@@ -9,7 +9,6 @@ const useProject = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [animationUrl, setAnimationUrl] = useState<string>("");
-  const [audioFile, setAudioFile] = useState<File | null>(null);
   const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
   const { dashboardData }: any = useAttestation();
   useProjectMedia(animationUrl);
@@ -29,8 +28,6 @@ const useProject = () => {
   }, [dashboardData]);
 
   return {
-    audioFile,
-    setAudioFile,
     credits,
     setCredits,
     name,
