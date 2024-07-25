@@ -2,23 +2,36 @@ import { useMediaContext } from "@/context/MediaContext";
 import getIpfsLink from "@/lib/ipfs/getIpfsLink";
 import { useEffect } from "react";
 
-const useProjectMedia = (animationUrl: string) => {
+const useProjectMedia = (animationUrl: string, image: string, name: string) => {
   const { handleAdd } = useMediaContext();
 
   useEffect(() => {
     const addAnimationToMediaPlayer = () => {
-      const media = {
-        avatar: "/avatar.png",
-        name: "upload.mp3",
+      const changes = {
+        name,
         url: getIpfsLink(animationUrl),
       };
-      handleAdd(media);
+      handleAdd(changes);
     };
 
     if (!animationUrl) return;
     addAnimationToMediaPlayer();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animationUrl]);
+
+  useEffect(() => {
+    const addImageToMediaPlayer = () => {
+      const changes = {
+        avatar: getIpfsLink(image),
+        name,
+      };
+      handleAdd(changes);
+    };
+
+    if (!image) return;
+    addImageToMediaPlayer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image]);
 };
 
 export default useProjectMedia;

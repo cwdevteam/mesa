@@ -7,16 +7,14 @@ import type { Create1155TokenMutation } from "@/hooks/useZoraToken";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import ZoraMediaFile from "./ZoraMediaFile";
 import CreateButton from "./CreateButton";
-import { uploadFile } from "@/lib/ipfs/uploadToIpfs";
-import ImageSelect from "../Project/ImageSelect";
+import ZoraImageSelect from "./ZoraImageSelect";
 
 interface ZoraCardProps {
   create1155Token: Create1155TokenMutation;
 }
 
 export default function ZoraTokenForm({ create1155Token }: ZoraCardProps) {
-  const { name, description, animationUrl, image, setEthPrice, setImage } =
-    useProjectProvider();
+  const { name, description, animationUrl, setEthPrice } = useProjectProvider();
 
   return (
     <div className="flex flex-col gap-8 max-w-md flex-1">
@@ -42,11 +40,7 @@ export default function ZoraTokenForm({ create1155Token }: ZoraCardProps) {
         />
       </div>
 
-      {image ? (
-        <ZoraMediaFile label="Thumbnail File:" mediaFile={image} />
-      ) : (
-        <ImageSelect />
-      )}
+      <ZoraImageSelect />
       <ZoraMediaFile mediaFile={animationUrl} />
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="tokenPrice">Price per token (ETH):</Label>
