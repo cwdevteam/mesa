@@ -10,7 +10,7 @@ const useProjectMedia = (animationUrl: string, image: string, name: string) => {
       const changes = {
         name,
         url: getIpfsLink(animationUrl),
-      };
+      } as any;
       handleAdd(changes);
     };
 
@@ -24,7 +24,7 @@ const useProjectMedia = (animationUrl: string, image: string, name: string) => {
       const changes = {
         avatar: getIpfsLink(image),
         name,
-      };
+      } as any;
       handleAdd(changes);
     };
 
