@@ -1,7 +1,5 @@
 import { useMediaController } from "@/hooks/useMediaController";
-
-const DEFAULT_IMAGE =
-  "https://ipfs.decentralized-content.com/ipfs/bafkreicih4xebijdfnhfbaickrpvchtys3i2f5hgjmbntciov2tqvlt5qy";
+import { DEFAULT_IMAGE } from "@/lib/consts";
 
 const CoverArt = () => {
   const { currentMedia, medias } = useMediaController();
