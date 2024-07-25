@@ -1,5 +1,5 @@
 import { useParams } from "next/navigation";
-import { Address, Chain, HttpTransport, PublicClient } from "viem";
+import { Chain, HttpTransport, PublicClient } from "viem";
 import { useAccount, useWalletClient, usePublicClient } from "wagmi";
 import { ProjectIDType } from "@/types/const";
 import useZoraToken from "@/hooks/useZoraToken";
@@ -23,8 +23,7 @@ const Zora = () => {
   } as any);
   const isSuccess = tokenQuery.data;
   const isMissing = !id;
-  const payoutRecipient = creatorAccount as Address;
-  const isForm = !isSuccess && payoutRecipient;
+  const isForm = !isSuccess;
 
   return (
     <section className="flex flex-col gap-4 max-w-screen-md">
@@ -41,12 +40,7 @@ const Zora = () => {
               </p>
             </div>
           )}
-          {isForm && (
-            <ZoraTokenForm
-              payoutRecipient={payoutRecipient}
-              create1155Token={create1155Token}
-            />
-          )}
+          {isForm && <ZoraTokenForm create1155Token={create1155Token} />}
         </>
       </StepCard>
     </section>

@@ -1,14 +1,14 @@
 import { Credit, defaultCredit } from "@/types/projectMetadataForm";
 import { useEffect, useState } from "react";
 import useAttestation from "./useAttestation";
-import getIpfsLink from "@/lib/ipfs/getIpfsLink";
-import { useMediaContext } from "@/context/MediaContext";
 import useProjectMedia from "./useProjectMedia";
 
 const useProject = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [animationUrl, setAnimationUrl] = useState<string>("");
+  const [image, setImage] = useState<string>("");
+  const [ethPrice, setEthPrice] = useState<string>("");
   const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
   const { dashboardData }: any = useAttestation();
   useProjectMedia(animationUrl);
@@ -36,6 +36,10 @@ const useProject = () => {
     setDescription,
     animationUrl,
     setAnimationUrl,
+    ethPrice,
+    setEthPrice,
+    image,
+    setImage,
   };
 };
 
