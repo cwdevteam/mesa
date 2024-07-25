@@ -4,7 +4,7 @@ import React, { createContext, useContext, useRef, useState } from "react";
 import { PlayMode } from "@/lib/enum";
 import { MediaProviderProps } from "@/types/const";
 import { Media } from "@/types/mesa";
-import MediaMockData from "./Media.json";
+import { MediaMockData } from "./Media";
 
 const MediaContext = createContext<
   | {
