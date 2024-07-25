@@ -4,7 +4,7 @@ import React, { createContext, useContext, useRef, useState } from "react";
 import { PlayMode } from "@/lib/enum";
 import { MediaProviderProps } from "@/types/const";
 import { Media } from "@/types/mesa";
-import MediaMockData from "./Media.json";
+import { MediaMockData } from "./Media";
 
 const MediaContext = createContext<
   | {
@@ -45,9 +45,15 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
     }
   };
 
-  const handleAdd = (newMedia: Media) => {
-    setMedias([...medias, newMedia]);
-    setCurrentMedia(medias.length);
+  const handleAdd = (changes: any) => {
+    const newMedias = [...medias];
+    let latest = newMedias.pop();
+    latest = {
+      ...latest,
+      ...changes,
+    } as Media;
+    setMedias([...newMedias, latest]);
+    setCurrentMedia(medias.length - 1);
   };
 
   const handleSongEnded = () => {

@@ -11,7 +11,8 @@ import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
 
 const usePaymasterAttest = () => {
-  const { name, description, animationUrl, credits } = useProjectProvider();
+  const { name, description, animationUrl, credits, image } =
+    useProjectProvider();
   const { writeContracts, capabilities } = usePaymasterProvider();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
@@ -19,7 +20,8 @@ const usePaymasterAttest = () => {
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
-      description: description,
+      description,
+      image,
       animation_url: animationUrl,
       credits,
     });

@@ -11,7 +11,7 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>("");
   const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
   const { dashboardData }: any = useAttestation();
-  useProjectMedia(animationUrl);
+  useProjectMedia(animationUrl, image, name);
 
   const fetchData = async () => {
     if (dashboardData) {
@@ -19,6 +19,7 @@ const useProject = () => {
       setDescription(dashboardData["description"]);
       setCredits(dashboardData["credits"] || [defaultCredit]);
       setAnimationUrl(dashboardData["animationUrl"] || "");
+      setImage(dashboardData["image"] || "");
     }
   };
 
