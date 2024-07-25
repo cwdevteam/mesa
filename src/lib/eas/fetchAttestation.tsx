@@ -16,6 +16,7 @@ export const fetchAttestation = async (attestation: any) => {
           dashboardData["credits"] = response.credits;
           dashboardData["description"] = response.description;
           dashboardData["animationUrl"] = response.animation_url;
+          dashboardData["image"] = response.image;
         } catch (error) {
           console.error("Failed to fetch metadata URI:", error);
           dashboardData["description"] = "Failed to fetch description";
