@@ -1789,6 +1789,11 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz#821f8442f4175d8f0467b9daf26e3a18e2d02af2"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
+"@soundxyz/sdk@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@soundxyz/sdk/-/sdk-8.0.1.tgz#03ef87e310a4c2a0f17561bf470271257f1d58df"
+  integrity sha512-s/Spxtvfpfkmsj9Xtx4VIqKDrU5sf48fJ+2oYu6NxfNrDjzng4ObB3ZyH6IFcjT0U/piGg3UpEUyYi84VhrLcQ==
+
 "@stablelib/aead@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@stablelib/aead/-/aead-1.0.1.tgz#c4b1106df9c23d1b867eb9b276d8f42d5fc4c0c3"

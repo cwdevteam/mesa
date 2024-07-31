@@ -1,5 +1,5 @@
 import React from "react";
-
+import { OnchainDistributionProtocol, ProjectIDType } from "@/types/const";
 import { ProjectTab } from "@/types/const";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 
@@ -21,9 +21,18 @@ const ProjectTabs = ({
       <TabsTrigger value="setting" onClick={() => onTabChange("setting")}>
         Setting
       </TabsTrigger>
-      <TabsTrigger value="zora" onClick={() => onTabChange("zora")}>
-        Zora
-      </TabsTrigger>
+      {[
+        "Zora" as OnchainDistributionProtocol,
+        "Sound" as OnchainDistributionProtocol,
+      ].map((protocol: ProjectTab) => (
+        <TabsTrigger
+          value={protocol}
+          key={protocol}
+          onClick={() => onTabChange(protocol)}
+        >
+          {protocol}
+        </TabsTrigger>
+      ))}
     </TabsList>
   </Tabs>
 );

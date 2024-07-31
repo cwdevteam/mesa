@@ -4,7 +4,7 @@ import { CHAIN, IS_TESTNET } from "@/lib/consts";
 import ExternalLinkButton from "@/components/Pages/ZoraPage/ExternalLinkButton";
 import useSetupNewTokenLog from "@/hooks/useSetupNewTokenLog";
 
-const ZoraSuccess = ({ tokenQuery }: any) => {
+const DistributionSuccess = ({ tokenQuery }: any) => {
   const { url: explorerUrl, name: explorerName } = CHAIN.blockExplorers.default;
   const { transactionHash } = tokenQuery.data;
   const { data: setupNewTokenLog } = useSetupNewTokenLog({
@@ -36,4 +36,4 @@ const ZoraSuccess = ({ tokenQuery }: any) => {
   );
 };
 
-export default ZoraSuccess;
+export default DistributionSuccess;

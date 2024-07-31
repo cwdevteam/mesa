@@ -8,6 +8,7 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import ZoraMediaFile from "./ZoraMediaFile";
 import CreateButton from "./CreateButton";
 import ZoraImageSelect from "./ZoraImageSelect";
+import { useOnchainDistributionProvider } from "@/context/OnchainDistributionProvider";
 
 interface ZoraCardProps {
   create1155Token: Create1155TokenMutation;
@@ -15,6 +16,7 @@ interface ZoraCardProps {
 
 export default function ZoraTokenForm({ create1155Token }: ZoraCardProps) {
   const { name, description, animationUrl, setEthPrice } = useProjectProvider();
+  const { isZora } = useOnchainDistributionProvider();
 
   return (
     <div className="flex flex-col gap-8 max-w-md flex-1">
@@ -42,19 +44,21 @@ export default function ZoraTokenForm({ create1155Token }: ZoraCardProps) {
 
       <ZoraImageSelect />
       <ZoraMediaFile mediaFile={animationUrl} />
-      <div className="grid w-full items-center gap-2">
-        <Label htmlFor="tokenPrice">Price per token (ETH):</Label>
-        <Input
-          type="text"
-          name="tokenPrice"
-          id="tokenPrice"
-          defaultValue="0"
-          inputMode="decimal"
-          pattern="^\d+(\.\d+)?$"
-          required
-          onChange={(event) => setEthPrice(Number(event.target.value))}
-        />
-      </div>
+      {isZora && (
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="tokenPrice">Price per token (ETH):</Label>
+          <Input
+            type="text"
+            name="tokenPrice"
+            id="tokenPrice"
+            defaultValue="0"
+            inputMode="decimal"
+            pattern="^\d+(\.\d+)?$"
+            required
+            onChange={(event) => setEthPrice(Number(event.target.value))}
+          />
+        </div>
+      )}
       <CreateButton create1155Token={create1155Token} />
     </div>
   );
