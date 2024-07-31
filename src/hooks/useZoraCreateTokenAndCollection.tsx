@@ -14,6 +14,7 @@ const useZoraCreateTokenAndCollection = (
   const [tokenCreated, setTokenCreated] = useState(false);
 
   const createTokenAndCollection = async () => {
+    console.log("SWEETS CREATING TOKEN AND COLLECTION");
     const pricePerToken = parseEther(ethPrice.toString());
 
     const contract = {
