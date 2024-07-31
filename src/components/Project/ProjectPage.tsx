@@ -7,7 +7,7 @@ import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsCompo
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
 import MockData from "./project.json";
-import Zora from "../Zora";
+import DistributionOnchain from "../DistributionOnchain";
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>("project");
@@ -31,7 +31,8 @@ const ProjectPage = () => {
         />
       )}
       {tabContent === "setting" && <ProjectDistribution />}
-      {tabContent === "zora" && <Zora />}
+      {tabContent === "Zora" && <DistributionOnchain protocol="Zora" />}
+      {tabContent === "Sound" && <DistributionOnchain protocol="Sound" />}
     </main>
   );
 };
