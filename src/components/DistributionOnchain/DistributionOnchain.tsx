@@ -33,7 +33,7 @@ const DistributionOnchain = ({
 
   return (
     <OnchainDistributionProvider protocol={protocol}>
-      <section className="flex flex-col gap-4 max-w-screen-md">
+      <section className="flex flex-col gap-2 max-w-screen-md">
         <h2 className="cursor-pointer text-2xl font-bold">
           Publish on {protocol}
         </h2>

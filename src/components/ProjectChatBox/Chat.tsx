@@ -5,9 +5,9 @@ import { FaceIcon } from "@radix-ui/react-icons";
 
 const Chat = () => {
   return (
-    <div className="rounded-xl border bg-card text-card-foreground shadow min-h-[37rem]">
+    <div className="rounded-xl border bg-card text-card-foreground shadow">
       <div className="space-y-1.5 p-6 flex flex-row justify-center items-center"></div>
-      <div className="px-4 py-8 h-[30rem] overflow-y-auto relative style={{ height: '400px' }}"></div>
+      <div className="px-4 py-8 min-h-[20vh] overflow-y-auto relative"></div>
       <div className="flex items-center p-6 pt-3">
         <div className="flex flex-row w-full">
           <form className="w-full">
