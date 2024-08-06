@@ -6,7 +6,7 @@ const ZoraImageSelect = () => {
   const { image } = useProjectProvider();
 
   return (
-    <div>
+    <div className="w-full">
       {image ? (
         <ZoraMediaFile label="Thumbnail File:" mediaFile={image} />
       ) : (
