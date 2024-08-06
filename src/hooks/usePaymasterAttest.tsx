@@ -9,14 +9,27 @@ import { useParams } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
+import { useWriteContracts } from "wagmi/experimental";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
-  const { writeContracts, capabilities } = usePaymasterProvider();
+  const { capabilities } = usePaymasterProvider();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
+
+  const onSuccess = (data: string, variables: any, context?: any) => {
+    console.log("SWEETS SUCCESSFUL TX FROM USE PAYMASTER HOOK", data);
+    console.log("SWEETS variables", variables);
+    console.log("SWEETS context", context);
+  };
+
+  const { writeContracts } = useWriteContracts({
+    mutation: {
+      onSuccess,
+    },
+  });
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
@@ -33,7 +46,7 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
-    easAttest(writeContracts, capabilities, args);
+    const tx = await easAttest(writeContracts, capabilities, args);
   };
 
   return { attest };
