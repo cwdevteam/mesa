@@ -10,7 +10,6 @@ const attest = async (writeContract: any, capabilities: any, args: any[]) => {
       args,
       capabilities,
     });
-    console.log("SWEETS TX", tx);
     return tx;
   } catch (err) {
     console.error("Error during attestation:", err);

@@ -20,9 +20,7 @@ const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
   const { capabilities } = usePaymasterProvider();
-  const { data: hash, writeContractAsync } = useWriteContract({
-    mutation: { onSuccess: console.log, onSettled: console.log },
-  });
+  const { data: hash, writeContractAsync } = useWriteContract();
   const { data: result } = useWaitForTransactionReceipt({
     hash,
   });
@@ -30,8 +28,6 @@ const usePaymasterAttest = () => {
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
   const { push } = useRouter();
-  console.log("SWEETS hash", hash);
-  console.log("SWEETS result", result);
 
   useEffect(() => {
     if (!result) return;
@@ -39,10 +35,9 @@ const usePaymasterAttest = () => {
       abi: easAbi,
       logs: result.logs,
     }) as any;
-    console.log("SWEETS get refId from result", logs);
     const refId = logs?.[0]?.args?.uid;
-    console.log("Sweets redirect to project/uid", refId);
     push(`/project/${refId}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
   const attest = async () => {
@@ -60,7 +55,6 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
-    console.log("SWEETS CREATING NEW PROJECT", args);
     easAttest(writeContractAsync, capabilities, args);
   };
 
