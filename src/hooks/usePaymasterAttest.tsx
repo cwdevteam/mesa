@@ -3,20 +3,47 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import easAttest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
-import { Address } from "viem";
-import { useAccount } from "wagmi";
-import { useParams } from "next/navigation";
+import { Address, parseEventLogs } from "viem";
+import {
+  useAccount,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import { useParams, useRouter } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
+import { useEffect } from "react";
+import { easAbi } from "@/lib/abi/eas";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
-  const { writeContracts, capabilities } = usePaymasterProvider();
+  const { capabilities } = usePaymasterProvider();
+  const { data: hash, writeContractAsync } = useWriteContract({
+    mutation: { onSuccess: console.log, onSettled: console.log },
+  });
+  const { data: result } = useWaitForTransactionReceipt({
+    hash,
+  });
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
+  const { push } = useRouter();
+  console.log("SWEETS hash", hash);
+  console.log("SWEETS result", result);
+
+  useEffect(() => {
+    if (!result) return;
+    const logs = parseEventLogs({
+      abi: easAbi,
+      logs: result.logs,
+    }) as any;
+    console.log("SWEETS get refId from result", logs);
+    const refId = logs?.[0]?.args?.uid;
+    console.log("Sweets redirect to project/uid", refId);
+    push(`/project/${refId}`);
+  }, [result]);
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
@@ -33,7 +60,8 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
-    easAttest(writeContracts, capabilities, args);
+    console.log("SWEETS CREATING NEW PROJECT", args);
+    easAttest(writeContractAsync, capabilities, args);
   };
 
   return { attest };
