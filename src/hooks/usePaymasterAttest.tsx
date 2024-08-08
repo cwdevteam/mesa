@@ -17,9 +17,7 @@ const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
   const { capabilities } = usePaymasterProvider();
-  const { data: callsStatusId, writeContractsAsync } = useWriteContracts({
-    mutation: { onSuccess: console.log },
-  });
+  const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
