@@ -3,15 +3,14 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import easAttest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
-import { Address, Log, parseEventLogs } from "viem";
+import { Address } from "viem";
 import { useAccount } from "wagmi";
 import { useParams, useRouter } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
-import { useEffect } from "react";
-import { easAbi } from "@/lib/abi/eas";
-import { useCallsStatus, useWriteContracts } from "wagmi/experimental";
+import { useWriteContracts } from "wagmi/experimental";
+import useProjectCreateRedirect from "./useProjectCreateRedirect";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
@@ -21,26 +20,7 @@ const usePaymasterAttest = () => {
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
-  const { push } = useRouter();
-  const { data: callsStatus } = useCallsStatus({
-    id: callsStatusId as string,
-    query: {
-      enabled: !!callsStatusId,
-      refetchInterval: (data) =>
-        data.state.data?.status === "CONFIRMED" ? false : 500,
-    },
-  });
-
-  useEffect(() => {
-    if (callsStatus?.status !== "CONFIRMED") return;
-    const logs = parseEventLogs({
-      abi: easAbi,
-      logs: callsStatus.receipts?.[0]?.logs as Log[],
-    }) as any;
-    const refId = logs?.[0]?.args?.uid;
-    push(`/project/${refId}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callsStatus]);
+  useProjectCreateRedirect(callsStatusId);
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
