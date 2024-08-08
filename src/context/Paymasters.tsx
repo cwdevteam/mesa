@@ -1,8 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { useAccount } from "wagmi";
-import { useCapabilities, useWriteContracts } from "wagmi/experimental";
+import { useCapabilities } from "wagmi/experimental";
 import { PaymasterContextProps, PaymastersProviderProps } from "@/types/const";
 
 const PaymasterContext = createContext<PaymasterContextProps | undefined>(
@@ -11,23 +11,6 @@ const PaymasterContext = createContext<PaymasterContextProps | undefined>(
 
 const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   const account = useAccount();
-  const [id, setId] = useState<string | undefined>(undefined);
-  const [error, setError] = useState<string | undefined>(undefined);
-
-  const onSuccess = (id: string) => {
-    setId(id);
-    window?.location?.reload?.();
-  };
-
-  const { writeContracts } = useWriteContracts({
-    mutation: {
-      onSuccess,
-      onError: (error: any) => {
-        setId(error.message);
-        setError(error.message);
-      },
-    },
-  });
 
   const { data: availableCapabilities } = useCapabilities({
     account: account.address,
@@ -50,9 +33,7 @@ const PaymasterProvider = ({ children }: PaymastersProviderProps) => {
   }, [availableCapabilities, account.chainId]);
 
   return (
-    <PaymasterContext.Provider
-      value={{ writeContracts, capabilities, id, error }}
-    >
+    <PaymasterContext.Provider value={{ capabilities }}>
       {children}
     </PaymasterContext.Provider>
   );
