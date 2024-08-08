@@ -30,9 +30,12 @@ const usePaymasterAttest = () => {
   const { push } = useRouter();
   const { data: callsStatus } = useCallsStatus({
     id: callsStatusId as string,
-    query: { retry: true, retryDelay: 500 },
+    query: {
+      enabled: !!callsStatusId,
+      refetchInterval: (data) =>
+        data.state.data?.status === "CONFIRMED" ? false : 500,
+    },
   });
-  console.log("SWEETS callsStatus", callsStatus);
 
   useEffect(() => {
     if (callsStatus?.status !== "CONFIRMED") return;
