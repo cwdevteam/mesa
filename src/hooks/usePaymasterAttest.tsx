@@ -4,11 +4,7 @@ import easAttest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import { Address, Log, parseEventLogs } from "viem";
-import {
-  useAccount,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
+import { useAccount } from "wagmi";
 import { useParams, useRouter } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
@@ -39,14 +35,11 @@ const usePaymasterAttest = () => {
 
   useEffect(() => {
     if (callsStatus?.status !== "CONFIRMED") return;
-    console.log("SWEETS callsStatus CONFIRMED", callsStatus);
     const logs = parseEventLogs({
       abi: easAbi,
       logs: callsStatus.receipts?.[0]?.logs as Log[],
     }) as any;
     const refId = logs?.[0]?.args?.uid;
-    console.log("SWEETS refId", refId);
-
     push(`/project/${refId}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callsStatus]);
