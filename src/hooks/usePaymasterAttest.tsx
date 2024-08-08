@@ -3,7 +3,7 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import easAttest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
-import { Address, parseEventLogs } from "viem";
+import { Address, Log, parseEventLogs } from "viem";
 import {
   useAccount,
   useWaitForTransactionReceipt,
@@ -15,30 +15,38 @@ import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
 import { useEffect } from "react";
 import { easAbi } from "@/lib/abi/eas";
+import { useCallsStatus, useWriteContracts } from "wagmi/experimental";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
   const { capabilities } = usePaymasterProvider();
-  const { data: hash, writeContractAsync } = useWriteContract();
-  const { data: result } = useWaitForTransactionReceipt({
-    hash,
+  const { data: callsStatusId, writeContractsAsync } = useWriteContracts({
+    mutation: { onSuccess: console.log },
   });
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
   const { push } = useRouter();
+  const { data: callsStatus } = useCallsStatus({
+    id: callsStatusId as string,
+    query: { retry: true, retryDelay: 500 },
+  });
+  console.log("SWEETS callsStatus", callsStatus);
 
   useEffect(() => {
-    if (!result) return;
+    if (callsStatus?.status !== "CONFIRMED") return;
+    console.log("SWEETS callsStatus CONFIRMED", callsStatus);
     const logs = parseEventLogs({
       abi: easAbi,
-      logs: result.logs,
+      logs: callsStatus.receipts?.[0]?.logs as Log[],
     }) as any;
     const refId = logs?.[0]?.args?.uid;
+    console.log("SWEETS refId", refId);
+
     push(`/project/${refId}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result]);
+  }, [callsStatus]);
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
@@ -55,7 +63,7 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
-    easAttest(writeContractAsync, capabilities, args);
+    easAttest(writeContractsAsync, capabilities, args);
   };
 
   return { attest };
