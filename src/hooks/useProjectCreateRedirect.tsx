@@ -1,3 +1,4 @@
+import { toast } from "@/components/ui/use-toast";
 import { easAbi } from "@/lib/abi/eas";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -23,6 +24,11 @@ const useProjectCreateRedirect = (callsStatusId?: string) => {
       logs: callsStatus.receipts?.[0]?.logs as Log[],
     }) as any;
     const refId = logs?.[0]?.args?.uid;
+    toast({
+      title: "Success",
+      description: "Project Created Successfully!",
+      variant: "default",
+    });
     push(`/project/${refId}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callsStatus]);
