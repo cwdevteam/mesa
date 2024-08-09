@@ -3,17 +3,20 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import usePaymasterAttest from "@/hooks/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
+import { defaultCredit } from "@/types/projectMetadataForm";
+import { useUserProvider } from "@/context/UserProvider";
 
 export default function ProjectDetailsForm() {
   const { attest } = usePaymasterAttest();
   const [loading, setLoading] = useState<boolean>(false);
-  const { name, setName, setDescription } = useProjectProvider();
+  const { name, setName, setDescription, setCredits } = useProjectProvider();
+  const { user } = useUserProvider();
 
   const handleClick = async () => {
     if (!name) {
@@ -38,6 +41,10 @@ export default function ProjectDetailsForm() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) setCredits([{...defaultCredit, name: user.username }]);
+  }, [user])
 
   return (
     <div className="grid gap-6">

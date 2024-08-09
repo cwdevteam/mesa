@@ -6,11 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ProjectMetaDataDialog from "./ProjectMetaDataDialog";
 import UserMatrixCardDetails from "./UserMatrixCardDetails";
 import { isInvitation } from "./utils";
+import { useUserProvider } from "@/context/UserProvider";
 
 const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
   const [editModal, setEditModal] = useState<boolean>(false);
   const [requestType, setRequestType] = useState<string>("");
   const [roleId, setRoleId] = useState<string>("");
+  const { user } = useUserProvider();
 
   const handleActionClick = (roleId: string, request: string) => {
     setRequestType(request);
@@ -29,7 +31,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
           <AvatarFallback> ME</AvatarFallback>
         </Avatar>
         <div className="font-bold w-full text-lg flex ml-6 items-center">
-          <div>{data.name || "Username"}</div>
+          <div>{data.name || user?.full_name || "Username"}</div>
           <div>
             {isInvitation(data) === false ? (
               <div className="ml-3 w-3 h-3 bg-green-600 rounded-md"></div>
