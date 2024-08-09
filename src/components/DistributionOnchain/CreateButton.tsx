@@ -11,10 +11,10 @@ const CreateButton = ({ create1155Token }: any) => {
   const { isSound, isZora } = useOnchainDistributionProvider();
   const { createTokenAndCollection, tokenCreated } =
     useZoraCreateTokenAndCollection(create1155Token);
-  const { createEdition, isPending: soundPending } = useSoundCreate();
+  const { createEdition } = useSoundCreate();
   const pending = useMemo(
-    () => soundPending || create1155Token.isPending || tokenCreated,
-    [soundPending, create1155Token.isPending, tokenCreated]
+    () => create1155Token.isPending || tokenCreated,
+    [create1155Token.isPending, tokenCreated]
   );
   const handleClick = async () => {
     if (isZora) return await createTokenAndCollection();

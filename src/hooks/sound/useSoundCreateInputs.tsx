@@ -5,19 +5,14 @@ import { usePublicClient, useWalletClient } from "wagmi";
 import { editionV2WalletActionsCreate } from "@soundxyz/sdk/contract/edition-v2/write/create";
 import { editionV2PublicActionsCreate } from "@soundxyz/sdk/contract/edition-v2/read/create";
 import { useProjectProvider } from "@/context/ProjectProvider";
-import { uploadJson } from "@/lib/ipfs/uploadJson";
-import { useWriteContracts } from "wagmi/experimental";
-import { usePaymasterProvider } from "@/context/Paymasters";
 
 const UINT32_MAX = 4294967295;
 const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 const NULL_BYTES32 =
   "0x0000000000000000000000000000000000000000000000000000000000000000";
 
-const useSoundCreate = () => {
-  const { name, description, animationUrl, image } = useProjectProvider();
-  const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
-  const { capabilities } = usePaymasterProvider();
+const useSoundCreateInputs = () => {
+  const { name } = useProjectProvider();
   const { data: wallet } = useWalletClient();
   const publicClient = usePublicClient()?.extend(editionV2PublicActionsCreate);
   const walletClient = useMemo(() => {
@@ -25,19 +20,7 @@ const useSoundCreate = () => {
     return wallet.extend(editionV2WalletActionsCreate);
   }, [wallet]);
 
-  const createPaymasterEdition = async (call: any) => {
-    const tx = await writeContractsAsync({
-      contracts: [
-        {
-          ...call,
-        },
-      ],
-      capabilities,
-    });
-    console.log("SWEETS tx", tx);
-  };
-
-  const createEdition = async () => {
+  const getInputs = async (metadataUri: string) => {
     if (!publicClient) {
       console.error("Public client not found");
       return;
@@ -46,12 +29,6 @@ const useSoundCreate = () => {
       console.error("Wallet not found");
       return;
     }
-    const { uri: metadataUri } = await uploadJson({
-      name,
-      description,
-      image,
-      animation_url: animationUrl,
-    });
     const { edition, formattedSalt } =
       await publicClient.editionV2.getExpectedEditionAddress({
         deployer: walletClient.account.address,
@@ -99,10 +76,10 @@ const useSoundCreate = () => {
         },
       ],
     });
-    await createPaymasterEdition(input);
+    return input;
   };
 
-  return { createEdition };
+  return { getInputs };
 };
 
-export default useSoundCreate;
+export default useSoundCreateInputs;
