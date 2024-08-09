@@ -4,17 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import useZoraCreateTokenAndCollection from "@/hooks/useZoraCreateTokenAndCollection";
 import { useOnchainDistributionProvider } from "@/context/OnchainDistributionProvider";
-import useSoundCreate from "@/hooks/useSoundCreate";
+import useSoundCreate from "@/hooks/sound/useSoundCreate";
 import { useMemo } from "react";
 
 const CreateButton = ({ create1155Token }: any) => {
   const { isSound, isZora } = useOnchainDistributionProvider();
   const { createTokenAndCollection, tokenCreated } =
     useZoraCreateTokenAndCollection(create1155Token);
-  const { createEdition, isPending: soundPending } = useSoundCreate();
+  const { createEdition } = useSoundCreate();
   const pending = useMemo(
-    () => soundPending || create1155Token.isPending || tokenCreated,
-    [soundPending, create1155Token.isPending, tokenCreated]
+    () => create1155Token.isPending || tokenCreated,
+    [create1155Token.isPending, tokenCreated]
   );
   const handleClick = async () => {
     if (isZora) return await createTokenAndCollection();

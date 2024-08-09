@@ -5,18 +5,22 @@ import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
 import { Address } from "viem";
 import { useAccount } from "wagmi";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
 import { useUserProvider } from "@/context/UserProvider";
+import { useWriteContracts } from "wagmi/experimental";
+import useProjectCreateRedirect from "./useProjectCreateRedirect";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
-  const { writeContracts, capabilities } = usePaymasterProvider();
+  const { capabilities } = usePaymasterProvider();
+  const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
   const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
   const { user } = useUserProvider();
+  useProjectCreateRedirect(callsStatusId);
 
   const attest = async () => {
     const { uri: metadataUri } = await uploadJson({
@@ -33,7 +37,7 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
-    easAttest(writeContracts, capabilities, args);
+    easAttest(writeContractsAsync, capabilities, args);
   };
 
   return { attest };
