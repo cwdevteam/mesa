@@ -2,6 +2,7 @@ import { Credit, defaultCredit } from "@/types/projectMetadataForm";
 import { useEffect, useState } from "react";
 import useAttestation from "./useAttestation";
 import useProjectMedia from "./useProjectMedia";
+import { useUserProvider } from "@/context/UserProvider";
 
 const useProject = () => {
   const [name, setName] = useState<string>("");
@@ -9,9 +10,14 @@ const useProject = () => {
   const [animationUrl, setAnimationUrl] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [ethPrice, setEthPrice] = useState<string>("");
-  const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
   const { dashboardData }: any = useAttestation();
   useProjectMedia(animationUrl, image, name);
+  const [credits, setCredits] = useState<Credit[] | null>(null);
+  const { user } = useUserProvider();
+
+  useEffect(() => {
+    if (user && !credits) setCredits([{...defaultCredit, name: user.username }]);
+  }, [user, credits])
 
   const fetchData = async () => {
     if (dashboardData) {
