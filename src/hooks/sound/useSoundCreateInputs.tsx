@@ -5,11 +5,7 @@ import { usePublicClient, useWalletClient } from "wagmi";
 import { editionV2WalletActionsCreate } from "@soundxyz/sdk/contract/edition-v2/write/create";
 import { editionV2PublicActionsCreate } from "@soundxyz/sdk/contract/edition-v2/read/create";
 import { useProjectProvider } from "@/context/ProjectProvider";
-
-const UINT32_MAX = 4294967295;
-const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
-const NULL_BYTES32 =
-  "0x0000000000000000000000000000000000000000000000000000000000000000";
+import { NULL_ADDRESS, NULL_BYTES32, UINT32_MAX } from "@/lib/consts";
 
 const useSoundCreateInputs = () => {
   const { name } = useProjectProvider();
