@@ -117,10 +117,7 @@ export interface PaymastersProviderProps {
 }
 
 export interface PaymasterContextProps {
-  writeContracts: any;
   capabilities: any;
-  id: string | undefined;
-  error: string | undefined;
 }
 
 export interface ConnectButtonProps {
