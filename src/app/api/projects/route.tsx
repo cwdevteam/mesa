@@ -10,24 +10,17 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const address = searchParams.get("address");
-    // get logs for all Attested events
     const logs = await ethGetLogs(address as Address);
-    // get logs for all Attested events
     const attestations = await getAttestations(logs);
-    console.log(attestations.length);
     let serializedAttestations = attestations.map((attestation: any) => ({
       ...attestation,
       result: attestation.result.map((value: any) =>
         typeof value === "bigint" ? value.toString() : value
       ),
     }));
-    console.log(serializedAttestations.length);
-
     serializedAttestations = findLatestProjectStates(
       serializedAttestations.reverse()
     );
-    console.log(serializedAttestations.length);
-
     return NextResponse.json(
       { data: serializedAttestations.reverse() },
       { status: 200 }
