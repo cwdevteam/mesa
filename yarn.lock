@@ -2505,18 +2505,18 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@zoralabs/protocol-deployments@*":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@zoralabs/protocol-deployments/-/protocol-deployments-0.1.13.tgz#e64e46a4b339b43de4f413ae7b5244cc0c3d3caa"
-  integrity sha512-pAJ+rr7Q6RsulTl2EB+osUJMldGx+Sj/XfrkfOQsScL/RQlu+H6sL0sRVdaG3VLWVd9ua8szIRSeJ+RqwEZNyg==
+"@zoralabs/protocol-deployments@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@zoralabs/protocol-deployments/-/protocol-deployments-0.3.0.tgz#4954cfa7564e152f5d668db4d8a650a17a295984"
+  integrity sha512-T8fVXQ3KC3qXcHfTG14Z6/vnY/2ImIhAjkFNhD3kWKtd8TaXVlLQ1Rqu13XCDP9HxvbmuaaXO/QUx8MHeQ+61g==
 
-"@zoralabs/protocol-sdk@^0.7.1":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@zoralabs/protocol-sdk/-/protocol-sdk-0.7.2.tgz#8fca430b6c46c9fff08a4349b2650e879495cb40"
-  integrity sha512-VsSlXUNuCTBqX1M7vfx12Jkw2OE+HOYsEcDghdb2hNHugVW+9n9dLrCz25sQDAnkhEC+EPVIkjWh/gadJlxpBA==
+"@zoralabs/protocol-sdk@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@zoralabs/protocol-sdk/-/protocol-sdk-0.9.1.tgz#77e680d5d18e50145b97e5e423c4aaaf787f2c49"
+  integrity sha512-98/EiNE7BmQZ8S2R7DU73HG/1DHLhBRPC6wATVMaI5tKNPVjn5WrWnakBEaKdkPKgYBpqJLSlp/80o+S2ly8AA==
   dependencies:
-    "@zoralabs/protocol-deployments" "*"
-    semver "^7.6.2"
+    "@zoralabs/protocol-deployments" "^0.3.0"
+    abitype "^1.0.2"
 
 abbrev@^2.0.0:
   version "2.0.0"
@@ -2527,6 +2527,11 @@ abitype@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/abitype/-/abitype-1.0.5.tgz#29d0daa3eea867ca90f7e4123144c1d1270774b6"
   integrity sha512-YzDhti7cjlfaBhHutMaboYB21Ha3rXR9QTkNJFzYC4kC8YclaiwPBBBJY8ejFdu2wnJeZCVZSMlQJ7fi8S6hsw==
+
+abitype@^1.0.2:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/abitype/-/abitype-1.0.6.tgz#76410903e1d88e34f1362746e2d407513c38565b"
+  integrity sha512-MMSqYh4+C/aVqI2RQaWqbvI4Kxo5cQV40WQ4QFtDnNzCkqChm8MuENhElmynZlO0qUy/ObkEUaXtKqYnx1Kp3A==
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -7331,7 +7336,7 @@ semver@^6.3.0, semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.2:
+semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0:
   version "7.6.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
