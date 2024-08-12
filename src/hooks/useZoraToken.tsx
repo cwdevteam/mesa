@@ -8,7 +8,6 @@ import {
   WalletClient,
 } from "viem";
 import {
-  ContractType,
   CreateNew1155TokenProps,
   TokenMetadataJson,
   createCreatorClient,
@@ -32,7 +31,7 @@ export type TokenResult = {
 };
 
 type Create1155TokenMutationProps = {
-  contract: ContractType;
+  contract: any;
   token: Omit<CreateNew1155TokenProps, "tokenMetadataURI"> & {
     name: string;
     description: string;
