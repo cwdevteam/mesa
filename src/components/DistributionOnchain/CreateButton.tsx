@@ -4,13 +4,14 @@ import { Button } from "@/components/ui/button";
 import { useOnchainDistributionProvider } from "@/context/OnchainDistributionProvider";
 import useSoundCreate from "@/hooks/sound/useSoundCreate";
 import useZoraCreate from "@/hooks/useZoraCreate";
+import getCollectPageUrl from "@/lib/zora/getCollectPageUrl";
 
 const CreateButton = () => {
   const { isSound, isZora } = useOnchainDistributionProvider();
   const { create, createdContract } = useZoraCreate();
   console.log("SWEETS createdContract", createdContract);
   const { createEdition } = useSoundCreate();
-  const zoraUrl = `https://testnet.zora.co/collect/bsep:${createdContract}/1`;
+  const zoraUrl = getCollectPageUrl(createdContract);
 
   const handleClick = async () => {
     if (createdContract) return await window.open(zoraUrl, "_blank");
