@@ -7,11 +7,7 @@ import TitleAndDescription from "./TitleAndDescription";
 import MediaUploads from "./MediaUploads";
 import Price from "./Price";
 
-interface ZoraCardProps {
-  create1155Token: Create1155TokenMutation;
-}
-
-export default function ZoraTokenForm({ create1155Token }: ZoraCardProps) {
+export default function ZoraTokenForm() {
   const { isZora } = useOnchainDistributionProvider();
 
   return (
@@ -19,7 +15,7 @@ export default function ZoraTokenForm({ create1155Token }: ZoraCardProps) {
       <TitleAndDescription />
       <MediaUploads />
       {isZora && <Price />}
-      <CreateButton create1155Token={create1155Token} />
+      <CreateButton />
     </div>
   );
 }

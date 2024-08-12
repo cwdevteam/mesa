@@ -9,7 +9,6 @@ import getCollectPageUrl from "@/lib/zora/getCollectPageUrl";
 const CreateButton = () => {
   const { isSound, isZora } = useOnchainDistributionProvider();
   const { create, createdContract } = useZoraCreate();
-  console.log("SWEETS createdContract", createdContract);
   const { createEdition } = useSoundCreate();
   const zoraUrl = getCollectPageUrl(createdContract);
 
