@@ -1,49 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/Icons";
-import useZoraCreateTokenAndCollection from "@/hooks/useZoraCreateTokenAndCollection";
 import { useOnchainDistributionProvider } from "@/context/OnchainDistributionProvider";
 import useSoundCreate from "@/hooks/sound/useSoundCreate";
-import { useMemo } from "react";
+import useZoraCreate from "@/hooks/useZoraCreate";
+import getCollectPageUrl from "@/lib/zora/getCollectPageUrl";
 
-const CreateButton = ({ create1155Token }: any) => {
+const CreateButton = () => {
   const { isSound, isZora } = useOnchainDistributionProvider();
-  const { createTokenAndCollection, tokenCreated } =
-    useZoraCreateTokenAndCollection(create1155Token);
+  const { create, createdContract } = useZoraCreate();
   const { createEdition } = useSoundCreate();
-  const pending = useMemo(
-    () => create1155Token.isPending || tokenCreated,
-    [create1155Token.isPending, tokenCreated]
-  );
+  const zoraUrl = getCollectPageUrl(createdContract);
+
   const handleClick = async () => {
-    if (isZora) return await createTokenAndCollection();
+    if (createdContract) return await window.open(zoraUrl, "_blank");
+    if (isZora) return await create();
     if (isSound) return await createEdition();
   };
 
   return (
-    <Button
-      onClick={handleClick}
-      className="self-start"
-      type="submit"
-      disabled={pending}
-    >
-      {(() => {
-        if (tokenCreated) {
-          return <>Waiting for confirmation&hellip;</>;
-        }
-
-        if (create1155Token.isPending) {
-          return (
-            <>
-              Creating token&hellip;
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            </>
-          );
-        }
-
-        return "Create token";
-      })()}
+    <Button onClick={handleClick} className="self-start" type="submit">
+      {createdContract ? "View on Zora" : " Create Token"}
     </Button>
   );
 };
