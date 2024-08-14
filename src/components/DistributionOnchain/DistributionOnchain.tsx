@@ -1,6 +1,6 @@
 import { useParams } from "next/navigation";
 import { OnchainDistributionProtocol, ProjectIDType } from "@/types/const";
-import ZoraTokenForm from "./ZoraTokenForm";
+import TokenForm from "./TokenForm";
 import StepCard from "../Pages/ZoraPage/StepCard";
 import OnchainDistributionProvider from "@/context/OnchainDistributionProvider";
 
@@ -29,7 +29,7 @@ const DistributionOnchain = ({
                 </p>
               </div>
             )}
-            <ZoraTokenForm />
+            <TokenForm />
           </>
         </StepCard>
       </section>
