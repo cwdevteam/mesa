@@ -2,7 +2,6 @@ import { Credit, defaultCredit } from "@/types/projectMetadataForm";
 import { useEffect, useState } from "react";
 import useAttestation from "./useAttestation";
 import useProjectMedia from "./useProjectMedia";
-import useZoraSaleStrategy from "./useZoraSaleStrategy";
 
 const useProject = () => {
   const [name, setName] = useState<string>("");
