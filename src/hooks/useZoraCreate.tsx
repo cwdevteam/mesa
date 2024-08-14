@@ -10,6 +10,7 @@ import useWaitForBatchTx from "./useWaitForBatchTx";
 import { useMemo } from "react";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
+import { useOnchainDistributionProvider } from "@/context/OnchainDistributionProvider";
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!;
@@ -19,6 +20,7 @@ const useZoraCreate = () => {
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
   const { parsedLogs } = useWaitForBatchTx(callsStatusId);
   const { connect } = useConnectSmartWallet();
+  const { salesConfig } = useOnchainDistributionProvider();
   const createdContract = useMemo(
     () => parsedLogs?.[1] && parsedLogs[1].args.newContract,
     [parsedLogs]
@@ -45,10 +47,7 @@ const useZoraCreate = () => {
         token: {
           tokenMetadataURI: uri,
           createReferral: REFERRAL_RECIPIENT,
-          salesConfig: {
-            erc20Name: name,
-            erc20Symbol: "MESA",
-          },
+          salesConfig,
         },
         account: address!,
       });
