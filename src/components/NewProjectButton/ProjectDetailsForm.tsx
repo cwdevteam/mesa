@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
-import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
 
 export default function ProjectDetailsForm() {

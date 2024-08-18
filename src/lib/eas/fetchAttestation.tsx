@@ -1,11 +1,10 @@
 import getDecodedAttestationData from "@/lib/eas/getDecodedAttestationData";
-import MockData from "@/components/Project/project.json";
 import fetchUri from "../ipfs/fetchUri";
 
 export const fetchAttestation = async (attestation: any) => {
   const mapped = getDecodedAttestationData(attestation);
   const extractedData: any = {};
-  const dashboardData: any = MockData;
+  const dashboardData: any = {};
   for (const item of mapped.flat()) {
     if (item.value && item.value.name) {
       const isMetadata = item.value.name === "metadataUri";

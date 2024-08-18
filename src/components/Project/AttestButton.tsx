@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "../ui/button";
-import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 
 const AttestButton = () => {
   const { attest } = usePaymasterAttest();

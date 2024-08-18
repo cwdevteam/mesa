@@ -6,7 +6,6 @@ import { ProjectTab } from "@/types/const";
 import ProjectDetailsComponent from "../ProjectMetaDataTable/ProjectDetailsComponent";
 import ContractDetailsPage from "../ProjectContract/ContractDetailsPage";
 import ProjectDistribution from "./ProjectDistribution";
-import MockData from "./project.json";
 import DistributionOnchain from "../DistributionOnchain";
 
 const ProjectPage = () => {
@@ -22,14 +21,7 @@ const ProjectPage = () => {
         <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
       </div>
       {tabContent === "project" && <ProjectDetailsComponent />}
-      {tabContent === "contract" && (
-        <ContractDetailsPage
-          project={MockData}
-          contractTime={null}
-          contractId="contractTestId"
-          contractHistories={MockData.contractHistories}
-        />
-      )}
+      {tabContent === "contract" && <ContractDetailsPage />}
       {tabContent === "setting" && <ProjectDistribution />}
       {tabContent === "Zora" && <DistributionOnchain protocol="Zora" />}
       {tabContent === "Sound" && <DistributionOnchain protocol="Sound" />}

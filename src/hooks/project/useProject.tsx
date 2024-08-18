@@ -1,6 +1,6 @@
-import { Credit, defaultCredit } from "@/types/projectMetadataForm";
+import { Credit } from "@/types/projectMetadataForm";
 import { useEffect, useState } from "react";
-import useAttestation from "./useAttestation";
+import useAttestation from "../useAttestation";
 import useProjectMedia from "./useProjectMedia";
 
 const useProject = () => {
@@ -9,26 +9,30 @@ const useProject = () => {
   const [animationUrl, setAnimationUrl] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [ethPrice, setEthPrice] = useState<string>("");
-  const [credits, setCredits] = useState<Credit[]>([defaultCredit]);
-  const { dashboardData }: any = useAttestation();
+  const [credits, setCredits] = useState<Credit[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const { attestationData, dashboardData }: any = useAttestation();
   useProjectMedia(animationUrl, image, name);
 
   const fetchData = async () => {
+    setLoading(true);
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
-      setCredits(dashboardData["credits"] || [defaultCredit]);
+      setCredits(dashboardData["credits"]);
       setAnimationUrl(dashboardData["animationUrl"] || "");
       setImage(dashboardData["image"] || "");
     }
+    setLoading(false);
   };
 
   useEffect(() => {
-    dashboardData && fetchData();
+    dashboardData && loading && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dashboardData]);
 
   return {
+    attestationData,
     credits,
     setCredits,
     name,
