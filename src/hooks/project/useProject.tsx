@@ -10,10 +10,12 @@ const useProject = () => {
   const [image, setImage] = useState<string>("");
   const [ethPrice, setEthPrice] = useState<string>("");
   const [credits, setCredits] = useState<Credit[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const { attestationData, dashboardData }: any = useAttestation();
   useProjectMedia(animationUrl, image, name);
 
   const fetchData = async () => {
+    setLoading(true);
     if (dashboardData) {
       setName(dashboardData["name"]);
       setDescription(dashboardData["description"]);
@@ -21,10 +23,11 @@ const useProject = () => {
       setAnimationUrl(dashboardData["animationUrl"] || "");
       setImage(dashboardData["image"] || "");
     }
+    setLoading(false);
   };
 
   useEffect(() => {
-    dashboardData && fetchData();
+    dashboardData && loading && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dashboardData]);
 
