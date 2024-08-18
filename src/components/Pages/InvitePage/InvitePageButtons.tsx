@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import useConnectSmartWallet from "@/hooks/useConnectSmartWallet";
-import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useRouter } from "next/navigation";
 
 const InvitePageButtons = () => {

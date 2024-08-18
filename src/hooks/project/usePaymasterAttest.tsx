@@ -3,23 +3,20 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import easAttest from "@/lib/eas/attest";
 import getAttestArgs from "@/lib/eas/getAttestArgs";
 import getEncodedAttestationData from "@/lib/eas/getEncodedAttestationData";
-import { Address } from "viem";
-import { useAccount } from "wagmi";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ProjectIDType } from "@/types/const";
 import { uploadJson } from "@/lib/ipfs/uploadJson";
-import { useUserProvider } from "@/context/UserProvider";
 import { useWriteContracts } from "wagmi/experimental";
 import useProjectCreateRedirect from "./useProjectCreateRedirect";
+import useDefaultCredit from "./useDefaultCredit";
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image } =
     useProjectProvider();
   const { capabilities } = usePaymasterProvider();
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
-  const { address } = useAccount();
   const { id } = useParams<ProjectIDType>();
-  const { user } = useUserProvider();
+  useDefaultCredit();
   useProjectCreateRedirect(callsStatusId);
 
   const attest = async () => {
@@ -32,8 +29,8 @@ const usePaymasterAttest = () => {
     const encodedAttestation = getEncodedAttestationData(
       name,
       metadataUri,
-      [user?.full_name || ""],
-      [address as Address],
+      [credits[0].name],
+      [credits[0].address],
       []
     );
     const args = getAttestArgs(encodedAttestation, id);

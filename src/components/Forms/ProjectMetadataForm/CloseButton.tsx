@@ -2,7 +2,7 @@ import ProjectMetadataSubmitButton from "@/components/ProjectMetadataSubmitButto
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useState } from "react";
 
 const CloseButton = ({ request }: any) => {
