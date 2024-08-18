@@ -1,7 +1,7 @@
 "use client";
 import { ProjectDataTable } from "@/components/ProjectDataTable";
 import NewProjectButton from "../NewProjectButton";
-import useProjects from "@/hooks/useProjects";
+import useProjects from "@/hooks/project/useProjects";
 
 const DashboardPage = () => {
   const { projects } = useProjects();

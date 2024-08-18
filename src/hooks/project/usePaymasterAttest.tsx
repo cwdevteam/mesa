@@ -32,8 +32,8 @@ const usePaymasterAttest = () => {
     const encodedAttestation = getEncodedAttestationData(
       name,
       metadataUri,
-      [user?.full_name || ""],
-      [address as Address],
+      [credits[0].name],
+      [credits[0].address],
       []
     );
     const args = getAttestArgs(encodedAttestation, id);

@@ -22,7 +22,7 @@ const useAttestation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attestationData]);
 
-  return { dashboardData };
+  return { attestationData: attestationData.data, dashboardData };
 };
 
 export default useAttestation;
