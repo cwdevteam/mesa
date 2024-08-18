@@ -10,18 +10,18 @@ const useDefaultCredit = () => {
   const { credits, setCredits } = useProjectProvider();
   const hasFirstCredit = credits[0]?.name && credits[0]?.address;
 
-  const getDefaultCredit = () => ({
-    contractType: ContractType.Songwriting,
-    collaboratorType: UserRole.Owner,
-    name: user.full_name,
-    splitBps: 10000,
-    address,
-  });
-
   useEffect(() => {
     if (!(user?.full_name && address)) return;
     if (hasFirstCredit) return;
-    setCredits([getDefaultCredit()]);
+    setCredits([
+      {
+        contractType: ContractType.Songwriting,
+        collaboratorType: UserRole.Owner,
+        name: user.full_name,
+        splitBps: 10000,
+        address,
+      },
+    ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, address]);
 };
