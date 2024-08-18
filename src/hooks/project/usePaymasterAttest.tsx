@@ -20,7 +20,6 @@ const usePaymasterAttest = () => {
   useProjectCreateRedirect(callsStatusId);
 
   const attest = async () => {
-    console.log("SWEETS CREDITS", credits);
     const { uri: metadataUri } = await uploadJson({
       description,
       image,
