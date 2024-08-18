@@ -7,19 +7,21 @@ import { useAccount } from "wagmi";
 const useDefaultCredit = () => {
   const { address } = useAccount();
   const { user } = useUserProvider();
-  const { setCredits } = useProjectProvider();
+  const { credits, setCredits } = useProjectProvider();
+  const hasFirstCredit = credits[0]?.name && credits[0]?.address;
+
+  const getDefaultCredit = () => ({
+    contractType: ContractType.Songwriting,
+    collaboratorType: UserRole.Owner,
+    name: user.full_name,
+    splitBps: 10000,
+    address,
+  });
 
   useEffect(() => {
     if (!(user?.full_name && address)) return;
-    setCredits([
-      {
-        contractType: ContractType.Songwriting,
-        collaboratorType: UserRole.Owner,
-        name: user.full_name,
-        splitBps: 10000,
-        address,
-      },
-    ]);
+    if (hasFirstCredit) return;
+    setCredits([getDefaultCredit()]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, address]);
 };

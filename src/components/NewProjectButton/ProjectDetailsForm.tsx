@@ -9,13 +9,11 @@ import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
-import useDefaultCredit from "@/hooks/project/useDefaultCredit";
 
 export default function ProjectDetailsForm() {
   const { attest } = usePaymasterAttest();
   const [loading, setLoading] = useState<boolean>(false);
   const { name, setName, setDescription } = useProjectProvider();
-  useDefaultCredit();
 
   const handleClick = async () => {
     if (!name) {
