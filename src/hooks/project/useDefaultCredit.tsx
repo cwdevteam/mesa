@@ -10,7 +10,7 @@ const useDefaultCredit = () => {
   const { setCredits } = useProjectProvider();
 
   useEffect(() => {
-    if (!(user.full_name && address)) return;
+    if (!(user?.full_name && address)) return;
     setCredits([
       {
         contractType: ContractType.Songwriting,
