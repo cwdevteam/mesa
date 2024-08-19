@@ -16,7 +16,7 @@ const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
     });
     return tx;
   } catch (err) {
-    console.error("Error during attestation:", err);
+    console.error("ZIAD Error during attestation:", err);
     return false;
   }
 };
