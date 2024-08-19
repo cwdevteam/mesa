@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-import { Icons } from "../Icons";
-import { FaceIcon } from "@radix-ui/react-icons";
+import { Icons } from '../Icons'
+import { FaceIcon } from '@radix-ui/react-icons'
 
 const Chat = () => {
   return (
@@ -31,7 +31,7 @@ const Chat = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat

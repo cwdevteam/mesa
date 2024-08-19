@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default function Component({
   children,
@@ -12,7 +12,7 @@ export default function Component({
         <ExternalLinkIcon className="ml-2 h-4 w-4" />
       </Link>
     </Button>
-  );
+  )
 }
 
 function ExternalLinkIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -33,5 +33,5 @@ function ExternalLinkIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M10 14 21 3" />
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
     </svg>
-  );
+  )
 }

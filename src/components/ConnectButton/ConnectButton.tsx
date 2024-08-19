@@ -1,8 +1,8 @@
-import { ConnectAccount } from "@coinbase/onchainkit/wallet";
-import { Icons } from "../Icons";
-import "./style.css";
-import { Button } from "../ui/button";
-import { ConnectButtonProps } from "@/types/const";
+import { ConnectAccount } from '@coinbase/onchainkit/wallet'
+import { Icons } from '../Icons'
+import './style.css'
+import { Button } from '../ui/button'
+import { ConnectButtonProps } from '@/types/const'
 
 const ConnectButton = ({ showTextInMobile }: ConnectButtonProps) => (
   <Button className="relative sm:w-auto" variant="ghost">
@@ -22,4 +22,4 @@ const ConnectButton = ({ showTextInMobile }: ConnectButtonProps) => (
   </Button>
 )
 
-export default ConnectButton;
+export default ConnectButton

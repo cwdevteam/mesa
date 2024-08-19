@@ -1,10 +1,10 @@
-"use client";
-import { ProjectDataTable } from "@/components/ProjectDataTable";
-import NewProjectButton from "../NewProjectButton";
-import useProjects from "@/hooks/project/useProjects";
+'use client'
+import { ProjectDataTable } from '@/components/ProjectDataTable'
+import NewProjectButton from '../NewProjectButton'
+import useProjects from '@/hooks/project/useProjects'
 
 const DashboardPage = () => {
-  const { projects } = useProjects();
+  const { projects } = useProjects()
 
   return (
     <main className="grid gap-10 container mx-auto py-10 content-start">
@@ -16,7 +16,7 @@ const DashboardPage = () => {
       </div>
       <ProjectDataTable data={projects} />
     </main>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage

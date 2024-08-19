@@ -1,12 +1,16 @@
 'use client'
 
-import { useFormStatus } from "react-dom"
+import { useFormStatus } from 'react-dom'
 
-import { Icons } from "@/components/Icons"
-import { Button } from "@/components/ui/button"
-import { Dictionary } from "@/dictionaries/types"
+import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Dictionary } from '@/dictionaries/types'
 
-export default function SignOutButtonFormChildren({dict}: {dict: Dictionary['auth']['signOutButton']}) {
+export default function SignOutButtonFormChildren({
+  dict,
+}: {
+  dict: Dictionary['auth']['signOutButton']
+}) {
   const { pending } = useFormStatus()
   return (
     <Button disabled={pending} type="submit">

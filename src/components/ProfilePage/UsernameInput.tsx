@@ -1,8 +1,8 @@
-import { useProfileProvider } from "@/context/ProfileProvider";
-import { Input } from "../ui/input";
+import { useProfileProvider } from '@/context/ProfileProvider'
+import { Input } from '../ui/input'
 
 const UsernameInput = () => {
-  const { user, editing, handleInputChange } = useProfileProvider();
+  const { user, editing, handleInputChange } = useProfileProvider()
 
   return (
     <div>
@@ -12,12 +12,12 @@ const UsernameInput = () => {
       <Input
         id="user_name"
         name="name"
-        value={user?.username || ""}
+        value={user?.username || ''}
         disabled={!editing}
-        onChange={(e: any) => handleInputChange("username", e.target.value)}
+        onChange={(e: any) => handleInputChange('username', e.target.value)}
       />
     </div>
-  );
-};
+  )
+}
 
-export default UsernameInput;
+export default UsernameInput

@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import React from "react";
-import TimeSliderControls from "./TimeSliderControls";
-import VolumeControls from "./VolumeControls";
-import AudioPlayerControls from "./AudioPlayerControls";
-import { useMediaController } from "@/hooks/useMediaController";
-import CoverArt from "./CoverArt";
+import React from 'react'
+import TimeSliderControls from './TimeSliderControls'
+import VolumeControls from './VolumeControls'
+import AudioPlayerControls from './AudioPlayerControls'
+import { useMediaController } from '@/hooks/useMediaController'
+import CoverArt from './CoverArt'
 
 export const MediaController: React.FC = () => {
   const {
@@ -24,15 +24,15 @@ export const MediaController: React.FC = () => {
     handleVolumeChange,
     handleSliderChange,
     handleAudioMute,
-  } = useMediaController();
+  } = useMediaController()
 
-  const audio = audioRef.current;
+  const audio = audioRef.current
 
   const intoClass =
-    "w-full fixed bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500";
+    'w-full fixed bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500'
 
   return (
-    <div className={`${intoClass} ${"overflow-x-auto sm:overflow-x-hidden"}`}>
+    <div className={`${intoClass} ${'overflow-x-auto sm:overflow-x-hidden'}`}>
       <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap min-w-[500px]">
         <audio ref={audioRef} hidden />
         <div className="flex-1 flex gap-3">
@@ -69,7 +69,7 @@ export const MediaController: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MediaController;
+export default MediaController

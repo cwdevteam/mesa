@@ -1,23 +1,23 @@
-import { UserDetailsProps } from "@/types/const";
-import { v4 as uuidv4 } from "uuid";
-import { createServerClient } from "../server";
-import { cookies } from "next/headers";
+import { UserDetailsProps } from '@/types/const'
+import { v4 as uuidv4 } from 'uuid'
+import { createServerClient } from '../server'
+import { cookies } from 'next/headers'
 
 const createNewUser = async (user: UserDetailsProps) => {
   const newUser = {
     ...user,
     id: uuidv4(),
-  };
-  const supabase = createServerClient(cookies());
+  }
+  const supabase = createServerClient(cookies())
   const { data, error: createError } = await supabase
-    .from("profiles")
+    .from('profiles')
     .insert(newUser)
     .select()
-    .single();
+    .single()
   if (createError) {
-    throw new Error(createError.message);
+    throw new Error(createError.message)
   }
-  return data as any as UserDetailsProps;
-};
+  return data as any as UserDetailsProps
+}
 
-export default createNewUser;
+export default createNewUser

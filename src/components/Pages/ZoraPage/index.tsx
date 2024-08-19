@@ -1,3 +1,3 @@
-import ZoraPage from "./ZoraPage";
+import ZoraPage from './ZoraPage'
 
-export default ZoraPage;
+export default ZoraPage

@@ -1,3 +1,3 @@
-import ProjectInviteForm from "./ProjectInviteForm";
+import ProjectInviteForm from './ProjectInviteForm'
 
-export default ProjectInviteForm;
+export default ProjectInviteForm

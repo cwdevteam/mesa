@@ -1,3 +1,3 @@
-import InvitePage from "./InvitePage";
+import InvitePage from './InvitePage'
 
-export default InvitePage;
+export default InvitePage

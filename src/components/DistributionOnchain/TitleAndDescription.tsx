@@ -1,10 +1,10 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useProjectProvider } from "@/context/ProjectProvider";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 const TitleAndDescription = () => {
-  const { name, description } = useProjectProvider();
+  const { name, description } = useProjectProvider()
 
   return (
     <div className="flex">
@@ -30,7 +30,7 @@ const TitleAndDescription = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TitleAndDescription;
+export default TitleAndDescription

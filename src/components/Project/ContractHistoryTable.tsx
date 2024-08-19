@@ -6,20 +6,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 
 const ContractHistoryTable: React.FC = () => {
   const contractHistories = [
     {
-      projectUser: { user_name: "User new name" },
-      created_at: "10-02-2024",
+      projectUser: { user_name: 'User new name' },
+      created_at: '10-02-2024',
     },
-  ];
+  ]
 
   return (
     <Table>
       <TableCaption>
-        {contractHistories.length ? "List of Signers" : "No signer yet"}
+        {contractHistories.length ? 'List of Signers' : 'No signer yet'}
       </TableCaption>
       <TableHeader>
         <TableRow>
@@ -38,7 +38,7 @@ const ContractHistoryTable: React.FC = () => {
         ))}
       </TableBody>
     </Table>
-  );
-};
+  )
+}
 
-export default ContractHistoryTable;
+export default ContractHistoryTable

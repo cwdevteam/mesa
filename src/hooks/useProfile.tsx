@@ -1,22 +1,22 @@
-import { useUserProvider } from "@/context/UserProvider";
-import { UserDetailsProps } from "@/types/const";
-import { useEffect, useState } from "react";
+import { useUserProvider } from '@/context/UserProvider'
+import { UserDetailsProps } from '@/types/const'
+import { useEffect, useState } from 'react'
 
 const useProfile = () => {
-  const [user, setUser] = useState<UserDetailsProps | null>(null);
-  const { user: initialUser } = useUserProvider();
-  const [editing, setEditing] = useState<boolean>(false);
+  const [user, setUser] = useState<UserDetailsProps | null>(null)
+  const { user: initialUser } = useUserProvider()
+  const [editing, setEditing] = useState<boolean>(false)
 
   const handleInputChange = (field: keyof UserDetailsProps, value: string) => {
     setUser((prevUser: any) => ({
       ...prevUser!,
       [field]: value,
-    }));
-  };
+    }))
+  }
 
   useEffect(() => {
-    setUser(initialUser);
-  }, [initialUser]);
+    setUser(initialUser)
+  }, [initialUser])
 
   return {
     user,
@@ -24,7 +24,7 @@ const useProfile = () => {
     editing,
     setEditing,
     handleInputChange,
-  };
-};
+  }
+}
 
-export default useProfile;
+export default useProfile

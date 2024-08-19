@@ -1,19 +1,19 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogDescription,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { ProjectMetaDataDialogProps } from "../ProjectCollaborators/types";
-import ProjectMetadataForm from "../Forms/ProjectMetadataForm";
+} from '@/components/ui/dialog'
+import { ProjectMetaDataDialogProps } from '../ProjectCollaborators/types'
+import ProjectMetadataForm from '../Forms/ProjectMetadataForm'
 
 const ProjectMetaDataDialog = ({
   project,
   selectedUser,
   open,
-  request = "create",
+  request = 'create',
   setOpen,
   roleId,
   className,
@@ -22,7 +22,7 @@ const ProjectMetaDataDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={cn("grid gap-8 max-w-sm px-8 py-16", className)}
+        className={cn('grid gap-8 max-w-sm px-8 py-16', className)}
         {...props}
       >
         <DialogHeader>
@@ -34,7 +34,7 @@ const ProjectMetaDataDialog = ({
         </div>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ProjectMetaDataDialog;
+export default ProjectMetaDataDialog

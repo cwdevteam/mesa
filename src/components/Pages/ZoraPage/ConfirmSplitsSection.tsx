@@ -1,15 +1,15 @@
-import { useRef } from "react";
-import StepCard from "./StepCard";
-import { generatePrivateKey, privateKeyToAddress } from "viem/accounts";
-import { getAddress } from "viem";
-import type { CreateSplitConfig } from "@0xsplits/splits-sdk/types";
-import { useRouter } from "next/navigation";
-import { v4 as uuid } from "uuid";
-import { Button } from "@/components/ui/button";
+import { useRef } from 'react'
+import StepCard from './StepCard'
+import { generatePrivateKey, privateKeyToAddress } from 'viem/accounts'
+import { getAddress } from 'viem'
+import type { CreateSplitConfig } from '@0xsplits/splits-sdk/types'
+import { useRouter } from 'next/navigation'
+import { v4 as uuid } from 'uuid'
+import { Button } from '@/components/ui/button'
 
 const dummyAddresses = [generatePrivateKey(), generatePrivateKey()].map((key) =>
   getAddress(privateKeyToAddress(key))
-);
+)
 
 const dummySplitsConfig: CreateSplitConfig = {
   recipients: [
@@ -23,26 +23,26 @@ const dummySplitsConfig: CreateSplitConfig = {
     },
   ],
   distributorFeePercent: 0,
-};
+}
 
 const ConfirmSplitsSection = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const generateURL = () => {
     try {
       const newConfig = textareaRef.current
         ? JSON.parse(textareaRef.current.value)
-        : null;
-      if (!newConfig) throw new Error("Missing splits config");
-      const encodedConfig = encodeURIComponent(JSON.stringify(newConfig));
-      router.push(`?uid=${uuid()}&splits=${encodedConfig}`);
+        : null
+      if (!newConfig) throw new Error('Missing splits config')
+      const encodedConfig = encodeURIComponent(JSON.stringify(newConfig))
+      router.push(`?uid=${uuid()}&splits=${encodedConfig}`)
     } catch (e) {
-      alert("Invalid JSON configuration.");
-      console.error(e);
+      alert('Invalid JSON configuration.')
+      console.error(e)
     }
-  };
+  }
 
   return (
     <section className="flex flex-col gap-4 max-w-screen-md">
@@ -63,7 +63,7 @@ const ConfirmSplitsSection = () => {
         </div>
       </StepCard>
     </section>
-  );
-};
+  )
+}
 
-export default ConfirmSplitsSection;
+export default ConfirmSplitsSection

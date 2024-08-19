@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
-const isNode = new Function("try {return this===global;}catch(e){return false;}")()
+const isNode = new Function(
+  'try {return this===global;}catch(e){return false;}'
+)()
 
 // Define the schema for your OAuth providers
 const SupabaseOAuthProvider = z.enum([
@@ -24,7 +26,7 @@ const SupabaseOAuthProvider = z.enum([
   'twitter',
   'workos',
   'zoom',
-  'fly'
+  'fly',
 ])
 
 const ProviderArray = z.array(SupabaseOAuthProvider)
@@ -42,19 +44,24 @@ const envSchema = z.object({
   NEXT_PUBLIC_TOS_URL: z.string().url().optional(),
   NEXT_PUBLIC_PP_URL: z.string().url().optional(),
   NEXT_PUBLIC_ACCESS_FORM_URL: z.string().url().optional(),
-  NEXT_PUBLIC_OAUTH_PROVIDERS: z.string()
-    .transform(val => val.split(/[, ]+/).filter(Boolean))
-    .transform(val => val.length > 0 ? val : undefined)
-    .refine(value => {
-      try {
-        ProviderArray.optional().parse(value)
-        return true
-      } catch {
-        return false
+  NEXT_PUBLIC_OAUTH_PROVIDERS: z
+    .string()
+    .transform((val) => val.split(/[, ]+/).filter(Boolean))
+    .transform((val) => (val.length > 0 ? val : undefined))
+    .refine(
+      (value) => {
+        try {
+          ProviderArray.optional().parse(value)
+          return true
+        } catch {
+          return false
+        }
+      },
+      {
+        message: 'Invalid provider array',
       }
-    }, {
-      message: "Invalid provider array",
-    }).optional(),
+    )
+    .optional(),
   NEXT_PUBLIC_THIRDWEB_CLIENT_ID: z.string().min(32),
   NEXT_PUBLIC_SITE_TITLE: z.string().min(3),
   NEXT_PUBLIC_SITE_DESCRIPTION: z.string().min(4),
@@ -82,9 +89,9 @@ if (!parsed.success) {
   const count = parsed.error.errors.length > 1 ? 's' : ''
   const message = [
     `Missing or invalid environment variable${count}:`,
-    ...(parsed.error.errors.map(error => `  ${error.path}: ${error.message}`))
-  ].join('\n') 
-  
+    ...parsed.error.errors.map((error) => `  ${error.path}: ${error.message}`),
+  ].join('\n')
+
   // Always log errors
   console.error(`\n${message}\n`)
 
@@ -94,8 +101,10 @@ if (!parsed.success) {
   }
 }
 
-export type EnvType = z.infer<typeof envSchema>;
+export type EnvType = z.infer<typeof envSchema>
 
-export const env: Readonly<EnvType> = Object.freeze(parsed.success ? parsed.data : {})
+export const env: Readonly<EnvType> = Object.freeze(
+  parsed.success ? parsed.data : {}
+)
 
 export default env

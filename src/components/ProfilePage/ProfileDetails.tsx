@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import { FC } from "react";
-import { Button } from "../ui/button";
-import { useProfileProvider } from "@/context/ProfileProvider";
-import EditingButtons from "./EditingButtons";
-import ProfileDetailsForm from "./ProfileDetailsForm";
+import { FC } from 'react'
+import { Button } from '../ui/button'
+import { useProfileProvider } from '@/context/ProfileProvider'
+import EditingButtons from './EditingButtons'
+import ProfileDetailsForm from './ProfileDetailsForm'
 
 const ProfileDetails: FC = () => {
-  const { editing, setEditing } = useProfileProvider();
+  const { editing, setEditing } = useProfileProvider()
 
   return (
     <div className="flex flex-col gap-2 border-[1px] border-zinc-300 dark:border-zinc-800 rounded-md">
@@ -18,7 +18,7 @@ const ProfileDetails: FC = () => {
       </div>
       <ProfileDetailsForm />
     </div>
-  );
-};
+  )
+}
 
-export default ProfileDetails;
+export default ProfileDetails

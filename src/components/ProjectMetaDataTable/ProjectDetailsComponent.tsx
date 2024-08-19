@@ -1,8 +1,8 @@
-import Chat from "@/components/ProjectChatBox/Chat";
-import ProjectCollaborators from "../ProjectCollaborators";
-import ProjectDetailsCard from "../ProjectDetailsCard";
-import UploadButton from "../Project/UploadButton";
-import ImageSelect from "../Project/ImageSelect";
+import Chat from '@/components/ProjectChatBox/Chat'
+import ProjectCollaborators from '../ProjectCollaborators'
+import ProjectDetailsCard from '../ProjectDetailsCard'
+import UploadButton from '../Project/UploadButton'
+import ImageSelect from '../Project/ImageSelect'
 
 const ProjectDetailsComponent = () => (
   <div className="flex flex-col items-center lg:items-start gap-2 w-full">
@@ -18,6 +18,6 @@ const ProjectDetailsComponent = () => (
       </div>
     </div>
   </div>
-);
+)
 
-export default ProjectDetailsComponent;
+export default ProjectDetailsComponent

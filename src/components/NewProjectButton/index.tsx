@@ -1,2 +1,2 @@
-import NewProjectButton from "./NewProjectButton";
-export default NewProjectButton;
+import NewProjectButton from './NewProjectButton'
+export default NewProjectButton

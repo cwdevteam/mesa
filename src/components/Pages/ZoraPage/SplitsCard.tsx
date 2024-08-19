@@ -1,12 +1,12 @@
-import { Address } from "viem";
-import { CreateSplitConfig } from "@0xsplits/splits-sdk";
+import { Address } from 'viem'
+import { CreateSplitConfig } from '@0xsplits/splits-sdk'
 
-import { CHAIN_ID } from "@/lib/consts";
-import type { CreateSplitMutation } from "@/hooks/usePredictedSplits";
+import { CHAIN_ID } from '@/lib/consts'
+import type { CreateSplitMutation } from '@/hooks/usePredictedSplits'
 
-import StepCard from "./StepCard";
-import ExternalLinkButton from "./ExternalLinkButton";
-import SplitsForm from "./SplitsForm";
+import StepCard from './StepCard'
+import ExternalLinkButton from './ExternalLinkButton'
+import SplitsForm from './SplitsForm'
 
 export default function SplitsCard({
   splitAddress,
@@ -14,10 +14,10 @@ export default function SplitsCard({
   splitConfig,
   createSplitMutation,
 }: {
-  splitAddress: Address | undefined;
-  splitExists: boolean | undefined;
-  splitConfig: CreateSplitConfig;
-  createSplitMutation: CreateSplitMutation;
+  splitAddress: Address | undefined
+  splitExists: boolean | undefined
+  splitConfig: CreateSplitConfig
+  createSplitMutation: CreateSplitMutation
 }) {
   return (
     <StepCard className="w-full p-6 items-center">
@@ -27,7 +27,7 @@ export default function SplitsCard({
             <div className="flex items-center flex-1">
               <p className="text-muted-foreground">Loading splits&hellip;</p>
             </div>
-          );
+          )
         }
 
         return (
@@ -35,22 +35,22 @@ export default function SplitsCard({
             <div className="flex flex-col items-center md:items-stretch text-center md:text-left gap-4 flex-1">
               <p className="text-muted-foreground">
                 {splitExists
-                  ? "Your Splits smart contract has been deployed."
-                  : "Your Splits smart contract is ready to deploy."}
+                  ? 'Your Splits smart contract has been deployed.'
+                  : 'Your Splits smart contract is ready to deploy.'}
               </p>
               <p className="text-sm text-muted-foreground italic">
                 This contract will be used to distribute on-chain payments from
                 the sale of your NFT.
                 <br />
                 <br />
-                Visit{" "}
+                Visit{' '}
                 <a
                   className="underline"
                   href="https://splits.org"
                   target="_blank"
                 >
                   Splits.org
-                </a>{" "}
+                </a>{' '}
                 to learn more.
               </p>
               {!splitExists && (
@@ -77,8 +77,8 @@ export default function SplitsCard({
               />
             )}
           </>
-        );
+        )
       })()}
     </StepCard>
-  );
+  )
 }

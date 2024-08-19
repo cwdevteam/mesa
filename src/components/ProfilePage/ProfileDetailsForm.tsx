@@ -1,6 +1,6 @@
-import UsernameInput from "./UsernameInput";
-import NameInput from "./NameInput";
-import WebsiteInput from "./WebsiteInput";
+import UsernameInput from './UsernameInput'
+import NameInput from './NameInput'
+import WebsiteInput from './WebsiteInput'
 
 const ProfileDetailsForm = () => (
   <div className="p-5 flex flex-col gap-3">
@@ -10,6 +10,6 @@ const ProfileDetailsForm = () => (
       <WebsiteInput />
     </div>
   </div>
-);
+)
 
-export default ProfileDetailsForm;
+export default ProfileDetailsForm

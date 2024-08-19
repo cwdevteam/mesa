@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { useAccount } from "wagmi";
-import ConnectButton from "../ConnectButton";
+import { useAccount } from 'wagmi'
+import ConnectButton from '../ConnectButton'
 
 const LandingPage = ({ dict }: any) => {
-  const { address } = useAccount();
+  const { address } = useAccount()
   return (
     <main className="grid gap-6 sm:gap-12 md:gap-24">
       <div className="grid grid-rows-[1fr_auto_2fr]">
@@ -16,7 +16,7 @@ const LandingPage = ({ dict }: any) => {
         </section>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default LandingPage;
+export default LandingPage

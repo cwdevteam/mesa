@@ -5,27 +5,35 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 
-import { cn } from "@/lib/utils"
-import env from "@/env"
-import EmailAuthForm from "@/components/EmailAuthForm"
-import SocialAuthForm from "@/components/SocialAuthForm"
-import { getDictionary } from "@/lib/dictionary"
-import { Locale } from "@/../i18n.config"
+import { cn } from '@/lib/utils'
+import env from '@/env'
+import EmailAuthForm from '@/components/EmailAuthForm'
+import SocialAuthForm from '@/components/SocialAuthForm'
+import { getDictionary } from '@/lib/dictionary'
+import { Locale } from '@/../i18n.config'
 
 type UserAuthDialogProps = React.HTMLAttributes<HTMLDivElement> & {
   lang: Locale
 }
 
-export default async function UserAuthDialog({ lang, children, className, ...props }: UserAuthDialogProps) {
-  const { auth: {userAuthDialog: dict } } = await getDictionary(lang)
+export default async function UserAuthDialog({
+  lang,
+  children,
+  className,
+  ...props
+}: UserAuthDialogProps) {
+  const {
+    auth: { userAuthDialog: dict },
+  } = await getDictionary(lang)
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
-      <DialogContent className={cn("grid gap-8 max-w-sm px-8 py-16", className)} {...props}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent
+        className={cn('grid gap-8 max-w-sm px-8 py-16', className)}
+        {...props}
+      >
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold tracking-tight text-center">
             {env.NEXT_PUBLIC_SIGNUPS_OPEN ? dict.titleOpen : dict.titleClosed}
@@ -58,7 +66,7 @@ export default async function UserAuthDialog({ lang, children, className, ...pro
         </div>
         {(env.NEXT_PUBLIC_TOS_URL || env.NEXT_PUBLIC_PP_URL) && (
           <p className="px-8 text-center text-sm text-muted-foreground">
-            {dict.agreementText}{" "}
+            {dict.agreementText}{' '}
             {env.NEXT_PUBLIC_TOS_URL && (
               <a
                 href={env.NEXT_PUBLIC_TOS_URL}
@@ -70,7 +78,7 @@ export default async function UserAuthDialog({ lang, children, className, ...pro
               </a>
             )}
             {env.NEXT_PUBLIC_TOS_URL && env.NEXT_PUBLIC_PP_URL && (
-              <>{" "}{dict.and}{" "}</>
+              <> {dict.and} </>
             )}
             {env.NEXT_PUBLIC_PP_URL && (
               <a

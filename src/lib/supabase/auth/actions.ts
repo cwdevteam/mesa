@@ -10,31 +10,40 @@ import { Locale } from '@/../i18n.config'
 import env from '@/env'
 
 const schemas = {
-  signInWithOtp: zfd.formData(z.object({
-    email: z.string(),
-    lang: z.string(),
-  }).transform(({lang, ...data}) => ({
-    ...data,
-    options: {
-      shouldCreateUser: env.NEXT_PUBLIC_SIGNUPS_OPEN,
-      // Smuggle the lang via unused option
-      emailRedirectTo: `${origin()}/${lang}`,
-    },
-  }))),
-  
-  signInWithOAuth: zfd.formData(z.object({
-    provider: z.string().transform((provider) => provider as Provider),
-    lang: z.string(),
-  }).transform(({lang, ...data}) => ({
-    ...data,
-    options: {
-      redirectTo: `${origin()}/${lang}/auth/callback`,
-    },
-  }))),
+  signInWithOtp: zfd.formData(
+    z
+      .object({
+        email: z.string(),
+        lang: z.string(),
+      })
+      .transform(({ lang, ...data }) => ({
+        ...data,
+        options: {
+          shouldCreateUser: env.NEXT_PUBLIC_SIGNUPS_OPEN,
+          // Smuggle the lang via unused option
+          emailRedirectTo: `${origin()}/${lang}`,
+        },
+      }))
+  ),
+
+  signInWithOAuth: zfd.formData(
+    z
+      .object({
+        provider: z.string().transform((provider) => provider as Provider),
+        lang: z.string(),
+      })
+      .transform(({ lang, ...data }) => ({
+        ...data,
+        options: {
+          redirectTo: `${origin()}/${lang}/auth/callback`,
+        },
+      }))
+  ),
 }
 
 type AuthError = {
-  data: null, error: {
+  data: null
+  error: {
     message: string
   }
 }
@@ -42,7 +51,7 @@ type AuthError = {
 type AuthMethod = keyof typeof schemas
 
 type AuthResponse = {
-  [M in AuthMethod]: ReturnType<SupabaseClient['auth'][M]> 
+  [M in AuthMethod]: ReturnType<SupabaseClient['auth'][M]>
 }
 
 type AuthCredentials = {
@@ -56,7 +65,7 @@ type AuthMethodFns = {
 function origin() {
   // Get the server origin from the request
   const requestHeaders = headers()
-  
+
   // Use origin header if present
   const origin = requestHeaders.get('origin')
   if (origin) {
@@ -78,18 +87,20 @@ function origin() {
 
 function errorResponse(error: unknown): AuthError {
   const message = `${error}` || 'Unknown Error'
-  return {data: null, error: {message}}
+  return { data: null, error: { message } }
 }
 
 async function signInWithSupabase<M extends AuthMethod>(
-  authMethod: M, 
+  authMethod: M,
   credentials: AuthCredentials[M]
 ) {
   try {
     // TODO pass Database type to client constructor
     const cookieStore = cookies()
     const supabase = createServerClient(cookieStore)
-    const authMethodFn = supabase.auth[authMethod].bind(supabase.auth) as AuthMethodFns[M]
+    const authMethodFn = supabase.auth[authMethod].bind(
+      supabase.auth
+    ) as AuthMethodFns[M]
     const result = await authMethodFn(credentials)
     if (!result.error) {
       return result
@@ -103,11 +114,11 @@ async function signInWithSupabase<M extends AuthMethod>(
   }
 }
 
-  function createSignInFunction<M extends AuthMethod>(
-    authMethod: M, 
-    callback?: (result: Awaited<AuthResponse[M]> | AuthError) => void
+function createSignInFunction<M extends AuthMethod>(
+  authMethod: M,
+  callback?: (result: Awaited<AuthResponse[M]> | AuthError) => void
 ) {
-  return async function(
+  return async function (
     state: Awaited<AuthResponse[M]> | AuthError,
     formData: FormData
   ): Promise<Awaited<AuthResponse[M]> | AuthError> {
@@ -118,7 +129,10 @@ async function signInWithSupabase<M extends AuthMethod>(
       return errorResponse(parsed.error)
     }
 
-    const result = await signInWithSupabase(authMethod, parsed.data as AuthCredentials[M])
+    const result = await signInWithSupabase(
+      authMethod,
+      parsed.data as AuthCredentials[M]
+    )
     if (callback) {
       callback(result)
     }
@@ -128,17 +142,20 @@ async function signInWithSupabase<M extends AuthMethod>(
 }
 
 export const signInWithOtp = createSignInFunction('signInWithOtp')
-export const signInWithOAuth = createSignInFunction('signInWithOAuth', (result) => {
-  if (!env.NEXT_PUBLIC_SIGNUPS_OPEN) {
-    console.error('Signups are currently closed.')
-    return errorResponse('Signups are currently closed.')
-  }
+export const signInWithOAuth = createSignInFunction(
+  'signInWithOAuth',
+  (result) => {
+    if (!env.NEXT_PUBLIC_SIGNUPS_OPEN) {
+      console.error('Signups are currently closed.')
+      return errorResponse('Signups are currently closed.')
+    }
 
-  const url = result.data?.url
-  if (url) {
-    redirect(url)
+    const url = result.data?.url
+    if (url) {
+      redirect(url)
+    }
   }
-})
+)
 
 export const signOut = async (lang: Locale) => {
   const cookieStore = cookies()

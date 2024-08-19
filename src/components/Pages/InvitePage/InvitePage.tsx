@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import InvitePageButtons from "./InvitePageButtons";
+import Image from 'next/image'
+import InvitePageButtons from './InvitePageButtons'
 
 const InvitePage = () => (
   <main className="container py-10 h-full flex items-center justify-center">
@@ -20,6 +20,6 @@ const InvitePage = () => (
       <InvitePageButtons />
     </div>
   </main>
-);
+)
 
-export default InvitePage;
+export default InvitePage

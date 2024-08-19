@@ -1,24 +1,24 @@
-import React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
-import { useOnchainDistributionProvider } from "@/context/OnchainDistributionProvider";
+import React from 'react'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import Image from 'next/image'
+import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 
 const ZoraSaleStrategyTabs = () => {
   const { zoraSaleStrategy, setZoraSaleStrategy } =
-    useOnchainDistributionProvider();
+    useOnchainDistributionProvider()
 
   return (
     <Tabs defaultValue="project" value={zoraSaleStrategy}>
       <TabsList>
         <TabsTrigger
           value="fixedPrice"
-          onClick={() => setZoraSaleStrategy("fixedPrice")}
+          onClick={() => setZoraSaleStrategy('fixedPrice')}
         >
           ✧777
         </TabsTrigger>
         <TabsTrigger
           value="timed"
-          onClick={() => setZoraSaleStrategy("timed")}
+          onClick={() => setZoraSaleStrategy('timed')}
           className="flex gap-3"
         >
           <span>✧111</span>
@@ -31,7 +31,7 @@ const ZoraSaleStrategyTabs = () => {
         </TabsTrigger>
       </TabsList>
     </Tabs>
-  );
-};
+  )
+}
 
-export default ZoraSaleStrategyTabs;
+export default ZoraSaleStrategyTabs

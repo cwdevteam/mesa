@@ -1,43 +1,44 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { DialogClose } from "../ui/dialog";
-import { Textarea } from "../ui/textarea";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import CreateButton from "./CreateButton";
-import { toast } from "../ui/use-toast";
-import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
-import { useProjectProvider } from "@/context/ProjectProvider";
-import { useEffect, useState } from "react";
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { DialogClose } from '../ui/dialog'
+import { Textarea } from '../ui/textarea'
+import { ReloadIcon } from '@radix-ui/react-icons'
+import CreateButton from './CreateButton'
+import { toast } from '../ui/use-toast'
+import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import { useEffect, useState } from 'react'
 
 export default function ProjectDetailsForm() {
-  const { attest, callsStatusId } = usePaymasterAttest();
-  const { name, setName, setDescription, setCreatingStatus } = useProjectProvider();
+  const { attest, callsStatusId } = usePaymasterAttest()
+  const { name, setName, setDescription, setCreatingStatus } =
+    useProjectProvider()
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
     if (!name) {
       toast({
-        title: "Error",
-        description: "Title and Description are required.",
-        variant: "default",
-      });
-      return;
+        title: 'Error',
+        description: 'Title and Description are required.',
+        variant: 'default',
+      })
+      return
     }
 
     setLoading(true)
     try {
-      await attest();
+      await attest()
       setLoading(false)
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to create project.",
-        variant: "default",
-      });
-      setLoading(false);
+        title: 'Error',
+        description: 'Failed to create project.',
+        variant: 'default',
+      })
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     setCreatingStatus(callsStatusId)
@@ -85,5 +86,5 @@ export default function ProjectDetailsForm() {
         )}
       </div>
     </div>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-import { Pencil1Icon, ReloadIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
+import { Pencil1Icon, ReloadIcon } from '@radix-ui/react-icons'
+import { Button } from '@/components/ui/button'
 
 const ProjectMetadataSubmitButton = ({
   handleSubmit,
   loading,
   request,
 }: {
-  handleSubmit: () => void;
-  loading: boolean;
-  request: string;
+  handleSubmit: () => void
+  loading: boolean
+  request: string
 }) => (
   <Button className="inline-flex gap-2" onClick={handleSubmit}>
     {loading ? (
@@ -18,6 +18,6 @@ const ProjectMetadataSubmitButton = ({
     )}
     Update
   </Button>
-);
+)
 
-export default ProjectMetadataSubmitButton;
+export default ProjectMetadataSubmitButton

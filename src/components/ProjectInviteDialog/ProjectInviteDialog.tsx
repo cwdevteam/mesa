@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 import {
   Dialog,
   DialogContent,
@@ -6,14 +6,14 @@ import {
   DialogTrigger,
   DialogDescription,
   DialogTitle,
-} from "@/components/ui/dialog";
-import ProjectInviteForm from "@/components/Forms/ProjectInviteForm";
+} from '@/components/ui/dialog'
+import ProjectInviteForm from '@/components/Forms/ProjectInviteForm'
 
 const ProjectInviteDialog = ({ children, className, ...props }: any) => (
   <Dialog>
     <DialogTrigger asChild>{children}</DialogTrigger>
     <DialogContent
-      className={cn("grid gap-8 max-w-md px-8 py-16", className)}
+      className={cn('grid gap-8 max-w-md px-8 py-16', className)}
       {...props}
     >
       <DialogHeader>
@@ -28,6 +28,6 @@ const ProjectInviteDialog = ({ children, className, ...props }: any) => (
       </div>
     </DialogContent>
   </Dialog>
-);
+)
 
-export default ProjectInviteDialog;
+export default ProjectInviteDialog
