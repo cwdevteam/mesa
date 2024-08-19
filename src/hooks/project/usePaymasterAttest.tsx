@@ -34,7 +34,8 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
-    easAttest(writeContractsAsync, capabilities, args);
+    const response = await easAttest(writeContractsAsync, capabilities, args);
+    return response
   };
 
   return { attest, callsStatus };

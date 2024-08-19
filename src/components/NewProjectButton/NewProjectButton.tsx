@@ -7,7 +7,7 @@ const NewProjectButton = () => {
   const { creatingStatus } = useProjectProvider()
   return (
     <CreateProjectDialog>
-      {creatingStatus?.status === "PENDING" && <CreatingPage />}
+      {creatingStatus && <CreatingPage />}
       <CreateButton />
     </CreateProjectDialog>
   )

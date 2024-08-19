@@ -3,17 +3,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function ProjectDetailsForm() {
   const { attest, callsStatus } = usePaymasterAttest();
   const { name, setName, setDescription, setCreatingStatus } = useProjectProvider();
-  const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
     if (!name) {
@@ -25,22 +23,25 @@ export default function ProjectDetailsForm() {
       return;
     }
 
-    setLoading(true)
+    setCreatingStatus(true)
     try {
-      await attest();
-      setLoading(false)
+      const response = await attest();
+      if (response?.error) {
+        setCreatingStatus(false)
+        return
+      }
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to create project.",
         variant: "default",
       });
-      setLoading(false);
+      setCreatingStatus(false)
     }
   };
 
   useEffect(() => {
-    setCreatingStatus(callsStatus)
+    if (callsStatus?.status === "CONFIRMED") setCreatingStatus(false)
   }, [callsStatus])
 
   return (
@@ -75,14 +76,7 @@ export default function ProjectDetailsForm() {
             Close
           </Button>
         </DialogClose>
-        {loading ? (
-          <Button className="inline-flex gap-2">
-            <ReloadIcon color="currentColor" className="h-4 w-4 animate-spin" />
-            Creating...
-          </Button>
-        ) : (
-          <CreateButton onClick={handleClick} />
-        )}
+        <CreateButton onClick={handleClick} />
       </div>
     </div>
   );
