@@ -11,7 +11,7 @@ import useProjectCreateRedirect from "./useProjectCreateRedirect";
 import useDefaultCredit from "./useDefaultCredit";
 
 const usePaymasterAttest = () => {
-  const { name, description, animationUrl, credits, image } =
+  const { name, description, animationUrl, credits, image, setCreatingStatus } =
     useProjectProvider();
   const { capabilities } = usePaymasterProvider();
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
@@ -19,7 +19,7 @@ const usePaymasterAttest = () => {
   useDefaultCredit();
   useProjectCreateRedirect(callsStatusId);
 
-  const attest = async (callback: any = undefined) => {
+  const attest = async () => {
     try {
       const { uri: metadataUri } = await uploadJson({
         description,
@@ -35,7 +35,7 @@ const usePaymasterAttest = () => {
         []
       );
       const args = getAttestArgs(encodedAttestation, id);
-      if (callback) callback()
+      setCreatingStatus(true)
       const response = await easAttest(writeContractsAsync, capabilities, args);
       return response
     } catch(error) {

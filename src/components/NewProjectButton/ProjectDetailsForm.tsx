@@ -26,7 +26,7 @@ export default function ProjectDetailsForm() {
     }
 
     setLoading(true)
-    const response = await attest(() => setCreatingStatus(true));
+    const response = await attest();
     if (response?.error) {
       setCreatingStatus(false)
       toast({
