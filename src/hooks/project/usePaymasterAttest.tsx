@@ -11,33 +11,39 @@ import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
 
 const usePaymasterAttest = () => {
-  const { name, description, animationUrl, credits, image } =
-    useProjectProvider()
-  const { capabilities } = usePaymasterProvider()
-  const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
-  const { id } = useParams<ProjectIDType>()
-  useDefaultCredit()
-  useProjectCreateRedirect(callsStatusId)
+  const { name, description, animationUrl, credits, image, setCreatingStatus } =
+    useProjectProvider();
+  const { capabilities } = usePaymasterProvider();
+  const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
+  const { id } = useParams<ProjectIDType>();
+  useDefaultCredit();
+  useProjectCreateRedirect(callsStatusId);
 
   const attest = async () => {
-    const { uri: metadataUri } = await uploadJson({
-      description,
-      image,
-      animation_url: animationUrl,
-      credits,
-    })
-    const encodedAttestation = getEncodedAttestationData(
-      name,
-      metadataUri,
-      [credits[0].name],
-      [credits[0].address],
-      []
-    )
-    const args = getAttestArgs(encodedAttestation, id)
-    easAttest(writeContractsAsync, capabilities, args)
-  }
+    try {
+      const { uri: metadataUri } = await uploadJson({
+        description,
+        image,
+        animation_url: animationUrl,
+        credits,
+      });
+      const encodedAttestation = getEncodedAttestationData(
+        name,
+        metadataUri,
+        [credits[0].name],
+        [credits[0].address],
+        []
+      );
+      const args = getAttestArgs(encodedAttestation, id);
+      setCreatingStatus(true)
+      const response = await easAttest(writeContractsAsync, capabilities, args);
+      return response
+    } catch(error) {
+      return {error}
+    }
+  };
 
-  return { attest, callsStatusId }
-}
+  return { attest };
+};
 
 export default usePaymasterAttest
