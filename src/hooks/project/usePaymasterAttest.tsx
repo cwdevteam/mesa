@@ -12,12 +12,12 @@ import useDefaultCredit from './useDefaultCredit'
 
 const usePaymasterAttest = () => {
   const { name, description, animationUrl, credits, image, setCreatingStatus } =
-    useProjectProvider();
-  const { capabilities } = usePaymasterProvider();
-  const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
-  const { id } = useParams<ProjectIDType>();
-  useDefaultCredit();
-  useProjectCreateRedirect(callsStatusId);
+    useProjectProvider()
+  const { capabilities } = usePaymasterProvider()
+  const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
+  const { id } = useParams<ProjectIDType>()
+  useDefaultCredit()
+  useProjectCreateRedirect(callsStatusId)
 
   const attest = async () => {
     try {
@@ -26,24 +26,24 @@ const usePaymasterAttest = () => {
         image,
         animation_url: animationUrl,
         credits,
-      });
+      })
       const encodedAttestation = getEncodedAttestationData(
         name,
         metadataUri,
         [credits[0].name],
         [credits[0].address],
         []
-      );
-      const args = getAttestArgs(encodedAttestation, id);
+      )
+      const args = getAttestArgs(encodedAttestation, id)
       setCreatingStatus(true)
-      const response = await easAttest(writeContractsAsync, capabilities, args);
+      const response = await easAttest(writeContractsAsync, capabilities, args)
       return response
-    } catch(error) {
-      return {error}
+    } catch (error) {
+      return { error }
     }
-  };
+  }
 
-  return { attest };
-};
+  return { attest }
+}
 
 export default usePaymasterAttest

@@ -13,11 +13,11 @@ const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
         },
       ],
       capabilities,
-    });
-    return tx;
+    })
+    return tx
   } catch (error) {
-    console.error("Error during attestation:", error);
-    return {error};
+    console.error('Error during attestation:', error)
+    return { error }
   }
 }
 
