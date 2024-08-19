@@ -19,7 +19,7 @@ const usePaymasterAttest = () => {
   useDefaultCredit();
   const { callsStatus } = useProjectCreateRedirect(callsStatusId);
 
-  const attest = async (callback: any) => {
+  const attest = async (callback: any = undefined) => {
     const { uri: metadataUri } = await uploadJson({
       description,
       image,
