@@ -17,7 +17,7 @@ const usePaymasterAttest = () => {
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts();
   const { id } = useParams<ProjectIDType>();
   useDefaultCredit();
-  const { callsStatus } = useProjectCreateRedirect(callsStatusId);
+  useProjectCreateRedirect(callsStatusId);
 
   const attest = async (callback: any = undefined) => {
     const { uri: metadataUri } = await uploadJson({
@@ -39,7 +39,7 @@ const usePaymasterAttest = () => {
     return response
   };
 
-  return { attest, callsStatus };
+  return { attest };
 };
 
 export default usePaymasterAttest;

@@ -32,10 +32,6 @@ const useProjectCreateRedirect = (callsStatusId?: string) => {
     push(`/project/${refId}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callsStatus]);
-
-  return {
-    callsStatus
-  }
 };
 
 export default useProjectCreateRedirect;
