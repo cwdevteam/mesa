@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import ProfileAvatar from "./ProfileAvatar";
-import ProfileDetails from "./ProfileDetails";
-import ProfileProvider from "@/context/ProfileProvider";
+import ProfileAvatar from './ProfileAvatar'
+import ProfileDetails from './ProfileDetails'
+import ProfileProvider from '@/context/ProfileProvider'
 
 const ProfilePage = () => (
   <ProfileProvider>
@@ -14,6 +14,6 @@ const ProfilePage = () => (
       </div>
     </main>
   </ProfileProvider>
-);
+)
 
-export default ProfilePage;
+export default ProfilePage

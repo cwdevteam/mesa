@@ -1,43 +1,43 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { Address, parseEther } from "viem";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Icons } from "@/components/Icons";
+import { useState } from 'react'
+import { Address, parseEther } from 'viem'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Icons } from '@/components/Icons'
 
-import type { Create1155TokenMutation } from "@/hooks/useZoraToken";
+import type { Create1155TokenMutation } from '@/hooks/useZoraToken'
 
 interface ZoraCardProps {
-  payoutRecipient: Address;
-  create1155Token: Create1155TokenMutation;
+  payoutRecipient: Address
+  create1155Token: Create1155TokenMutation
 }
 
 export default function ZoraTokenForm({
   payoutRecipient,
   create1155Token,
 }: ZoraCardProps) {
-  const [tokenCreated, setTokenCreated] = useState(false);
+  const [tokenCreated, setTokenCreated] = useState(false)
 
   const createTokenAndCollection = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
-    const mediaFile = formData.get("mediaFile") as File;
-    const thumbnailFile = formData.get("thumbnailFile") as File;
-    const pricePerToken = parseEther(formData.get("tokenPrice") as string);
+    const formData = new FormData(event.currentTarget)
+    const name = formData.get('name') as string
+    const description = formData.get('description') as string
+    const mediaFile = formData.get('mediaFile') as File
+    const thumbnailFile = formData.get('thumbnailFile') as File
+    const pricePerToken = parseEther(formData.get('tokenPrice') as string)
 
     const contract = {
       // See https://ipfs.decentralized-content.com/ipfs/bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae
-      uri: "ipfs://bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae", // TODO: replace with custom metadata uri
-      name: "MESA Artist",
-    };
+      uri: 'ipfs://bafkreiffhuoppwxzyajvxrznyalahjg2q7or4ljpkoe6jkvwzc3h3hh6ae', // TODO: replace with custom metadata uri
+      name: 'MESA Artist',
+    }
 
     create1155Token.mutateAsync(
       {
@@ -55,11 +55,11 @@ export default function ZoraTokenForm({
       },
       {
         onSuccess: () => {
-          setTokenCreated(true);
+          setTokenCreated(true)
         },
       }
-    );
-  };
+    )
+  }
 
   return (
     <form
@@ -102,7 +102,7 @@ export default function ZoraTokenForm({
       >
         {(() => {
           if (tokenCreated) {
-            return <>Waiting for confirmation&hellip;</>;
+            return <>Waiting for confirmation&hellip;</>
           }
 
           if (create1155Token.isPending) {
@@ -111,12 +111,12 @@ export default function ZoraTokenForm({
                 Creating token&hellip;
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               </>
-            );
+            )
           }
 
-          return "Create token";
+          return 'Create token'
         })()}
       </Button>
     </form>
-  );
+  )
 }

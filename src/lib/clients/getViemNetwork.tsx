@@ -8,7 +8,7 @@ import {
   baseSepolia,
   optimismSepolia,
   base,
-} from "viem/chains"
+} from 'viem/chains'
 
 const getViemNetwork = (chainId: number) => {
   switch (chainId) {

@@ -1,64 +1,64 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Chain, HttpTransport, PublicClient, getAddress } from "viem";
-import { useAccount, useWalletClient, usePublicClient } from "wagmi";
-import type { CreateSplitConfig } from "@0xsplits/splits-sdk/types";
-import usePredictedSplits from "@/hooks/usePredictedSplits";
-import SplitsCard from "./SplitsCard";
-import ZoraCard from "./ZoraCard";
-import ConfirmSplitsSection from "./ConfirmSplitsSection";
+import { useEffect, useState } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { Chain, HttpTransport, PublicClient, getAddress } from 'viem'
+import { useAccount, useWalletClient, usePublicClient } from 'wagmi'
+import type { CreateSplitConfig } from '@0xsplits/splits-sdk/types'
+import usePredictedSplits from '@/hooks/usePredictedSplits'
+import SplitsCard from './SplitsCard'
+import ZoraCard from './ZoraCard'
+import ConfirmSplitsSection from './ConfirmSplitsSection'
 
 export default function ZoraPage() {
-  const creatorAccount = useAccount().address || null;
-  const walletClient = useWalletClient().data || null;
+  const creatorAccount = useAccount().address || null
+  const walletClient = useWalletClient().data || null
   const publicClient = usePublicClient() as PublicClient<
     HttpTransport,
     Chain
-  > | null;
+  > | null
 
   const [splitConfig, setSplitsConfig] = useState<CreateSplitConfig | null>(
     null
-  );
-  const searchParams = useSearchParams();
+  )
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const splitsParam = searchParams.get("splits");
+    const splitsParam = searchParams.get('splits')
     if (splitsParam) {
       try {
-        const parsedConfig = JSON.parse(splitsParam);
-        setSplitsConfig(parsedConfig);
+        const parsedConfig = JSON.parse(splitsParam)
+        setSplitsConfig(parsedConfig)
       } catch (e) {
         // Invalid JSON, show default
-        setSplitsConfig(null);
-        alert("Failed to parse splits parameter.");
-        console.error(e);
+        setSplitsConfig(null)
+        alert('Failed to parse splits parameter.')
+        console.error(e)
       }
     } else {
       // No splits param found, show default
-      setSplitsConfig(null);
+      setSplitsConfig(null)
     }
-  }, [searchParams, setSplitsConfig]);
+  }, [searchParams, setSplitsConfig])
 
   const { query: predictedSplitsQuery, createSplit } = usePredictedSplits({
     splitConfig,
     publicClient,
     walletClient,
     creatorAccount,
-  });
+  })
 
   const { splitAddress: payoutRecipient, splitExists } =
-    predictedSplitsQuery.data || {};
+    predictedSplitsQuery.data || {}
 
   if (!publicClient) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
   if (!creatorAccount) {
-    return <div>Connect your wallet to continue.</div>;
+    return <div>Connect your wallet to continue.</div>
   }
   if (!splitConfig) {
-    return <ConfirmSplitsSection />;
+    return <ConfirmSplitsSection />
   }
 
   return (
@@ -85,9 +85,9 @@ export default function ZoraPage() {
           payoutRecipient={payoutRecipient}
           splitExists={splitExists}
           isLoading={predictedSplitsQuery.isLoading}
-          tokenKey={searchParams.get("uid") || null}
+          tokenKey={searchParams.get('uid') || null}
         />
       </section>
     </>
-  );
+  )
 }

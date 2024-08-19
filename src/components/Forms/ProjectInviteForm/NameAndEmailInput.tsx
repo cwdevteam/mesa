@@ -1,9 +1,9 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useProjectInviteProvider } from "@/context/ProjectInviteProvider";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useProjectInviteProvider } from '@/context/ProjectInviteProvider'
 
 const NameAndEmailInput = () => {
-  const { setName, setEmail } = useProjectInviteProvider();
+  const { setName, setEmail } = useProjectInviteProvider()
 
   return (
     <div className="flex flex-col gap-4">
@@ -36,7 +36,7 @@ const NameAndEmailInput = () => {
         onChange={(e) => setEmail(e.target.value)}
       />
     </div>
-  );
-};
+  )
+}
 
-export default NameAndEmailInput;
+export default NameAndEmailInput

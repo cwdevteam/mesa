@@ -1,13 +1,13 @@
-import React from "react";
-import UserMatrixCard from "./ProjectMetaDataTable/UserMatrixCard";
-import { Button } from "./ui/button";
-import { useProjectProvider } from "@/context/ProjectProvider";
-import { Credit } from "@/types/projectMetadataForm";
-import ProjectInviteDialog from "./ProjectInviteDialog";
-import ProjectInviteProvider from "@/context/ProjectInviteProvider";
+import React from 'react'
+import UserMatrixCard from './ProjectMetaDataTable/UserMatrixCard'
+import { Button } from './ui/button'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import { Credit } from '@/types/projectMetadataForm'
+import ProjectInviteDialog from './ProjectInviteDialog'
+import ProjectInviteProvider from '@/context/ProjectInviteProvider'
 
 const ProjectCollaborators = () => {
-  const { credits } = useProjectProvider();
+  const { credits } = useProjectProvider()
 
   return (
     <section className="w-full grid mt-4 max-w-auto">
@@ -32,7 +32,7 @@ const ProjectCollaborators = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ProjectCollaborators;
+export default ProjectCollaborators

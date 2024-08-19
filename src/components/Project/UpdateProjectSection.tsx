@@ -1,16 +1,13 @@
-import { useState } from "react";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { useProjectProvider } from "@/context/ProjectProvider";
-import UpdateProjectButton from "./UpdateProjectButton";
+import { Input } from '../ui/input'
+import { Textarea } from '../ui/textarea'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import UpdateProjectButton from './UpdateProjectButton'
 
 const UpdateProjectSection = () => {
-  const { name, setName, description, setDescription } = useProjectProvider();
+  const { name, setName, description, setDescription } = useProjectProvider()
 
   return (
-    <div className="flex flex-col justify-center gap-5 max-w-[300px] -mt-9">
+    <div className="flex flex-col justify-center gap-5 max-w-[300px] -mt-9 dark:text-white text-black">
       <div>
         <label htmlFor="project_name" className="text-sm font-medium">
           Project Name
@@ -35,7 +32,7 @@ const UpdateProjectSection = () => {
       </div>
       <UpdateProjectButton />
     </div>
-  );
-};
+  )
+}
 
-export default UpdateProjectSection;
+export default UpdateProjectSection

@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import { Label } from "@/components/ui/label";
-import getIpfsLink from "@/lib/ipfs/getIpfsLink";
+import { Label } from '@/components/ui/label'
+import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 
-const ZoraMediaFile = ({ mediaFile, label = "Media File:" }: any) => (
+const ZoraMediaFile = ({ mediaFile, label = 'Media File:' }: any) => (
   <div className="grid w-full items-center gap-2">
     <Label htmlFor="mediaFile">{label}</Label>
     {mediaFile && (
@@ -12,6 +12,6 @@ const ZoraMediaFile = ({ mediaFile, label = "Media File:" }: any) => (
       </a>
     )}
   </div>
-);
+)
 
-export default ZoraMediaFile;
+export default ZoraMediaFile

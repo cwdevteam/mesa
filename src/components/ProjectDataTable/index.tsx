@@ -1,19 +1,19 @@
-"use client";
+'use client'
 import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table";
-import { columns } from "./ProjectDataTableColumns";
-import { Button } from "@/components/ui/button";
+} from '@tanstack/react-table'
+import { columns } from './ProjectDataTableColumns'
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 
 export const ProjectDataTable = ({ data }: { data: any[] }) => {
   const table = useReactTable({
@@ -21,7 +21,7 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-  });
+  })
 
   return (
     <div className="grid grid-cols-1 gap-4 -mt-7">
@@ -33,7 +33,7 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
                 {headerGroup.headers.map((header, index) => (
                   <TableHead
                     key={header.id}
-                    className={index === 0 ? "w-[160px]" : ""}
+                    className={index === 0 ? 'w-[160px]' : ''}
                   >
                     {header.isPlaceholder
                       ? null
@@ -92,5 +92,5 @@ export const ProjectDataTable = ({ data }: { data: any[] }) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}

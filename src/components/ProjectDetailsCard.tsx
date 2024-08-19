@@ -1,18 +1,18 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import { useProjectProvider } from "@/context/ProjectProvider";
+import React, { useState } from 'react'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 export default function ProjectDetailsCard() {
-  const [expanded, setExpanded] = useState(false);
-  const { name, description } = useProjectProvider();
+  const [expanded, setExpanded] = useState(false)
+  const { name, description } = useProjectProvider()
 
   return (
     <section className="project-details-card">
-      <h2 className="text-2xl font-bold tracking-tight">{name}</h2>
+      <h2 className="text-2xl font-bold tracking-tight text-white">{name}</h2>
       <div
         className={`max-w-prose ${
-          expanded ? "overflow-auto" : "overflow-hidden"
+          expanded ? 'overflow-auto' : 'overflow-hidden'
         }`}
       >
         {expanded && <p className="text-muted-foreground">{description}</p>}
@@ -21,9 +21,9 @@ export default function ProjectDetailsCard() {
           onClick={() => setExpanded(!expanded)}
           aria-expanded={expanded}
         >
-          {expanded ? "Read Less" : "Read More"}
+          {expanded ? 'Read Less' : 'Read More'}
         </button>
       </div>
     </section>
-  );
+  )
 }

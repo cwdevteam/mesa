@@ -1,5 +1,5 @@
-import DashboardPage from "@/components/DashboardPage";
+import DashboardPage from '@/components/DashboardPage'
 
-const Dashboard = async () => <DashboardPage />;
+const Dashboard = async () => <DashboardPage />
 
-export default Dashboard;
+export default Dashboard

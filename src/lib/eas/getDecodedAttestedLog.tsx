@@ -1,14 +1,14 @@
-import { decodeEventLog } from "viem";
-import { easAbi } from "../abi/eas";
+import { decodeEventLog } from 'viem'
+import { easAbi } from '../abi/eas'
 
 const getDecodedAttestedLog = (rawEvent: any) => {
   const decoded = decodeEventLog({
     abi: easAbi,
-    eventName: "Attested",
+    eventName: 'Attested',
     data: rawEvent.data,
     topics: rawEvent.topics,
-  });
-  return decoded;
-};
+  })
+  return decoded
+}
 
-export default getDecodedAttestedLog;
+export default getDecodedAttestedLog

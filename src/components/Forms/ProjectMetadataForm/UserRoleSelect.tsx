@@ -1,20 +1,20 @@
-import { Label } from "@/components/ui/label";
-import { Credit, userRoleOptions } from "@/types/projectMetadataForm";
-import ProjectmetadataSelect from "./ProjectMetadataSelect";
-import { useProjectProvider } from "@/context/ProjectProvider";
+import { Label } from '@/components/ui/label'
+import { Credit, userRoleOptions } from '@/types/projectMetadataForm'
+import ProjectmetadataSelect from './ProjectMetadataSelect'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 const UserRoleSelect = () => {
-  const { credits, setCredits } = useProjectProvider();
-  const userRole = credits[0].collaboratorType;
-  const label = userRoleOptions.find((v) => v.value === userRole)?.label;
+  const { credits, setCredits } = useProjectProvider()
+  const userRole = credits[0].collaboratorType
+  const label = userRoleOptions.find((v) => v.value === userRole)?.label
 
   const handleChange = (e: any) => {
     const credit = {
       ...credits[0],
       collaboratorType: e,
-    } as Credit;
-    setCredits([credit]);
-  };
+    } as Credit
+    setCredits([credit])
+  }
 
   return (
     <div className="grid gap-3">
@@ -26,7 +26,7 @@ const UserRoleSelect = () => {
         options={userRoleOptions}
       />
     </div>
-  );
-};
+  )
+}
 
-export default UserRoleSelect;
+export default UserRoleSelect

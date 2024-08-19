@@ -1,5 +1,5 @@
-import { easAbi } from "../abi/eas";
-import { EAS } from "../consts";
+import { easAbi } from '../abi/eas'
+import { EAS } from '../consts'
 
 const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
   try {
@@ -8,17 +8,17 @@ const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
         {
           address: EAS,
           abi: easAbi,
-          functionName: "attest",
+          functionName: 'attest',
           args,
         },
       ],
       capabilities,
-    });
-    return tx;
-  } catch (err) {
-    console.error("Error during attestation:", err);
-    return false;
+    })
+    return tx
+  } catch (error) {
+    console.error('Error during attestation:', error)
+    return { error }
   }
-};
+}
 
-export default attest;
+export default attest

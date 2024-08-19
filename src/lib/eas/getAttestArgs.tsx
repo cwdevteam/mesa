@@ -1,5 +1,5 @@
-import { zeroAddress } from "viem";
-import { ATTESTATION_REF_UID, ATTESTATION_SCHEMA } from "../consts";
+import { zeroAddress } from 'viem'
+import { ATTESTATION_REF_UID, ATTESTATION_SCHEMA } from '../consts'
 
 const getAttestArgs = (encodedData: string, refUID?: string) => [
   {
@@ -13,6 +13,6 @@ const getAttestArgs = (encodedData: string, refUID?: string) => [
       value: 0,
     },
   },
-];
+]
 
-export default getAttestArgs;
+export default getAttestArgs

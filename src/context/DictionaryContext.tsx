@@ -10,7 +10,10 @@ interface DictionaryProviderProps {
   dictionary: Dictionary
 }
 
-export const DictionaryProvider = ({ children, dictionary }: DictionaryProviderProps) => {
+export const DictionaryProvider = ({
+  children,
+  dictionary,
+}: DictionaryProviderProps) => {
   return (
     <DictionaryContext.Provider value={dictionary}>
       {children}

@@ -1,3 +1,3 @@
-import ProjectInviteDialog from "./ProjectInviteDialog";
+import ProjectInviteDialog from './ProjectInviteDialog'
 
-export default ProjectInviteDialog;
+export default ProjectInviteDialog

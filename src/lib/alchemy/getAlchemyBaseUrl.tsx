@@ -8,38 +8,38 @@ import {
   optimismGoerli,
   polygon,
   polygonMumbai,
-} from "viem/chains";
+} from 'viem/chains'
 
-const ETH = "https://eth-mainnet.g.alchemy.com/";
-const GOERLI = "https://eth-goerli.g.alchemy.com/";
-const BASE = "https://base-mainnet.g.alchemy.com/";
-const BASE_SEPOLIA = "https://base-sepolia.g.alchemy.com/";
-const OP = "https://opt-mainnet.g.alchemy.com/";
-const OP_GOERLI = "https://opt-goerli.g.alchemy.com/";
-const POLYGON = "https://polygon-mainnet.g.alchemy.com/";
-const POLYGON_MUMBAI = "https://polygon-mumbai.g.alchemy.com/";
+const ETH = 'https://eth-mainnet.g.alchemy.com/'
+const GOERLI = 'https://eth-goerli.g.alchemy.com/'
+const BASE = 'https://base-mainnet.g.alchemy.com/'
+const BASE_SEPOLIA = 'https://base-sepolia.g.alchemy.com/'
+const OP = 'https://opt-mainnet.g.alchemy.com/'
+const OP_GOERLI = 'https://opt-goerli.g.alchemy.com/'
+const POLYGON = 'https://polygon-mainnet.g.alchemy.com/'
+const POLYGON_MUMBAI = 'https://polygon-mumbai.g.alchemy.com/'
 
 const getAlchemyBaseUrl = (chainId: number) => {
   switch (chainId) {
     case mainnet.id:
-      return ETH;
+      return ETH
     case goerli.id:
-      return GOERLI;
+      return GOERLI
     case base.id:
-      return BASE;
+      return BASE
     case baseSepolia.id:
-      return BASE_SEPOLIA;
+      return BASE_SEPOLIA
     case polygon.id:
-      return POLYGON;
+      return POLYGON
     case polygonMumbai.id:
-      return POLYGON_MUMBAI;
+      return POLYGON_MUMBAI
     case optimism.id:
-      return OP;
+      return OP
     case optimismGoerli.id:
-      return OP_GOERLI;
+      return OP_GOERLI
     default:
-      return ETH;
+      return ETH
   }
-};
+}
 
-export default getAlchemyBaseUrl;
+export default getAlchemyBaseUrl

@@ -1,9 +1,9 @@
-import { Textarea } from "@/components/ui/textarea";
-import ProjectInviteFormButtons from "./ProjectInviteFormButtons";
-import { useProjectInviteProvider } from "@/context/ProjectInviteProvider";
+import { Textarea } from '@/components/ui/textarea'
+import ProjectInviteFormButtons from './ProjectInviteFormButtons'
+import { useProjectInviteProvider } from '@/context/ProjectInviteProvider'
 
 const MessageAndButtons = () => {
-  const { setMessage } = useProjectInviteProvider();
+  const { setMessage } = useProjectInviteProvider()
 
   return (
     <div className="flex flex-col gap-4">
@@ -25,7 +25,7 @@ const MessageAndButtons = () => {
       </p>
       <ProjectInviteFormButtons />
     </div>
-  );
-};
+  )
+}
 
-export default MessageAndButtons;
+export default MessageAndButtons

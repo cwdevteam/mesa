@@ -1,28 +1,28 @@
-import { UserDetailsProps } from "@/types/const";
-import { useCallback, useEffect, useState } from "react";
-import { fetchAttestation } from "@/lib/eas/fetchAttestation";
-import useAttestationRead from "@/hooks/useAttestationRead";
+import { UserDetailsProps } from '@/types/const'
+import { useCallback, useEffect, useState } from 'react'
+import { fetchAttestation } from '@/lib/eas/fetchAttestation'
+import useAttestationRead from '@/hooks/useAttestationRead'
 
 const useAttestation = () => {
-  const { attestationData }: any = useAttestationRead();
+  const { attestationData }: any = useAttestationRead()
   const [dashboardData, setDashboardData] = useState<UserDetailsProps | null>(
     null
-  );
+  )
 
   const fetchData = useCallback(async () => {
     if (attestationData.data.length > 0) {
-      let { dashboardData }: any = await fetchAttestation(attestationData.data);
-      setDashboardData(dashboardData);
+      let { dashboardData }: any = await fetchAttestation(attestationData.data)
+      setDashboardData(dashboardData)
     }
-  }, [attestationData]);
+  }, [attestationData])
 
   useEffect(() => {
-    if (!attestationData?.data) return;
-    fetchData();
+    if (!attestationData?.data) return
+    fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [attestationData]);
+  }, [])
 
-  return { attestationData: attestationData.data, dashboardData };
-};
+  return { attestationData: attestationData.data, dashboardData }
+}
 
-export default useAttestation;
+export default useAttestation

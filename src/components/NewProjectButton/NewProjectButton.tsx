@@ -1,13 +1,16 @@
-import CreateProjectDialog from "./CreateProjectDialog";
-import CreateButton from "./CreateButton";
-import ProjectProvider from "@/context/ProjectProvider";
+import CreateProjectDialog from './CreateProjectDialog'
+import CreateButton from './CreateButton'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import CreatingPage from './CreatingPage'
 
-const NewProjectButton = () => (
-  <ProjectProvider>
+const NewProjectButton = () => {
+  const { creatingStatus } = useProjectProvider()
+  return (
     <CreateProjectDialog>
+      {creatingStatus && <CreatingPage />}
       <CreateButton />
     </CreateProjectDialog>
-  </ProjectProvider>
-);
+  )
+}
 
-export default NewProjectButton;
+export default NewProjectButton

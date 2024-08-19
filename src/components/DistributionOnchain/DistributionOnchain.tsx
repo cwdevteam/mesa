@@ -1,16 +1,16 @@
-import { useParams } from "next/navigation";
-import { OnchainDistributionProtocol, ProjectIDType } from "@/types/const";
-import TokenForm from "./TokenForm";
-import StepCard from "../Pages/ZoraPage/StepCard";
-import OnchainDistributionProvider from "@/context/OnchainDistributionProvider";
+import { useParams } from 'next/navigation'
+import { OnchainDistributionProtocol, ProjectIDType } from '@/types/const'
+import TokenForm from './TokenForm'
+import StepCard from '../Pages/ZoraPage/StepCard'
+import OnchainDistributionProvider from '@/context/OnchainDistributionProvider'
 
 const DistributionOnchain = ({
   protocol,
 }: {
-  protocol: OnchainDistributionProtocol;
+  protocol: OnchainDistributionProtocol
 }) => {
-  const { id } = useParams<ProjectIDType>();
-  const isMissing = !id;
+  const { id } = useParams<ProjectIDType>()
+  const isMissing = !id
 
   return (
     <OnchainDistributionProvider protocol={protocol}>
@@ -34,7 +34,7 @@ const DistributionOnchain = ({
         </StepCard>
       </section>
     </OnchainDistributionProvider>
-  );
-};
+  )
+}
 
-export default DistributionOnchain;
+export default DistributionOnchain

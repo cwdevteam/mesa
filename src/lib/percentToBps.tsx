@@ -1,3 +1,3 @@
-const percentToBps = (percent: number) => percent * 100;
+const percentToBps = (percent: number) => percent * 100
 
-export default percentToBps;
+export default percentToBps

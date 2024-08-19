@@ -1,8 +1,8 @@
-import { useProfileProvider } from "@/context/ProfileProvider";
-import { Input } from "../ui/input";
+import { useProfileProvider } from '@/context/ProfileProvider'
+import { Input } from '../ui/input'
 
 const WebsiteInput = () => {
-  const { user, editing, handleInputChange } = useProfileProvider();
+  const { user, editing, handleInputChange } = useProfileProvider()
 
   return (
     <div className="flex-1">
@@ -12,12 +12,12 @@ const WebsiteInput = () => {
       <Input
         id="user_website"
         name="website"
-        value={user?.website || ""}
-        onChange={(e) => handleInputChange("website", e.target.value)}
+        value={user?.website || ''}
+        onChange={(e) => handleInputChange('website', e.target.value)}
         disabled={!editing}
       />
     </div>
-  );
-};
+  )
+}
 
-export default WebsiteInput;
+export default WebsiteInput

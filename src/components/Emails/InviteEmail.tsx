@@ -1,15 +1,15 @@
-import * as React from "react";
-import { Address } from "viem";
+import * as React from 'react'
+import { Address } from 'viem'
 
 interface InviteEmailProps {
-  name: string;
-  message?: string;
-  referenceAttestation: Address;
+  name: string
+  message?: string
+  referenceAttestation: Address
 }
 
 export const InviteEmail: React.FC<Readonly<InviteEmailProps>> = ({
   name,
-  message = "",
+  message = '',
   referenceAttestation,
 }) => (
   <div>
@@ -17,7 +17,7 @@ export const InviteEmail: React.FC<Readonly<InviteEmailProps>> = ({
     <h3>You&apos;ve been invited to join a Mesa project.</h3>
     <h3>Message: {message}</h3>
     <div>
-      View the invitation:{" "}
+      View the invitation:{' '}
       <a
         href={`https://mesa-wallet.vercel.app/invite/${referenceAttestation}`}
         target="_blank"
@@ -34,4 +34,4 @@ export const InviteEmail: React.FC<Readonly<InviteEmailProps>> = ({
       className="rounded-full object-cover w-[150px] h-[150px] bg-cyan-100"
     />
   </div>
-);
+)

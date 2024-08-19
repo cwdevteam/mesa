@@ -1,7 +1,10 @@
 import 'server-only'
 
 import { Database } from '@/types/supabase'
-import { createServerClient as createClient, type CookieOptions } from '@supabase/ssr'
+import {
+  createServerClient as createClient,
+  type CookieOptions,
+} from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
 export function createServerClient(cookieStore: ReturnType<typeof cookies>) {

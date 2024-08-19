@@ -1,17 +1,17 @@
-import { createServerClient } from "@/lib/supabase/server";
-import { cookies } from "next/headers";
-import { Address } from "viem";
+import { createServerClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+import { Address } from 'viem'
 
 const getUserByAddress = async (address: Address) => {
-  const supabase = createServerClient(cookies());
+  const supabase = createServerClient(cookies())
   const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .contains("addresses", [address]);
+    .from('profiles')
+    .select('*')
+    .contains('addresses', [address])
   if (error) {
-    throw error;
+    throw error
   }
-  return data;
-};
+  return data
+}
 
-export default getUserByAddress;
+export default getUserByAddress

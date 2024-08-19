@@ -16,7 +16,7 @@ import { PaymasterProvider } from '@/context/Paymasters'
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap'
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  return i18n.locales.map(locale => ({ lang: locale }))
+  return i18n.locales.map((locale) => ({ lang: locale }))
 }
 
 export default async function RootLayout({
@@ -40,7 +40,7 @@ export default async function RootLayout({
     <html lang={lang} className="h-full" suppressHydrationWarning>
       <body className={clsx('h-full', inter.className)}>
         <Providers lang={lang}>
-          <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-full h-fit max-h-full">
+          <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen py-20">
             <Header lang={lang} dict={dict} />
             <PaymasterProvider>{children}</PaymasterProvider>
             <MediaPlayer />

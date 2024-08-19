@@ -1,4 +1,4 @@
-import { NextMiddleware, NextRequest, NextResponse } from "next/server"
+import { NextMiddleware, NextRequest, NextResponse } from 'next/server'
 
 import i18n from '@/../i18n.config'
 

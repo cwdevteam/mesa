@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
 const ProjectMetadataSelect = ({
   value,
@@ -33,6 +33,6 @@ const ProjectMetadataSelect = ({
       </SelectGroup>
     </SelectContent>
   </Select>
-);
+)
 
-export default ProjectMetadataSelect;
+export default ProjectMetadataSelect

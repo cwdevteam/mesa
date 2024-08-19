@@ -1,9 +1,9 @@
-import { useProjectProvider } from "@/context/ProjectProvider";
-import ZoraMediaFile from "./ZoraMediaFile";
-import ImageSelect from "../Project/ImageSelect";
+import { useProjectProvider } from '@/context/ProjectProvider'
+import ZoraMediaFile from './ZoraMediaFile'
+import ImageSelect from '../Project/ImageSelect'
 
 const ZoraImageSelect = () => {
-  const { image } = useProjectProvider();
+  const { image } = useProjectProvider()
 
   return (
     <div className="w-full">
@@ -13,7 +13,7 @@ const ZoraImageSelect = () => {
         <ImageSelect />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ZoraImageSelect;
+export default ZoraImageSelect

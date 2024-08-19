@@ -1,20 +1,20 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { CreateSplitConfig } from "@0xsplits/splits-sdk";
+import { useState } from 'react'
+import { CreateSplitConfig } from '@0xsplits/splits-sdk'
 
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/Icons";
-import type { CreateSplitMutation } from "@/hooks/usePredictedSplits";
+import { Button } from '@/components/ui/button'
+import { Icons } from '@/components/Icons'
+import type { CreateSplitMutation } from '@/hooks/usePredictedSplits'
 
 export default function SplitsDeployCard({
   splitConfig,
   createSplitMutation,
 }: {
-  splitConfig: CreateSplitConfig;
-  createSplitMutation: CreateSplitMutation;
+  splitConfig: CreateSplitConfig
+  createSplitMutation: CreateSplitMutation
 }) {
-  const [splitsDeployed, setSplitsDeployed] = useState(false);
+  const [splitsDeployed, setSplitsDeployed] = useState(false)
   return (
     <>
       <Button
@@ -27,7 +27,7 @@ export default function SplitsDeployCard({
       >
         {(() => {
           if (splitsDeployed) {
-            return <>Waiting for confirmation&hellip;</>;
+            return <>Waiting for confirmation&hellip;</>
           }
 
           if (createSplitMutation.isPending) {
@@ -36,12 +36,12 @@ export default function SplitsDeployCard({
                 Deploying&hellip;
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               </>
-            );
+            )
           }
 
-          return "Deploy Splits";
+          return 'Deploy Splits'
         })()}
       </Button>
     </>
-  );
+  )
 }
