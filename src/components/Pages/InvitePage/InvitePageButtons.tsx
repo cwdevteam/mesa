@@ -1,42 +1,42 @@
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import useConnectSmartWallet from "@/hooks/useConnectSmartWallet";
-import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
-import { useRouter } from "next/navigation";
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
+import useConnectSmartWallet from '@/hooks/useConnectSmartWallet'
+import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
+import { useRouter } from 'next/navigation'
 
 const InvitePageButtons = () => {
-  const { toast } = useToast();
-  const { attest } = usePaymasterAttest();
-  const { push } = useRouter();
-  const { connect } = useConnectSmartWallet();
+  const { toast } = useToast()
+  const { attest } = usePaymasterAttest()
+  const { push } = useRouter()
+  const { connect } = useConnectSmartWallet()
 
   const handleSubmit = async (accepted: boolean) => {
-    connect();
+    connect()
     try {
       if (!accepted) {
         toast({
-          title: "Declined",
-          description: "Declined Invitation",
-          variant: "default",
-        });
-        push("/");
-        return;
+          title: 'Declined',
+          description: 'Declined Invitation',
+          variant: 'default',
+        })
+        push('/')
+        return
       }
-      await attest();
+      await attest()
       toast({
-        title: "Success",
-        description: "Accepted Invitation",
-        variant: "default",
-      });
+        title: 'Success',
+        description: 'Accepted Invitation',
+        variant: 'default',
+      })
     } catch (err: any) {
-      console.error(err);
+      console.error(err)
       toast({
-        title: "Error",
-        description: "Something went wrong",
-        variant: "destructive",
-      });
+        title: 'Error',
+        description: 'Something went wrong',
+        variant: 'destructive',
+      })
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-center gap-4">
@@ -53,7 +53,7 @@ const InvitePageButtons = () => {
         Decline
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default InvitePageButtons;
+export default InvitePageButtons

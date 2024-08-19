@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from '../ui/button'
 
 const DeleteProjectSection = () => (
   <div className="flex flex-col justify-center gap-5 py-10">
@@ -15,13 +15,13 @@ const DeleteProjectSection = () => (
 
         <Button
           className="text-red-500 hover:bg-red-500 hover:text-white"
-          variant={"default"}
+          variant={'default'}
         >
           Delete this project
         </Button>
       </div>
     </div>
   </div>
-);
+)
 
-export default DeleteProjectSection;
+export default DeleteProjectSection

@@ -1,26 +1,20 @@
-"use client";
+'use client'
 
-import {
-  Address,
-  Chain,
-  HttpTransport,
-  PublicClient,
-  WalletClient,
-} from "viem";
-import useZoraToken from "@/hooks/useZoraToken";
-import { CHAIN, IS_TESTNET } from "@/lib/consts";
-import ZoraTokenForm from "./ZoraTokenForm";
-import ExternalLinkButton from "./ExternalLinkButton";
-import StepCard from "./StepCard";
+import { Address, Chain, HttpTransport, PublicClient, WalletClient } from 'viem'
+import useZoraToken from '@/hooks/useZoraToken'
+import { CHAIN, IS_TESTNET } from '@/lib/consts'
+import ZoraTokenForm from './ZoraTokenForm'
+import ExternalLinkButton from './ExternalLinkButton'
+import StepCard from './StepCard'
 
 interface ZoraCardProps {
-  publicClient: PublicClient<HttpTransport, Chain>;
-  walletClient: WalletClient;
-  creatorAccount: Address;
-  payoutRecipient: Address | undefined;
-  splitExists: boolean | undefined;
-  isLoading: boolean;
-  tokenKey: string | null;
+  publicClient: PublicClient<HttpTransport, Chain>
+  walletClient: WalletClient
+  creatorAccount: Address
+  payoutRecipient: Address | undefined
+  splitExists: boolean | undefined
+  isLoading: boolean
+  tokenKey: string | null
 }
 
 export default function ZoraCard({
@@ -41,14 +35,14 @@ export default function ZoraCard({
     publicClient,
     walletClient,
     creatorAccount,
-  });
+  })
 
   return (
     <StepCard className="w-full p-6">
       {(() => {
         if (tokenQuery.data) {
           const { url: explorerUrl, name: explorerName } =
-            CHAIN.blockExplorers.default;
+            CHAIN.blockExplorers.default
 
           // TODO: warn if splits have changed since token was created
           return (
@@ -60,7 +54,7 @@ export default function ZoraCard({
               </div>
               <div className="flex justify-center md:justify-end flex-wrap gap-2">
                 <ExternalLinkButton
-                  href={`https://${IS_TESTNET ? "testnet." : ""}zora.co/manage`}
+                  href={`https://${IS_TESTNET ? 'testnet.' : ''}zora.co/manage`}
                 >
                   Manage on Zora
                 </ExternalLinkButton>
@@ -71,7 +65,7 @@ export default function ZoraCard({
                 </ExternalLinkButton>
               </div>
             </>
-          );
+          )
         }
 
         if (!tokenKey) {
@@ -82,7 +76,7 @@ export default function ZoraCard({
                 and try again.
               </p>
             </div>
-          );
+          )
         }
 
         if (payoutRecipient && splitExists) {
@@ -91,17 +85,17 @@ export default function ZoraCard({
               payoutRecipient={payoutRecipient}
               create1155Token={create1155Token}
             />
-          );
+          )
         }
 
         return (
           <div className="flex items-center flex-1">
             <p className="text-muted-foreground">
-              {isLoading ? "Loading..." : "Please deploy your Splits contract."}
+              {isLoading ? 'Loading...' : 'Please deploy your Splits contract.'}
             </p>
           </div>
-        );
+        )
       })()}
     </StepCard>
-  );
+  )
 }

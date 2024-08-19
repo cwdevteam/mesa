@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useProjectProvider } from "@/context/ProjectProvider";
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 const Price = () => {
-  const { setEthPrice } = useProjectProvider();
+  const { setEthPrice } = useProjectProvider()
 
   return (
     <div className="grid w-full items-center gap-2">
@@ -21,7 +21,7 @@ const Price = () => {
         onChange={(event) => setEthPrice(Number(event.target.value))}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Price;
+export default Price

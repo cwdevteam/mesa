@@ -1,29 +1,29 @@
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAccount, useDisconnect } from "wagmi";
+'use client'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAccount, useDisconnect } from 'wagmi'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { Icons } from "../Icons";
-import NoSSR from "../NoSSR";
-import { Button } from "@/components/ui/button";
-import ConnectButton from ".";
-import useClipboard from "@/hooks/useClipboard";
-import truncateAddress from "@/lib/truncateAddress";
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Icons } from '../Icons'
+import NoSSR from '../NoSSR'
+import { Button } from '@/components/ui/button'
+import ConnectButton from '.'
+import useClipboard from '@/hooks/useClipboard'
+import truncateAddress from '@/lib/truncateAddress'
 
 export default function WalletDropdownButton() {
-  const { address } = useAccount();
-  const { disconnect } = useDisconnect();
-  const { push } = useRouter();
-  const { isCopied, copyToClipboard } = useClipboard();
+  const { address } = useAccount()
+  const { disconnect } = useDisconnect()
+  const { push } = useRouter()
+  const { isCopied, copyToClipboard } = useClipboard()
 
   const redirectProfile = () => {
-    push("/profile");
-  };
+    push('/profile')
+  }
 
   return (
     <NoSSR>
@@ -39,7 +39,7 @@ export default function WalletDropdownButton() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={() => copyToClipboard(address!)}>
-              {!isCopied ? "Copy Address" : "Copied"}
+              {!isCopied ? 'Copy Address' : 'Copied'}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={redirectProfile}>
               Profile
@@ -53,5 +53,5 @@ export default function WalletDropdownButton() {
         <ConnectButton showTextInMobile />
       )}
     </NoSSR>
-  );
+  )
 }

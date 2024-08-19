@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import { Button } from "../ui/button";
-import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
+import { Button } from '../ui/button'
+import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 
 const AttestButton = () => {
-  const { attest } = usePaymasterAttest();
+  const { attest } = usePaymasterAttest()
 
   return (
     <Button size="default" className="rounded-full" onClick={() => attest()}>
       Save
     </Button>
-  );
-};
+  )
+}
 
-export default AttestButton;
+export default AttestButton

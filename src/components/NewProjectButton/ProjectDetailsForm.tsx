@@ -1,42 +1,43 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { DialogClose } from "../ui/dialog";
-import { Textarea } from "../ui/textarea";
-import CreateButton from "./CreateButton";
-import { toast } from "../ui/use-toast";
-import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
-import { useProjectProvider } from "@/context/ProjectProvider";
-import { useState } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { DialogClose } from '../ui/dialog'
+import { Textarea } from '../ui/textarea'
+import CreateButton from './CreateButton'
+import { toast } from '../ui/use-toast'
+import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import { useState } from 'react'
+import { ReloadIcon } from '@radix-ui/react-icons'
 
 export default function ProjectDetailsForm() {
-  const { attest } = usePaymasterAttest();
-  const { name, setName, setDescription, setCreatingStatus } = useProjectProvider();
+  const { attest } = usePaymasterAttest()
+  const { name, setName, setDescription, setCreatingStatus } =
+    useProjectProvider()
   const [loading, setLoading] = useState(false)
-  
+
   const handleClick = async () => {
     if (!name) {
       toast({
-        title: "Error",
-        description: "Title and Description are required.",
-        variant: "default",
-      });
-      return;
+        title: 'Error',
+        description: 'Title and Description are required.',
+        variant: 'default',
+      })
+      return
     }
 
     setLoading(true)
-    const response = await attest();
+    const response = await attest()
     if (response?.error) {
       setCreatingStatus(false)
       toast({
-        title: "Error",
-        description: "Failed to create project",
-        variant: "default"
+        title: 'Error',
+        description: 'Failed to create project',
+        variant: 'default',
       })
     }
     setLoading(false)
-  };
+  }
 
   return (
     <div className="grid gap-6">
@@ -80,5 +81,5 @@ export default function ProjectDetailsForm() {
         )}
       </div>
     </div>
-  );
+  )
 }

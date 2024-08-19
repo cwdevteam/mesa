@@ -1,4 +1,4 @@
-import { Address } from "viem";
+import { Address } from 'viem'
 
 const sendInviteEmail = async (
   email: string,
@@ -6,17 +6,17 @@ const sendInviteEmail = async (
   message: string,
   referenceAttestation: Address
 ) => {
-  const response = await fetch("/api/email", {
-    method: "POST",
+  const response = await fetch('/api/email', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, name, message, referenceAttestation }),
-  });
+  })
 
   if (!response.ok) {
-    throw new Error("Failed to send email");
+    throw new Error('Failed to send email')
   }
-};
+}
 
-export default sendInviteEmail;
+export default sendInviteEmail

@@ -13,8 +13,14 @@ import {
 import { Icons } from '../Icons'
 
 export const MediaSheet: React.FC = () => {
-  const { medias, currentMedia, setCurrentMedia, isPlaying, setIsPlaying, handleRemove } =
-    useMediaContext()
+  const {
+    medias,
+    currentMedia,
+    setCurrentMedia,
+    isPlaying,
+    setIsPlaying,
+    handleRemove,
+  } = useMediaContext()
 
   const displayText = (text: string) => {
     if (text.length > 10) {
@@ -43,7 +49,9 @@ export const MediaSheet: React.FC = () => {
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Music List</SheetTitle>
-          <SheetDescription>🎵 Your favorite Mesa Music Player 🎧</SheetDescription>
+          <SheetDescription>
+            🎵 Your favorite Mesa Music Player 🎧
+          </SheetDescription>
         </SheetHeader>
 
         <div className="py-4 h-[38rem] overflow-auto">
@@ -51,7 +59,8 @@ export const MediaSheet: React.FC = () => {
             <div
               key={index}
               className={`flex flex-col sm:flex-row sm:h-auto my-5 mx-2 rounded-md border hover:shadow-md border-[#313338] ${
-                index === currentMedia && 'shadow-[0_2px_2px_rgba(8,_112,_184,_0.7)]'
+                index === currentMedia &&
+                'shadow-[0_2px_2px_rgba(8,_112,_184,_0.7)]'
               } hover:bg-gray-600`}
             >
               <div className="flex justify-center items-center w-full sm:w-[50%] sm:m-2 p-2 sm:p-0 border-b sm:border-b-0 sm:border-r border-[#313338] rounded-md"></div>

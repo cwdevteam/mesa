@@ -1,4 +1,4 @@
-import { Dictionary } from "@/dictionaries/types";
+import { Dictionary } from '@/dictionaries/types'
 
 import auth from './auth'
 import dashboard from './dashboard'
@@ -9,7 +9,7 @@ const dictionary: Dictionary = {
   auth,
   dashboard,
   home,
-  layout
+  layout,
 } as const
 
 export default dictionary

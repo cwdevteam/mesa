@@ -1,14 +1,14 @@
-import React from "react";
-import { Icons } from "../Icons";
-import { Credit } from "@/types/projectMetadataForm";
-import bpsToPercent from "@/lib/bpsToPercent";
+import React from 'react'
+import { Icons } from '../Icons'
+import { Credit } from '@/types/projectMetadataForm'
+import bpsToPercent from '@/lib/bpsToPercent'
 
 const UserMatrixCardDetails = ({
   data,
   handleActionClick,
 }: {
-  data: Credit;
-  handleActionClick: Function;
+  data: Credit
+  handleActionClick: Function
 }) => (
   <div className="w-full rounded-md overflow-hidden shadow-lg border">
     <div className="w-full overflow-x-auto">
@@ -73,6 +73,6 @@ const UserMatrixCardDetails = ({
       </table>
     </div>
   </div>
-);
+)
 
-export default UserMatrixCardDetails;
+export default UserMatrixCardDetails

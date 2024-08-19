@@ -7,7 +7,7 @@ const VolumeControls = ({
   isMuted,
   volume,
   handleAudioMute,
-  handleVolumeChange
+  handleVolumeChange,
 }: VolumeControlsProps) => {
   const iconClass =
     'w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black'
@@ -29,7 +29,7 @@ const VolumeControls = ({
         minLength={0}
         step="0.01"
         value={volume}
-        onChange={e => handleVolumeChange(parseFloat(e.target.value))}
+        onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
         className="hidden sm:block w-[120px] h-[3px]"
       />
       <MediaSheet />

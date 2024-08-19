@@ -1,36 +1,36 @@
-import { Credit } from "@/types/projectMetadataForm";
-import { useEffect, useState } from "react";
-import useAttestation from "../useAttestation";
-import useProjectMedia from "./useProjectMedia";
+import { Credit } from '@/types/projectMetadataForm'
+import { useEffect, useState } from 'react'
+import useAttestation from '../useAttestation'
+import useProjectMedia from './useProjectMedia'
 
 const useProject = () => {
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [animationUrl, setAnimationUrl] = useState<string>("");
-  const [image, setImage] = useState<string>("");
-  const [ethPrice, setEthPrice] = useState<string>("");
-  const [credits, setCredits] = useState<Credit[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const { attestationData, dashboardData }: any = useAttestation();
-  useProjectMedia(animationUrl, image, name);
+  const [name, setName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [animationUrl, setAnimationUrl] = useState<string>('')
+  const [image, setImage] = useState<string>('')
+  const [ethPrice, setEthPrice] = useState<string>('')
+  const [credits, setCredits] = useState<Credit[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const { attestationData, dashboardData }: any = useAttestation()
+  useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
 
   const fetchData = async () => {
-    setLoading(true);
+    setLoading(true)
     if (dashboardData) {
-      setName(dashboardData["name"]);
-      setDescription(dashboardData["description"]);
-      setCredits(dashboardData["credits"]);
-      setAnimationUrl(dashboardData["animationUrl"] || "");
-      setImage(dashboardData["image"] || "");
+      setName(dashboardData['name'])
+      setDescription(dashboardData['description'])
+      setCredits(dashboardData['credits'])
+      setAnimationUrl(dashboardData['animationUrl'] || '')
+      setImage(dashboardData['image'] || '')
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   useEffect(() => {
-    dashboardData && loading && fetchData();
+    dashboardData && loading && fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboardData]);
+  }, [dashboardData])
 
   return {
     attestationData,
@@ -47,8 +47,8 @@ const useProject = () => {
     image,
     setImage,
     setCreatingStatus,
-    creatingStatus
-  };
-};
+    creatingStatus,
+  }
+}
 
-export default useProject;
+export default useProject

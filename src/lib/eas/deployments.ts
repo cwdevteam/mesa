@@ -7,12 +7,11 @@ export const EAS = {
   getDeployment: (chainId: number) => {
     switch (chainId) {
       case 10:
-        return Optimism;
+        return Optimism
       case 420:
-        return OptimismGoerli;
+        return OptimismGoerli
       default:
-        return null;
+        return null
     }
-  }
+  },
 } as const
-

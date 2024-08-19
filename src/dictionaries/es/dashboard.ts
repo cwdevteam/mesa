@@ -1,9 +1,9 @@
-import { Dictionary } from "@/dictionaries/types"
+import { Dictionary } from '@/dictionaries/types'
 
 const dashboard: Dictionary['dashboard'] = {
   newProjectButton: {
-    buttonLabel: "Nuevo proyecto"
-  }
+    buttonLabel: 'Nuevo proyecto',
+  },
 } as const
 
 export default dashboard

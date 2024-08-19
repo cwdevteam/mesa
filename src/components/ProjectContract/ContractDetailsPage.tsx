@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
-import { Button } from "@/components/ui/button";
-import ContractHistoryTable from "../Project/ContractHistoryTable";
-import { useProjectProvider } from "@/context/ProjectProvider";
+import { Button } from '@/components/ui/button'
+import ContractHistoryTable from '../Project/ContractHistoryTable'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 const ContractDetailsPage = () => {
-  const { attestationData, description, name } = useProjectProvider();
+  const { attestationData, description, name } = useProjectProvider()
 
   return (
     <div className="w-full">
@@ -25,7 +25,7 @@ const ContractDetailsPage = () => {
         <div className="text-center mt-5">Contract has not started yet</div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ContractDetailsPage;
+export default ContractDetailsPage

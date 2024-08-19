@@ -10,16 +10,18 @@ import { useDictionary } from '@/context/DictionaryContext'
 export function ToastQuery() {
   const searchParams = useSearchParams()
   const isAuthError = searchParams.get('auth-code-error') === 'true'
-  
+
   const { toast } = useToast()
-  const { auth: { error: dict } } = useDictionary()
+  const {
+    auth: { error: dict },
+  } = useDictionary()
 
   useEffect(() => {
     if (isAuthError) {
       toast({
         title: dict.message,
         description: dict.instructions,
-        variant: "destructive",
+        variant: 'destructive',
       })
     }
   }, [isAuthError, toast, dict])

@@ -1,14 +1,13 @@
-import { useProjectProvider } from "@/context/ProjectProvider";
-import getSalesConfig from "@/lib/zora/getSalesConfig";
-import { useMemo, useState } from "react";
-import { parseEther } from "viem";
+import { useProjectProvider } from '@/context/ProjectProvider'
+import getSalesConfig from '@/lib/zora/getSalesConfig'
+import { useMemo, useState } from 'react'
+import { parseEther } from 'viem'
 
 const useZoraSaleStrategy = () => {
-  const { name, ethPrice } = useProjectProvider();
-  const [zoraSaleStrategy, setZoraSaleStrategy] =
-    useState<string>("fixedPrice");
-  const isFixedPrice = zoraSaleStrategy === "fixedPrice";
-  const isTimed = zoraSaleStrategy === "timed";
+  const { name, ethPrice } = useProjectProvider()
+  const [zoraSaleStrategy, setZoraSaleStrategy] = useState<string>('fixedPrice')
+  const isFixedPrice = zoraSaleStrategy === 'fixedPrice'
+  const isTimed = zoraSaleStrategy === 'timed'
   const salesConfig = useMemo(
     () =>
       getSalesConfig({
@@ -17,7 +16,7 @@ const useZoraSaleStrategy = () => {
         pricePerToken: parseEther(ethPrice.toString()),
       }),
     [ethPrice, name, zoraSaleStrategy]
-  );
+  )
 
   return {
     isFixedPrice,
@@ -25,7 +24,7 @@ const useZoraSaleStrategy = () => {
     salesConfig,
     zoraSaleStrategy,
     setZoraSaleStrategy,
-  };
-};
+  }
+}
 
-export default useZoraSaleStrategy;
+export default useZoraSaleStrategy

@@ -10,10 +10,10 @@ const AudioPlayerControls = ({
   handleBack,
   handleNext,
   setPlayStatus,
-  handlePlayPause
+  handlePlayPause,
 }: AudioPlayerProps) => {
   const iconClass =
-    "w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black";
+    'w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black'
   return (
     <div className="flex justify-center items-center gap-5 ml-12">
       <button onClick={() => handleBack(currentMedia)}>

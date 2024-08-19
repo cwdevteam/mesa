@@ -1,8 +1,8 @@
-import { useMediaController } from "@/hooks/useMediaController";
-import { DEFAULT_IMAGE } from "@/lib/consts";
+import { useMediaController } from '@/hooks/useMediaController'
+import { DEFAULT_IMAGE } from '@/lib/consts'
 
 const CoverArt = () => {
-  const { currentMedia, medias } = useMediaController();
+  const { currentMedia, medias } = useMediaController()
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -13,7 +13,7 @@ const CoverArt = () => {
       alt="cover art"
       className="rounded-lg"
     />
-  );
-};
+  )
+}
 
-export default CoverArt;
+export default CoverArt

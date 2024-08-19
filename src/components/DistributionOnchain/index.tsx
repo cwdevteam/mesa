@@ -1,3 +1,3 @@
-import DistributionOnchain from "./DistributionOnchain";
+import DistributionOnchain from './DistributionOnchain'
 
-export default DistributionOnchain;
+export default DistributionOnchain

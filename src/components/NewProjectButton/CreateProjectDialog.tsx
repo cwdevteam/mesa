@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 import {
   Dialog,
   DialogContent,
@@ -6,14 +6,14 @@ import {
   DialogTrigger,
   DialogDescription,
   DialogTitle,
-} from "@/components/ui/dialog";
-import ProjectDetailsForm from "./ProjectDetailsForm";
+} from '@/components/ui/dialog'
+import ProjectDetailsForm from './ProjectDetailsForm'
 
 const CreateProjectDialog = ({ children, className, ...props }: any) => (
   <Dialog>
     <DialogTrigger>{children}</DialogTrigger>
     <DialogContent
-      className={cn("grid gap-8 max-w-sm px-8 py-16", className)}
+      className={cn('grid gap-8 max-w-sm px-8 py-16', className)}
       {...props}
     >
       <DialogHeader>
@@ -28,6 +28,6 @@ const CreateProjectDialog = ({ children, className, ...props }: any) => (
       </div>
     </DialogContent>
   </Dialog>
-);
+)
 
-export default CreateProjectDialog;
+export default CreateProjectDialog

@@ -1,51 +1,45 @@
-"use client";
+'use client'
 
-import {
-  Address,
-  Chain,
-  HttpTransport,
-  PublicClient,
-  WalletClient,
-} from "viem";
+import { Address, Chain, HttpTransport, PublicClient, WalletClient } from 'viem'
 import {
   CreateNew1155TokenProps,
   TokenMetadataJson,
   createCreatorClient,
   makeMediaTokenMetadata,
-} from "@zoralabs/protocol-sdk";
+} from '@zoralabs/protocol-sdk'
 import {
   useQuery,
   useMutation,
   useQueryClient,
   UseMutationResult,
-} from "@tanstack/react-query";
-import { CHAIN_ID } from "@/lib/consts";
-import { uploadFile } from "@/lib/ipfs/uploadToIpfs";
+} from '@tanstack/react-query'
+import { CHAIN_ID } from '@/lib/consts'
+import { uploadFile } from '@/lib/ipfs/uploadToIpfs'
 
-const STORAGE_PREFIX = `zora-token/${CHAIN_ID}`;
+const STORAGE_PREFIX = `zora-token/${CHAIN_ID}`
 
 export type TokenResult = {
-  transactionHash: string;
-  tokenMetadata: TokenMetadataJson;
-  tokenMetadataURI: string;
-};
+  transactionHash: string
+  tokenMetadata: TokenMetadataJson
+  tokenMetadataURI: string
+}
 
 type Create1155TokenMutationProps = {
-  contract: any;
-  token: Omit<CreateNew1155TokenProps, "tokenMetadataURI"> & {
-    name: string;
-    description: string;
-    mediaFile: File;
-    thumbnailFile: File;
-  };
-};
+  contract: any
+  token: Omit<CreateNew1155TokenProps, 'tokenMetadataURI'> & {
+    name: string
+    description: string
+    mediaFile: File
+    thumbnailFile: File
+  }
+}
 
 export type Create1155TokenMutation = UseMutationResult<
   TokenResult,
   Error,
   Create1155TokenMutationProps,
   unknown
->;
+>
 
 export default function useZoraToken({
   tokenKey,
@@ -53,33 +47,33 @@ export default function useZoraToken({
   walletClient,
   creatorAccount,
 }: {
-  tokenKey: string | null;
-  publicClient: PublicClient<HttpTransport, Chain>;
-  walletClient: WalletClient;
-  creatorAccount: Address;
+  tokenKey: string | null
+  publicClient: PublicClient<HttpTransport, Chain>
+  walletClient: WalletClient
+  creatorAccount: Address
 }) {
-  const storageKey = `${STORAGE_PREFIX}/${tokenKey}`;
-  const queryKey = [storageKey];
-  const queryClient = useQueryClient();
+  const storageKey = `${STORAGE_PREFIX}/${tokenKey}`
+  const queryKey = [storageKey]
+  const queryClient = useQueryClient()
 
   const tokenQuery = useQuery({
     queryKey,
     queryFn: async () => {
-      const storageValue = localStorage.getItem(storageKey);
+      const storageValue = localStorage.getItem(storageKey)
       if (storageValue) {
         try {
           // TODO: validate and sanitize for safety
-          return JSON.parse(storageValue) as TokenResult;
+          return JSON.parse(storageValue) as TokenResult
         } catch (error) {
-          console.error("Error parsing stored token result:", error);
-          return null;
+          console.error('Error parsing stored token result:', error)
+          return null
         }
       }
-      return null;
+      return null
     },
     staleTime: Infinity,
     enabled: !!tokenKey,
-  });
+  })
 
   const create1155TokenMutation: Create1155TokenMutation = useMutation({
     mutationFn: async ({
@@ -90,27 +84,27 @@ export default function useZoraToken({
       const [mediaUpload, thumbnailUpload] = await Promise.all([
         uploadFile(mediaFile),
         uploadFile(thumbnailFile),
-      ]);
+      ])
 
       const tokenMetadata = await makeMediaTokenMetadata({
         name,
         description,
         mediaUrl: mediaUpload.uri,
         thumbnailUrl: thumbnailUpload.uri,
-      });
+      })
 
       const tokenMetadataJson = new File(
         [JSON.stringify(tokenMetadata)],
-        "token.json"
-      );
+        'token.json'
+      )
 
-      const { uri: tokenMetadataURI } = await uploadFile(tokenMetadataJson);
+      const { uri: tokenMetadataURI } = await uploadFile(tokenMetadataJson)
 
       // Step 2: Create the 1155 token
       const creatorClient = createCreatorClient({
         chainId: CHAIN_ID,
         publicClient,
-      });
+      })
 
       const { parameters } = await creatorClient.create1155({
         contract,
@@ -119,39 +113,39 @@ export default function useZoraToken({
           ...tokenProps,
         },
         account: creatorAccount,
-      });
+      })
 
-      const { request } = await publicClient.simulateContract(parameters);
+      const { request } = await publicClient.simulateContract(parameters)
 
-      const transactionHash = await walletClient.writeContract(request);
+      const transactionHash = await walletClient.writeContract(request)
 
       const result: TokenResult = {
         transactionHash,
         tokenMetadata,
         tokenMetadataURI,
-      };
+      }
 
-      return result;
+      return result
     },
     onSuccess: (result) => {
-      localStorage.setItem(storageKey, JSON.stringify(result));
-      queryClient.invalidateQueries({ queryKey });
+      localStorage.setItem(storageKey, JSON.stringify(result))
+      queryClient.invalidateQueries({ queryKey })
     },
     onError: (error) => {
-      console.error("Error creating token:", error);
+      console.error('Error creating token:', error)
     },
-  });
+  })
 
   const reset = () => {
-    localStorage.removeItem(storageKey);
+    localStorage.removeItem(storageKey)
     queryClient.invalidateQueries({
       queryKey,
-    });
-  };
+    })
+  }
 
   return {
     create1155Token: create1155TokenMutation,
     query: tokenQuery,
     reset,
-  };
+  }
 }

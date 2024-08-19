@@ -1,18 +1,18 @@
-import { useConnect } from "wagmi";
+import { useConnect } from 'wagmi'
 
 const useConnectSmartWallet = () => {
-  const { connect: wagmiConnect, connectors, data } = useConnect();
+  const { connect: wagmiConnect, connectors, data } = useConnect()
 
   const connect = () => {
     const coinbaseWalletConnector = connectors.find(
-      (connector) => connector.id === "coinbaseWalletSDK"
-    );
+      (connector) => connector.id === 'coinbaseWalletSDK'
+    )
     if (coinbaseWalletConnector && !data) {
-      wagmiConnect({ connector: coinbaseWalletConnector });
+      wagmiConnect({ connector: coinbaseWalletConnector })
     }
-  };
+  }
 
-  return { connect };
-};
+  return { connect }
+}
 
-export default useConnectSmartWallet;
+export default useConnectSmartWallet

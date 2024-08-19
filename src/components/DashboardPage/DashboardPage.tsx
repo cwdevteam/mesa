@@ -1,11 +1,11 @@
-"use client";
-import { ProjectDataTable } from "@/components/ProjectDataTable";
-import NewProjectButton from "../NewProjectButton";
-import useProjects from "@/hooks/project/useProjects";
-import ProjectProvider from "@/context/ProjectProvider";
+'use client'
+import { ProjectDataTable } from '@/components/ProjectDataTable'
+import NewProjectButton from '../NewProjectButton'
+import useProjects from '@/hooks/project/useProjects'
+import ProjectProvider from '@/context/ProjectProvider'
 
 const DashboardPage = () => {
-  const { projects } = useProjects();
+  const { projects } = useProjects()
 
   return (
     <ProjectProvider>
@@ -19,7 +19,7 @@ const DashboardPage = () => {
         <ProjectDataTable data={projects} />
       </main>
     </ProjectProvider>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage

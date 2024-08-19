@@ -13,7 +13,7 @@ export const useMediaController = () => {
     setIsPlaying,
     setCurrentMedia,
     setPlayStatus,
-    handleSongEnded
+    handleSongEnded,
   } = useMediaContext()
 
   const [currentTime, setCurrentTime] = useState<number>(0)
@@ -24,7 +24,7 @@ export const useMediaController = () => {
     isPlaying,
     setCurrentTime,
     setVolume,
-    handleSongEnded
+    handleSongEnded,
   })
 
   useEffect(() => {
@@ -104,6 +104,6 @@ export const useMediaController = () => {
     handleBack,
     setPlayStatus,
     handleVolumeChange,
-    handleSliderChange
+    handleSliderChange,
   }
 }

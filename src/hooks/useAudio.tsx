@@ -7,7 +7,7 @@ const useAudio = ({
   isPlaying,
   setCurrentTime,
   setVolume,
-  handleSongEnded
+  handleSongEnded,
 }: UseAudioProps) => {
   useEffect(() => {
     if (!audio) return

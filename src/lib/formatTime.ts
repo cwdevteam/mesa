@@ -6,7 +6,7 @@ export const formatTime = (time?: number) => {
   const seconds = Math.floor(time % 60)
 
   const formattedTime = [minutes, seconds]
-    .map(unit => String(unit).padStart(2, '0'))
+    .map((unit) => String(unit).padStart(2, '0'))
     .join(':')
 
   return hours > 0

@@ -3,6 +3,6 @@ const truncateAddress = (address: string) =>
     ? address.slice(0, 5) +
       '...' +
       address.slice(address.length - 5, address.length)
-    : '';
+    : ''
 
-export default truncateAddress;
+export default truncateAddress
