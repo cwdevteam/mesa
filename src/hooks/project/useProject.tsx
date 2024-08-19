@@ -13,7 +13,7 @@ const useProject = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const { attestationData, dashboardData }: any = useAttestation();
   useProjectMedia(animationUrl, image, name);
-  const [creatingStatus, setCreatingStatus] = useState<any>()
+  const [creatingStatus, setCreatingStatus] = useState<any>(null)
 
   const fetchData = async () => {
     setLoading(true);
