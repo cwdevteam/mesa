@@ -20,23 +20,27 @@ const usePaymasterAttest = () => {
   useProjectCreateRedirect(callsStatusId);
 
   const attest = async (callback: any = undefined) => {
-    const { uri: metadataUri } = await uploadJson({
-      description,
-      image,
-      animation_url: animationUrl,
-      credits,
-    });
-    const encodedAttestation = getEncodedAttestationData(
-      name,
-      metadataUri,
-      [credits[0].name],
-      [credits[0].address],
-      []
-    );
-    const args = getAttestArgs(encodedAttestation, id);
-    if (callback) callback()
-    const response = await easAttest(writeContractsAsync, capabilities, args);
-    return response
+    try {
+      const { uri: metadataUri } = await uploadJson({
+        description,
+        image,
+        animation_url: animationUrl,
+        credits,
+      });
+      const encodedAttestation = getEncodedAttestationData(
+        name,
+        metadataUri,
+        [credits[0].name],
+        [credits[0].address],
+        []
+      );
+      const args = getAttestArgs(encodedAttestation, id);
+      if (callback) callback()
+      const response = await easAttest(writeContractsAsync, capabilities, args);
+      return response
+    } catch(error) {
+      return {error}
+    }
   };
 
   return { attest };

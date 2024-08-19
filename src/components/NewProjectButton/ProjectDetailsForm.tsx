@@ -26,22 +26,17 @@ export default function ProjectDetailsForm() {
     }
 
     setLoading(true)
-    try {
-      const response = await attest(() => setCreatingStatus(true));
-      if (response?.error) {
-        setCreatingStatus(false)
-        setLoading(false)
-        return
-      }
-    } catch (error) {
+    const response = await attest(() => setCreatingStatus(true));
+    if (response?.error) {
+      setCreatingStatus(false)
       toast({
         title: "Error",
-        description: "Failed to create project.",
-        variant: "default",
-      });
-      setCreatingStatus(false)
-      setLoading(false)
+        description: "Failed to create project",
+        variant: "default"
+      })
+      return
     }
+    setLoading(false)
   };
 
   return (
