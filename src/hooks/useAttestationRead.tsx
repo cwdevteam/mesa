@@ -1,4 +1,4 @@
-import { useContractRead, useReadContract } from "wagmi";
+import { useReadContract } from "wagmi";
 import { CHAIN_ID, EAS } from "@/lib/consts";
 import { easAbi } from "@/lib/abi/eas";
 import { useParams } from "next/navigation";
