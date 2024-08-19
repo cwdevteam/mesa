@@ -1,3 +1,5 @@
+import { Address, zeroAddress } from "viem";
+
 export enum ContractType {
   Master = "Master",
   Songwriting = "Songwriting",
@@ -44,12 +46,6 @@ export type Credit = {
   contractType: ContractType;
   collaboratorType: UserRole;
   name: string;
+  address: Address;
   splitBps: number;
-};
-
-export const defaultCredit = {
-  contractType: ContractType.Songwriting,
-  collaboratorType: UserRole.Owner,
-  name: "",
-  splitBps: 10000,
 };

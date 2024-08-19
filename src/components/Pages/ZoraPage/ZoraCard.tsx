@@ -58,7 +58,6 @@ export default function ZoraCard({
                   Your token has been created.
                 </p>
               </div>
-              {/* TODO: get contract address from transaction receipt and link to zora.co */}
               <div className="flex justify-center md:justify-end flex-wrap gap-2">
                 <ExternalLinkButton
                   href={`https://${IS_TESTNET ? "testnet." : ""}zora.co/manage`}

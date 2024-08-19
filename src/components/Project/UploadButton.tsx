@@ -3,7 +3,7 @@
 import { uploadFile } from "@/lib/ipfs/uploadToIpfs";
 import { Button } from "../ui/button";
 import { FilePlusIcon } from "@radix-ui/react-icons";
-import usePaymasterAttest from "@/hooks/usePaymasterAttest";
+import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
 import { useState } from "react";
 

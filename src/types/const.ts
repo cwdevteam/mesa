@@ -20,25 +20,6 @@ export interface ProjectDetailsCardProps {
   projectDescription: string;
 }
 
-export interface ContractDetailsPageProps {
-  project: {
-    name: string;
-    description: string;
-    collaborators: {
-      name: string;
-      contractType: string;
-      role: string;
-      bps: string;
-    }[];
-  };
-  contractTime: string | null;
-  contractId: string | undefined;
-  contractHistories?: {
-    projectUser: { user_name: string };
-    created_at: string;
-  }[];
-}
-
 export interface UserContextType {
   user: UserDetailsProps | null;
   setUser: React.Dispatch<React.SetStateAction<UserDetailsProps | null>>;

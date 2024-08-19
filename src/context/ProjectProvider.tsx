@@ -1,6 +1,6 @@
 "use client";
 
-import useProject from "@/hooks/useProject";
+import useProject from "@/hooks/project/useProject";
 import { ReactNode, createContext, useContext, useMemo } from "react";
 
 const ProjectContext = createContext({} as any);
