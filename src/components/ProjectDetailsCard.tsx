@@ -9,7 +9,7 @@ export default function ProjectDetailsCard() {
 
   return (
     <section className="project-details-card">
-      <h2 className="text-2xl font-bold tracking-tight">{name}</h2>
+      <h2 className="text-2xl font-bold tracking-tight text-white">{name}</h2>
       <div
         className={`max-w-prose ${
           expanded ? 'overflow-auto' : 'overflow-hidden'

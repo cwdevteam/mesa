@@ -40,7 +40,7 @@ export default async function RootLayout({
     <html lang={lang} className="h-full" suppressHydrationWarning>
       <body className={clsx('h-full', inter.className)}>
         <Providers lang={lang}>
-          <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-full h-fit max-h-full">
+          <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen py-20">
             <Header lang={lang} dict={dict} />
             <PaymasterProvider>{children}</PaymasterProvider>
             <MediaPlayer />

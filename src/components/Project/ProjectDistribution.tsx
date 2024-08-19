@@ -4,7 +4,7 @@ import DeleteProjectSection from './DeleteProjectSection'
 import UpdateProjectSection from './UpdateProjectSection'
 
 const ProjectDistribution = () => (
-  <main className="container py-10 mx-auto max-w-5xl">
+  <main className="py-10">
     <UpdateProjectSection />
     <DeleteProjectSection />
   </main>
