@@ -19,7 +19,7 @@ const usePaymasterAttest = () => {
   useDefaultCredit();
   const { callsStatus } = useProjectCreateRedirect(callsStatusId);
 
-  const attest = async () => {
+  const attest = async (callback: any) => {
     const { uri: metadataUri } = await uploadJson({
       description,
       image,
@@ -34,6 +34,7 @@ const usePaymasterAttest = () => {
       []
     );
     const args = getAttestArgs(encodedAttestation, id);
+    if (callback) callback()
     const response = await easAttest(writeContractsAsync, capabilities, args);
     return response
   };

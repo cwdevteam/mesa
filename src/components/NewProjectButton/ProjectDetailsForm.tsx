@@ -7,12 +7,14 @@ import CreateButton from "./CreateButton";
 import { toast } from "../ui/use-toast";
 import usePaymasterAttest from "@/hooks/project/usePaymasterAttest";
 import { useProjectProvider } from "@/context/ProjectProvider";
-import { useEffect } from "react";
+import { useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function ProjectDetailsForm() {
-  const { attest, callsStatus } = usePaymasterAttest();
+  const { attest } = usePaymasterAttest();
   const { name, setName, setDescription, setCreatingStatus } = useProjectProvider();
-
+  const [loading, setLoading] = useState(false)
+  
   const handleClick = async () => {
     if (!name) {
       toast({
@@ -23,11 +25,12 @@ export default function ProjectDetailsForm() {
       return;
     }
 
-    setCreatingStatus(true)
+    setLoading(true)
     try {
-      const response = await attest();
+      const response = await attest(() => setCreatingStatus(true));
       if (response?.error) {
         setCreatingStatus(false)
+        setLoading(false)
         return
       }
     } catch (error) {
@@ -37,12 +40,9 @@ export default function ProjectDetailsForm() {
         variant: "default",
       });
       setCreatingStatus(false)
+      setLoading(false)
     }
   };
-
-  useEffect(() => {
-    console.log("ZIAD", callsStatus)
-  }, [callsStatus])
 
   return (
     <div className="grid gap-6">
@@ -76,7 +76,14 @@ export default function ProjectDetailsForm() {
             Close
           </Button>
         </DialogClose>
-        <CreateButton onClick={handleClick} />
+        {loading ? (
+          <Button className="inline-flex gap-2">
+            <ReloadIcon color="currentColor" className="h-4 w-4 animate-spin" />
+            Creating...
+          </Button>
+        ) : (
+          <CreateButton onClick={handleClick} />
+        )}
       </div>
     </div>
   );
