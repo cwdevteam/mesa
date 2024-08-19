@@ -11,7 +11,7 @@ import ProjectDetailsForm from "./ProjectDetailsForm";
 
 const CreateProjectDialog = ({ children, className, ...props }: any) => (
   <Dialog>
-    <DialogTrigger asChild>{children}</DialogTrigger>
+    <DialogTrigger>{children}</DialogTrigger>
     <DialogContent
       className={cn("grid gap-8 max-w-sm px-8 py-16", className)}
       {...props}

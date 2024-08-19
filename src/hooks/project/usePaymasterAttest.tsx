@@ -37,7 +37,7 @@ const usePaymasterAttest = () => {
     easAttest(writeContractsAsync, capabilities, args);
   };
 
-  return { attest };
+  return { attest, callsStatusId };
 };
 
 export default usePaymasterAttest;
