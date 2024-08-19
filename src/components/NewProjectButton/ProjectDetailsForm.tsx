@@ -41,7 +41,7 @@ export default function ProjectDetailsForm() {
   };
 
   useEffect(() => {
-    if (callsStatus?.status === "CONFIRMED") setCreatingStatus(false)
+    console.log("ZIAD", callsStatus)
   }, [callsStatus])
 
   return (
