@@ -34,7 +34,6 @@ export default function ProjectDetailsForm() {
         description: "Failed to create project",
         variant: "default"
       })
-      return
     }
     setLoading(false)
   };
