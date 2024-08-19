@@ -11,7 +11,7 @@ import { useProjectProvider } from "@/context/ProjectProvider";
 import { useEffect, useState } from "react";
 
 export default function ProjectDetailsForm() {
-  const { attest, callsStatusId } = usePaymasterAttest();
+  const { attest, callsStatus } = usePaymasterAttest();
   const { name, setName, setDescription, setCreatingStatus } = useProjectProvider();
   const [loading, setLoading] = useState(false)
 
@@ -30,7 +30,6 @@ export default function ProjectDetailsForm() {
       await attest();
       setLoading(false)
     } catch (error) {
-      console.error("ZIAD", error)
       toast({
         title: "Error",
         description: "Failed to create project.",
@@ -41,8 +40,8 @@ export default function ProjectDetailsForm() {
   };
 
   useEffect(() => {
-    setCreatingStatus(callsStatusId)
-  }, [callsStatusId])
+    setCreatingStatus(callsStatus)
+  }, [callsStatus])
 
   return (
     <div className="grid gap-6">

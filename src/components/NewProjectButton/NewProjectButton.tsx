@@ -8,7 +8,7 @@ const NewProjectButton = () => {
   return (
     <ProjectProvider>
       <CreateProjectDialog>
-        {creatingStatus === "PENDING" && <CreatingPage />}
+        {creatingStatus?.status=== "PENDING" && <CreatingPage />}
         <CreateButton />
       </CreateProjectDialog>
     </ProjectProvider>
