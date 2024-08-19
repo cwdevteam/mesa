@@ -30,6 +30,7 @@ export default function ProjectDetailsForm() {
       await attest();
       setLoading(false)
     } catch (error) {
+      console.error(error)
       toast({
         title: "Error",
         description: "Failed to create project.",
