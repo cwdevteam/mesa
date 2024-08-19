@@ -8,7 +8,7 @@ const useAttestation = () => {
   const [dashboardData, setDashboardData] = useState<UserDetailsProps | null>(
     null
   );
-
+  
   const fetchData = useCallback(async () => {
     if (attestationData.data.length > 0) {
       let { dashboardData }: any = await fetchAttestation(attestationData.data);
@@ -20,7 +20,7 @@ const useAttestation = () => {
     if (!attestationData?.data) return;
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [attestationData]);
+  }, []);
 
   return { attestationData: attestationData.data, dashboardData };
 };
