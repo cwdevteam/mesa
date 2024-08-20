@@ -17,6 +17,7 @@ const CloseButton = ({ request }: any) => {
       setLoading(false)
     } catch (err: any) {
       setLoading(false)
+      console.error(err)
       toast({
         title: 'Error',
         description: 'Someting went wrong!',
