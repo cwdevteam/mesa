@@ -30,7 +30,6 @@ export const findLatestProjectStates = (attestations: any[]) => {
 
   let finalResults: any[] = []
 
-  console.log("ZIAD HERE", creationMap)
   creationMap.forEach((creationAttestation, uid) => {
     if (uniqueProjectMap.has(uid)) {
       finalResults.push(uniqueProjectMap.get(uid))
