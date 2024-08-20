@@ -14,7 +14,9 @@ const useProject = () => {
   const { attestationData, dashboardData }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
-  const [refUID, setRefUID] = useState("0x0000000000000000000000000000000000000000000000000000000000000000");
+  const [refUID, setRefUID] = useState(
+    '0x0000000000000000000000000000000000000000000000000000000000000000'
+  )
 
   const fetchData = async () => {
     setLoading(true)
@@ -50,7 +52,7 @@ const useProject = () => {
     setImage,
     setCreatingStatus,
     creatingStatus,
-    refUID
+    refUID,
   }
 }
 

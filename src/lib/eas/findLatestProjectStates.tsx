@@ -3,8 +3,8 @@ export const findLatestProjectStates = (attestations: any[]) => {
   let creationMap = new Map<string, any>()
 
   for (let i = 0; i < attestations.length; i++) {
-    const attestation = attestations[i];
-    const refUID = attestation.refUID;
+    const attestation = attestations[i]
+    const refUID = attestation.refUID
     const isProjectCreation =
       refUID ===
         '0x0000000000000000000000000000000000000000000000000000000000000000' ||
@@ -12,7 +12,7 @@ export const findLatestProjectStates = (attestations: any[]) => {
     const isProjectUpdate = !uniqueProjectMap.has(refUID)
 
     if (isProjectCreation) {
-      const uid = attestation.id;
+      const uid = attestation.id
       creationMap.set(uid, attestation)
     } else {
       if (isProjectUpdate) {
@@ -20,7 +20,7 @@ export const findLatestProjectStates = (attestations: any[]) => {
       } else {
         const existingAttestation = uniqueProjectMap.get(refUID)
         const isLatestUpdate =
-        attestation.timeCreated > existingAttestation.timeCreated;
+          attestation.timeCreated > existingAttestation.timeCreated
         if (isLatestUpdate) {
           uniqueProjectMap.set(refUID, attestation)
         }
