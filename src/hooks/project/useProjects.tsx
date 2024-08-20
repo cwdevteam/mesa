@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { getProjects } from '@/lib/eas/getProjects'
-import getFormattedAttestations from '@/lib/eas/getFormattedAttestations'
+import { getDecodedProjectsData } from '@/lib/eas/getDecodedProjectsData'
 
 const useProjects = () => {
   const { address } = useAccount()
@@ -11,10 +11,9 @@ const useProjects = () => {
     const init = async () => {
       try {
         const queryParam = address ? `?address=${address}` : ''
-        const response: any = await getProjects(queryParam)
-        if (response?.error) return
-        const decodedAttestations = getFormattedAttestations(response.data)
-        setAttestations(decodedAttestations)
+        const data: any = await getProjects(queryParam)
+        const decodedAttestations = getDecodedProjectsData(data)
+        setAttestations(decodedAttestations.reverse() as any)
       } catch (error) {
         console.error('Failed to fetch attestations:', error)
       }
