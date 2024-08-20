@@ -10,19 +10,18 @@ const useAttestation = () => {
   )
 
   const fetchData = useCallback(async () => {
-    if (attestationData.data.length > 0) {
-      let { dashboardData }: any = await fetchAttestation(attestationData.data)
+    if (attestationData?.length > 0) {
+      let { dashboardData }: any = await fetchAttestation(attestationData)
       setDashboardData(dashboardData)
     }
   }, [attestationData])
 
   useEffect(() => {
-    if (!attestationData?.data) return
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [attestationData])
 
-  return { attestationData: attestationData.data, dashboardData }
+  return { attestationData, dashboardData }
 }
 
 export default useAttestation
