@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import getAttestations from '@/lib/eas/getAttestations'
+import { ethGetLogs } from '@/lib/alchemy/eth_getLogs'
+import { Address } from 'viem'
 import { findLatestProjectStates } from '@/lib/eas/findLatestProjectStates'
-import { IS_TESTNET } from '@/lib/consts'
 
 export const runtime = 'edge'
 
@@ -8,13 +10,21 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const address = searchParams.get('address')
-    const response = await fetch(
-      `https://base${IS_TESTNET ? '-sepolia' : ''}.easscan.org/address/${address}?_data=routes/__boundary/address/$address`
+    const logs = await ethGetLogs(address as Address)
+    const attestations = await getAttestations(logs)
+    let serializedAttestations = attestations.map((attestation: any) => ({
+      ...attestation,
+      result: attestation.result.map((value: any) =>
+        typeof value === 'bigint' ? value.toString() : value
+      ),
+    }))
+    serializedAttestations = findLatestProjectStates(
+      serializedAttestations.reverse()
     )
-    const data = await response.json()
-    const attestations = data.attestations
-
-    return NextResponse.json({ data: attestations }, { status: 200 })
+    return NextResponse.json(
+      { data: serializedAttestations.reverse() },
+      { status: 200 }
+    )
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
