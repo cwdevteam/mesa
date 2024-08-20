@@ -4,7 +4,6 @@ import React, { createContext, useContext, useRef, useState } from 'react'
 import { PlayMode } from '@/lib/enum'
 import { MediaProviderProps } from '@/types/const'
 import { Media } from '@/types/mesa'
-import { MediaMockData } from './Media'
 
 const MediaContext = createContext<
   | {
@@ -24,7 +23,7 @@ const MediaContext = createContext<
 >(undefined)
 
 const MediaProvider = ({ children }: MediaProviderProps) => {
-  const [medias, setMedias] = useState<Media[]>(MediaMockData)
+  const [medias, setMedias] = useState<Media[]>([])
   const [currentMedia, setCurrentMedia] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [playStatus, setPlayStatus] = useState<number>(0)
