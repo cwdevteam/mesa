@@ -13,6 +13,7 @@ const useProjects = () => {
         const queryParam = address ? `?address=${address}` : ''
         const response: any = await getProjects(queryParam)
         if (response?.error) return
+        console.log("ZIAD", response)
         const decodedAttestations = getFormattedAttestations(response.data)
         setAttestations(decodedAttestations)
       } catch (error) {

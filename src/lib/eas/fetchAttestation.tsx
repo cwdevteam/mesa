@@ -27,5 +27,6 @@ export const fetchAttestation = async (attestation: any) => {
     }
   }
   dashboardData['name'] = extractedData['title']
+  dashboardData['refUID'] = mapped[5].value.value[5]
   return { extractedData, dashboardData }
 }

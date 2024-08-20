@@ -3,19 +3,16 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import easAttest from '@/lib/eas/attest'
 import getAttestArgs from '@/lib/eas/getAttestArgs'
 import getEncodedAttestationData from '@/lib/eas/getEncodedAttestationData'
-import { useParams } from 'next/navigation'
-import { ProjectIDType } from '@/types/const'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useWriteContracts } from 'wagmi/experimental'
 import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
 
 const usePaymasterAttest = () => {
-  const { name, description, animationUrl, credits, image, setCreatingStatus } =
+  const { name, description, animationUrl, credits, image, setCreatingStatus, refUID } =
     useProjectProvider()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
-  const { id } = useParams<ProjectIDType>()
   useDefaultCredit()
   useProjectCreateRedirect(callsStatusId)
 
@@ -34,7 +31,7 @@ const usePaymasterAttest = () => {
         [credits[0].address],
         []
       )
-      const args = getAttestArgs(encodedAttestation, id)
+      const args = getAttestArgs(encodedAttestation, refUID)
       setCreatingStatus(true)
       const response = await easAttest(writeContractsAsync, capabilities, args)
       return response

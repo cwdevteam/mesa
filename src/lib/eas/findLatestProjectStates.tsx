@@ -19,7 +19,8 @@ export const findLatestProjectStates = (attestations: any[]) => {
         uniqueProjectMap.set(refUID, attestation)
       } else {
         const existingAttestation = uniqueProjectMap.get(refUID)
-        const isLatestUpdate = i < attestations.indexOf(existingAttestation)
+        const isLatestUpdate =
+        attestation.timeCreated > existingAttestation.timeCreated;
         if (isLatestUpdate) {
           uniqueProjectMap.set(refUID, attestation)
         }
@@ -29,6 +30,7 @@ export const findLatestProjectStates = (attestations: any[]) => {
 
   let finalResults: any[] = []
 
+  console.log("ZIAD HERE", creationMap)
   creationMap.forEach((creationAttestation, uid) => {
     if (uniqueProjectMap.has(uid)) {
       finalResults.push(uniqueProjectMap.get(uid))
