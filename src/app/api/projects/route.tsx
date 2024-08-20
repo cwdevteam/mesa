@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
       `https://base${IS_TESTNET ? '-sepolia' : ''}.easscan.org/address/${address}?_data=routes/__boundary/address/$address`
     )
     const data = await response.json()
-    const attestations = data.attestations
+    const attestations = findLatestProjectStates(data.attestations)
 
     return NextResponse.json({ data: attestations }, { status: 200 })
   } catch (error: any) {
