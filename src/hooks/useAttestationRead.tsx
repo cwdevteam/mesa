@@ -8,7 +8,7 @@ const useAttestationRead = () => {
   const { id } = useParams<ProjectIDType>()
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const attestationData = useReadContract({
+  const attestationData: any = useReadContract({
     address: EAS,
     abi: easAbi,
     chainId: CHAIN_ID,
@@ -17,7 +17,7 @@ const useAttestationRead = () => {
   })
 
   return {
-    attestationData,
+    attestationData: attestationData?.data,
   }
 }
 
