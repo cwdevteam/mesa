@@ -29,7 +29,6 @@ const useProjectCreateRedirect = (callsStatusId?: string) => {
       description: 'Project Created Successfully!',
       variant: 'default',
     })
-    window.location.reload()
     push(`/project/${refId}`)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callsStatus])
