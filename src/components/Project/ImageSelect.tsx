@@ -24,7 +24,7 @@ const ImageSelect = () => {
   }
 
   return (
-    <div>
+    <div className="pt-4">
       {fileSelected ? (
         <AttestButton />
       ) : (
