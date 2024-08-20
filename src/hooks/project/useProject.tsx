@@ -11,7 +11,11 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-  const { attestationData, dashboardData }: any = useAttestation()
+  const {
+    attestationData,
+    dashboardData,
+    loading: loadingAttestation,
+  }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
   const [refUID, setRefUID] = useState(
@@ -53,6 +57,7 @@ const useProject = () => {
     setCreatingStatus,
     creatingStatus,
     refUID,
+    loading: loading || loadingAttestation,
   }
 }
 
