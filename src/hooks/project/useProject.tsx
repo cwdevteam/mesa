@@ -11,9 +11,16 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-  const { attestationData, dashboardData }: any = useAttestation()
+  const {
+    attestationData,
+    dashboardData,
+    loading: loadingAttestation,
+  }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
+  const [refUID, setRefUID] = useState(
+    '0x0000000000000000000000000000000000000000000000000000000000000000'
+  )
 
   const fetchData = async () => {
     setLoading(true)
@@ -23,6 +30,7 @@ const useProject = () => {
       setCredits(dashboardData['credits'])
       setAnimationUrl(dashboardData['animationUrl'] || '')
       setImage(dashboardData['image'] || '')
+      setRefUID(dashboardData['refUID'])
     }
     setLoading(false)
   }
@@ -48,6 +56,8 @@ const useProject = () => {
     setImage,
     setCreatingStatus,
     creatingStatus,
+    refUID,
+    loading: loading || loadingAttestation,
   }
 }
 
