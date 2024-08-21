@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Icons } from '../Icons'
+import { DEFAULT_IMAGE } from '@/lib/consts'
 
 export const MediaSheet: React.FC = () => {
   const {
@@ -63,7 +64,16 @@ export const MediaSheet: React.FC = () => {
                 'shadow-[0_2px_2px_rgba(8,_112,_184,_0.7)]'
               } hover:bg-gray-600`}
             >
-              <div className="flex justify-center items-center w-full sm:w-[50%] sm:m-2 p-2 sm:p-0 border-b sm:border-b-0 sm:border-r border-[#313338] rounded-md"></div>
+              <div className="flex justify-center items-center w-full sm:w-[50%] sm:m-2 p-2 sm:p-0 border-b sm:border-b-0 sm:border-r border-[#313338] rounded-md">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  height={50}
+                  width={50}
+                  src={music?.avatar || DEFAULT_IMAGE}
+                  alt="cover art"
+                  className="rounded-sm"
+                />
+              </div>
               <div className="w-full flex flex-col justify-center items-center text-lg group">
                 <div className="flex flex-row pt-2 justify-end w-full pr-4"></div>
                 <div className="flex h-[50%] justify-center custom-height transition-all items-center duration-300">

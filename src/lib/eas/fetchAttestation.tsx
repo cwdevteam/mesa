@@ -3,6 +3,8 @@ import fetchUri from '../ipfs/fetchUri'
 
 export const fetchAttestation = async (attestation: any) => {
   const mapped = getDecodedAttestationData(attestation)
+  const refUID = mapped[5].value.value[5]
+  const attestationId = mapped[5].value.value[0]
   const extractedData: any = {}
   const dashboardData: any = {}
   for (const item of mapped.flat()) {
@@ -27,5 +29,11 @@ export const fetchAttestation = async (attestation: any) => {
     }
   }
   dashboardData['name'] = extractedData['title']
+  const newRefUID =
+    refUID ===
+    '0x0000000000000000000000000000000000000000000000000000000000000000'
+      ? attestationId
+      : refUID
+  dashboardData['refUID'] = newRefUID
   return { extractedData, dashboardData }
 }

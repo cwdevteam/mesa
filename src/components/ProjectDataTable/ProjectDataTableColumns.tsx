@@ -8,8 +8,8 @@ export const columns: ColumnDef<any>[] = [
     id: 'title',
     header: 'Title',
     cell: ({ row }) => {
-      const title = row.original[0].value.value
-      const uid = row.original[5].value.value[0]
+      const title = row.original.title
+      const uid = row.original.projectId
       return (
         <Link href={`/project/${uid}`} className="underline">
           {title}
@@ -28,7 +28,7 @@ export const columns: ColumnDef<any>[] = [
     id: 'uid',
     header: 'Project ID',
     cell: ({ row }) => {
-      const uid = row.original[5].value.value[0]
+      const uid = row.original.projectId
       return (
         <a
           href={`https://base${

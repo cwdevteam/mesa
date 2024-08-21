@@ -14,10 +14,10 @@ const useProjectMedia = (animationUrl: string, image: string, name: string) => {
       handleAdd(changes)
     }
 
-    if (!animationUrl) return
+    if (!animationUrl || !name) return
     addAnimationToMediaPlayer()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animationUrl])
+  }, [animationUrl, name])
 
   useEffect(() => {
     const addImageToMediaPlayer = () => {
@@ -28,10 +28,10 @@ const useProjectMedia = (animationUrl: string, image: string, name: string) => {
       handleAdd(changes)
     }
 
-    if (!image) return
+    if (!image || !name) return
     addImageToMediaPlayer()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [image])
+  }, [image, name])
 }
 
 export default useProjectMedia
