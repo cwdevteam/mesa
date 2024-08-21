@@ -18,10 +18,11 @@ const useProject = () => {
   }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
+  const [uploadingAudio, setUploadingAudio] = useState<boolean>(false)
+  const [uploadingImage, setUploadingImage] = useState<boolean>(false)
   const [refUID, setRefUID] = useState(
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
-
   const fetchData = async () => {
     setLoading(true)
     if (dashboardData) {
@@ -58,6 +59,10 @@ const useProject = () => {
     creatingStatus,
     refUID,
     loading: loading || loadingAttestation,
+    uploadingAudio,
+    setUploadingAudio,
+    uploadingImage,
+    setUploadingImage,
   }
 }
 

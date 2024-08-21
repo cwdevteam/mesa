@@ -9,8 +9,15 @@ import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
 
 const usePaymasterAttest = () => {
-  const { name, description, animationUrl, credits, image, setCreatingStatus, refUID } =
-    useProjectProvider()
+  const {
+    name,
+    description,
+    animationUrl,
+    credits,
+    image,
+    setCreatingStatus,
+    refUID,
+  } = useProjectProvider()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   useDefaultCredit()
