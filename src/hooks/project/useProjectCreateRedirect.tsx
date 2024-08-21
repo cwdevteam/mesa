@@ -23,7 +23,6 @@ const useProjectCreateRedirect = (callsStatusId?: string) => {
       abi: easAbi,
       logs: callsStatus.receipts?.[0]?.logs as Log[],
     }) as any
-    console.log("ZIAD", logs)
     const refId = logs?.[0]?.args?.uid
     toast({
       title: 'Success',
@@ -31,7 +30,6 @@ const useProjectCreateRedirect = (callsStatusId?: string) => {
       variant: 'default',
     })
     push(`/project/${refId}`)
-    // window.location.reload()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callsStatus])
 }
