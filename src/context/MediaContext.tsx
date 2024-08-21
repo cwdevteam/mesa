@@ -45,14 +45,15 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
   }
 
   const handleAdd = (changes: any) => {
-    const newMedias = [...medias]
+    let newMedias = [...medias]
     let latest = newMedias.pop()
     latest = {
       ...latest,
       ...changes,
     } as Media
-    setMedias([...newMedias, latest])
-    setCurrentMedia(medias.length - 1)
+    newMedias = newMedias.concat(latest)
+    setMedias(newMedias)
+    setCurrentMedia(newMedias.length - 1)
   }
 
   const handleSongEnded = () => {
