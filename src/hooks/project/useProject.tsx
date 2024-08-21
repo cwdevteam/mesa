@@ -2,6 +2,7 @@ import { Credit } from '@/types/projectMetadataForm'
 import { useEffect, useState } from 'react'
 import useAttestation from '../useAttestation'
 import useProjectMedia from './useProjectMedia'
+import { REFERRAL_RECIPIENT } from '@/lib/consts'
 
 const useProject = () => {
   const [name, setName] = useState<string>('')
@@ -11,6 +12,7 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [feeRecipient, setFeeRecipient] = useState(REFERRAL_RECIPIENT)
   const {
     attestationData,
     dashboardData,
@@ -63,6 +65,8 @@ const useProject = () => {
     setUploadingAudio,
     uploadingImage,
     setUploadingImage,
+    feeRecipient,
+    setFeeRecipient,
   }
 }
 

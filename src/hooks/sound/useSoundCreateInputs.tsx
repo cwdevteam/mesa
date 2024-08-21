@@ -8,7 +8,7 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { NULL_ADDRESS, NULL_BYTES32, UINT32_MAX } from '@/lib/consts'
 
 const useSoundCreateInputs = () => {
-  const { name } = useProjectProvider()
+  const { name, feeRecipient } = useProjectProvider()
   const { data: wallet } = useWalletClient()
   const publicClient = usePublicClient()?.extend(editionV2PublicActionsCreate)
   const walletClient = useMemo(() => {
@@ -38,7 +38,7 @@ const useSoundCreateInputs = () => {
       editionConfig: {
         baseURI: metadataUri,
         contractURI: metadataUri,
-        fundingRecipient: walletClient.account.address,
+        fundingRecipient: feeRecipient,
         name,
         royaltyBPS: 500,
         symbol: name,
