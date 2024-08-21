@@ -9,13 +9,17 @@ import { useRef, useState } from 'react'
 import { toast } from '../ui/use-toast'
 
 const UploadButton = () => {
-  const { setAnimationUrl, uploadingAudio, setUploadingAudio } =
-    useProjectProvider()
+  const {
+    setAnimationUrl,
+    uploadingAudio,
+    setUploadingAudio,
+    creatingStatus,
+    setCreatingStatus,
+  } = useProjectProvider()
   const { attest } = usePaymasterAttest()
-  const [updating, setUpdating] = useState(false)
   const [fileSelected, setFileSelected] = useState(false)
   const inputRef = useRef<any>()
-  const loading = uploadingAudio || updating
+  const loading = uploadingAudio || creatingStatus
   const buttonLabel = fileSelected ? (
     'Save'
   ) : (
@@ -38,7 +42,7 @@ const UploadButton = () => {
       inputRef.current.click()
       return
     }
-    setUpdating(true)
+    setCreatingStatus(true)
     const response = await attest()
     if (response?.error) {
       toast({
@@ -47,7 +51,7 @@ const UploadButton = () => {
         variant: 'default',
       })
     }
-    setUpdating(false)
+    setCreatingStatus(false)
   }
 
   return (

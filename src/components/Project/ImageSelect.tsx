@@ -10,10 +10,15 @@ import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 import { toast } from '../ui/use-toast'
 
 const ImageSelect = () => {
-  const { setImage, uploadingImage, setUploadingImage } = useProjectProvider()
+  const {
+    setImage,
+    uploadingImage,
+    setUploadingImage,
+    creatingStatus,
+    setCreatingStatus,
+  } = useProjectProvider()
   const [fileSelected, setFileSelected] = useState<boolean>(false)
-  const [updating, setUpdating] = useState(false)
-  const loading = uploadingImage || updating
+  const loading = uploadingImage || creatingStatus
   const { attest } = usePaymasterAttest()
 
   const handleFileChange = async (
@@ -31,7 +36,7 @@ const ImageSelect = () => {
   }
 
   const handleClick = async () => {
-    setUpdating(true)
+    setCreatingStatus(true)
     const response = await attest()
     if (response?.error) {
       toast({
@@ -40,7 +45,7 @@ const ImageSelect = () => {
         variant: 'default',
       })
     }
-    setUpdating(false)
+    setCreatingStatus(false)
   }
 
   return (
