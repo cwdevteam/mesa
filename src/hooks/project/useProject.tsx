@@ -18,7 +18,8 @@ const useProject = () => {
   }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
-  const [uploading, setUploading] = useState<boolean>(false)
+  const [uploadingAudio, setUploadingAudio] = useState<boolean>(false)
+  const [uploadingImage, setUploadingImage] = useState<boolean>(false)
   const [refUID, setRefUID] = useState(
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
@@ -58,8 +59,10 @@ const useProject = () => {
     creatingStatus,
     refUID,
     loading: loading || loadingAttestation,
-    uploading,
-    setUploading,
+    uploadingAudio,
+    setUploadingAudio,
+    uploadingImage,
+    setUploadingImage,
   }
 }
 
