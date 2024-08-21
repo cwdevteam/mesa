@@ -23,6 +23,7 @@ const useProjectCreateRedirect = (callsStatusId?: string) => {
       abi: easAbi,
       logs: callsStatus.receipts?.[0]?.logs as Log[],
     }) as any
+    console.log("ZIAD", logs)
     const refId = logs?.[0]?.args?.uid
     toast({
       title: 'Success',
