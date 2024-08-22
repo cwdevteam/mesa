@@ -1,17 +1,17 @@
 'use client'
 
 import { useAccount, usePublicClient } from 'wagmi'
-import { useCallsStatus, useWriteContracts } from 'wagmi/experimental'
+import { useWriteContracts } from 'wagmi/experimental'
 import { createCreatorClient } from '@zoralabs/protocol-sdk'
 import useConnectSmartWallet from './useConnectSmartWallet'
 import { usePaymasterProvider } from '@/context/Paymasters'
 import { CHAIN_ID } from '@/lib/consts'
 import useWaitForBatchTx from './useWaitForBatchTx'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
-import { toast } from '@/components/ui/use-toast'
+import useTransactionConfirm from './useTransactionConfirm'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
@@ -21,14 +21,7 @@ const useZoraCreate = () => {
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   const { parsedLogs } = useWaitForBatchTx(callsStatusId)
-  const { data: callsStatus } = useCallsStatus({
-    id: callsStatusId as string,
-    query: {
-      enabled: !!callsStatusId,
-      refetchInterval: (data) =>
-        data.state.data?.status === 'CONFIRMED' ? false : 500,
-    },
-  })
+  useTransactionConfirm(callsStatusId, 'Published On Zora Successfully!')
   const { connect } = useConnectSmartWallet()
   const [loading, setLoading] = useState(false)
   const { salesConfig } = useOnchainDistributionProvider()
@@ -74,15 +67,6 @@ const useZoraCreate = () => {
       console.error(err)
     }
   }
-
-  useEffect(() => {
-    if (callsStatus?.status !== 'CONFIRMED') return
-    toast({
-      title: 'Success',
-      description: 'Published On Zora Successfully!',
-      variant: 'default',
-    })
-  }, [callsStatus])
 
   return { create, createdContract, zoraCreating: loading }
 }
