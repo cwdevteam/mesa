@@ -82,7 +82,6 @@ const useZoraCreate = () => {
       description: 'Published On Zora Successfully!',
       variant: 'default',
     })
-    window.location.reload()
   }, [callsStatus])
 
   return { create, createdContract, zoraCreating: loading }
