@@ -13,7 +13,8 @@ const CreateButton = () => {
   const zoraUrl = getCollectPageUrl(createdContract)
   const creating = zoraCreating || soundCreating
 
-  const buttonLabel = creating ? 'Creating...' : "'Create Token'"
+  const buttonLabel = creating ? 'Creating...' : 'Create Token'
+
   const handleClick = async () => {
     if (createdContract) return window.open(zoraUrl, '_blank')
     if (isZora) return await create()
@@ -21,7 +22,7 @@ const CreateButton = () => {
   }
 
   return (
-    <Button onClick={handleClick} className="self-start" type="submit">
+    <Button onClick={handleClick} className="self-start">
       {createdContract ? 'View on Zora' : buttonLabel}
     </Button>
   )

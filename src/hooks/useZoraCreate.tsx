@@ -68,6 +68,7 @@ const useZoraCreate = () => {
         contracts: [{ ...(newParameters as any) }],
         capabilities,
       } as any)
+      setLoading(false)
     } catch (err) {
       setLoading(false)
       console.error(err)
