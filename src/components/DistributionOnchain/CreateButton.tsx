@@ -8,19 +8,22 @@ import getCollectPageUrl from '@/lib/zora/getCollectPageUrl'
 
 const CreateButton = () => {
   const { isSound, isZora } = useOnchainDistributionProvider()
-  const { create, createdContract } = useZoraCreate()
-  const { createEdition } = useSoundCreate()
+  const { create, createdContract, zoraCreating } = useZoraCreate()
+  const { createEdition, soundCreating } = useSoundCreate()
   const zoraUrl = getCollectPageUrl(createdContract)
+  const creating = zoraCreating || soundCreating
+
+  const buttonLabel = creating ? 'Creating...' : 'Create Token'
 
   const handleClick = async () => {
-    if (createdContract) return await window.open(zoraUrl, '_blank')
+    if (createdContract) return window.open(zoraUrl, '_blank')
     if (isZora) return await create()
     if (isSound) return await createEdition()
   }
 
   return (
-    <Button onClick={handleClick} className="self-start" type="submit">
-      {createdContract ? 'View on Zora' : ' Create Token'}
+    <Button onClick={handleClick} className="self-start">
+      {createdContract ? 'View on Zora' : buttonLabel}
     </Button>
   )
 }

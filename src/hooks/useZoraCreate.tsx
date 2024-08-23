@@ -7,19 +7,23 @@ import useConnectSmartWallet from './useConnectSmartWallet'
 import { usePaymasterProvider } from '@/context/Paymasters'
 import { CHAIN_ID, REFERRAL_RECIPIENT } from '@/lib/consts'
 import useWaitForBatchTx from './useWaitForBatchTx'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
+import useTransactionConfirm from './useTransactionConfirm'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
-  const { name, description, animationUrl, image } = useProjectProvider()
+  const { name, description, animationUrl, image, feeRecipient } =
+    useProjectProvider()
   const { address } = useAccount()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   const { parsedLogs } = useWaitForBatchTx(callsStatusId)
+  useTransactionConfirm(callsStatusId, 'Published On Zora Successfully!')
   const { connect } = useConnectSmartWallet()
+  const [loading, setLoading] = useState(false)
   const { salesConfig } = useOnchainDistributionProvider()
   const createdContract = useMemo(
     () => parsedLogs?.[1] && parsedLogs[1].args.newContract,
@@ -29,6 +33,7 @@ const useZoraCreate = () => {
   const create = async () => {
     try {
       if (!address) await connect()
+      setLoading(true)
       const creatorClient = createCreatorClient({
         chainId: CHAIN_ID,
         publicClient,
@@ -47,6 +52,7 @@ const useZoraCreate = () => {
         token: {
           tokenMetadataURI: uri,
           createReferral: REFERRAL_RECIPIENT,
+          payoutRecipient: feeRecipient,
           salesConfig,
         },
         account: address!,
@@ -56,12 +62,14 @@ const useZoraCreate = () => {
         contracts: [{ ...(newParameters as any) }],
         capabilities,
       } as any)
+      setLoading(false)
     } catch (err) {
+      setLoading(false)
       console.error(err)
     }
   }
 
-  return { create, createdContract }
+  return { create, createdContract, zoraCreating: loading }
 }
 
 export default useZoraCreate
