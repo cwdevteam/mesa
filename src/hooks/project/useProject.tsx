@@ -2,8 +2,10 @@ import { Credit } from '@/types/projectMetadataForm'
 import { useEffect, useState } from 'react'
 import useAttestation from '../useAttestation'
 import useProjectMedia from './useProjectMedia'
+import { useAccount } from 'wagmi'
 
 const useProject = () => {
+  const { address } = useAccount()
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [animationUrl, setAnimationUrl] = useState<string>('')
@@ -11,6 +13,7 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [feeRecipient, setFeeRecipient] = useState(address)
   const {
     attestationData,
     dashboardData,
@@ -63,6 +66,8 @@ const useProject = () => {
     setUploadingAudio,
     uploadingImage,
     setUploadingImage,
+    feeRecipient,
+    setFeeRecipient,
   }
 }
 

@@ -7,7 +7,7 @@ const TitleAndDescription = () => {
   const { name, description } = useProjectProvider()
 
   return (
-    <div className="flex">
+    <div className="flex gap-2">
       <div className="grid w-full items-center gap-2">
         <Label htmlFor="name">Title:</Label>
         <Input
