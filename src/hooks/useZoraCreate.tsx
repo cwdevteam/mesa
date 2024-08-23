@@ -5,7 +5,7 @@ import { useWriteContracts } from 'wagmi/experimental'
 import { createCreatorClient } from '@zoralabs/protocol-sdk'
 import useConnectSmartWallet from './useConnectSmartWallet'
 import { usePaymasterProvider } from '@/context/Paymasters'
-import { CHAIN_ID } from '@/lib/consts'
+import { CHAIN_ID, REFERRAL_RECIPIENT } from '@/lib/consts'
 import useWaitForBatchTx from './useWaitForBatchTx'
 import { useMemo, useState } from 'react'
 import { useProjectProvider } from '@/context/ProjectProvider'
@@ -51,7 +51,8 @@ const useZoraCreate = () => {
         },
         token: {
           tokenMetadataURI: uri,
-          createReferral: feeRecipient,
+          createReferral: REFERRAL_RECIPIENT,
+          payoutRecipient: feeRecipient,
           salesConfig,
         },
         account: address!,
