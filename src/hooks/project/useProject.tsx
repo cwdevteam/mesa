@@ -21,6 +21,7 @@ const useProject = () => {
   }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
+  const [updating, setUpdating] = useState<boolean>(false)
   const [uploadingAudio, setUploadingAudio] = useState<boolean>(false)
   const [uploadingImage, setUploadingImage] = useState<boolean>(false)
   const [refUID, setRefUID] = useState(
@@ -68,6 +69,8 @@ const useProject = () => {
     setUploadingImage,
     feeRecipient,
     setFeeRecipient,
+    updating,
+    setUpdating,
   }
 }
 

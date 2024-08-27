@@ -16,7 +16,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
   const [editModal, setEditModal] = useState<boolean>(false)
   const [requestType, setRequestType] = useState<string>('')
   const [roleId, setRoleId] = useState<string>('')
-  const { setCredits, credits } = useProjectProvider()
+  const { setCredits, credits, setUpdating } = useProjectProvider()
   const { attest } = usePaymasterAttest()
 
   const handleActionClick = (roleId: string, request: string) => {
@@ -29,6 +29,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
     const newCredits = credits
     newCredits.splice(creditIndex, 1)
     setCredits([...newCredits])
+    setUpdating(true)
     await attest()
   }
 
