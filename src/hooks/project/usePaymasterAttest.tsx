@@ -26,7 +26,7 @@ const usePaymasterAttest = () => {
   const attest = async (newCredit: any = null) => {
     try {
       let newCredits = credits
-      if (newCredits) newCredits = credits.concat(newCredit)
+      if (newCredit) newCredits = credits.concat(newCredit)
 
       const { uri: metadataUri } = await uploadJson({
         description,
