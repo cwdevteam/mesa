@@ -1,11 +1,12 @@
 import { Label } from '@/components/ui/label'
-import { contractTypeOptions, Credit } from '@/types/projectMetadataForm'
+import { contractTypeOptions } from '@/types/projectMetadataForm'
 import ProjectmetadataSelect from './ProjectMetadataSelect'
 import { useProjectProvider } from '@/context/ProjectProvider'
 
 const ContractTypeSelect = ({ creditIndex }: { creditIndex: number }) => {
   const { credits, setCredits } = useProjectProvider()
-  const contractType = credits[creditIndex].contractType
+  const contractType =
+    credits[creditIndex]?.contractType || contractTypeOptions[0]
   const label = contractTypeOptions.find((v) => v.value === contractType)?.label
 
   const handleChange = (e: any) => {

@@ -5,7 +5,7 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 
 const UserRoleSelect = ({ creditIndex }: { creditIndex: number }) => {
   const { credits, setCredits } = useProjectProvider()
-  const userRole = credits[creditIndex].collaboratorType
+  const userRole = credits[creditIndex]?.collaboratorType || userRoleOptions[0]
   const label = userRoleOptions.find((v) => v.value === userRole)?.label
 
   const handleChange = (e: any) => {

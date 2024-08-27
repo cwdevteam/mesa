@@ -7,7 +7,7 @@ import percentToBps from '@/lib/percentToBps'
 
 const SplitsInput = ({ creditIndex }: { creditIndex: number }) => {
   const { credits, setCredits } = useProjectProvider()
-  const splitBps = credits[creditIndex].splitBps
+  const splitBps = credits[creditIndex]?.splitBps || 100
   const [splitPercent, setSplitPercent] = useState(bpsToPercent(splitBps))
 
   useEffect(() => {
