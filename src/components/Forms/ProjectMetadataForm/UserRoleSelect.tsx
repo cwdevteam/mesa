@@ -1,19 +1,17 @@
 import { Label } from '@/components/ui/label'
-import { Credit, userRoleOptions } from '@/types/projectMetadataForm'
+import { userRoleOptions } from '@/types/projectMetadataForm'
 import ProjectmetadataSelect from './ProjectMetadataSelect'
 import { useProjectProvider } from '@/context/ProjectProvider'
 
-const UserRoleSelect = () => {
+const UserRoleSelect = ({ creditIndex }: { creditIndex: number }) => {
   const { credits, setCredits } = useProjectProvider()
-  const userRole = credits[0].collaboratorType
+  const userRole = credits[creditIndex].collaboratorType
   const label = userRoleOptions.find((v) => v.value === userRole)?.label
 
   const handleChange = (e: any) => {
-    const credit = {
-      ...credits[0],
-      collaboratorType: e,
-    } as Credit
-    setCredits([credit])
+    let newCredits = credits
+    newCredits[creditIndex].collaboratorType = e
+    setCredits([...newCredits])
   }
 
   return (

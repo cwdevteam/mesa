@@ -3,17 +3,15 @@ import { contractTypeOptions, Credit } from '@/types/projectMetadataForm'
 import ProjectmetadataSelect from './ProjectMetadataSelect'
 import { useProjectProvider } from '@/context/ProjectProvider'
 
-const ContractTypeSelect = () => {
+const ContractTypeSelect = ({ creditIndex }: { creditIndex: number }) => {
   const { credits, setCredits } = useProjectProvider()
-  const contractType = credits[0].contractType
+  const contractType = credits[creditIndex].contractType
   const label = contractTypeOptions.find((v) => v.value === contractType)?.label
 
   const handleChange = (e: any) => {
-    const credit = {
-      ...credits[0],
-      contractType: e,
-    } as Credit
-    setCredits([credit])
+    let newCredits = credits
+    newCredits[creditIndex].contractType = e
+    setCredits([...newCredits])
   }
 
   return (

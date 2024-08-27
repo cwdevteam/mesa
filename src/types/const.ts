@@ -48,6 +48,7 @@ export interface UserData {
 }
 export interface UserMatrixCardProps {
   data: Credit
+  creditIndex: number
 }
 export interface ProjectCollaboratorsProps {
   project: any
