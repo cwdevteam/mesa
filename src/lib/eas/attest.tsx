@@ -4,15 +4,10 @@ import { EAS } from '../consts'
 const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
   try {
     const tx = await writeContracts({
-      contracts: [
-        {
-          address: EAS,
-          abi: easAbi,
-          functionName: 'attest',
-          args,
-        },
-      ],
-      capabilities,
+      address: EAS,
+      abi: easAbi,
+      functionName: 'attest',
+      args,
     })
     return tx
   } catch (error) {
