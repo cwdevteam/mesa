@@ -28,13 +28,21 @@ export const findLatestProjectStates = (attestations: any[]) => {
     }
   }
 
-  let finalResults: any[] = []
+  let finalResults: any = []
 
-  creationMap.forEach((creationAttestation, uid) => {
-    if (uniqueProjectMap.has(uid)) {
-      finalResults.push(uniqueProjectMap.get(uid))
+  creationMap.forEach((creationAttestation, cuid) => {
+    if (uniqueProjectMap.has(cuid)) {
+      const uniqueAttestation = uniqueProjectMap.get(cuid)
+      finalResults.push(uniqueAttestation)
     } else {
       finalResults.push(creationAttestation)
+    }
+  })
+
+  // Adding any unique attestations that were not matched
+  uniqueProjectMap.forEach((uniqueAttestation, uuid) => {
+    if (!creationMap.has(uuid)) {
+      finalResults.push(uniqueAttestation)
     }
   })
 
