@@ -7,7 +7,6 @@ import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useWriteContracts } from 'wagmi/experimental'
 import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
-import { useWriteContract } from 'wagmi'
 
 const usePaymasterAttest = () => {
   const {
@@ -21,7 +20,6 @@ const usePaymasterAttest = () => {
   } = useProjectProvider()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
-  const { writeContractAsync } = useWriteContract()
   useDefaultCredit()
   useProjectCreateRedirect(callsStatusId)
 
@@ -46,7 +44,7 @@ const usePaymasterAttest = () => {
       const args = getAttestArgs(encodedAttestation, refUID)
       setCreatingStatus(true)
 
-      const response = await easAttest(writeContractAsync, capabilities, args)
+      const response = await easAttest(writeContractsAsync, capabilities, args)
       return response
     } catch (error) {
       return { error }
