@@ -9,6 +9,7 @@ const useProject = () => {
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [animationUrl, setAnimationUrl] = useState<string>('')
+  const [externalUrl, setExternalUrl] = useState<string>('')
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
@@ -34,6 +35,7 @@ const useProject = () => {
       setDescription(dashboardData['description'])
       setCredits(dashboardData['credits'])
       setAnimationUrl(dashboardData['animationUrl'] || '')
+      setExternalUrl(dashboardData['externalUrl'] || '')
       setImage(dashboardData['image'] || '')
       setRefUID(dashboardData['refUID'])
     }
@@ -71,6 +73,8 @@ const useProject = () => {
     setFeeRecipient,
     updating,
     setUpdating,
+    externalUrl,
+    setExternalUrl,
   }
 }
 
