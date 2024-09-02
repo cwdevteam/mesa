@@ -23,13 +23,16 @@ const usePaymasterAttest = () => {
   useDefaultCredit()
   useProjectCreateRedirect(callsStatusId)
 
-  const attest = async () => {
+  const attest = async (newCredit: any = null) => {
     try {
+      let newCredits = credits
+      if (newCredit) newCredits = credits.concat(newCredit)
+
       const { uri: metadataUri } = await uploadJson({
         description,
         image,
         animation_url: animationUrl,
-        credits,
+        credits: newCredits,
       })
       const encodedAttestation = getEncodedAttestationData(
         name,
@@ -40,6 +43,7 @@ const usePaymasterAttest = () => {
       )
       const args = getAttestArgs(encodedAttestation, refUID)
       setCreatingStatus(true)
+
       const response = await easAttest(writeContractsAsync, capabilities, args)
       return response
     } catch (error) {

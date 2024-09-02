@@ -3,15 +3,22 @@ import { useToast } from '@/components/ui/use-toast'
 import useConnectSmartWallet from '@/hooks/useConnectSmartWallet'
 import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 import { useRouter } from 'next/navigation'
+import { useUserProvider } from '@/context/UserProvider'
+import { useAccount } from 'wagmi'
 
 const InvitePageButtons = () => {
   const { toast } = useToast()
   const { attest } = usePaymasterAttest()
   const { push } = useRouter()
   const { connect } = useConnectSmartWallet()
+  const { user } = useUserProvider()
+  const { address } = useAccount()
 
   const handleSubmit = async (accepted: boolean) => {
-    connect()
+    if (!address) {
+      connect()
+      return
+    }
     try {
       if (!accepted) {
         toast({
@@ -22,7 +29,14 @@ const InvitePageButtons = () => {
         push('/')
         return
       }
-      await attest()
+      const newCredit = {
+        address,
+        collaboratorType: 'Owner',
+        contractType: 'Master',
+        name: user.full_name,
+        splitBps: 10000,
+      }
+      await attest(newCredit)
       toast({
         title: 'Success',
         description: 'Accepted Invitation',
