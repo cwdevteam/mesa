@@ -17,6 +17,7 @@ const usePaymasterAttest = () => {
     image,
     setCreatingStatus,
     refUID,
+    externalUrl,
   } = useProjectProvider()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
@@ -29,6 +30,7 @@ const usePaymasterAttest = () => {
         description,
         image,
         animation_url: animationUrl,
+        external_url: externalUrl,
         credits,
       })
       const encodedAttestation = getEncodedAttestationData(

@@ -7,7 +7,7 @@ const useMetadata = (uri: string) => {
   useEffect(() => {
     const init = async () => {
       const response = await fetchUri(uri)
-      setDescription(response.description)
+      setDescription(response?.description)
     }
 
     init()
