@@ -32,10 +32,8 @@ const useZoraCreate = () => {
     () => parsedLogs?.[1] && parsedLogs[1].args.newContract,
     [parsedLogs]
   )
-  const { activeSplit, splitPercents, splits, totalSplitPercent } =
-    useProjectProvider()
 
-  const create = async () => {
+  const create = async (splitArgs: any) => {
     try {
       if (!address) await connect()
       setLoading(true)
@@ -63,48 +61,26 @@ const useZoraCreate = () => {
         account: address!,
       })
       const newParameters = { ...parameters, functionName: 'createContract' }
-      let contracts = []
-      if (activeSplit) {
-        if (splits.length < 2) {
-          toast({
-            title: 'Error',
-            description: 'At least two recipients are required',
-            variant: 'destructive',
-          })
-          return
-        }
-        if (totalSplitPercent !== 100) {
-          toast({
-            title: 'Error',
-            description: 'Percent allocation must add up to 100',
-            variant: 'destructive',
-          })
-          return
-        }
-        const recipients = splits.map((recipient: any, index: number) => ({
-          address: recipient,
-          percentAllocation: splitPercents[index],
-        }))
-        const pullSplitFactory =
-          '0x80f1B766817D04870f115fEBbcCADF8DBF75E017' as Address
-        contracts.push({
-          address: pullSplitFactory,
-          abi: pullSplitFactoryAbi as any,
-          functionName: 'createSplit',
-          args: [
-            {
-              recipients: recipients[0],
-              allocations: recipients[1],
-              totalAllocation: BigInt(1000000),
-              distributionIncentive: 0,
-            },
-            zeroAddress,
-            zeroAddress,
-          ],
-          account: address,
-        })
+      const recipients = splitArgs.recipients
+      const pullSplitFactory =
+        '0x80f1B766817D04870f115fEBbcCADF8DBF75E017' as Address
+      const splitParameters = {
+        address: pullSplitFactory,
+        abi: pullSplitFactoryAbi as any,
+        functionName: 'createSplit',
+        args: [
+          {
+            recipients: recipients[0],
+            allocations: recipients[1],
+            totalAllocation: BigInt(1000000),
+            distributionIncentive: 0,
+          },
+          zeroAddress,
+          zeroAddress,
+        ],
+        account: address,
       }
-      contracts.push({ ...(newParameters as any) })
+      const contracts = [splitParameters, newParameters]
       await writeContractsAsync({
         contracts,
         capabilities,
