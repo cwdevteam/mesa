@@ -32,8 +32,7 @@ export const withLocale: MiddlewareFactory = (next) => {
 
     // Check if there is any supported locale in the pathname
     const currentLocale = i18n.locales.find(
-      (locale) =>
-        pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+      (locale) => pathname.startsWith(`/`) || pathname === `/`
     )
 
     // Redirect if there is no locale

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, ReactNode, useEffect } from 'react'
+import React, { createContext, useContext, ReactNode } from 'react'
 import { Locale } from '@/../i18n.config'
 const LocaleContext = createContext<Locale | undefined>(undefined)
 
