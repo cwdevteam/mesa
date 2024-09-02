@@ -14,6 +14,7 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [activeSplit, setActiveSplit] = useState(true)
   const [feeRecipient, setFeeRecipient] = useState(address)
   const [splits, setSplits] = useState<any[]>([])
   const [splitPercents, setSplitPercents] = useState<any[]>([])
@@ -54,10 +55,6 @@ const useProject = () => {
     let temp = [...splits]
     temp.splice(index, 1)
     setSplits([...temp])
-
-    temp = [...splitPercents]
-    temp.splice(index, 1)
-    setSplitPercents([...temp])
   }
 
   useEffect(() => {
@@ -98,6 +95,8 @@ const useProject = () => {
     splitPercents,
     setSplitPercents,
     removeSplit,
+    activeSplit,
+    setActiveSplit
   }
 }
 

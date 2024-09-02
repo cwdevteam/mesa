@@ -1,7 +1,7 @@
-import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 const SplitSelection = () => {
-  const { activeSplit, setActiveSplit } = useOnchainDistributionProvider()
+  const { activeSplit, setActiveSplit } = useProjectProvider()
 
   return (
     <div className="flex gap-2">
