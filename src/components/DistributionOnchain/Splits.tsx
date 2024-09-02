@@ -1,6 +1,8 @@
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { Input } from '../ui/input'
 import { useState } from 'react'
+import truncateAddress from '@/lib/truncateAddress'
+import { Icons } from '../Icons'
 
 const Splits = () => {
   const {
@@ -8,6 +10,7 @@ const Splits = () => {
     setSplit: setSplits,
     splitPercents,
     setSplitPercents,
+    removeSplit,
   } = useProjectProvider()
   const [split, setSplit] = useState('')
 
@@ -27,6 +30,10 @@ const Splits = () => {
       setSplit('')
       return
     }
+  }
+
+  const handleRemoveSplit = (index: number) => {
+    removeSplit(index)
   }
 
   const handleChangeSplitPercent = (e: any, index: number) => {
@@ -49,16 +56,22 @@ const Splits = () => {
         onKeyUp={handleChangeSplit}
       />
       {splits.map((split: any, index: number) => (
-        <div key={index} className="flex gap-2 items-center">
-          <p className="text-[14px]">{split}</p>
-          <Input
-            type="text"
-            name={`split-percent-${index}`}
-            id={`split-percent-${index}`}
-            required
-            value={splitPercents[index]}
-            onChange={(e) => handleChangeSplitPercent(e, index)}
-          />
+        <div key={index} className="flex gap-2 items-center justify-between">
+          <p className="text-[14px]">{truncateAddress(split)}</p>
+          <div className="flex gap-2">
+            <Input
+              type="number"
+              name={`split-percent-${index}`}
+              id={`split-percent-${index}`}
+              required
+              value={splitPercents[index]}
+              onChange={(e) => handleChangeSplitPercent(e, index)}
+              className="!w-[100px]"
+            />
+            <button type="button" onClick={() => handleRemoveSplit(index)}>
+              <Icons.close className="text-white" />
+            </button>
+          </div>
         </div>
       ))}
       <div className="flex justify-between mt-2">

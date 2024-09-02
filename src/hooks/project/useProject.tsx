@@ -50,6 +50,16 @@ const useProject = () => {
     setSplits([...temp])
   }
 
+  const removeSplit = (index: number) => {
+    let temp = [...splits]
+    temp.splice(index, 1)
+    setSplits([...temp])
+
+    temp = [...splitPercents]
+    temp.splice(index, 1)
+    setSplitPercents([...temp])
+  }
+
   useEffect(() => {
     dashboardData && loading && fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,6 +97,7 @@ const useProject = () => {
     setSplit,
     splitPercents,
     setSplitPercents,
+    removeSplit,
   }
 }
 
