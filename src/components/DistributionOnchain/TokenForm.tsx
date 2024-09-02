@@ -6,27 +6,86 @@ import TitleAndDescription from './TitleAndDescription'
 import MediaUploads from './MediaUploads'
 import Price from './Price'
 import ZoraSaleStrategyTabs from './ZoraSaleStrategyTabs'
-import FeeRecipient from '../FeeRecipient'
-import SplitSelection from './SplitSelection'
-import Splits from './Splits'
-import { useProjectProvider } from '@/context/ProjectProvider'
+import RecipientSetter from '../CreateSplit/RecipientSetter'
+import { FormProvider, useForm } from 'react-hook-form'
+import {
+  CHAIN,
+  DEFAULT_DISTRIBUTOR_FEE,
+  DEFAULT_RECIPIENTS,
+} from '@/lib/consts'
+import { zeroAddress } from 'viem'
+import { ICreateSplitForm } from '@/types/mesa'
+import useSoundCreate from '@/hooks/sound/useSoundCreate'
+import useZoraCreate from '@/hooks/useZoraCreate'
+import getCollectPageUrl from '@/lib/zora/getCollectPageUrl'
+import { useSwitchChain } from 'wagmi'
+import { useCallback } from 'react'
+import { CreateSplitConfig } from '@0xsplits/splits-sdk'
 
 export default function TokenForm() {
-  const { isZora, isFixedPrice } = useOnchainDistributionProvider()
-  const { activeSplit } = useProjectProvider()
+  const { isZora, isFixedPrice, isSound } = useOnchainDistributionProvider()
+  const { create, createdContract, zoraCreating } = useZoraCreate()
+  const { createEdition, soundCreating } = useSoundCreate()
+  const zoraUrl = getCollectPageUrl(createdContract)
+  const creating = zoraCreating || soundCreating
+  const { switchChainAsync } = useSwitchChain()
+
+  const onSubmit = useCallback(
+    async (data: ICreateSplitForm) => {
+      await switchChainAsync({ chainId: CHAIN.id })
+      const args: CreateSplitConfig = {
+        recipients: data.recipients,
+        distributorFeePercent: data.distributorFee,
+        controller: data.controller,
+      }
+
+      if (createdContract) return window.open(zoraUrl, '_blank')
+      if (isZora) return await create()
+      if (isSound) return await createEdition()
+    },
+    [
+      switchChainAsync,
+      createdContract,
+      isZora,
+      isSound,
+      zoraUrl,
+      create,
+      createEdition,
+    ]
+  )
+
+  const form = useForm<ICreateSplitForm>({
+    mode: 'onChange',
+    defaultValues: {
+      recipients: DEFAULT_RECIPIENTS,
+      controller: zeroAddress,
+      distributorFee: DEFAULT_DISTRIBUTOR_FEE,
+    },
+  })
+
+  const {
+    handleSubmit,
+    watch,
+    formState: { isValid: isFormValid },
+  } = form
 
   return (
     <div className="flex flex-col gap-4 max-w-md flex-1">
-      {isZora && <ZoraSaleStrategyTabs />}
-      <TitleAndDescription />
-      <div className="space-y-2 border rounded-sm p-3">
-        <p className="text-[14px]">Pay out funds to...</p>
-        <SplitSelection />
-        {activeSplit ? <Splits /> : <FeeRecipient />}
-      </div>
-      <MediaUploads />
-      {isZora && isFixedPrice && <Price />}
-      <CreateButton />
+      <FormProvider {...form}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          {isZora && <ZoraSaleStrategyTabs />}
+          <TitleAndDescription />
+          <RecipientSetter />
+          <MediaUploads />
+          {isZora && isFixedPrice && <Price />}
+          <CreateButton
+            watch={watch}
+            isFormValid={isFormValid}
+            createdContract={createdContract}
+            creating={creating}
+          />
+        </form>
+      </FormProvider>
     </div>
   )
 }

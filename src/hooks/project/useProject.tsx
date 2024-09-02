@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import useAttestation from '../useAttestation'
 import useProjectMedia from './useProjectMedia'
 import { useAccount } from 'wagmi'
-import { sumBy } from 'lodash'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -15,10 +14,7 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-  const [activeSplit, setActiveSplit] = useState(true)
   const [feeRecipient, setFeeRecipient] = useState(address)
-  const [splits, setSplits] = useState<any[]>([])
-  const [splitPercents, setSplitPercents] = useState<any[]>([])
   const {
     attestationData,
     dashboardData,
@@ -32,7 +28,6 @@ const useProject = () => {
   const [refUID, setRefUID] = useState(
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
-  const totalSplitPercent = sumBy(splitPercents, (r: any) => parseFloat(r) || 0)
   const fetchData = async () => {
     setLoading(true)
     if (dashboardData) {
@@ -45,18 +40,6 @@ const useProject = () => {
       setRefUID(dashboardData['refUID'])
     }
     setLoading(false)
-  }
-
-  const setSplit = (split: any) => {
-    const temp = [...splits]
-    temp.push(split)
-    setSplits([...temp])
-  }
-
-  const removeSplit = (index: number) => {
-    let temp = [...splits]
-    temp.splice(index, 1)
-    setSplits([...temp])
   }
 
   useEffect(() => {
@@ -92,14 +75,6 @@ const useProject = () => {
     setUpdating,
     externalUrl,
     setExternalUrl,
-    splits,
-    setSplit,
-    splitPercents,
-    setSplitPercents,
-    removeSplit,
-    activeSplit,
-    setActiveSplit,
-    totalSplitPercent,
   }
 }
 

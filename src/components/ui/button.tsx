@@ -4,6 +4,21 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
+interface IButton {
+  children: React.ReactNode
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  ref?: React.MutableRefObject<null>
+  color?: string
+  className?: string
+  compact?: boolean
+  eventName?: string
+  isDisabled?: boolean
+  isLoading?: boolean
+  isActive?: boolean
+  size?: 'xs' | 'sm'
+  type?: 'button' | 'submit' | 'reset' | undefined
+}
+
 const buttonVariants = cva(
   'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   {
@@ -55,3 +70,82 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }
+
+export function MiniButton(btn: IButton): JSX.Element {
+  const isDisabled = btn.isDisabled || btn.isLoading
+
+  const eventName = btn.eventName
+  const onClick = eventName
+    ? (e: React.MouseEvent<HTMLButtonElement>) => {
+        btn.onClick?.(e)
+      }
+    : btn.onClick
+
+  return (
+    <button
+      disabled={isDisabled}
+      onClick={onClick}
+      type={btn.type ? btn.type : 'button'}
+      className={`whitespace-nowrap rounded px-1.5 py-0.5 text-xs font-medium backdrop-blur-sm ${
+        !btn.compact && `w-full`
+      } flex items-center justify-center transition focus:outline-none ${
+        isDisabled
+          ? `cursor-default opacity-50`
+          : btn.isActive
+            ? `cursor-wait opacity-50`
+            : `hover:opacity-80`
+      }
+      ${btn.className}`}
+    >
+      {btn.isLoading && (
+        <div>
+          <div
+            style={{ borderTopColor: 'transparent' }}
+            className="mr-2 size-2.5 animate-spin rounded-full border-2 border-solid border-gray-500"
+          />
+        </div>
+      )}
+      {btn.children}
+    </button>
+  )
+}
+
+export function SecondaryButton(btn: IButton): JSX.Element {
+  const textSize = btn.size ? `text-${btn.size}` : 'text-xs'
+  const isDisabled = btn.isDisabled || btn.isLoading
+
+  const eventName = btn.eventName
+  const onClick = eventName
+    ? (e: React.MouseEvent<HTMLButtonElement>) => {
+        btn.onClick?.(e)
+      }
+    : btn.onClick
+
+  return (
+    <button
+      disabled={isDisabled}
+      onClick={onClick}
+      type={btn.type ? btn.type : 'button'}
+      className={`whitespace-nowrap rounded ${textSize} border border-gray-500/20 bg-gray-400/5 px-2 py-1 text-black shadow shadow-black/5 dark:border-white/20 dark:bg-white/5 dark:text-white ${
+        !btn.compact && `w-full`
+      } flex items-center justify-center transition focus:outline-none ${
+        isDisabled
+          ? `cursor-default opacity-50`
+          : btn.isActive
+            ? `opacity-50`
+            : `hover:border-black/20 hover:shadow focus:ring-2 dark:hover:border-white/40`
+      }
+      ${btn.className}`}
+    >
+      {btn.isLoading && (
+        <div>
+          <div
+            style={{ borderTopColor: 'transparent' }}
+            className="mr-2 size-3 animate-spin rounded-full border-2 border-solid border-gray-500"
+          />
+        </div>
+      )}
+      {btn.children}
+    </button>
+  )
+}
