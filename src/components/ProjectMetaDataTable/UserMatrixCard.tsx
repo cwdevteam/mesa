@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import ProjectMetaDataDialog from './ProjectMetaDataDialog'
 import UserMatrixCardDetails from './UserMatrixCardDetails'
 import { isInvitation } from './utils'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 
 const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
   data,
@@ -14,11 +16,21 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
   const [editModal, setEditModal] = useState<boolean>(false)
   const [requestType, setRequestType] = useState<string>('')
   const [roleId, setRoleId] = useState<string>('')
+  const { setCredits, credits, setUpdating } = useProjectProvider()
+  const { attest } = usePaymasterAttest()
 
   const handleActionClick = (roleId: string, request: string) => {
     setRequestType(request)
     setRoleId(roleId)
     setEditModal(true)
+  }
+
+  const handleDeleteClick = async () => {
+    const newCredits = credits
+    newCredits.splice(creditIndex, 1)
+    setCredits([...newCredits])
+    setUpdating(true)
+    await attest()
   }
 
   return (
@@ -52,6 +64,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
       </div>
       <UserMatrixCardDetails
         handleActionClick={handleActionClick}
+        handleDeleteClick={handleDeleteClick}
         data={data}
       />
       <ProjectMetaDataDialog

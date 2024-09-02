@@ -6,9 +6,11 @@ import bpsToPercent from '@/lib/bpsToPercent'
 const UserMatrixCardDetails = ({
   data,
   handleActionClick,
+  handleDeleteClick,
 }: {
   data: Credit
   handleActionClick: Function
+  handleDeleteClick: any
 }) => (
   <div className="w-full rounded-md overflow-hidden shadow-lg border">
     <div className="w-full overflow-x-auto">
@@ -56,7 +58,10 @@ const UserMatrixCardDetails = ({
               </div>
             </th>
             <th className="h-10 px-2 sm:px-0 text-center cursor-pointer align-middle font-medium text-muted-foreground">
-              <div className=" inline-flex justify-center items-center mt-1 text-center">
+              <div
+                className=" inline-flex justify-center items-center mt-1 text-center"
+                onClick={handleDeleteClick}
+              >
                 <Icons.delete />
               </div>
             </th>
