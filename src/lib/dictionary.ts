@@ -6,7 +6,7 @@ import { Dictionary } from '@/dictionaries/types'
 // We also get the default import for cleaner types
 const dictionaries = {
   en: () => import('@/dictionaries/en').then((module) => module.default),
-  es: () => import('@/dictionaries/es').then((module) => module.default),
+  // es: () => import('@/dictionaries/es').then((module) => module.default),
 }
 
 export const getDictionary = async (locale: Locale): Promise<Dictionary> =>
