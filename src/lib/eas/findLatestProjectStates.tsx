@@ -39,7 +39,6 @@ export const findLatestProjectStates = (attestations: any[]) => {
     }
   })
 
-  // Adding any unique attestations that were not matched
   uniqueProjectMap.forEach((uniqueAttestation, uuid) => {
     if (!creationMap.has(uuid)) {
       finalResults.push(uniqueAttestation)
