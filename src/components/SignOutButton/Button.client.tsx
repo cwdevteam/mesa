@@ -17,7 +17,7 @@ export default function SignOutButtonFormChildren({
       {pending ? (
         <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        dict.buttonLabel
+        'Continue with Email'
       )}
     </Button>
   )

@@ -92,8 +92,8 @@ export default function SocialAuthForm() {
   useEffect(() => {
     if (state?.error) {
       toast({
-        title: dict.errorToastTitle,
-        description: dict.errorToastDescription,
+        title: 'Error',
+        description: 'An error occurred while signing in',
         variant: 'destructive',
       })
     }

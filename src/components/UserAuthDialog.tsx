@@ -36,10 +36,12 @@ export default async function UserAuthDialog({
       >
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold tracking-tight text-center">
-            {env.NEXT_PUBLIC_SIGNUPS_OPEN ? dict.titleOpen : dict.titleClosed}
+            {env.NEXT_PUBLIC_SIGNUPS_OPEN
+              ? 'Sign-in or create an account'
+              : 'Sign-in'}
           </DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground text-center">
-            {dict.description}
+            {'Enter your email below to continue'}
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-6">
@@ -54,7 +56,7 @@ export default async function UserAuthDialog({
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-background px-2 text-muted-foreground">
-                    {dict.orContinueWith}
+                    {'Or continue with'}
                   </span>
                 </div>
               </div>
@@ -66,7 +68,7 @@ export default async function UserAuthDialog({
         </div>
         {(env.NEXT_PUBLIC_TOS_URL || env.NEXT_PUBLIC_PP_URL) && (
           <p className="px-8 text-center text-sm text-muted-foreground">
-            {dict.agreementText}{' '}
+            {'By clicking continue, you agree to our'}{' '}
             {env.NEXT_PUBLIC_TOS_URL && (
               <a
                 href={env.NEXT_PUBLIC_TOS_URL}
@@ -74,11 +76,11 @@ export default async function UserAuthDialog({
                 rel="noreferrer noopener"
                 target="_blank"
               >
-                {dict.termsOfService}
+                {'Terms of Service'}
               </a>
             )}
             {env.NEXT_PUBLIC_TOS_URL && env.NEXT_PUBLIC_PP_URL && (
-              <> {dict.and} </>
+              <> {'and'} </>
             )}
             {env.NEXT_PUBLIC_PP_URL && (
               <a
@@ -87,7 +89,7 @@ export default async function UserAuthDialog({
                 rel="noreferrer noopener"
                 target="_blank"
               >
-                {dict.privacyPolicy}
+                {'Privacy Policy'}
               </a>
             )}
             .

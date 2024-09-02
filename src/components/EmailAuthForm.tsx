@@ -22,12 +22,12 @@ function EmailAuthFormFields() {
   return (
     <>
       <Label className="sr-only" htmlFor="email">
-        {dict.emailInputLabel}
+        {'Email'}
       </Label>
       <Input
         id="email"
         name="email"
-        placeholder={dict.emailInputPlaceholder}
+        placeholder={'name@example.com'}
         type="email"
         autoCapitalize="none"
         autoComplete="email"
@@ -37,7 +37,7 @@ function EmailAuthFormFields() {
       />
       <Button disabled={pending} type="submit">
         {pending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-        {dict.buttonLabel}
+        {'Continue with Email'}
       </Button>
     </>
   )
@@ -54,13 +54,13 @@ export default function EmailAuthForm() {
   useEffect(() => {
     if (state?.data) {
       toast({
-        title: dict.successToastTitle,
-        description: dict.successToastDescription,
+        title: 'Success',
+        description: 'Please check your email to finish signing in.',
       })
     } else if (state?.error) {
       toast({
-        title: dict.errorToastTitle,
-        description: dict.errorToastDescription,
+        title: 'Error',
+        description: 'An error occurred while signing in',
         variant: 'destructive',
       })
     }
