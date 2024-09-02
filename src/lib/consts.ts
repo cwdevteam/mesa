@@ -19,7 +19,6 @@ export const REFERRAL_RECIPIENT = '0x8C9a3Ec0049F7E873760057a3A8bD163c9878aCE' /
 export const EMPTY_RECIPIENT = { address: '', percentAllocation: 0 }
 export const DEFAULT_RECIPIENTS = [{ address: '', percentAllocation: 0 }]
 export const DEFAULT_DISTRIBUTOR_FEE = 0
-export const DEFAULT_DISTRIBUTOR_FEE_OPTIONS = [0.01, 0.1, 1]
 
 export const PERCENTAGE_SCALE = 1e6
 export const SPLIT_RECIPIENT_MAX_DECIMALS = 4
