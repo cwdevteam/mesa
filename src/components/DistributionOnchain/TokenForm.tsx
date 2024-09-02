@@ -14,7 +14,7 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 export default function TokenForm() {
   const { isZora, isFixedPrice } = useOnchainDistributionProvider()
   const { activeSplit } = useProjectProvider()
-  
+
   return (
     <div className="flex flex-col gap-4 max-w-md flex-1">
       {isZora && <ZoraSaleStrategyTabs />}

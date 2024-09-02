@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import useAttestation from '../useAttestation'
 import useProjectMedia from './useProjectMedia'
 import { useAccount } from 'wagmi'
+import { sumBy } from 'lodash'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -31,6 +32,7 @@ const useProject = () => {
   const [refUID, setRefUID] = useState(
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
+  const totalSplitPercent = sumBy(splitPercents, (r: any) => parseFloat(r) || 0)
   const fetchData = async () => {
     setLoading(true)
     if (dashboardData) {
@@ -96,7 +98,8 @@ const useProject = () => {
     setSplitPercents,
     removeSplit,
     activeSplit,
-    setActiveSplit
+    setActiveSplit,
+    totalSplitPercent,
   }
 }
 

@@ -12,6 +12,9 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 import useTransactionConfirm from './useTransactionConfirm'
+import { toast } from '@/components/ui/use-toast'
+import { Address, zeroAddress } from 'viem'
+import { pullSplitFactoryAbi } from '@/lib/abi/pullSplitFactory'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
@@ -19,7 +22,11 @@ const useZoraCreate = () => {
     useProjectProvider()
   const { address } = useAccount()
   const { capabilities } = usePaymasterProvider()
-  const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
+  const {
+    data: callsStatusId,
+    writeContractsAsync,
+    writeContracts,
+  } = useWriteContracts()
   const { parsedLogs } = useWaitForBatchTx(callsStatusId)
   useTransactionConfirm(callsStatusId, 'Published On Zora Successfully!')
   const { connect } = useConnectSmartWallet()
@@ -29,6 +36,8 @@ const useZoraCreate = () => {
     () => parsedLogs?.[1] && parsedLogs[1].args.newContract,
     [parsedLogs]
   )
+  const { activeSplit, splitPercents, splits, totalSplitPercent } =
+    useProjectProvider()
 
   const create = async () => {
     try {
@@ -58,12 +67,54 @@ const useZoraCreate = () => {
         account: address!,
       })
       const newParameters = { ...parameters, functionName: 'createContract' }
+      let contracts = [{ ...(newParameters as any) }]
+      if (activeSplit) {
+        if (splits.length < 2) {
+          toast({
+            title: 'Error',
+            description: 'At least two recipients are required',
+            variant: 'destructive',
+          })
+          return
+        }
+        if (totalSplitPercent !== 100) {
+          toast({
+            title: 'Error',
+            description: 'Percent allocation must add up to 100',
+            variant: 'destructive',
+          })
+          return
+        }
+        const recipients = splits.map((recipient: any, index: number) => ({
+          address: recipient,
+          percentAllocation: splitPercents[index],
+        }))
+        const pullSplitFactory =
+          '0x80f1B766817D04870f115fEBbcCADF8DBF75E017' as Address
+        contracts.push({
+          address: pullSplitFactory,
+          abi: pullSplitFactoryAbi as any,
+          functionName: 'createSplit',
+          args: [
+            {
+              recipients: recipients[0],
+              allocations: recipients[1],
+              totalAllocation: BigInt(1000000),
+              distributionIncentive: 0,
+            },
+            zeroAddress,
+            zeroAddress,
+          ],
+          account: address,
+        })
+      }
       await writeContractsAsync({
-        contracts: [{ ...(newParameters as any) }],
+        contracts,
         capabilities,
       } as any)
       setLoading(false)
     } catch (err) {
+      console.log('ZIAD HERE', err)
       setLoading(false)
       console.error(err)
     }

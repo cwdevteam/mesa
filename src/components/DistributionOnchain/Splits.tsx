@@ -14,10 +14,9 @@ const Splits = () => {
     splitPercents,
     setSplitPercents,
     removeSplit,
+    totalSplitPercent,
   } = useProjectProvider()
   const [split, setSplit] = useState('')
-
-  const totalSplitPercent = sumBy(splitPercents, (r: any) => parseFloat(r) || 0)
 
   const getPercents = (num: any) => {
     const roundedSplit = round(100 / num, SPLIT_RECIPIENT_MAX_DECIMALS)
