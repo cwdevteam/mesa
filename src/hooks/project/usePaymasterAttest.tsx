@@ -23,16 +23,13 @@ const usePaymasterAttest = () => {
   useDefaultCredit()
   useProjectCreateRedirect(callsStatusId)
 
-  const attest = async (newCredit: any = null) => {
+  const attest = async () => {
     try {
-      let newCredits = credits
-      if (newCredit) newCredits = credits.concat(newCredit)
-
       const { uri: metadataUri } = await uploadJson({
         description,
         image,
         animation_url: animationUrl,
-        credits: newCredits,
+        credits,
       })
       const encodedAttestation = getEncodedAttestationData(
         name,
