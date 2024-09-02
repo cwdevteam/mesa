@@ -12,7 +12,6 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 import useTransactionConfirm from './useTransactionConfirm'
-import { toast } from '@/components/ui/use-toast'
 import { Address, zeroAddress } from 'viem'
 import { pullSplitFactoryAbi } from '@/lib/abi/pullSplitFactory'
 
