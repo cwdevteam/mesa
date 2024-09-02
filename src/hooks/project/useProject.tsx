@@ -15,6 +15,8 @@ const useProject = () => {
   const [credits, setCredits] = useState<Credit[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [feeRecipient, setFeeRecipient] = useState(address)
+  const [splits, setSplits] = useState<any[]>([])
+  const [splitPercents, setSplitPercents] = useState<any[]>([])
   const {
     attestationData,
     dashboardData,
@@ -40,6 +42,12 @@ const useProject = () => {
       setRefUID(dashboardData['refUID'])
     }
     setLoading(false)
+  }
+
+  const setSplit = (split: any) => {
+    const temp = [...splits]
+    temp.push(split)
+    setSplits([...temp])
   }
 
   useEffect(() => {
@@ -75,6 +83,10 @@ const useProject = () => {
     setUpdating,
     externalUrl,
     setExternalUrl,
+    splits,
+    setSplit,
+    splitPercents,
+    setSplitPercents,
   }
 }
 
