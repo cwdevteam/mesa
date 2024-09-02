@@ -14,6 +14,7 @@ import { useOnchainDistributionProvider } from '@/context/OnchainDistributionPro
 import useTransactionConfirm from './useTransactionConfirm'
 import { Address, zeroAddress } from 'viem'
 import { pullSplitFactoryAbi } from '@/lib/abi/pullSplitFactory'
+import { getRecipientSortedAddressesAndAllocations } from '@0xsplits/splits-sdk/utils'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
@@ -60,7 +61,10 @@ const useZoraCreate = () => {
         account: address!,
       })
       const newParameters = { ...parameters, functionName: 'createContract' }
-      const recipients = splitArgs.recipients
+      const recipients = getRecipientSortedAddressesAndAllocations(
+        splitArgs.recipients
+      )
+
       const pullSplitFactory =
         '0x80f1B766817D04870f115fEBbcCADF8DBF75E017' as Address
       const splitParameters = {
