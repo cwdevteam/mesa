@@ -22,11 +22,7 @@ const useZoraCreate = () => {
     useProjectProvider()
   const { address } = useAccount()
   const { capabilities } = usePaymasterProvider()
-  const {
-    data: callsStatusId,
-    writeContractsAsync,
-    writeContracts,
-  } = useWriteContracts()
+  const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   const { parsedLogs } = useWaitForBatchTx(callsStatusId)
   useTransactionConfirm(callsStatusId, 'Published On Zora Successfully!')
   const { connect } = useConnectSmartWallet()
@@ -114,7 +110,6 @@ const useZoraCreate = () => {
       } as any)
       setLoading(false)
     } catch (err) {
-      console.log('ZIAD HERE', err)
       setLoading(false)
       console.error(err)
     }
