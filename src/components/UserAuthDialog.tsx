@@ -11,8 +11,6 @@ import { cn } from '@/lib/utils'
 import env from '@/env'
 import EmailAuthForm from '@/components/EmailAuthForm'
 import SocialAuthForm from '@/components/SocialAuthForm'
-import { getDictionary } from '@/lib/dictionary'
-import { Locale } from '@/../i18n.config'
 
 type UserAuthDialogProps = React.HTMLAttributes<HTMLDivElement> & {
   lang: Locale
@@ -24,9 +22,6 @@ export default async function UserAuthDialog({
   className,
   ...props
 }: UserAuthDialogProps) {
-  const {
-    auth: { userAuthDialog: dict },
-  } = await getDictionary(lang)
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

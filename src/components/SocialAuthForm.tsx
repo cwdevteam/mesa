@@ -8,8 +8,6 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { signInWithOAuth } from '@/lib/supabase/auth/actions'
 import { useFormState, useFormStatus } from 'react-dom'
-import { useLocale } from '@/context/LocaleContext'
-import { useDictionary } from '@/context/DictionaryContext'
 import { Provider } from '@supabase/supabase-js'
 
 const initialState = {} as Awaited<ReturnType<typeof signInWithOAuth>>
@@ -83,10 +81,6 @@ function SocialAuthFormFields() {
 
 export default function SocialAuthForm() {
   const { toast } = useToast()
-  const lang = useLocale()
-  const {
-    auth: { socialAuthForm: dict },
-  } = useDictionary()
   const [state, formAction] = useFormState(signInWithOAuth, initialState)
 
   useEffect(() => {
@@ -97,11 +91,10 @@ export default function SocialAuthForm() {
         variant: 'destructive',
       })
     }
-  }, [toast, state?.error, dict])
+  }, [toast, state?.error])
 
   return (
     <form action={formAction} className="contents">
-      <input type="hidden" name="lang" value={lang} />
       <SocialAuthFormFields />
     </form>
   )

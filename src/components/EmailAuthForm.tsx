@@ -9,16 +9,11 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
 import { signInWithOtp } from '@/lib/supabase/auth/actions'
 import { useFormState, useFormStatus } from 'react-dom'
-import { useLocale } from '@/context/LocaleContext'
-import { useDictionary } from '@/context/DictionaryContext'
 
 const initialState = {} as Awaited<ReturnType<typeof signInWithOtp>>
 
 function EmailAuthFormFields() {
   const { pending } = useFormStatus()
-  const {
-    auth: { emailAuthForm: dict },
-  } = useDictionary()
   return (
     <>
       <Label className="sr-only" htmlFor="email">
@@ -45,10 +40,6 @@ function EmailAuthFormFields() {
 
 export default function EmailAuthForm() {
   const { toast } = useToast()
-  const lang = useLocale()
-  const {
-    auth: { emailAuthForm: dict },
-  } = useDictionary()
   const [state, formAction] = useFormState(signInWithOtp, initialState)
 
   useEffect(() => {
@@ -64,11 +55,10 @@ export default function EmailAuthForm() {
         variant: 'destructive',
       })
     }
-  }, [toast, state, dict])
+  }, [toast, state])
 
   return (
     <form action={formAction} className="contents">
-      <input type="hidden" name="lang" value={lang} />
       <EmailAuthFormFields />
     </form>
   )
