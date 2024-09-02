@@ -63,7 +63,7 @@ const useZoraCreate = () => {
         account: address!,
       })
       const newParameters = { ...parameters, functionName: 'createContract' }
-      let contracts = [{ ...(newParameters as any) }]
+      let contracts = []
       if (activeSplit) {
         if (splits.length < 2) {
           toast({
@@ -104,6 +104,7 @@ const useZoraCreate = () => {
           account: address,
         })
       }
+      contracts.push({ ...(newParameters as any) })
       await writeContractsAsync({
         contracts,
         capabilities,
