@@ -7,7 +7,10 @@ import ProjectMetaDataDialog from './ProjectMetaDataDialog'
 import UserMatrixCardDetails from './UserMatrixCardDetails'
 import { isInvitation } from './utils'
 
-const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
+const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
+  data,
+  creditIndex,
+}) => {
   const [editModal, setEditModal] = useState<boolean>(false)
   const [requestType, setRequestType] = useState<string>('')
   const [roleId, setRoleId] = useState<string>('')
@@ -29,7 +32,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
           <AvatarFallback> ME</AvatarFallback>
         </Avatar>
         <div className="font-bold w-full text-lg flex ml-6 items-center">
-          <div>{data.name || 'Username'}</div>
+          <div>{data?.name || 'Username'}</div>
           <div>
             {isInvitation(data) === false ? (
               <div className="ml-3 w-3 h-3 bg-green-600 rounded-md"></div>
@@ -57,6 +60,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
         request={requestType}
         roleId={roleId}
         project={data}
+        creditIndex={creditIndex}
       />
     </div>
   )
