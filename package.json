@@ -7,7 +7,7 @@
     "lint": "next lint",
     "rebuild": "npm rebuild",
     "start": "next start",
-    "format": "prettier --write \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,yml,yaml}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,ts,tsx,md,mdx,yml,yaml}\" && next lint",
     "supabase": "supabase",
     "db:start": "supabase start",
     "db:stop": "supabase stop",

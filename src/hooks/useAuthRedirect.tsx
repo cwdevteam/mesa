@@ -15,7 +15,7 @@ const useAuthRedirect = () => {
       if (pathname.includes('/invite')) return
       if (pathname.endsWith('/create')) return
       if (!responseLib) return push('/profile')
-      if (pathname === '/en' || pathname === '/es') push('/dashboard')
+      if (pathname === '/') push('/dashboard')
     }
 
     if (!(isConnected && address)) {

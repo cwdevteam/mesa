@@ -19,7 +19,7 @@ const useTransactionConfirm = (callsStatusId: any, confirmText: string) => {
       description: confirmText,
       variant: 'default',
     })
-  }, [callsStatus])
+  }, [callsStatus, confirmText])
 }
 
 export default useTransactionConfirm

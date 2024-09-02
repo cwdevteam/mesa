@@ -6,7 +6,6 @@ import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { zfd } from 'zod-form-data'
 import { z } from 'zod'
-import { Locale } from '@/../i18n.config'
 import env from '@/env'
 
 const schemas = {
