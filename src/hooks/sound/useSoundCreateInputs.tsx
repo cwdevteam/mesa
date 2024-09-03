@@ -12,6 +12,7 @@ import {
   UINT32_MAX,
 } from '@/lib/consts'
 import { zeroAddress } from 'viem'
+import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
 
 const useSoundCreateInputs = () => {
   const { name, feeRecipient } = useProjectProvider()
@@ -39,10 +40,7 @@ const useSoundCreateInputs = () => {
     const recipients = splitArgs.recipients
     const shouldSplit = recipients.length !== 1
 
-    const allocations = splitArgs.recipients.map((recipient: any) => ({
-      account: recipient.address,
-      percentAllocation: recipient?.percentAllocation,
-    }))
+    const allocations = getSoundSplitAllocations(splitArgs)
 
     const createSplitConfig = shouldSplit
       ? {
