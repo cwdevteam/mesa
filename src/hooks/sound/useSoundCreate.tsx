@@ -25,7 +25,6 @@ const useSoundCreate = () => {
       await createPaymasterEdition(input)
     } catch (error) {
       setLoading(false)
-      console.log(error)
       return { error }
     }
   }

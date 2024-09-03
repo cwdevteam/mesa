@@ -12,9 +12,7 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 import useTransactionConfirm from './useTransactionConfirm'
-import { Address, zeroAddress } from 'viem'
-import { pullSplitFactoryAbi } from '@/lib/abi/pullSplitFactory'
-import { getRecipientSortedAddressesAndAllocations } from '@0xsplits/splits-sdk/utils'
+import getSplitParameters from '@/lib/getSplitParameters'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
@@ -66,31 +64,11 @@ const useZoraCreate = () => {
       })
 
       const contracts: any = []
-      const newParameters = { ...parameters, functionName: 'createContract' }
       if (shouldSplit) {
-        const splitRecipients = getRecipientSortedAddressesAndAllocations(
-          splitArgs.recipients
-        )
-        const pullSplitFactory =
-          '0x80f1B766817D04870f115fEBbcCADF8DBF75E017' as Address
-        const splitParameters = {
-          address: pullSplitFactory,
-          abi: pullSplitFactoryAbi as any,
-          functionName: 'createSplit',
-          args: [
-            {
-              recipients: splitRecipients[0],
-              allocations: splitRecipients[1],
-              totalAllocation: BigInt(1000000),
-              distributionIncentive: 0,
-            },
-            zeroAddress,
-            zeroAddress,
-          ],
-          account: address,
-        }
+        const splitParameters = getSplitParameters(address, splitArgs)
         contracts.push(splitParameters)
       }
+      const newParameters = { ...parameters, functionName: 'createContract' }
       contracts.push(newParameters)
       await writeContractsAsync({
         contracts,
