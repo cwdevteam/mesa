@@ -3,6 +3,7 @@ import { coinbaseWallet } from 'wagmi/connectors'
 import { CHAIN, CHAIN_ID } from '../consts'
 
 const wagmiConfig = createConfig({
+  ssr: true,
   chains: [CHAIN],
   connectors: [
     coinbaseWallet({
