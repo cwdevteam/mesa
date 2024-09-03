@@ -16,8 +16,7 @@ import getSplitParameters from '@/lib/getSplitParameters'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
-  const { name, description, animationUrl, image, feeRecipient } =
-    useProjectProvider()
+  const { name, description, animationUrl, image } = useProjectProvider()
   const { address } = useAccount()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
@@ -35,6 +34,9 @@ const useZoraCreate = () => {
     try {
       if (!address) await connect()
       setLoading(true)
+      const recipients = splitArgs.recipients
+      const shouldSplit = recipients.length !== 1
+
       const creatorClient = createCreatorClient({
         chainId: CHAIN_ID,
         publicClient,
@@ -45,22 +47,29 @@ const useZoraCreate = () => {
         image,
         animation_url: animationUrl,
       })
+      const tokenConfig: any = {
+        tokenMetadataURI: uri,
+        createReferral: REFERRAL_RECIPIENT,
+        salesConfig,
+      }
+      if (!shouldSplit) tokenConfig.payoutRecipient = recipients[0].address
+
       const { parameters } = await creatorClient.create1155({
         contract: {
           name,
           uri,
         },
-        token: {
-          tokenMetadataURI: uri,
-          createReferral: REFERRAL_RECIPIENT,
-          payoutRecipient: feeRecipient,
-          salesConfig,
-        },
+        token: tokenConfig,
         account: address!,
       })
+
+      const contracts: any = []
+      if (shouldSplit) {
+        const splitParameters = getSplitParameters(address, splitArgs)
+        contracts.push(splitParameters)
+      }
       const newParameters = { ...parameters, functionName: 'createContract' }
-      const splitParameters = getSplitParameters(address, splitArgs)
-      const contracts = [splitParameters, newParameters]
+      contracts.push(newParameters)
       await writeContractsAsync({
         contracts,
         capabilities,

@@ -8,11 +8,7 @@ import Price from './Price'
 import ZoraSaleStrategyTabs from './ZoraSaleStrategyTabs'
 import RecipientSetter from '../CreateSplit/RecipientSetter'
 import { FormProvider, useForm } from 'react-hook-form'
-import {
-  CHAIN,
-  DEFAULT_DISTRIBUTOR_FEE,
-  DEFAULT_RECIPIENTS,
-} from '@/lib/consts'
+import { CHAIN, DEFAULT_DISTRIBUTOR_FEE } from '@/lib/consts'
 import { zeroAddress } from 'viem'
 import { ICreateSplitForm } from '@/types/mesa'
 import useSoundCreate from '@/hooks/sound/useSoundCreate'
@@ -21,6 +17,7 @@ import getCollectPageUrl from '@/lib/zora/getCollectPageUrl'
 import { useSwitchChain } from 'wagmi'
 import { useCallback } from 'react'
 import { CreateSplitConfig } from '@0xsplits/splits-sdk'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 export default function TokenForm() {
   const { isZora, isFixedPrice, isSound } = useOnchainDistributionProvider()
@@ -29,6 +26,12 @@ export default function TokenForm() {
   const zoraUrl = getCollectPageUrl(createdContract)
   const creating = zoraCreating || soundCreating
   const { switchChainAsync } = useSwitchChain()
+  const { credits } = useProjectProvider()
+
+  const defaultRecipients = credits?.map((credit: any) => ({
+    address: credit.address,
+    percentAllocation: credits?.length === 1 ? 100 : 0,
+  }))
 
   const onSubmit = useCallback(
     async (data: ICreateSplitForm) => {
@@ -57,7 +60,7 @@ export default function TokenForm() {
   const form = useForm<ICreateSplitForm>({
     mode: 'onChange',
     defaultValues: {
-      recipients: DEFAULT_RECIPIENTS,
+      recipients: defaultRecipients,
       controller: zeroAddress,
       distributorFee: DEFAULT_DISTRIBUTOR_FEE,
     },

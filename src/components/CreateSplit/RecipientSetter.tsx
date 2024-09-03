@@ -19,8 +19,9 @@ const RecipientSetter = () => {
   const recipients = watch('recipients')
 
   useEffect(() => {
-    if (recipients.length < 2) append(EMPTY_RECIPIENT, { shouldFocus: false })
-  }, [append, recipients.length])
+    if (recipients.length === 0) append(EMPTY_RECIPIENT, { shouldFocus: false })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipients])
 
   const totalAllocated = sumBy(recipients, (r) => r.percentAllocation || 0)
 
@@ -89,7 +90,12 @@ const RecipientSetter = () => {
     <div className="space-y-4">
       <p className="text-[14px]">Recipients</p>
       {fields.map((f, index) => (
-        <RecipientRow key={f.id} index={index} onRemove={() => remove(index)} />
+        <RecipientRow
+          key={f.id}
+          index={index}
+          onRemove={() => remove(index)}
+          removable={fields?.length > 1}
+        />
       ))}
       <div className="flex justify-between">
         <SecondaryButton
