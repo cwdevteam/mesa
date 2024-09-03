@@ -54,11 +54,14 @@ const usePaymasterAttest = () => {
         external_url: externalUrl,
         credits,
       })
+      const authors = credits.map((credit: any) => credit.name)
+      const authorAddresses = credits.map((credit: any) => credit.address)
+
       const encodedAttestation = getEncodedAttestationData(
         name,
         metadataUri,
-        [credits[0].name],
-        [credits[0].address],
+        authors,
+        authorAddresses,
         []
       )
       const args = getAttestArgs(encodedAttestation, refUID)
