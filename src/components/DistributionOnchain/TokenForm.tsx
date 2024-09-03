@@ -41,7 +41,7 @@ export default function TokenForm() {
 
       if (createdContract) return window.open(zoraUrl, '_blank')
       if (isZora) return await create(args)
-      if (isSound) return await createEdition()
+      if (isSound) return await createEdition(args)
     },
     [
       switchChainAsync,

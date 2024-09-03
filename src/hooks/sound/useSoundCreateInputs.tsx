@@ -5,7 +5,15 @@ import { usePublicClient, useWalletClient } from 'wagmi'
 import { editionV2WalletActionsCreate } from '@soundxyz/sdk/contract/edition-v2/write/create'
 import { editionV2PublicActionsCreate } from '@soundxyz/sdk/contract/edition-v2/read/create'
 import { useProjectProvider } from '@/context/ProjectProvider'
-import { NULL_ADDRESS, NULL_BYTES32, UINT32_MAX } from '@/lib/consts'
+import {
+  DEFAULT_DISTRIBUTOR_FEE,
+  NULL_ADDRESS,
+  NULL_BYTES32,
+  UINT32_MAX,
+} from '@/lib/consts'
+import { zeroAddress } from 'viem'
+import { getRecipientSortedAddressesAndAllocations } from '@0xsplits/splits-sdk/utils'
+import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
 
 const useSoundCreateInputs = () => {
   const { name, feeRecipient } = useProjectProvider()
@@ -16,7 +24,7 @@ const useSoundCreateInputs = () => {
     return wallet.extend(editionV2WalletActionsCreate)
   }, [wallet])
 
-  const getInputs = async (metadataUri: string) => {
+  const getInputs = async (metadataUri: string, splitArgs: any) => {
     if (!publicClient) {
       console.error('Public client not found')
       return
@@ -30,11 +38,17 @@ const useSoundCreateInputs = () => {
         deployer: walletClient.account.address,
       })
 
+    const allocations = getSoundSplitAllocations(splitArgs)
+
     const { input } = await publicClient.editionV2.createEditionParameters({
       precomputedEdition: edition,
       formattedSalt,
       chain: walletClient.chain,
-      createSplit: null,
+      createSplit: {
+        distributorFee: DEFAULT_DISTRIBUTOR_FEE,
+        controller: zeroAddress,
+        accountAllocations: allocations,
+      },
       editionConfig: {
         baseURI: metadataUri,
         contractURI: metadataUri,
