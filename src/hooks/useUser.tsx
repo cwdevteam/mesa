@@ -11,6 +11,7 @@ const useUser = () => {
   useAuthRedirect()
 
   const fetchUser = useCallback(async () => {
+    if (!address) return
     const response = await fetchUserByAddress(address as Address)
     setUser(response)
   }, [address])
@@ -18,7 +19,7 @@ const useUser = () => {
   useEffect(() => {
     fetchUser()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [fetchUser])
 
   return { user, fetchUser }
 }
