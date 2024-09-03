@@ -36,20 +36,27 @@ const useSoundCreateInputs = () => {
         deployer: walletClient.account.address,
       })
 
+    const recipients = splitArgs.recipients
+    const shouldSplit = recipients.length !== 1
+
     const allocations = splitArgs.recipients.map((recipient: any) => ({
       account: recipient.address,
       percentAllocation: recipient?.percentAllocation,
     }))
 
+    const createSplitConfig = shouldSplit
+      ? {
+          distributorFee: DEFAULT_DISTRIBUTOR_FEE,
+          controller: zeroAddress,
+          accountAllocations: allocations,
+        }
+      : null
+
     const { input } = await publicClient.editionV2.createEditionParameters({
       precomputedEdition: edition,
       formattedSalt,
       chain: walletClient.chain,
-      createSplit: {
-        distributorFee: DEFAULT_DISTRIBUTOR_FEE,
-        controller: zeroAddress,
-        accountAllocations: allocations,
-      },
+      createSplit: createSplitConfig,
       editionConfig: {
         baseURI: metadataUri,
         contractURI: metadataUri,

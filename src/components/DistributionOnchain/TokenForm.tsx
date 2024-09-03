@@ -34,7 +34,7 @@ export default function TokenForm() {
 
   const defaultRecipients = credits?.map((credit: any) => ({
     address: credit.address,
-    percentAllocation: 0
+    percentAllocation: credits?.length === 1 ? 100 : 0,
   }))
 
   const onSubmit = useCallback(

@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import { useFormContext } from 'react-hook-form'
+import { useFieldArray, useFormContext } from 'react-hook-form'
 import { isAddress } from 'viem'
 
 import AddressInput from './AddressInput'
@@ -10,9 +10,11 @@ import { Button } from '../ui/button'
 export const RecipientRow = ({
   index,
   onRemove,
+  removable,
 }: {
   index: number
   onRemove?: () => void
+  removable: boolean
 }) => {
   const { control, getValues, setValue, setError } =
     useFormContext<ICreateSplitForm>()
@@ -51,12 +53,14 @@ export const RecipientRow = ({
             suffix="%"
           />
         </div>
-        <Button
-          onClick={onRemove}
-          className="border-gray-200 transition hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-500"
-        >
-          <XMarkIcon className="w-4" />
-        </Button>
+        {removable && (
+          <Button
+            onClick={onRemove}
+            className="border-gray-200 transition hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-500"
+          >
+            <XMarkIcon className="w-4" />
+          </Button>
+        )}
       </div>
     </fieldset>
   )
