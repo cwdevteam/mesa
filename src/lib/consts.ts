@@ -22,3 +22,5 @@ export const DEFAULT_DISTRIBUTOR_FEE = 0
 
 export const PERCENTAGE_SCALE = 1e6
 export const SPLIT_RECIPIENT_MAX_DECIMALS = 4
+
+export const PullSplitFactory = '0x80f1B766817D04870f115fEBbcCADF8DBF75E017'
