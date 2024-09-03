@@ -21,6 +21,7 @@ import getCollectPageUrl from '@/lib/zora/getCollectPageUrl'
 import { useSwitchChain } from 'wagmi'
 import { useCallback } from 'react'
 import { CreateSplitConfig } from '@0xsplits/splits-sdk'
+import { useProjectProvider } from '@/context/ProjectProvider'
 
 export default function TokenForm() {
   const { isZora, isFixedPrice, isSound } = useOnchainDistributionProvider()
@@ -29,6 +30,12 @@ export default function TokenForm() {
   const zoraUrl = getCollectPageUrl(createdContract)
   const creating = zoraCreating || soundCreating
   const { switchChainAsync } = useSwitchChain()
+  const { credits } = useProjectProvider()
+
+  const defaultRecipients = credits?.map((credit: any) => ({
+    address: credit.address,
+    percentAllocation: 0
+  }))
 
   const onSubmit = useCallback(
     async (data: ICreateSplitForm) => {
@@ -57,7 +64,7 @@ export default function TokenForm() {
   const form = useForm<ICreateSplitForm>({
     mode: 'onChange',
     defaultValues: {
-      recipients: DEFAULT_RECIPIENTS,
+      recipients: defaultRecipients,
       controller: zeroAddress,
       distributorFee: DEFAULT_DISTRIBUTOR_FEE,
     },

@@ -44,7 +44,7 @@ export const RecipientRow = ({
           <NumberInput
             inputName={`recipients.${index}.percentAllocation`}
             control={control}
-            maxVal={99.9999}
+            maxVal={100}
             minVal={0.0001}
             decimalScale={4}
             placeholder={'0.00%'}

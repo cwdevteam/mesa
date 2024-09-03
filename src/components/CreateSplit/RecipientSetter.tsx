@@ -19,8 +19,8 @@ const RecipientSetter = () => {
   const recipients = watch('recipients')
 
   useEffect(() => {
-    if (recipients.length < 2) append(EMPTY_RECIPIENT, { shouldFocus: false })
-  }, [append, recipients.length])
+    if (recipients.length === 0) append(EMPTY_RECIPIENT, { shouldFocus: false })
+  }, [recipients])
 
   const totalAllocated = sumBy(recipients, (r) => r.percentAllocation || 0)
 
