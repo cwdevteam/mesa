@@ -23,6 +23,7 @@ const attest = async (
     })
     return tx
   } catch (error) {
+    console.error('Error during attestation:', error)
     return { error }
   }
 }
