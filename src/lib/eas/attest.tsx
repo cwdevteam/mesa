@@ -23,7 +23,6 @@ const attest = async (
     })
     return tx
   } catch (error) {
-    console.log('DEBUG ZIAD', error)
     return { error }
   }
 }
