@@ -12,6 +12,7 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 import useTransactionConfirm from './useTransactionConfirm'
+import getSplitParameters from '@/lib/getSplitParameters'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
@@ -30,7 +31,7 @@ const useZoraCreate = () => {
     [parsedLogs]
   )
 
-  const create = async () => {
+  const create = async (splitArgs: any) => {
     try {
       if (!address) await connect()
       setLoading(true)
@@ -58,8 +59,10 @@ const useZoraCreate = () => {
         account: address!,
       })
       const newParameters = { ...parameters, functionName: 'createContract' }
+      const splitParameters = getSplitParameters(address, splitArgs)
+      const contracts = [splitParameters, newParameters]
       await writeContractsAsync({
-        contracts: [{ ...(newParameters as any) }],
+        contracts,
         capabilities,
       } as any)
       setLoading(false)

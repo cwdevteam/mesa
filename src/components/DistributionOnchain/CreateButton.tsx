@@ -13,7 +13,7 @@ const CreateButton = ({
     watch('recipients').map((recipient: any) => recipient.percentAllocation)
   )
   const isFullyAllocated = recipientAllocationTotal === 100
-  const isButtonDisabled = !isFormValid || !isFullyAllocated
+  const isButtonDisabled = !isFormValid || !isFullyAllocated || creating
   const buttonLabel = creating ? 'Creating...' : 'Create Token'
 
   return (
