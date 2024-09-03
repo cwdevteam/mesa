@@ -7,6 +7,9 @@ import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useWriteContracts } from 'wagmi/experimental'
 import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
+import { useAccount, useConnect, useSwitchChain } from 'wagmi'
+import { CHAIN } from '@/lib/consts'
+import useConnectSmartWallet from '../useConnectSmartWallet'
 
 const usePaymasterAttest = () => {
   const {
@@ -23,9 +26,17 @@ const usePaymasterAttest = () => {
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   useDefaultCredit()
   useProjectCreateRedirect(callsStatusId)
+  const { switchChainAsync } = useSwitchChain()
+  const { address } = useAccount()
+  const { connect } = useConnectSmartWallet()
 
   const attest = async () => {
     try {
+      if (!address) {
+        connect()
+        return
+      }
+      await switchChainAsync({ chainId: CHAIN.id })
       const { uri: metadataUri } = await uploadJson({
         description,
         image,
@@ -43,7 +54,12 @@ const usePaymasterAttest = () => {
       const args = getAttestArgs(encodedAttestation, refUID)
       setCreatingStatus(true)
 
-      const response = await easAttest(writeContractsAsync, capabilities, args)
+      const response = await easAttest(
+        writeContractsAsync,
+        capabilities,
+        args,
+        address
+      )
       return response
     } catch (error) {
       return { error }
