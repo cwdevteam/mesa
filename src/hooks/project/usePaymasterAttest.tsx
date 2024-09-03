@@ -7,7 +7,7 @@ import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useWriteContracts } from 'wagmi/experimental'
 import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
-import { useAccount, useConnect, useSwitchChain } from 'wagmi'
+import { useAccount, useSwitchChain } from 'wagmi'
 import { CHAIN } from '@/lib/consts'
 import useConnectSmartWallet from '../useConnectSmartWallet'
 
