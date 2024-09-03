@@ -24,7 +24,6 @@ const InvitePageButtons = () => {
       connect()
       return
     }
-    if (!user?.full_name) return
     try {
       if (!accepted) {
         toast({
@@ -40,7 +39,7 @@ const InvitePageButtons = () => {
         address,
         collaboratorType: 'Owner',
         contractType: 'Master',
-        name: user.full_name,
+        name: user?.full_name || 'Unknown',
         splitBps: 10000,
       })
       setCredits([...newCredits])
