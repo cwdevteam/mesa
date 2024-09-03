@@ -8,11 +8,7 @@ import Price from './Price'
 import ZoraSaleStrategyTabs from './ZoraSaleStrategyTabs'
 import RecipientSetter from '../CreateSplit/RecipientSetter'
 import { FormProvider, useForm } from 'react-hook-form'
-import {
-  CHAIN,
-  DEFAULT_DISTRIBUTOR_FEE,
-  DEFAULT_RECIPIENTS,
-} from '@/lib/consts'
+import { CHAIN, DEFAULT_DISTRIBUTOR_FEE } from '@/lib/consts'
 import { zeroAddress } from 'viem'
 import { ICreateSplitForm } from '@/types/mesa'
 import useSoundCreate from '@/hooks/sound/useSoundCreate'
