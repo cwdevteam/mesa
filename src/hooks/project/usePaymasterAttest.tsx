@@ -62,6 +62,7 @@ const usePaymasterAttest = () => {
       )
       return response
     } catch (error) {
+      console.log('DEBUG ZIAD', error)
       return { error }
     }
   }
