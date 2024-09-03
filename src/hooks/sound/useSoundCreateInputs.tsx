@@ -12,6 +12,8 @@ import {
   UINT32_MAX,
 } from '@/lib/consts'
 import { zeroAddress } from 'viem'
+import { getRecipientSortedAddressesAndAllocations } from '@0xsplits/splits-sdk/utils'
+import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
 
 const useSoundCreateInputs = () => {
   const { name, feeRecipient } = useProjectProvider()
@@ -36,10 +38,7 @@ const useSoundCreateInputs = () => {
         deployer: walletClient.account.address,
       })
 
-    const allocations = splitArgs.recipients.map((recipient: any) => ({
-      account: recipient.address,
-      percentAllocation: recipient?.percentAllocation,
-    }))
+    const allocations = getSoundSplitAllocations(splitArgs)
 
     const { input } = await publicClient.editionV2.createEditionParameters({
       precomputedEdition: edition,
