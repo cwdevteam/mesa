@@ -13,7 +13,6 @@ const useProject = () => {
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
   const [feeRecipient, setFeeRecipient] = useState(address)
   const {
     attestationData,
@@ -29,7 +28,6 @@ const useProject = () => {
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
   const fetchData = async () => {
-    setLoading(true)
     if (dashboardData) {
       setName(dashboardData['name'])
       setDescription(dashboardData['description'])
@@ -39,11 +37,10 @@ const useProject = () => {
       setImage(dashboardData['image'] || '')
       setRefUID(dashboardData['refUID'])
     }
-    setLoading(false)
   }
 
   useEffect(() => {
-    dashboardData && loading && fetchData()
+    dashboardData && fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dashboardData])
 
@@ -64,7 +61,7 @@ const useProject = () => {
     setCreatingStatus,
     creatingStatus,
     refUID,
-    loading: loading || loadingAttestation,
+    loading: loadingAttestation,
     uploadingAudio,
     setUploadingAudio,
     uploadingImage,
