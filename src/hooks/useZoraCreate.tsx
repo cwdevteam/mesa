@@ -13,6 +13,7 @@ import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 import useTransactionConfirm from './useTransactionConfirm'
 import getSplitParameters from '@/lib/getSplitParameters'
+import getSplitWallet from '@/lib/getSplitWallet'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
@@ -47,19 +48,19 @@ const useZoraCreate = () => {
         image,
         animation_url: animationUrl,
       })
-      const tokenConfig: any = {
-        tokenMetadataURI: uri,
-        createReferral: REFERRAL_RECIPIENT,
-        salesConfig,
-      }
-      if (!shouldSplit) tokenConfig.payoutRecipient = recipients[0].address
+      const splitWallet = await getSplitWallet(splitArgs)
 
       const { parameters } = await creatorClient.create1155({
         contract: {
           name,
           uri,
         },
-        token: tokenConfig,
+        token: {
+          tokenMetadataURI: uri,
+          createReferral: REFERRAL_RECIPIENT,
+          salesConfig,
+          payoutRecipient: shouldSplit ? splitWallet : recipients[0].address,
+        },
         account: address!,
       })
 
