@@ -6,13 +6,15 @@ import { editionV2WalletActionsCreate } from '@soundxyz/sdk/contract/edition-v2/
 import { editionV2PublicActionsCreate } from '@soundxyz/sdk/contract/edition-v2/read/create'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import useCreateSplit from '../useCreateSplit'
-import getCreateEditionparameter from '@/lib/getCreateEditionParameter'
+import getCreateEditionParameter from '@/lib/getCreateEditionParameter'
 
 const useSoundCreateInputs = () => {
   const { name } = useProjectProvider()
   const { data: wallet } = useWalletClient()
-  const publicClient = usePublicClient()?.extend(editionV2PublicActionsCreate)
-  const walletClient = useMemo(() => {
+  const publicClient: any = usePublicClient()?.extend(
+    editionV2PublicActionsCreate
+  )
+  const walletClient: any = useMemo(() => {
     if (!wallet) return null
     return wallet.extend(editionV2WalletActionsCreate)
   }, [wallet])
@@ -37,33 +39,32 @@ const useSoundCreateInputs = () => {
 
   useEffect(() => {
     const init = async () => {
-      if (!publicClient) {
-        console.error('Public client not found')
-        return
-      }
-      if (!walletClient) {
-        console.error('Wallet not found')
-        return
-      }
       const { edition, formattedSalt } =
         await publicClient.editionV2.getExpectedEditionAddress({
           deployer: walletClient.account.address,
         })
 
-      const editionParameters: any = getCreateEditionparameter(
+      const editionParameters: any = getCreateEditionParameter(
         edition,
         formattedSalt,
         walletClient?.chain,
         metadataUri,
+        name,
         fundingRecipient,
         walletClient?.account?.address
       )
 
-      const { input } = await publicClient.editionV2.createEditionParameters(editionParameters)
+      const { input } =
+        await publicClient.editionV2.createEditionParameters(editionParameters)
       setInput(input)
+      setFundingRecipient(null)
     }
-    if (!fundingRecipient || !metadataUri) init()
-  }, [fundingRecipient, metadataUri])
+    if (!fundingRecipient || !metadataUri || !walletClient || !publicClient)
+      return
+
+    init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fundingRecipient, metadataUri, publicClient, walletClient])
 
   return { getInputs, setMetadataUri, input, setInput }
 }

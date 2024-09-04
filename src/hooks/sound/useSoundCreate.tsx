@@ -32,12 +32,14 @@ const useSoundCreate = () => {
   useEffect(() => {
     const init = async () => {
       await createPaymasterEdition(input)
-      setInput(false)
+      setInput(null)
     }
 
     if (!input) return
 
     init()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input])
 
   return { createEdition, soundCreating: loading }

@@ -1,10 +1,11 @@
 import { NULL_ADDRESS, NULL_BYTES32, UINT32_MAX } from './consts'
 
-const getCreateEditionparameter = (
+const getCreateEditionParameter = (
   edition: any,
   formattedSalt: any,
   chain: any,
   metadataUri: any,
+  name: any,
   fundingRecipient: any,
   owner: any
 ) => {
@@ -52,4 +53,4 @@ const getCreateEditionparameter = (
   }
 }
 
-export default getCreateEditionparameter
+export default getCreateEditionParameter
