@@ -30,7 +30,9 @@ const useZoraCreate = () => {
     () => parsedCreatedLogs?.[1] && parsedCreatedLogs[1].args.newContract,
     [parsedCreatedLogs]
   )
-  const [fundingRecipient, setFundingRecipient] = useState<any>(null)
+  const [fundingRecipient, setFundingRecipient] = useState<any>(
+    '0xeD1fD266fe4414F2b8a80F8930E286FE78245369'
+  )
 
   const create = async (splitArgs: any) => {
     try {
@@ -52,44 +54,59 @@ const useZoraCreate = () => {
 
   useEffect(() => {
     const init = async () => {
-      const creatorClient = createCreatorClient({
-        chainId: CHAIN_ID,
-        publicClient,
-      })
-      const { uri } = await uploadJson({
-        name,
-        description,
-        image,
-        animation_url: animationUrl,
-      })
-      const { parameters } = await creatorClient.create1155({
-        contract: {
+      try {
+        const creatorClient = createCreatorClient({
+          chainId: CHAIN_ID,
+          publicClient,
+        })
+        const { uri } = await uploadJson({
           name,
-          uri,
-        },
-        token: {
-          tokenMetadataURI: uri,
-          createReferral: REFERRAL_RECIPIENT,
-          salesConfig,
-          payoutRecipient: fundingRecipient,
-        },
-        account: address!,
-      })
-      const newParameters = { ...parameters, functionName: 'createContract' }
+          description,
+          image,
+          animation_url: animationUrl,
+        })
+        const { parameters } = await creatorClient.create1155({
+          contract: {
+            name,
+            uri,
+          },
+          token: {
+            tokenMetadataURI: uri,
+            createReferral: REFERRAL_RECIPIENT,
+            salesConfig,
+            payoutRecipient: fundingRecipient,
+          },
+          account: address!,
+        })
+        const newParameters = { ...parameters, functionName: 'createContract' }
 
-      await writeContractsAsync({
-        contracts: [{ ...newParameters }],
-        capabilities,
-      })
+        await writeContractsAsync({
+          contracts: [{ ...newParameters }],
+          capabilities,
+        })
 
-      setFundingRecipient(null)
-      setLoading(false)
+        setFundingRecipient(null)
+        setLoading(false)
+      } catch (error) {
+        console.error(error)
+        setLoading(false)
+      }
     }
-    if (!fundingRecipient) return
+
+    console.log(
+      'ZIAD DEBUG',
+      fundingRecipient,
+      publicClient,
+      animationUrl,
+      address,
+      salesConfig
+    )
+
+    if (!fundingRecipient || !publicClient || !address) return
 
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fundingRecipient])
+  }, [fundingRecipient, publicClient, animationUrl, address, salesConfig])
 
   useEffect(() => {
     if (createdSplit) setFundingRecipient(createdSplit)

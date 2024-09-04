@@ -20,8 +20,6 @@ const useCreateSplit = () => {
     [parsedLogs]
   )
 
-  console.log("ZIAD DEBUG", parsedLogs, createdSplit)
-  
   const createSplit = async (splitArgs: any) => {
     try {
       const splitParameters = getSplitParameters(address, splitArgs)
