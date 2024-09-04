@@ -10,6 +10,7 @@ const useProjectMedia = (animationUrl: string, image: string, name: string) => {
       const changes = {
         name,
         url: getIpfsLink(animationUrl),
+        avatar: image ? getIpfsLink(image) : '',
       } as any
       handleAdd(changes)
     }
@@ -17,21 +18,7 @@ const useProjectMedia = (animationUrl: string, image: string, name: string) => {
     if (!animationUrl || !name) return
     addAnimationToMediaPlayer()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animationUrl, name])
-
-  useEffect(() => {
-    const addImageToMediaPlayer = () => {
-      const changes = {
-        avatar: getIpfsLink(image),
-        name,
-      } as any
-      handleAdd(changes)
-    }
-
-    if (!image || !name) return
-    addImageToMediaPlayer()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [image, name])
+  }, [animationUrl, name, image])
 }
 
 export default useProjectMedia
