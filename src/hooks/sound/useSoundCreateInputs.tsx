@@ -13,9 +13,10 @@ import {
 } from '@/lib/consts'
 import { zeroAddress } from 'viem'
 import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
+import getSplitWallet from '@/lib/getSplitWallet'
 
 const useSoundCreateInputs = () => {
-  const { name, feeRecipient } = useProjectProvider()
+  const { name } = useProjectProvider()
   const { data: wallet } = useWalletClient()
   const publicClient = usePublicClient()?.extend(editionV2PublicActionsCreate)
   const walletClient = useMemo(() => {
@@ -41,6 +42,7 @@ const useSoundCreateInputs = () => {
     const shouldSplit = recipients.length !== 1
 
     const allocations = getSoundSplitAllocations(splitArgs)
+    const splitWallet = await getSplitWallet(splitArgs)
 
     const createSplitConfig = shouldSplit
       ? {
@@ -58,7 +60,7 @@ const useSoundCreateInputs = () => {
       editionConfig: {
         baseURI: metadataUri,
         contractURI: metadataUri,
-        fundingRecipient: feeRecipient,
+        fundingRecipient: shouldSplit ? splitWallet : recipients[0].address,
         name,
         royaltyBPS: 500,
         symbol: name,
