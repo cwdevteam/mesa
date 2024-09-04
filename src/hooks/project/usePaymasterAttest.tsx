@@ -7,6 +7,7 @@ import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useWriteContracts } from 'wagmi/experimental'
 import useProjectCreateRedirect from './useProjectCreateRedirect'
 import useDefaultCredit from './useDefaultCredit'
+import { useAccount } from 'wagmi'
 
 const usePaymasterAttest = () => {
   const {
@@ -22,8 +23,10 @@ const usePaymasterAttest = () => {
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   useDefaultCredit()
   useProjectCreateRedirect(callsStatusId)
+  const { address } = useAccount()
 
   const attest = async () => {
+    console.log("Name: " + name)
     try {
       const { uri: metadataUri } = await uploadJson({
         description,
@@ -34,8 +37,8 @@ const usePaymasterAttest = () => {
       const encodedAttestation = getEncodedAttestationData(
         name,
         metadataUri,
-        [credits[0].name],
-        [credits[0].address],
+        [credits[0]?.name ?? ''],
+        [credits[0]?.address ?? address],
         []
       )
       const args = getAttestArgs(encodedAttestation, refUID)

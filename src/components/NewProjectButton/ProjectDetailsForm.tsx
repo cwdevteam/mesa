@@ -17,6 +17,7 @@ export default function ProjectDetailsForm() {
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
+    console.log("Button Handle Click")
     if (!name) {
       toast({
         title: 'Error',
@@ -28,6 +29,7 @@ export default function ProjectDetailsForm() {
 
     setLoading(true)
     const response = await attest()
+    console.log(response.error)
     if (response?.error) {
       setCreatingStatus(false)
       toast({

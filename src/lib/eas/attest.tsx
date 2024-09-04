@@ -1,9 +1,10 @@
 import { easAbi } from '../abi/eas'
-import { EAS } from '../consts'
+import { CHAIN_ID, EAS } from '../consts'
 
 const attest = async (writeContracts: any, capabilities: any, args: any[]) => {
   try {
     const tx = await writeContracts({
+      chainId:CHAIN_ID,
       contracts: [
         {
           address: EAS,
