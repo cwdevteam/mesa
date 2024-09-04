@@ -31,6 +31,7 @@ export const useMediaController = () => {
     if (audioRef.current) {
       audioRef.current.src = medias[currentMedia]?.url
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMedia, medias])
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export const useMediaController = () => {
         audioRef.current.pause()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, audioRef.current])
 
   const handlePlayPause = () => {

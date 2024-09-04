@@ -2,6 +2,7 @@ import { TimelineFile } from '@/context/TimelineContext'
 
 export default function FilePreview({ file }: { file: TimelineFile }) {
   if (file.type.startsWith('image/')) {
+    // eslint-disable-next-line @next/next/no-img-element
     return <img src={file.data} alt={file.name} />
   } else if (file.type.startsWith('video/')) {
     return (

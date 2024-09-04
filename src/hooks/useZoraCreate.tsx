@@ -12,11 +12,12 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useOnchainDistributionProvider } from '@/context/OnchainDistributionProvider'
 import useTransactionConfirm from './useTransactionConfirm'
+import getSplitParameters from '@/lib/getSplitParameters'
+import getSplitWallet from '@/lib/getSplitWallet'
 
 const useZoraCreate = () => {
   const publicClient = usePublicClient()!
-  const { name, description, animationUrl, image, feeRecipient } =
-    useProjectProvider()
+  const { name, description, animationUrl, image } = useProjectProvider()
   const { address } = useAccount()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
@@ -30,10 +31,13 @@ const useZoraCreate = () => {
     [parsedLogs]
   )
 
-  const create = async () => {
+  const create = async (splitArgs: any) => {
     try {
       if (!address) await connect()
       setLoading(true)
+      const recipients = splitArgs.recipients
+      const shouldSplit = recipients.length !== 1
+
       const creatorClient = createCreatorClient({
         chainId: CHAIN_ID,
         publicClient,
@@ -44,6 +48,8 @@ const useZoraCreate = () => {
         image,
         animation_url: animationUrl,
       })
+      const splitWallet = await getSplitWallet(splitArgs)
+
       const { parameters } = await creatorClient.create1155({
         contract: {
           name,
@@ -52,14 +58,21 @@ const useZoraCreate = () => {
         token: {
           tokenMetadataURI: uri,
           createReferral: REFERRAL_RECIPIENT,
-          payoutRecipient: feeRecipient,
           salesConfig,
+          payoutRecipient: shouldSplit ? splitWallet : recipients[0].address,
         },
         account: address!,
       })
+
+      const contracts: any = []
+      if (shouldSplit) {
+        const splitParameters = getSplitParameters(address, splitArgs)
+        contracts.push(splitParameters)
+      }
       const newParameters = { ...parameters, functionName: 'createContract' }
+      contracts.push(newParameters)
       await writeContractsAsync({
-        contracts: [{ ...(newParameters as any) }],
+        contracts,
         capabilities,
       } as any)
       setLoading(false)

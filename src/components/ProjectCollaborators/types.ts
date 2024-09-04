@@ -20,6 +20,7 @@ export interface ProjectMetaDataDialogProps
   selectedUser?: any
   request?: string
   roleId?: string
+  creditIndex: number
   open?: boolean
   setOpen?: (value: boolean) => void
 }

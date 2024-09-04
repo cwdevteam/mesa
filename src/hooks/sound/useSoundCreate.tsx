@@ -12,7 +12,7 @@ const useSoundCreate = () => {
   const { createPaymasterEdition } = useSoundCreatePaymasterEdition()
   const [loading, setLoading] = useState(false)
 
-  const createEdition = async () => {
+  const createEdition = async (splitArgs: any) => {
     setLoading(true)
     try {
       const { uri } = await uploadJson({
@@ -21,7 +21,7 @@ const useSoundCreate = () => {
         image,
         animation_url: animationUrl,
       })
-      const input = await getInputs(uri)
+      const input = await getInputs(uri, splitArgs)
       await createPaymasterEdition(input)
     } catch (error) {
       setLoading(false)

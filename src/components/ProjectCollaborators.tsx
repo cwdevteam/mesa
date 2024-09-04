@@ -27,7 +27,11 @@ const ProjectCollaborators = () => {
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
         <div className="w-full grid grid-cols-1 gap-4">
           {credits.map((collaborator: Credit, index: number) => (
-            <UserMatrixCard key={index} data={collaborator} />
+            <UserMatrixCard
+              key={index}
+              data={collaborator}
+              creditIndex={index}
+            />
           ))}
         </div>
       </div>

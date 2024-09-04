@@ -1,6 +1,6 @@
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { Button } from '../ui/button'
-import { use, useState } from 'react'
+import { useState } from 'react'
 import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 
 const UpdateProjectButton = () => {

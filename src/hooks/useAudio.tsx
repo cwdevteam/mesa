@@ -35,6 +35,7 @@ const useAudio = ({
       audio.removeEventListener('timeupdate', handleTimeUpdate)
       audio.removeEventListener('volumechange', handleVolumeUpdate)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audio, handleSongEnded, isPlaying])
 
   return {}

@@ -45,13 +45,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
   }
 
   const handleAdd = (changes: any) => {
-    let newMedias = [...medias]
-    let latest = newMedias.pop()
-    latest = {
-      ...latest,
-      ...changes,
-    } as Media
-    newMedias = newMedias.concat(latest)
+    let newMedias = [...medias, changes]
     setMedias(newMedias)
     setCurrentMedia(newMedias.length - 1)
   }

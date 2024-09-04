@@ -17,6 +17,7 @@ const ProjectMetaDataDialog = ({
   setOpen,
   roleId,
   className,
+  creditIndex,
   ...props
 }: ProjectMetaDataDialogProps) => {
   return (
@@ -30,7 +31,7 @@ const ProjectMetaDataDialog = ({
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className="max-w-full">
-          <ProjectMetadataForm request={request} />
+          <ProjectMetadataForm request={request} creditIndex={creditIndex} />
         </div>
       </DialogContent>
     </Dialog>

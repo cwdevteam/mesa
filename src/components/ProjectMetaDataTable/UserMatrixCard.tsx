@@ -6,16 +6,31 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import ProjectMetaDataDialog from './ProjectMetaDataDialog'
 import UserMatrixCardDetails from './UserMatrixCardDetails'
 import { isInvitation } from './utils'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 
-const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
+const UserMatrixCard: React.FC<UserMatrixCardProps> = ({
+  data,
+  creditIndex,
+}) => {
   const [editModal, setEditModal] = useState<boolean>(false)
   const [requestType, setRequestType] = useState<string>('')
   const [roleId, setRoleId] = useState<string>('')
+  const { setCredits, credits, setUpdating } = useProjectProvider()
+  const { attest } = usePaymasterAttest()
 
   const handleActionClick = (roleId: string, request: string) => {
     setRequestType(request)
     setRoleId(roleId)
     setEditModal(true)
+  }
+
+  const handleDeleteClick = async () => {
+    const newCredits = credits
+    newCredits.splice(creditIndex, 1)
+    setCredits([...newCredits])
+    setUpdating(true)
+    await attest()
   }
 
   return (
@@ -29,7 +44,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
           <AvatarFallback> ME</AvatarFallback>
         </Avatar>
         <div className="font-bold w-full text-lg flex ml-6 items-center">
-          <div>{data.name || 'Username'}</div>
+          <div>{data?.name || 'Username'}</div>
           <div>
             {isInvitation(data) === false ? (
               <div className="ml-3 w-3 h-3 bg-green-600 rounded-md"></div>
@@ -49,6 +64,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
       </div>
       <UserMatrixCardDetails
         handleActionClick={handleActionClick}
+        handleDeleteClick={handleDeleteClick}
         data={data}
       />
       <ProjectMetaDataDialog
@@ -57,6 +73,7 @@ const UserMatrixCard: React.FC<UserMatrixCardProps> = ({ data }) => {
         request={requestType}
         roleId={roleId}
         project={data}
+        creditIndex={creditIndex}
       />
     </div>
   )

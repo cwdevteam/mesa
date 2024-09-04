@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 
-import { Locale } from '@/../i18n.config'
 import { PlayMode } from '@/lib/enum'
 import { Address } from 'viem'
 import { Credit } from './projectMetadataForm'
@@ -48,6 +47,7 @@ export interface UserData {
 }
 export interface UserMatrixCardProps {
   data: Credit
+  creditIndex: number
 }
 export interface ProjectCollaboratorsProps {
   project: any

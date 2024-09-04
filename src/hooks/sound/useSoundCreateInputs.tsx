@@ -5,10 +5,18 @@ import { usePublicClient, useWalletClient } from 'wagmi'
 import { editionV2WalletActionsCreate } from '@soundxyz/sdk/contract/edition-v2/write/create'
 import { editionV2PublicActionsCreate } from '@soundxyz/sdk/contract/edition-v2/read/create'
 import { useProjectProvider } from '@/context/ProjectProvider'
-import { NULL_ADDRESS, NULL_BYTES32, UINT32_MAX } from '@/lib/consts'
+import {
+  DEFAULT_DISTRIBUTOR_FEE,
+  NULL_ADDRESS,
+  NULL_BYTES32,
+  UINT32_MAX,
+} from '@/lib/consts'
+import { zeroAddress } from 'viem'
+import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
+import getSplitWallet from '@/lib/getSplitWallet'
 
 const useSoundCreateInputs = () => {
-  const { name, feeRecipient } = useProjectProvider()
+  const { name } = useProjectProvider()
   const { data: wallet } = useWalletClient()
   const publicClient = usePublicClient()?.extend(editionV2PublicActionsCreate)
   const walletClient = useMemo(() => {
@@ -16,7 +24,7 @@ const useSoundCreateInputs = () => {
     return wallet.extend(editionV2WalletActionsCreate)
   }, [wallet])
 
-  const getInputs = async (metadataUri: string) => {
+  const getInputs = async (metadataUri: string, splitArgs: any) => {
     if (!publicClient) {
       console.error('Public client not found')
       return
@@ -30,15 +38,29 @@ const useSoundCreateInputs = () => {
         deployer: walletClient.account.address,
       })
 
+    const recipients = splitArgs.recipients
+    const shouldSplit = recipients.length !== 1
+
+    const allocations = getSoundSplitAllocations(splitArgs)
+    const splitWallet = await getSplitWallet(splitArgs)
+
+    const createSplitConfig = shouldSplit
+      ? {
+          distributorFee: DEFAULT_DISTRIBUTOR_FEE,
+          controller: zeroAddress,
+          accountAllocations: allocations,
+        }
+      : null
+
     const { input } = await publicClient.editionV2.createEditionParameters({
       precomputedEdition: edition,
       formattedSalt,
       chain: walletClient.chain,
-      createSplit: null,
+      createSplit: createSplitConfig,
       editionConfig: {
         baseURI: metadataUri,
         contractURI: metadataUri,
-        fundingRecipient: feeRecipient,
+        fundingRecipient: shouldSplit ? splitWallet : recipients[0].address,
         name,
         royaltyBPS: 500,
         symbol: name,
