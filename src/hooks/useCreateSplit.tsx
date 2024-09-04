@@ -16,10 +16,12 @@ const useCreateSplit = () => {
   useTransactionConfirm(callsStatusId, 'Created Split Successfully!')
 
   const createdSplit = useMemo(
-    () => parsedLogs?.[1] && parsedLogs[1].args.split,
+    () => parsedLogs?.[0] && parsedLogs[0].args.split,
     [parsedLogs]
   )
 
+  console.log("ZIAD DEBUG", parsedLogs, createdSplit)
+  
   const createSplit = async (splitArgs: any) => {
     try {
       const splitParameters = getSplitParameters(address, splitArgs)

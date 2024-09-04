@@ -16,7 +16,6 @@ const useWaitForSplitTx = (callsStatusId?: string) => {
 
   useEffect(() => {
     const handleSuccess = async () => {
-      console.log('ZIAD DEBUG', callsStatus)
       const logs = parseEventLogs({
         abi: pullSplitFactoryAbi,
         logs: callsStatus?.receipts?.[0]?.logs as any[],
