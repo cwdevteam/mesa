@@ -24,7 +24,7 @@ const useCreateSplit = () => {
     try {
       const splitParameters = getSplitParameters(address, splitArgs)
       await writeContractsAsync({
-        constracts: [splitParameters],
+        contracts: [{ ...splitParameters }],
         capabilities,
       } as any)
     } catch (err) {
