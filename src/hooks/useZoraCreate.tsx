@@ -1,6 +1,6 @@
 'use client'
 
-import { useAccount, usePublicClient } from 'wagmi'
+import { useAccount, usePublicClient, useWriteContract } from 'wagmi'
 import { useWriteContracts } from 'wagmi/experimental'
 import { createCreatorClient } from '@zoralabs/protocol-sdk'
 import useConnectSmartWallet from './useConnectSmartWallet'
@@ -21,6 +21,7 @@ const useZoraCreate = () => {
   const { address } = useAccount()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
+  const { writeContractAsync } = useWriteContract()
   const { parsedLogs } = useWaitForBatchTx(callsStatusId)
   useTransactionConfirm(callsStatusId, 'Published On Zora Successfully!')
   const { connect } = useConnectSmartWallet()
@@ -48,7 +49,7 @@ const useZoraCreate = () => {
         image,
         animation_url: animationUrl,
       })
-      const splitWallet = await getSplitWallet(address!, splitArgs)
+      const splitWallet = await getSplitWallet(splitArgs)
 
       const { parameters } = await creatorClient.create1155({
         contract: {
@@ -71,9 +72,9 @@ const useZoraCreate = () => {
       }
       const newParameters = { ...parameters, functionName: 'createContract' }
       contracts.push(newParameters)
-      await writeContractsAsync({
-        contracts,
-        capabilities,
+      const splitParameters = getSplitParameters(address, splitArgs)
+      await writeContractAsync({
+        ...splitParameters,
       } as any)
       setLoading(false)
     } catch (err) {
