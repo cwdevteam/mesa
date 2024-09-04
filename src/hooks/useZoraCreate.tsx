@@ -30,9 +30,7 @@ const useZoraCreate = () => {
     () => parsedCreatedLogs?.[1] && parsedCreatedLogs[1].args.newContract,
     [parsedCreatedLogs]
   )
-  const [fundingRecipient, setFundingRecipient] = useState<any>(
-    '0xeD1fD266fe4414F2b8a80F8930E286FE78245369'
-  )
+  const [fundingRecipient, setFundingRecipient] = useState<any>(null)
 
   const create = async (splitArgs: any) => {
     try {
@@ -101,7 +99,6 @@ const useZoraCreate = () => {
       address,
       salesConfig
     )
-
     if (!fundingRecipient || !publicClient || !address) return
 
     init()
