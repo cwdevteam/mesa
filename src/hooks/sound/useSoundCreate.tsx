@@ -4,11 +4,11 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadJson } from '@/lib/ipfs/uploadJson'
 import useSoundCreateInputs from './useSoundCreateInputs'
 import useSoundCreatePaymasterEdition from './useSoundCreatePaymasterEdition'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useSoundCreate = () => {
   const { name, description, animationUrl, image } = useProjectProvider()
-  const { getInputs } = useSoundCreateInputs()
+  const { getInputs, setMetadataUri, input, setInput } = useSoundCreateInputs()
   const { createPaymasterEdition } = useSoundCreatePaymasterEdition()
   const [loading, setLoading] = useState(false)
 
@@ -21,13 +21,24 @@ const useSoundCreate = () => {
         image,
         animation_url: animationUrl,
       })
-      const input = await getInputs(uri, splitArgs)
-      await createPaymasterEdition(input)
+      setMetadataUri(uri)
+      await getInputs(splitArgs)
     } catch (error) {
       setLoading(false)
       return { error }
     }
   }
+
+  useEffect(() => {
+    const init = async () => {
+      await createPaymasterEdition(input)
+      setInput(false)
+    }
+
+    if (!input) return
+
+    init()
+  }, [input])
 
   return { createEdition, soundCreating: loading }
 }
