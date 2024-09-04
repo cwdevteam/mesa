@@ -77,10 +77,10 @@ const useZoraCreate = () => {
       })
       const newParameters = { ...parameters, functionName: 'createContract' }
 
-      ;(await writeContractsAsync({
+      await writeContractsAsync({
         contracts: [newParameters],
         capabilities,
-      })) as any
+      })
 
       setFundingRecipient(null)
       setLoading(false)
