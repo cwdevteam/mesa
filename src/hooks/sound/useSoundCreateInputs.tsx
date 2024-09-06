@@ -13,8 +13,7 @@ import {
 } from '@/lib/consts'
 import { zeroAddress } from 'viem'
 import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
-import getSplitWalletV1 from '@/lib/getSplitWalletV1'
-import isDeployedSplitWalletV1 from '@/lib/isDeployedSplitWalletV1'
+import getSplitWallet from '@/lib/getSplitWallet'
 
 const useSoundCreateInputs = () => {
   const { name } = useProjectProvider()
@@ -43,17 +42,15 @@ const useSoundCreateInputs = () => {
     const shouldSplit = recipients.length !== 1
 
     const allocations = getSoundSplitAllocations(splitArgs)
-    const splitWallet = await getSplitWalletV1(splitArgs)
-    const isDeployed = await isDeployedSplitWalletV1(splitWallet)
+    const splitWallet = await getSplitWallet(splitArgs)
 
-    const createSplitConfig =
-      shouldSplit && !isDeployed
-        ? {
-            distributorFee: DEFAULT_DISTRIBUTOR_FEE,
-            controller: zeroAddress,
-            accountAllocations: allocations,
-          }
-        : null
+    const createSplitConfig = shouldSplit
+      ? {
+          distributorFee: DEFAULT_DISTRIBUTOR_FEE,
+          controller: zeroAddress,
+          accountAllocations: allocations,
+        }
+      : null
 
     const { input } = await publicClient.editionV2.createEditionParameters({
       precomputedEdition: edition,
