@@ -3,6 +3,7 @@ import { getPublicClient } from './clients'
 import { CHAIN_ID } from './consts'
 import { pullSplitFactoryAbi } from './abi/pullSplitFactory'
 import { getRecipientSortedAddressesAndAllocations } from '@0xsplits/splits-sdk/utils'
+import { zeroAddress } from 'viem'
 
 const getSplitWalletV2 = async (splitArgs: any) => {
   try {
@@ -22,6 +23,7 @@ const getSplitWalletV2 = async (splitArgs: any) => {
           totalAllocation: BigInt(1000000),
           distributionIncentive: 0,
         },
+        zeroAddress,
       ],
     })
 
