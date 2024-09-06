@@ -44,7 +44,7 @@ const useSoundCreateInputs = () => {
     const splitWallet = await getSplitWalletV1(splitArgs)
     const isDeployedSplit = await isDeployedSplitWalletV1(splitArgs)
     const shouldSplit = recipients.length !== 1
-    const shouldCreatSplit = recipients.length !== 1 && !isDeployedSplit
+    const shouldCreatSplit = shouldSplit && !isDeployedSplit
 
     const createSplitConfig = shouldCreatSplit
       ? {
