@@ -30,8 +30,8 @@ const useProject = () => {
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData['name'])
-      setDescription(dashboardData['description'])
-      setCredits(dashboardData['credits'])
+      setDescription(dashboardData['description'] || '')
+      setCredits(dashboardData['credits'] || [])
       setAnimationUrl(dashboardData['animationUrl'] || '')
       setExternalUrl(dashboardData['externalUrl'] || '')
       setImage(dashboardData['image'] || '')
