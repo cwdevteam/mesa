@@ -40,20 +40,18 @@ const useSoundCreateInputs = () => {
       })
 
     const recipients = splitArgs.recipients
-    const shouldSplit = recipients.length !== 1
-
     const allocations = getSoundSplitAllocations(splitArgs)
     const splitWallet = await getSplitWalletV1(splitArgs)
     const isDeployedSplit = await isDeployedSplitWalletV1(splitArgs)
+    const shouldSplit = recipients.length !== 1 && !isDeployedSplit
 
-    const createSplitConfig =
-      shouldSplit && !isDeployedSplit
-        ? {
-            distributorFee: DEFAULT_DISTRIBUTOR_FEE,
-            controller: zeroAddress,
-            accountAllocations: allocations,
-          }
-        : null
+    const createSplitConfig = shouldSplit
+      ? {
+          distributorFee: DEFAULT_DISTRIBUTOR_FEE,
+          controller: zeroAddress,
+          accountAllocations: allocations,
+        }
+      : null
 
     const { input } = await publicClient.editionV2.createEditionParameters({
       precomputedEdition: edition,
