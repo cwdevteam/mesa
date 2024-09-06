@@ -24,6 +24,7 @@ const useSoundCreate = () => {
       const input = await getInputs(uri, splitArgs)
       await createPaymasterEdition(input)
     } catch (error) {
+      console.error(error)
       setLoading(false)
       return { error }
     }

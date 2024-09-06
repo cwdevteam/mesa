@@ -13,7 +13,7 @@ import {
 } from '@/lib/consts'
 import { zeroAddress } from 'viem'
 import getSoundSplitAllocations from '@/lib/getSoundSplitAllocations'
-import getSplitWallet from '@/lib/getSplitWallet'
+import getSplitWalletV1 from '@/lib/getSplitWalletV1'
 
 const useSoundCreateInputs = () => {
   const { name } = useProjectProvider()
@@ -42,7 +42,7 @@ const useSoundCreateInputs = () => {
     const shouldSplit = recipients.length !== 1
 
     const allocations = getSoundSplitAllocations(splitArgs)
-    const splitWallet = await getSplitWallet(splitArgs)
+    const splitWallet = await getSplitWalletV1(splitArgs)
 
     const createSplitConfig = shouldSplit
       ? {
