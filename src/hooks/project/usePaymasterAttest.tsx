@@ -39,13 +39,22 @@ const usePaymasterAttest = () => {
       }
       await switchChainAsync({ chainId: CHAIN.id })
       if (!credits.length)
-        credits.push({
-          contractType: ContractType.Songwriting,
-          collaboratorType: UserRole.Owner,
-          name: user?.full_name,
-          splitBps: 10000,
-          address,
-        })
+        credits.push(
+          {
+            contractType: ContractType.Songwriting,
+            collaboratorType: UserRole.Owner,
+            name: user?.full_name,
+            splitBps: 5000,
+            address,
+          },
+          {
+            contractType: ContractType.Master,
+            collaboratorType: UserRole.Owner,
+            name: user?.full_name,
+            splitBps: 5000,
+            address,
+          }
+        )
 
       const { uri: metadataUri } = await uploadJson({
         description,
