@@ -885,29 +885,29 @@ export interface Database {
         Row: {
           id?: string
           avatar_url: string | null
-          full_name: string | null
+          legal_name: string | null
           userId: string
           updated_at: string | null
-          username: string | null
-          website: string | null
+          email: string | null
+          artistname: string | null
         }
         Insert: {
           id?: string
           avatar_url: string | null
-          full_name: string | null
+          legal_name: string | null
           userId: string
           updated_at?: string | null
-          username: string | null
-          website: string | null
+          email: string | null
+          artistname: string | null
         }
         Update: {
           id?: string
           avatar_url?: string | null
-          full_name?: string | null
+          legal_name?: string | null
           userId?: string
           updated_at?: string | null
-          username?: string | null
-          website?: string | null
+          email?: string | null
+          artistname?: string | null
         }
         Relationships: [
           {

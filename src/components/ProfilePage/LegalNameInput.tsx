@@ -1,23 +1,23 @@
 import { useProfileProvider } from '@/context/ProfileProvider'
 import { Input } from '../ui/input'
 
-const UsernameInput = () => {
+const LegalNameInput = () => {
   const { user, editing, handleInputChange } = useProfileProvider()
 
   return (
     <div>
       <label htmlFor="user_name" className="text-sm">
-        Username
+        Legal Name
       </label>
       <Input
-        id="user_name"
-        name="name"
-        value={user?.username || ''}
+        id="legal_name"
+        name="legal_name"
+        value={user?.legal_name || ''}
         disabled={!editing}
-        onChange={(e: any) => handleInputChange('username', e.target.value)}
+        onChange={(e: any) => handleInputChange('legal_name', e.target.value)}
       />
     </div>
   )
 }
 
-export default UsernameInput
+export default LegalNameInput
