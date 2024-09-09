@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import useAttestation from '../useAttestation'
 import useProjectMedia from './useProjectMedia'
 import { useAccount } from 'wagmi'
+import { useMediaContext } from '@/context/MediaContext'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -20,6 +21,7 @@ const useProject = () => {
     loading: loadingAttestation,
   }: any = useAttestation()
   useProjectMedia(animationUrl, image, name)
+  const { setMedias } = useMediaContext()
   const [creatingStatus, setCreatingStatus] = useState<boolean>(false)
   const [updating, setUpdating] = useState<boolean>(false)
   const [uploadingAudio, setUploadingAudio] = useState<boolean>(false)
@@ -33,6 +35,7 @@ const useProject = () => {
       setDescription(dashboardData['description'] || '')
       setCredits(dashboardData['credits'] || [])
       setAnimationUrl(dashboardData['animationUrl'] || '')
+      if (!dashboardData['animationUrl']) setMedias([])
       setExternalUrl(dashboardData['externalUrl'] || '')
       setImage(dashboardData['image'] || '')
       setRefUID(dashboardData['refUID'])
