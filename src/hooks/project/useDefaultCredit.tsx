@@ -11,13 +11,13 @@ const useDefaultCredit = () => {
   const hasFirstCredit = credits[0]?.name && credits[0]?.address
 
   useEffect(() => {
-    if (!(user?.full_name && address)) return
+    if (!(user?.legal_name && address)) return
     if (hasFirstCredit) return
     setCredits([
       {
         contractType: ContractType.Songwriting,
         collaboratorType: UserRole.Owner,
-        name: user.full_name,
+        name: user.legal_name,
         splitBps: 10000,
         address,
       },

@@ -6,7 +6,7 @@ const updateExistingUser = async (
   id: string,
   newUserDetails: UserDetailsProps
 ) => {
-  const allowedFields = ['username', 'full_name', 'website', 'avatar_url']
+  const allowedFields = ['legal_name', 'artistname', 'email', 'avatar_url']
   const updateData = Object.fromEntries(
     Object.entries(newUserDetails).filter(([key]) =>
       allowedFields.includes(key)

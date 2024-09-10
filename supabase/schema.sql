@@ -361,6 +361,9 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
     "full_name" "text",
     "avatar_url" "text",
     "website" "text",
+    "legal_name": "text",
+    "artistname": "text",
+    "email": "text",
     CONSTRAINT "username_length" CHECK (("char_length"("username") >= 3))
 );
 
