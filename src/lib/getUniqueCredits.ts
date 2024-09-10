@@ -13,7 +13,7 @@ const getUniqueCredits = (credits: any) => {
     acc[credit.address].contractTypes.add(credit.contractType)
     acc[credit.address].collaboratorTypes.add(credit.collaboratorType)
     acc[credit.address].names.add(credit.name)
-    acc[credit.address].splitBps = credit.splitBps
+    acc[credit.address].splitBps += credit.splitBps
     return acc
   }, {})
 
