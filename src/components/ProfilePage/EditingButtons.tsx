@@ -11,7 +11,7 @@ import { useUserProvider } from '@/context/UserProvider'
 
 const EditingButtons = () => {
   const { user, setUser, setEditing } = useProfileProvider()
-  const { user: initialUser } = useUserProvider()
+  const { user: initialUser, fetchUser } = useUserProvider()
   const { address } = useAccount()
   const [loading, setLoading] = useState<boolean>(false)
   const { push } = useRouter()
@@ -28,8 +28,10 @@ const EditingButtons = () => {
         ...user!,
         addresses: [address as Address],
       }
-      await updateUser(updatedUserData)
-      await push('/dashboard')
+      const response = await updateUser(updatedUserData)
+      setUser(response)
+      await fetchUser()
+      push('/dashboard')
       setEditing(false)
     } catch (error) {
       console.error(error)
