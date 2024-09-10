@@ -18,7 +18,6 @@ import { useSwitchChain } from 'wagmi'
 import { useCallback } from 'react'
 import { CreateSplitConfig } from '@0xsplits/splits-sdk'
 import { useProjectProvider } from '@/context/ProjectProvider'
-import getUniqueCredits from '@/lib/getUniqueCredits'
 
 export default function TokenForm() {
   const { isZora, isFixedPrice, isSound } = useOnchainDistributionProvider()
@@ -29,7 +28,7 @@ export default function TokenForm() {
   const { switchChainAsync } = useSwitchChain()
   const { credits } = useProjectProvider()
 
-  const defaultRecipients = getUniqueCredits(credits)?.map((credit: any) => ({
+  const defaultRecipients = credits?.map((credit: any) => ({
     address: credit.address,
     percentAllocation: credits?.length === 1 ? 100 : 0,
   }))
