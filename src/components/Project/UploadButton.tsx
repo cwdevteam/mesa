@@ -57,13 +57,18 @@ const UploadButton = () => {
   return (
     <div>
       <Button
-        size={fileSelected ? 'default' : 'icon'}
         className={`${!fileSelected && 'rounded-full'}`}
         onClick={handleClick}
         disabled={loading}
       >
         {loading ? (
-          <ReloadIcon className="h-4 w-4 animate-spin" />
+          <div className="flex gap-2 items-center">
+            <ReloadIcon className="h-4 w-4 animate-spin" />
+            <p className="text-[12px]">
+              {uploadingAudio && 'Uploading...'}
+              {creatingStatus && 'Updating...'}
+            </p>
+          </div>
         ) : (
           buttonLabel
         )}

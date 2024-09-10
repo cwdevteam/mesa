@@ -31,10 +31,10 @@ export interface UserContextType {
 
 export interface UserDetailsProps {
   avatar_url: string | null
-  full_name: string | null
+  legal_name: string | null
   userId: string
-  username: string | null
-  website: string | null
+  email: string | null
+  artistname: string | null
   id: string
   addresses: Address[] | null
 }
