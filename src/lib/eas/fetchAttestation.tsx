@@ -30,6 +30,7 @@ export const fetchAttestation = async (attestation: any) => {
     }
   }
   dashboardData['name'] = extractedData['title']
+  dashboardData['contentHashes'] = Object.values(extractedData['contentHashes'])
   const newRefUID =
     refUID ===
     '0x0000000000000000000000000000000000000000000000000000000000000000'

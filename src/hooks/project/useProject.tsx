@@ -5,6 +5,8 @@ import useProjectMedia from './useProjectMedia'
 import { useAccount } from 'wagmi'
 import { useMediaContext } from '@/context/MediaContext'
 import getDecodedAttestationData from '@/lib/eas/getDecodedAttestationData'
+import bs58 from 'bs58'
+import { bytesToString, hexToBytes } from 'viem'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -39,6 +41,14 @@ const useProject = () => {
       setAnimationUrl(dashboardData['animationUrl'] || '')
       if (!dashboardData['animationUrl']) setMedias([])
       setExternalUrl(dashboardData['externalUrl'] || '')
+      if (dashboardData['contentHashes']) {
+        const hashes = dashboardData['contentHashes'].map((hash: any) => {
+          const prefixBytes = Buffer.from([0x12, 0x20])
+          const combined = Buffer.concat([prefixBytes, hexToBytes(hash)])
+          return `ipfs://${bs58.encode(combined)}`
+        })
+        setContentHashes(hashes)
+      }
       setImage(dashboardData['image'] || '')
       setRefUID(dashboardData['refUID'])
     }

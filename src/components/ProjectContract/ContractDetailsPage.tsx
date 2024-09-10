@@ -18,7 +18,7 @@ const ContractDetailsPage = () => {
   } = useProjectProvider()
   const [uploading, setUploading] = useState(false)
   const { attest } = usePaymasterAttest()
-  const [filesSelected, setFilesSelected] = useState(false)
+  const [filesUpdated, setFilesUpdated] = useState(false)
   const fileRef = useRef() as any
   const handleClick = () => {
     fileRef.current.click()
@@ -47,7 +47,7 @@ const ContractDetailsPage = () => {
       }
       setContentHashes([...contentHashes, ...uris])
       setUploading(false)
-      setFilesSelected(true)
+      setFilesUpdated(true)
     }
   }
 
@@ -57,8 +57,15 @@ const ContractDetailsPage = () => {
     setUpdating(false)
   }
 
+  const handleDelete = (index: number) => {
+    setFilesUpdated(true)
+    const temp = [...contentHashes]
+    temp.splice(index, 1)
+    setContentHashes([...temp])
+  }
+
   useEffect(() => {
-    if (!contentHashes?.length) setFilesSelected(false)
+    if (!contentHashes?.length) setFilesUpdated(false)
   }, [contentHashes])
 
   return (
@@ -67,7 +74,7 @@ const ContractDetailsPage = () => {
       <div className="text-center">{description}</div>
       {attestationData[0] && (
         <div className="flex flex-col justify-center pt-2 items-center gap-4">
-          {filesSelected ? (
+          {filesUpdated ? (
             <Button onClick={handleSave} disabled={updating}>
               {updating ? 'Updating...' : 'Save'}
             </Button>
@@ -99,6 +106,7 @@ const ContractDetailsPage = () => {
               contentHash={contentHash}
               key={contentHash}
               index={i}
+              onDelete={handleDelete}
             />
           ))}
         </div>
