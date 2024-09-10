@@ -4,72 +4,95 @@ import { Button } from '@/components/ui/button'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { uploadFile } from '@/lib/ipfs/uploadToIpfs'
 import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
-import getIpfsLink from '@/lib/ipfs/getIpfsLink'
+import ContentView from './ContentView'
 
 const ContractDetailsPage = () => {
   const {
     attestationData,
     description,
     name,
-    setExternalUrl,
     setUpdating,
-    externalUrl,
+    contentHashes,
+    setContentHashes,
+    updating,
   } = useProjectProvider()
-  const [fileSelected, setFileSelected] = useState(false)
   const [uploading, setUploading] = useState(false)
   const { attest } = usePaymasterAttest()
-
+  const [filesSelected, setFilesSelected] = useState(false)
   const fileRef = useRef() as any
   const handleClick = () => {
     fileRef.current.click()
   }
 
-  const handleFileSelected = async (event: any) => {
+  const handleFilesSelected = async (event: any) => {
     if (!event.target.files) return
-    const file = event.target.files[0]
-    if (file) {
+    const files = event.target.files
+    if (files?.length) {
       setUploading(true)
-      const { uri } = await uploadFile(file)
-      setExternalUrl(uri)
+      const uris = []
+      for (const file of files) {
+        const { uri: fileUri } = await uploadFile(file)
+        const fileDataJson = new File(
+          [
+            JSON.stringify({
+              name: file.name,
+              type: file.type,
+              uri: fileUri,
+            }),
+          ],
+          'file.json'
+        )
+        const { uri } = await uploadFile(fileDataJson)
+        uris.push(uri)
+      }
+      setContentHashes([...contentHashes, ...uris])
       setUploading(false)
-      setFileSelected(true)
+      setFilesSelected(true)
     }
   }
 
   const handleSave = async () => {
     setUpdating(true)
     await attest()
+    setUpdating(false)
   }
-
-  const handleView = () => {
-    window.open(getIpfsLink(externalUrl), '_blank')
-  }
-
   return (
     <div className="w-full">
       <div className="text-center text-2xl font-bold w-full">{name}</div>
       <div className="text-center">{description}</div>
-      {attestationData[0] ? (
+      {attestationData[0] && (
         <div className="flex flex-col justify-center pt-2 items-center gap-4">
-          {fileSelected ? (
-            <Button onClick={handleSave}>Save</Button>
-          ) : externalUrl ? (
-            <Button onClick={handleView}>View PDF</Button>
+          {filesSelected ? (
+            <Button onClick={handleSave} disabled={updating}>
+              {updating ? 'Updating...' : 'Save'}
+            </Button>
           ) : (
-            <Button onClick={handleClick}>
-              {uploading ? 'Uploading...' : 'Upload PDF'}
+            <Button onClick={handleClick} disabled={uploading}>
+              {uploading ? 'Uploading...' : 'Upload File'}
             </Button>
           )}
           <input
             type="file"
             ref={fileRef}
             className="hidden"
-            accept=".pdf"
-            onChange={handleFileSelected}
+            accept="*"
+            onChange={handleFilesSelected}
+            multiple
           />
         </div>
-      ) : (
-        <div className="text-center mt-5">Contract has not started yet</div>
+      )}
+      {contentHashes?.length > 0 && (
+        <div className="border p-2 mt-4 rounded-md text-muted-foreground">
+          <div className="w-full grid grid-cols-4 mt-2">
+            <p>Name</p>
+            <p>Type</p>
+            <p>View</p>
+            <p>Delete</p>
+          </div>
+          {contentHashes.map((contentHash: string) => (
+            <ContentView contentHash={contentHash} key={contentHash} />
+          ))}
+        </div>
       )}
     </div>
   )

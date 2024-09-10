@@ -12,6 +12,7 @@ const useProject = () => {
   const [description, setDescription] = useState<string>('')
   const [animationUrl, setAnimationUrl] = useState<string>('')
   const [externalUrl, setExternalUrl] = useState<string>('')
+  const [contentHashes, setContentHashes] = useState<string[]>([])
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
@@ -83,6 +84,8 @@ const useProject = () => {
     setUpdating,
     externalUrl,
     setExternalUrl,
+    contentHashes,
+    setContentHashes,
   }
 }
 

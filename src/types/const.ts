@@ -112,3 +112,9 @@ export interface ConnectButtonProps {
 export type ProjectIDType = {
   id: Address
 }
+
+export type ContentType = {
+  name: string
+  type: string
+  uri: string
+}
