@@ -10,16 +10,11 @@ const attest = async (
 ) => {
   try {
     const tx = await writeContracts({
-      contracts: [
-        {
-          address: EAS,
-          account,
-          abi: easAbi,
-          functionName: 'attest',
-          args,
-        },
-      ],
-      capabilities,
+      address: EAS,
+      account,
+      abi: easAbi,
+      functionName: 'attest',
+      args,
     })
     return tx
   } catch (error) {
