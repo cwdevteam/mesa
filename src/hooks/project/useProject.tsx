@@ -4,6 +4,7 @@ import useAttestation from '../useAttestation'
 import useProjectMedia from './useProjectMedia'
 import { useAccount } from 'wagmi'
 import { useMediaContext } from '@/context/MediaContext'
+import getDecodedAttestationData from '@/lib/eas/getDecodedAttestationData'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -41,6 +42,13 @@ const useProject = () => {
       setRefUID(dashboardData['refUID'])
     }
   }
+
+  useEffect(() => {
+    if (attestationData) {
+      const decoded = getDecodedAttestationData(attestationData)
+      setName(decoded[0].value.value)
+    }
+  }, [attestationData])
 
   useEffect(() => {
     dashboardData && fetchData()
