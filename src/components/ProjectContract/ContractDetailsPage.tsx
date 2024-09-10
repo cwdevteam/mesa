@@ -35,7 +35,7 @@ const ContractDetailsPage = () => {
         const fileDataJson = new File(
           [
             JSON.stringify({
-              name: file.name,
+              name: file.name.replace(/\.[^/.]+$/, ''),
               type: file.type,
               uri: fileUri,
             }),
