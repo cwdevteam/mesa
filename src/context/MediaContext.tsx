@@ -18,6 +18,7 @@ const MediaContext = createContext<
       handleAdd: (meda: Media) => void
       setPlayStatus: (playStatus: number) => void
       handleSongEnded: () => void
+      setMedias: (medias: Media[]) => void
     }
   | undefined
 >(undefined)
@@ -83,6 +84,7 @@ const MediaProvider = ({ children }: MediaProviderProps) => {
         handleRemove,
         setPlayStatus,
         handleSongEnded,
+        setMedias,
       }}
     >
       {children}
