@@ -47,6 +47,7 @@
     "@types/uuid": "^10.0.0",
     "@wagmi/core": "^2.10.5",
     "@zoralabs/protocol-sdk": "^0.9.1",
+    "bs58": "^6.0.0",
     "bun": "^1.1.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

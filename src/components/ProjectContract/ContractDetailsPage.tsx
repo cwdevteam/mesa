@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { useProjectProvider } from '@/context/ProjectProvider'
@@ -56,6 +56,11 @@ const ContractDetailsPage = () => {
     await attest()
     setUpdating(false)
   }
+
+  useEffect(() => {
+    if (!contentHashes?.length) setFilesSelected(false)
+  }, [contentHashes])
+
   return (
     <div className="w-full">
       <div className="text-center text-2xl font-bold w-full">{name}</div>
@@ -89,8 +94,12 @@ const ContractDetailsPage = () => {
             <p>View</p>
             <p>Delete</p>
           </div>
-          {contentHashes.map((contentHash: string) => (
-            <ContentView contentHash={contentHash} key={contentHash} />
+          {contentHashes.map((contentHash: string, i: number) => (
+            <ContentView
+              contentHash={contentHash}
+              key={contentHash}
+              index={i}
+            />
           ))}
         </div>
       )}
