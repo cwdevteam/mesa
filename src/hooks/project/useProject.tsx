@@ -5,13 +5,15 @@ import useProjectMedia from './useProjectMedia'
 import { useAccount } from 'wagmi'
 import { useMediaContext } from '@/context/MediaContext'
 import getDecodedAttestationData from '@/lib/eas/getDecodedAttestationData'
+import getFormattedContentHashes from '@/lib/eas/getFormattedContentHashes'
 
 const useProject = () => {
   const { address } = useAccount()
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [animationUrl, setAnimationUrl] = useState<string>('')
-  const [externalUrl, setExternalUrl] = useState<string>('')
+  const [contentHashes, setContentHashes] = useState<string[]>([])
+  const [contentPreviews, setContentPreviews] = useState<any>([])
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
@@ -30,6 +32,7 @@ const useProject = () => {
   const [refUID, setRefUID] = useState(
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
+
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData['name'])
@@ -37,7 +40,13 @@ const useProject = () => {
       setCredits(dashboardData['credits'] || [])
       setAnimationUrl(dashboardData['animationUrl'] || '')
       if (!dashboardData['animationUrl']) setMedias([])
-      setExternalUrl(dashboardData['externalUrl'] || '')
+      if (dashboardData['contentHashes']) {
+        const formattedHashes = getFormattedContentHashes(
+          dashboardData['contentHashes']
+        )
+        setContentHashes(formattedHashes)
+        setContentPreviews(formattedHashes.map(() => null))
+      }
       setImage(dashboardData['image'] || '')
       setRefUID(dashboardData['refUID'])
     }
@@ -81,8 +90,10 @@ const useProject = () => {
     setFeeRecipient,
     updating,
     setUpdating,
-    externalUrl,
-    setExternalUrl,
+    contentHashes,
+    setContentHashes,
+    setContentPreviews,
+    contentPreviews,
   }
 }
 
