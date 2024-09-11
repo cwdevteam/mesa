@@ -89,7 +89,7 @@ const usePaymasterAttest = () => {
       )
       return response
     } catch (error) {
-      console.log(error, 'ZIAD')
+      console.error(error)
       return { error }
     }
   }
