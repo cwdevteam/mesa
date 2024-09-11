@@ -11,6 +11,7 @@ import { CHAIN } from '@/lib/consts'
 import useConnectSmartWallet from '../useConnectSmartWallet'
 import { ContractType, UserRole } from '@/types/projectMetadataForm'
 import { useUserProvider } from '@/context/UserProvider'
+import bs58 from 'bs58'
 
 const usePaymasterAttest = () => {
   const {
@@ -21,7 +22,7 @@ const usePaymasterAttest = () => {
     image,
     setCreatingStatus,
     refUID,
-    externalUrl,
+    contentHashes,
   } = useProjectProvider()
   const { capabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
@@ -60,18 +61,21 @@ const usePaymasterAttest = () => {
         description,
         image,
         animation_url: animationUrl,
-        external_url: externalUrl,
         credits,
+        contentHashes,
       })
       const authors = credits.map((credit: any) => credit.name)
       const authorAddresses = credits.map((credit: any) => credit.address)
+      const hashes = contentHashes.map((hash: any) =>
+        bs58.decode(hash.replaceAll('ipfs://', '')).slice(2)
+      )
 
       const encodedAttestation = getEncodedAttestationData(
         name,
         metadataUri,
         authors,
         authorAddresses,
-        []
+        hashes
       )
       const args = getAttestArgs(encodedAttestation, refUID)
       setCreatingStatus(true)
@@ -84,6 +88,7 @@ const usePaymasterAttest = () => {
       )
       return response
     } catch (error) {
+      console.error(error)
       return { error }
     }
   }
