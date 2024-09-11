@@ -28,10 +28,12 @@ export default function TokenForm() {
   const creating = zoraCreating || soundCreating
   const { switchChainAsync } = useSwitchChain()
   const { credits } = useProjectProvider()
+  const uniqueCredits = getUniqueCredits(credits)
 
-  const defaultRecipients = getUniqueCredits(credits)?.map((credit: any) => ({
+  const defaultRecipients = uniqueCredits?.map((credit: any) => ({
     address: credit.address,
-    percentAllocation: credits?.length === 1 ? 100 : 0,
+    percentAllocation:
+      uniqueCredits?.length === 1 ? 100 : 100 / uniqueCredits.length,
   }))
 
   const onSubmit = useCallback(
