@@ -12,7 +12,6 @@ const useProject = () => {
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const [animationUrl, setAnimationUrl] = useState<string>('')
-  const [externalUrl, setExternalUrl] = useState<string>('')
   const [contentHashes, setContentHashes] = useState<string[]>([])
   const [contentPreviews, setContentPreviews] = useState<any>([])
   const [image, setImage] = useState<string>('')
@@ -41,7 +40,6 @@ const useProject = () => {
       setCredits(dashboardData['credits'] || [])
       setAnimationUrl(dashboardData['animationUrl'] || '')
       if (!dashboardData['animationUrl']) setMedias([])
-      setExternalUrl(dashboardData['externalUrl'] || '')
       if (dashboardData['contentHashes']) {
         const formattedHashes = getFormattedContentHashes(
           dashboardData['contentHashes']
@@ -92,8 +90,6 @@ const useProject = () => {
     setFeeRecipient,
     updating,
     setUpdating,
-    externalUrl,
-    setExternalUrl,
     contentHashes,
     setContentHashes,
     setContentPreviews,

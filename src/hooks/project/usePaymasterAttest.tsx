@@ -22,7 +22,6 @@ const usePaymasterAttest = () => {
     image,
     setCreatingStatus,
     refUID,
-    externalUrl,
     contentHashes,
   } = useProjectProvider()
   const { capabilities } = usePaymasterProvider()
@@ -62,8 +61,8 @@ const usePaymasterAttest = () => {
         description,
         image,
         animation_url: animationUrl,
-        external_url: externalUrl,
         credits,
+        contentHashes,
       })
       const authors = credits.map((credit: any) => credit.name)
       const authorAddresses = credits.map((credit: any) => credit.address)
@@ -89,7 +88,7 @@ const usePaymasterAttest = () => {
       )
       return response
     } catch (error) {
-      console.log(error, 'ZIAD')
+      console.error(error)
       return { error }
     }
   }
