@@ -14,6 +14,7 @@ const useProject = () => {
   const [animationUrl, setAnimationUrl] = useState<string>('')
   const [externalUrl, setExternalUrl] = useState<string>('')
   const [contentHashes, setContentHashes] = useState<string[]>([])
+  const [contentPreviews, setContentPreviews] = useState<any>([])
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
@@ -32,6 +33,7 @@ const useProject = () => {
   const [refUID, setRefUID] = useState(
     '0x0000000000000000000000000000000000000000000000000000000000000000'
   )
+
   const fetchData = async () => {
     if (dashboardData) {
       setName(dashboardData['name'])
@@ -45,6 +47,7 @@ const useProject = () => {
           dashboardData['contentHashes']
         )
         setContentHashes(formattedHashes)
+        setContentPreviews(formattedHashes.map(() => null))
       }
       setImage(dashboardData['image'] || '')
       setRefUID(dashboardData['refUID'])
@@ -93,6 +96,8 @@ const useProject = () => {
     setExternalUrl,
     contentHashes,
     setContentHashes,
+    setContentPreviews,
+    contentPreviews,
   }
 }
 

@@ -13,6 +13,8 @@ const ContractDetailsPage = () => {
     name,
     setUpdating,
     contentHashes,
+    contentPreviews,
+    setContentPreviews,
     setContentHashes,
     updating,
   } = useProjectProvider()
@@ -30,22 +32,21 @@ const ContractDetailsPage = () => {
     if (files?.length) {
       setUploading(true)
       const uris = []
+      const previews = []
       for (const file of files) {
         const { uri: fileUri } = await uploadFile(file)
-        const fileDataJson = new File(
-          [
-            JSON.stringify({
-              name: file.name.replace(/\.[^/.]+$/, ''),
-              type: file.type,
-              uri: fileUri,
-            }),
-          ],
-          'file.json'
-        )
+        const data = {
+          name: file.name.replace(/\.[^/.]+$/, ''),
+          type: file.type,
+          uri: fileUri,
+        }
+        const fileDataJson = new File([JSON.stringify(data)], 'file.json')
         const { uri } = await uploadFile(fileDataJson)
+        previews.push(data)
         uris.push(uri)
       }
       setContentHashes([...contentHashes, ...uris])
+      setContentPreviews([...contentPreviews, ...previews])
       setUploading(false)
       setFilesUpdated(true)
     }
@@ -59,9 +60,12 @@ const ContractDetailsPage = () => {
 
   const handleDelete = (index: number) => {
     setFilesUpdated(true)
-    const temp = [...contentHashes]
+    let temp = [...contentHashes]
     temp.splice(index, 1)
     setContentHashes([...temp])
+    temp = [...contentPreviews]
+    temp.splice(index, 1)
+    setContentPreviews([...temp])
   }
 
   useEffect(() => {
@@ -107,6 +111,7 @@ const ContractDetailsPage = () => {
               key={contentHash}
               index={i}
               onDelete={handleDelete}
+              preview={contentPreviews[i]}
             />
           ))}
         </div>
