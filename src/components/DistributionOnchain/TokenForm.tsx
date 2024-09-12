@@ -29,11 +29,14 @@ export default function TokenForm() {
   const { switchChainAsync } = useSwitchChain()
   const { credits } = useProjectProvider()
   const uniqueCredits = getUniqueCredits(credits)
+  const totalSplitBps: any =
+    uniqueCredits?.reduce((sum, credit: any) => sum + credit.splitBps, 0) || 1
 
   const defaultRecipients = uniqueCredits?.map((credit: any) => ({
     address: credit.address,
-    percentAllocation:
-      uniqueCredits?.length === 1 ? 100 : 100 / uniqueCredits.length,
+    percentAllocation: parseFloat(
+      Number((credit.splitBps / totalSplitBps) * 100).toFixed(4)
+    ),
   }))
 
   const onSubmit = useCallback(
