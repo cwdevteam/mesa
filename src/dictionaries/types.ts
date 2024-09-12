@@ -31,11 +31,6 @@ export type Dictionary = {
       buttonLabel: string
     }
   }
-  dashboard: {
-    newProjectButton: {
-      buttonLabel: string
-    }
-  }
   home: {
     heroSection: {
       welcome: string
