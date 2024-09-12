@@ -31,7 +31,7 @@ const EditingButtons = () => {
       const response = await updateUser(updatedUserData)
       setUser(response)
       await fetchUser()
-      push('/dashboard')
+      push('/')
       setEditing(false)
     } catch (error) {
       console.error(error)
