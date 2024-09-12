@@ -1,5 +1,5 @@
-import LandingPage from '@/components/LandingPage'
+import DashboardPage from '@/components/DashboardPage'
 
-export default async function Home() {
-  return <LandingPage />
-}
+const Dashboard = async () => <DashboardPage />
+
+export default Dashboard
