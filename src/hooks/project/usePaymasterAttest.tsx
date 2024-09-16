@@ -44,14 +44,14 @@ const usePaymasterAttest = () => {
           {
             contractType: ContractType.Songwriting,
             collaboratorType: UserRole.Owner,
-            name: user?.legal_name,
+            name: user?.legal_name || 'Unknown',
             splitBps: 5000,
             address,
           },
           {
             contractType: ContractType.Master,
             collaboratorType: UserRole.Owner,
-            name: user?.legal_name,
+            name: user?.legal_name || 'Unknown',
             splitBps: 5000,
             address,
           }
