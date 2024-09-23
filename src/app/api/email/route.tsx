@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Mesa <mesa@onchainmagic.xyz>',
+      from: 'Mesa <invites@mesawallet.io>',
       to: [email],
       subject: 'Mesa - Project Invite',
       react: InviteEmail({ name, message, referenceAttestation }),
