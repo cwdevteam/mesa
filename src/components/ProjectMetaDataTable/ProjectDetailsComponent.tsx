@@ -4,6 +4,7 @@ import ImageSelect from '../Project/ImageSelect'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import Loading from 'react-loading'
 import Collaborators from './Collaborators'
+import WorkRoom from './WorkRoom'
 
 const ProjectDetailsComponent = () => {
   const { loading } = useProjectProvider()
@@ -19,7 +20,7 @@ const ProjectDetailsComponent = () => {
           <div className="w-full grid grid-cols-10 gap-8">
             <Collaborators />
             <ProjectCollaborators />
-            {/* <UploadButton /> */}
+            <WorkRoom />
             {/* <ImageSelect /> */}
           </div>
         </>

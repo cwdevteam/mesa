@@ -3,6 +3,9 @@ import truncateAddress from '@/lib/truncateAddress'
 import { Credit } from '@/types/projectMetadataForm'
 import { isInvitation } from './utils'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import ProjectInviteProvider from '@/context/ProjectInviteProvider'
+import ProjectInviteDialog from '../ProjectInviteDialog'
+import { Button } from '../ui/button'
 
 const Collaborators = () => {
   const { credits } = useProjectProvider()
@@ -13,6 +16,16 @@ const Collaborators = () => {
         <p className="text-base/4 font-roboto_bold text-black dark:text-white">
           Collaborators
         </p>
+        <ProjectInviteProvider>
+          <ProjectInviteDialog>
+            <Button
+              variant="outline"
+              className="text-sm rounded-full px-[13px] py-2 sm:rounded-md sm:px-4 sm:py-2 !border-border"
+            >
+              +<span className="hidden sm:block">&nbsp;Add Collaborator</span>
+            </Button>
+          </ProjectInviteDialog>
+        </ProjectInviteProvider>
       </div>
       <div className="flex flex-col w-full gap-6">
         {credits?.map((credit: Credit, index: number) => (
