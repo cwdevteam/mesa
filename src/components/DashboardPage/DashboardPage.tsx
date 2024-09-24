@@ -1,8 +1,8 @@
 'use client'
+
 import { ProjectDataTable } from '@/components/ProjectDataTable'
 import NewProjectButton from '../NewProjectButton'
 import useProjects from '@/hooks/project/useProjects'
-import ProjectProvider from '@/context/ProjectProvider'
 import { useAccount } from 'wagmi'
 import Home from './Home'
 
@@ -11,7 +11,7 @@ const DashboardPage = () => {
   const { address } = useAccount()
 
   return (
-    <ProjectProvider>
+    <>
       {address ? (
         <main className="grid gap-10 container mx-auto py-10 content-start">
           <div className="flex justify-between gap-4 -mt-2">
@@ -25,7 +25,7 @@ const DashboardPage = () => {
       ) : (
         <Home />
       )}
-    </ProjectProvider>
+    </>
   )
 }
 

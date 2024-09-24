@@ -19,7 +19,7 @@ const ProjectPage = () => {
   }
 
   return (
-    <main className="container flex flex-col gap-6 py-10 items-center lg:items-start w-full">
+    <main className="container flex flex-col gap-6 py-6 items-center lg:items-start w-full">
       {updating && (
         <div
           className="fixed z-[9999] left-0 top-0 w-screen h-screen backdrop-blur-[4px] 
@@ -29,7 +29,7 @@ const ProjectPage = () => {
           <p className="font-semibold">Updating...</p>
         </div>
       )}
-      <div className="mb-10 h-5">
+      <div className="flex w-full justify-end">
         <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
       </div>
       {tabContent === 'project' && <ProjectDetailsComponent />}
