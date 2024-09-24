@@ -11,9 +11,13 @@ const ProjectCollaborators = () => {
     <section className="w-full col-span-6 mt-4">
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
         <div className="w-full grid grid-cols-1 gap-4 border-border-light rounded-lg border-[1px] p-4">
-          <div>
-            <p className='text-base/4 text-black dark:text-white font-roboto_bold'>Contracts</p>
-            
+          <div className="w-full flex justify-between items-center px-2">
+            <p className="text-base/4 text-black dark:text-white font-roboto_bold">
+              Contracts
+            </p>
+            <button className="border-border border-[1px] rounded-lg size-8 font-roboto_bold text-base/4 text-black dark:text-white">
+              +
+            </button>
           </div>
           <div className="w-full rounded-md overflow-hidden">
             <div className="w-full overflow-x-auto">
