@@ -1,5 +1,4 @@
-import ProjectCollaborators from '../ProjectCollaborators'
-import ProjectDetailsCard from '../ProjectDetailsCard'
+import ProjectCollaborators from './ProjectCollaborators'
 import UploadButton from '../Project/UploadButton'
 import ImageSelect from '../Project/ImageSelect'
 import { useProjectProvider } from '@/context/ProjectProvider'
@@ -16,11 +15,11 @@ const ProjectDetailsComponent = () => {
         </div>
       ) : (
         <>
-          <ProjectDetailsCard />
-          <div className="w-full">
+          <div className="w-full grid grid-cols-10">
+            <div className="col-span-4" />
             <ProjectCollaborators />
-            <UploadButton />
-            <ImageSelect />
+            {/* <UploadButton /> */}
+            {/* <ImageSelect /> */}
           </div>
         </>
       )}

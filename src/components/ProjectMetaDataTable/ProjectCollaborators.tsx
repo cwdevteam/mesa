@@ -1,0 +1,40 @@
+import React from 'react'
+import UserMatrixCard from './UserMatrixCard'
+import { useProjectProvider } from '@/context/ProjectProvider'
+import { Credit } from '@/types/projectMetadataForm'
+import CollaboratorsTableHead from './CollaboratorsTableHead'
+
+const ProjectCollaborators = () => {
+  const { credits } = useProjectProvider()
+
+  return (
+    <section className="w-full col-span-6 mt-4">
+      <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
+        <div className="w-full grid grid-cols-1 gap-4 border-border-light rounded-lg border-[1px] p-4">
+          <div>
+            <p className='text-base/4 text-black dark:text-white font-roboto_bold'>Contracts</p>
+            
+          </div>
+          <div className="w-full rounded-md overflow-hidden">
+            <div className="w-full overflow-x-auto">
+              <table className="min-w-full caption-bottom text-sm">
+                <CollaboratorsTableHead />
+                <tbody className="[&amp;_tr:last-child]:border-0">
+                  {credits.map((collaborator: Credit, index: number) => (
+                    <UserMatrixCard
+                      key={index}
+                      data={collaborator}
+                      creditIndex={index}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default ProjectCollaborators
