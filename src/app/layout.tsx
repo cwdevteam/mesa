@@ -8,7 +8,7 @@ import Providers from '@/context/Providers'
 import env from '@/env'
 import MediaPlayer from '@/components/GlobalAudioPlayer/MediaPlayer'
 
-import '@/app/globals.css'
+import '@/styles/globals.css'
 import { ToastQuery } from '@/components/ToastQuery'
 import { PaymasterProvider } from '@/context/Paymasters'
 

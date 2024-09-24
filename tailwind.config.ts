@@ -18,6 +18,11 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ["Roboto Regular", "sans-serif"],
+        roboto_medium: ["Roboto Medium", "sans-serif"],
+        roboto_bold: ["Roboto Bold", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

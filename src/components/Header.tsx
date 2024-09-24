@@ -1,24 +1,31 @@
-'use server'
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
-
-import { createServerClient, getUser } from '@/lib/supabase/server'
 
 import { ThemeToggle } from '@/components/ThemeToggle'
-import { Logo } from '@/components/Logo'
 import WalletDropdownButton from './ConnectButton/WalletDropdownButton'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
-export default async function Header() {
-  const supabase = createServerClient(cookies())
-  const user = await getUser(supabase)
+export default function Header() {
+  const pathname = usePathname()
+  const isProjectPage = pathname.includes('/project')
+
   return (
     <header className="fixed left-0 top-0 w-screen z-2 bg-background flex border-b border-foreground/20">
-      <div className="flex container mx-auto py-4">
+      <div className="flex items-center justify-between container mx-auto py-2">
         <Link className="flex items-center gap-2" href="/">
-          <Logo className="h-6 w-auto" />
+          <Image src={'/images/logo.svg'} alt="" width={188} height={63} />
         </Link>
-        <div className="flex gap-4 ml-auto">
+        {isProjectPage && (
+          <div className="flex items-end h-full pb-2">
+            <p className="font-roboto_bold text-black dark:text-white text-2xl align-bottom">
+              Project Name
+            </p>
+          </div>
+        )}
+        <div className="flex gap-4">
           <ThemeToggle />
           <WalletDropdownButton />
         </div>
