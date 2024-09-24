@@ -9,11 +9,12 @@ import ProjectDistribution from './ProjectDistribution'
 import DistributionOnchain from '../DistributionOnchain'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import Loading from 'react-loading'
+import { useRouter } from 'next/navigation'
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>('project')
   const { updating } = useProjectProvider()
-
+  const { push } = useRouter()
   const onTabChange = (tab: ProjectTab) => {
     setTabContent(tab)
   }
@@ -29,7 +30,17 @@ const ProjectPage = () => {
           <p className="font-semibold">Updating...</p>
         </div>
       )}
-      <div className="flex w-full justify-end">
+      <div className="flex w-full justify-between">
+        <button
+          type="button"
+          className="border-border border-[1px] rounded-lg px-4 text-xs font-roboto_medium w-[189px] relative"
+          onClick={() => push('/')}
+        >
+          {`All Projects`}
+          <div className="absolute left-0 top-0 size-full flex items-center pl-4">
+            {`←`}
+          </div>
+        </button>
         <ProjectTabs tabContent={tabContent} onTabChange={onTabChange} />
       </div>
       {tabContent === 'project' && <ProjectDetailsComponent />}
