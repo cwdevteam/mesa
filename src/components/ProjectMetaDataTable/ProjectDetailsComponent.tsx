@@ -16,7 +16,7 @@ const ProjectDetailsComponent = () => {
         </div>
       ) : (
         <>
-          <div className="w-full grid grid-cols-10">
+          <div className="w-full grid grid-cols-10 gap-8">
             <Collaborators />
             <ProjectCollaborators />
             {/* <UploadButton /> */}
