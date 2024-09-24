@@ -8,8 +8,8 @@ const Collaborators = () => {
   const { credits } = useProjectProvider()
 
   return (
-    <div className="col-span-4 mt-4">
-      <div className="flex w-full justify-between items-center">
+    <div className="col-span-4 mt-4 border-border-light border-[1px] p-5 rounded-lg">
+      <div className="flex w-full justify-between items-center mb-4">
         <p className="text-base/4 font-roboto_bold text-black dark:text-white">
           Collaborators
         </p>
@@ -17,7 +17,7 @@ const Collaborators = () => {
       <div className="flex flex-col w-full gap-6">
         {credits?.map((credit: Credit, index: number) => (
           <div className="flex justify-between items-center" key={index}>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-4 items-center">
               <Avatar className="h-12 w-12">
                 <AvatarImage
                   src={`https://avatar.vercel.sh/${'user?.id'}.svg`}
