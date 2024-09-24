@@ -1,3 +1,5 @@
+import ImageSelect from '../Project/ImageSelect'
+import UploadButton from '../Project/UploadButton'
 import { Button } from '../ui/button'
 
 const WorkRoom = () => {
@@ -13,6 +15,10 @@ const WorkRoom = () => {
         >
           Version History
         </Button>
+      </div>
+      <div className="w-full grid grid-cols-12 gap-6">
+        <ImageSelect />
+        <UploadButton />
       </div>
     </div>
   )

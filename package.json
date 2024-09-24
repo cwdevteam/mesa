@@ -46,6 +46,7 @@
     "@types/react-blockies": "^1.4.4",
     "@types/uuid": "^10.0.0",
     "@wagmi/core": "^2.10.5",
+    "@wavesurfer/react": "^1.0.7",
     "@zoralabs/protocol-sdk": "^0.9.1",
     "bs58": "^6.0.0",
     "bun": "^1.1.13",
@@ -71,6 +72,7 @@
     "uuid": "^10.0.0",
     "viem": "^2.13.7",
     "wagmi": "^2.9.10",
+    "wavesurfer.js": "^7.8.6",
     "zod": "^3.22.4",
     "zod-form-data": "^2.0.2"
   },
