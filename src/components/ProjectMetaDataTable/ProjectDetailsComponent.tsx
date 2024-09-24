@@ -3,6 +3,7 @@ import UploadButton from '../Project/UploadButton'
 import ImageSelect from '../Project/ImageSelect'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import Loading from 'react-loading'
+import Collaborators from './Collaborators'
 
 const ProjectDetailsComponent = () => {
   const { loading } = useProjectProvider()
@@ -16,7 +17,7 @@ const ProjectDetailsComponent = () => {
       ) : (
         <>
           <div className="w-full grid grid-cols-10">
-            <div className="col-span-4" />
+            <Collaborators />
             <ProjectCollaborators />
             {/* <UploadButton /> */}
             {/* <ImageSelect /> */}
