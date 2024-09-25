@@ -57,7 +57,7 @@ const UploadButton = () => {
           </>
         )}
       </button>
-      <p className="text-[7px] text-grey pt-2 font-roboto_italic pl-2">
+      <p className="text-[7px] text-grey pt-2 font-roboto_italic pl-2 dark:text-white">
         Accepted audio files: <br />
         {`WAV, MP3, M4A, FLAC, AIFF, WMA`}
       </p>

@@ -23,7 +23,7 @@ const SaveButton = () => {
   return (
     <button
       type="button"
-      className="border-[1px] border-border-light w-[100px] py-1 rounded-lg text-[10px] font-roboto_bold"
+      className="border-[1px] border-border-light dark:border-muted-foreground w-[100px] py-1 rounded-lg text-[10px] font-roboto_bold"
       onClick={handleClick}
     >
       Save

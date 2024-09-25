@@ -64,7 +64,7 @@ const ImageSelect = () => {
           </div>
         )}
       </button>
-      <p className="text-[7px] text-grey pt-2 font-roboto_italic pl-2">
+      <p className="text-[7px] text-grey pt-2 font-roboto_italic pl-2 dark:text-white">
         For album covers:
         <br />
         {`Recommended images are 3000x3000 square JPG format`}

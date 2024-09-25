@@ -12,7 +12,7 @@ const UserMatrixCardDetails = ({
   handleActionClick: Function
   handleDeleteClick: any
 }) => (
-  <tr className="border-b border-border-light transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+  <tr className="border-b border-border-light dark:border-muted transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
     <th className="h-10 px-2 sm:px-0 text-left align-middle font-medium text-black dark:text-muted-foreground">
       <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors h-9 px-4 py-2">
         {data?.contractType}
