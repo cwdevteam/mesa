@@ -6,19 +6,11 @@ import { PlayMode } from '@/lib/enum'
 const AudioPlayerControls = ({
   isPlaying,
   playStatus,
-  currentMedia,
-  handleBack,
-  handleNext,
   setPlayStatus,
   handlePlayPause,
 }: AudioPlayerProps) => {
-  const iconClass =
-    'w-4 h-4 text-zinc-400 dark:hover:text-white hover:text-black'
   return (
-    <div className="flex justify-center items-center gap-5 ml-12">
-      <button onClick={() => handleBack(currentMedia)}>
-        <Icons.voiceback className={iconClass} />
-      </button>
+    <div className="flex justify-center items-center gap-2 ml-12">
       {isPlaying ? (
         <button onClick={handlePlayPause} aria-label="Pause">
           <Icons.voicepause className="w-7 h-7 text-zinc-500 hover:text-black dark:hover:text-white" />
@@ -28,11 +20,8 @@ const AudioPlayerControls = ({
           <Icons.voiceplay className="w-7 h-7 text-zinc-500 hover:text-black dark:hover:text-white" />
         </button>
       )}
-      <button onClick={() => handleNext(currentMedia)}>
-        <Icons.voicenext className={iconClass} />
-      </button>
       <button
-        className="w-7"
+        className="w-6"
         onClick={() => setPlayStatus((playStatus + 1) % 3)}
       >
         {playStatus === PlayMode.CYCLE && (

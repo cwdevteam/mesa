@@ -28,22 +28,22 @@ export const MediaController: React.FC = () => {
 
   const audio = audioRef.current
 
-  const intoClass =
-    'w-full fixed bottom-0 dark:bg-black bg-white text-white p-3 z-50 border-t-[1px] border-zinc-500'
-
   return (
-    <div className={`${intoClass} ${'overflow-x-auto sm:overflow-x-hidden'}`}>
-      <div className="flex items-center gap-2 h-[8%] bottom-0 flex-wrap min-w-[500px]">
-        <audio ref={audioRef} hidden />
-        <div className="flex-1 flex gap-3">
-          <CoverArt />
-          <div className="flex justify-center items-center flex-col">
-            <div className="dark:text-white text-zinc-900 text-md font-sans hover:underline">
-              <b>{medias[currentMedia]?.name}</b>
-            </div>
+    <div className="w-full dark:bg-black bg-white text-white px-5 py-3 relative">
+      <audio ref={audioRef} hidden />
+      <div className="flex gap-2">
+        <CoverArt />
+        <div>
+          <div className="dark:text-white text-zinc-900 text-md font-sans hover:underline">
+            <b>{medias[currentMedia]?.name}</b>
+            <p className="font-roboto text-[10px] text-grey">
+              Last Uploaded By. TA
+            </p>
           </div>
         </div>
-        <div className="flex-1 flex flex-col gap-2">
+      </div>
+      <div className="absolute left-0 top-0 w-full flex justify-center pt-20">
+        <div className="w-2/3">
           <AudioPlayerControls
             isPlaying={isPlaying}
             playStatus={playStatus}
@@ -59,14 +59,14 @@ export const MediaController: React.FC = () => {
             handleSliderChange={handleSliderChange}
           />
         </div>
-        <div className="flex-1 flex items-center justify-end gap-3">
-          <VolumeControls
-            isMuted={isMuted}
-            volume={volume}
-            handleVolumeChange={handleVolumeChange}
-            handleAudioMute={handleAudioMute}
-          />
-        </div>
+      </div>
+      <div className="absolute left-0 top-0 w-full flex justify-end pt-4">
+        <VolumeControls
+          isMuted={isMuted}
+          volume={volume}
+          handleVolumeChange={handleVolumeChange}
+          handleAudioMute={handleAudioMute}
+        />
       </div>
     </div>
   )

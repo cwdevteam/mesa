@@ -8,7 +8,7 @@ export type OnchainDistributionProtocol = 'Zora' | 'Sound'
 export type ProjectTab =
   | 'project'
   | 'contract'
-  | 'setting'
+  | 'settings'
   | OnchainDistributionProtocol
 
 export interface ProjectPageProps {

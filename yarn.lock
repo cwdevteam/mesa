@@ -2621,6 +2621,11 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
+"@wavesurfer/react@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@wavesurfer/react/-/react-1.0.7.tgz#5bbb8fe8080f4478e896a32eeeb5ed111bbc4266"
+  integrity sha512-Bw2rd2zqVL1ERy8N9mciacbQW3N5Gn9oRjhq3kjqgtLeE8a1WSTU+4kU0E37541jf432eNZ8lNzuodFFSiNccw==
+
 "@zoralabs/protocol-deployments@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@zoralabs/protocol-deployments/-/protocol-deployments-0.3.0.tgz#4954cfa7564e152f5d668db4d8a650a17a295984"
@@ -8391,6 +8396,11 @@ wagmi@^2.9.10:
     "@wagmi/connectors" "5.0.25"
     "@wagmi/core" "2.12.1"
     use-sync-external-store "1.2.0"
+
+wavesurfer.js@^7.8.6:
+  version "7.8.6"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.8.6.tgz#753eb22c93c27225a1c878f13d1a1bee073365dd"
+  integrity sha512-EDexkMwkkQBTWruhfWQRkTtvRggtKFTPuJX/oZ5wbIZEfyww9EBeLr2mtkxzA1S8TlWPx6adY5WyjOlNYNyHSg==
 
 web-streams-polyfill@^3.0.3:
   version "3.3.3"
