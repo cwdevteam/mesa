@@ -6,7 +6,6 @@ import { Toaster } from '@/components/ui/toaster'
 import Header from '@/components/Header'
 import Providers from '@/context/Providers'
 import env from '@/env'
-import MediaPlayer from '@/components/GlobalAudioPlayer/MediaPlayer'
 
 import '@/styles/globals.css'
 import { ToastQuery } from '@/components/ToastQuery'
@@ -34,7 +33,6 @@ export default async function RootLayout({
           <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen py-20">
             <Header />
             <PaymasterProvider>{children}</PaymasterProvider>
-            <MediaPlayer />
           </div>
           <ToastQuery />
           <Toaster />

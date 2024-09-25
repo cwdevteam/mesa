@@ -36,7 +36,7 @@ const UploadButton = () => {
   }
 
   return (
-    <div className="col-span-6 mt-6">
+    <div className="col-span-6 mt-6 pr-5 pl-3">
       <button
         className="rounded-lg py-8 flex flex-col items-center justify-center border-danger border-dashed border-[1px] w-full bg-danger/20 min-h-[110px]"
         onClick={handleClick}

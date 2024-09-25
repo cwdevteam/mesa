@@ -34,7 +34,7 @@ const ImageSelect = () => {
   }
 
   return (
-    <div className="col-span-6 mt-6 h-full">
+    <div className="col-span-6 mt-6 h-full pl-5 pr-3">
       <button
         className="rounded-lg flex flex-col items-center justify-center border-danger border-dashed border-[1px] w-full bg-danger/20 min-h-[110px]"
         onClick={handleClick}
