@@ -11,7 +11,7 @@ const Collaborators = () => {
   const { credits } = useProjectProvider()
 
   return (
-    <div className="col-span-4 mt-4 border-border-light dark:border-muted border-[1px] p-5 rounded-lg">
+    <div className="col-span-4 mt-4 border-border-light dark:border-muted border-[1px] p-5 rounded-lg max-h-[300px] flex flex-col">
       <div className="flex w-full justify-between items-center mb-4">
         <p className="text-base/4 font-roboto_bold text-black dark:text-white">
           Collaborators
@@ -27,7 +27,7 @@ const Collaborators = () => {
           </ProjectInviteDialog>
         </ProjectInviteProvider>
       </div>
-      <div className="flex flex-col w-full gap-6">
+      <div className="flex flex-col w-full gap-6 grow justify-evenly overflow-y-auto">
         {credits?.map((credit: Credit, index: number) => (
           <div className="flex justify-between items-center" key={index}>
             <div className="flex gap-4 items-center">

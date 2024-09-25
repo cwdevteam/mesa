@@ -1,5 +1,5 @@
 import React from 'react'
-import { OnchainDistributionProtocol, ProjectIDType } from '@/types/const'
+import { OnchainDistributionProtocol } from '@/types/const'
 import { ProjectTab } from '@/types/const'
 import { Tabs, TabsList, TabsTrigger } from './ui/tabs'
 
@@ -18,8 +18,8 @@ const ProjectTabs = ({
       <TabsTrigger value="contract" onClick={() => onTabChange('contract')}>
         Contract
       </TabsTrigger>
-      <TabsTrigger value="setting" onClick={() => onTabChange('setting')}>
-        Setting
+      <TabsTrigger value="settings" onClick={() => onTabChange('settings')}>
+        Settings
       </TabsTrigger>
       {[
         'Zora' as OnchainDistributionProtocol,

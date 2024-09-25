@@ -3,7 +3,6 @@ import { useProjectProvider } from '@/context/ProjectProvider'
 import Loading from 'react-loading'
 import Collaborators from './Collaborators'
 import WorkRoom from './WorkRoom'
-import Notes from './Notes'
 
 const ProjectDetailsComponent = () => {
   const { loading } = useProjectProvider()
@@ -16,11 +15,10 @@ const ProjectDetailsComponent = () => {
         </div>
       ) : (
         <>
-          <div className="w-full grid grid-cols-10 gap-8">
+          <div className="w-full grid grid-cols-10 gap-8 min-h-[calc(100vh-190px)]">
             <Collaborators />
             <Contracts />
             <WorkRoom />
-            <Notes />
           </div>
         </>
       )}

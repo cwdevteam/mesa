@@ -10,7 +10,7 @@ const Contracts = () => {
   return (
     <section className="w-full col-span-6 mt-4">
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
-        <div className="w-full grid grid-cols-1 gap-4 border-border-light dark:border-muted rounded-lg border-[1px] p-4">
+        <div className="w-full grid grid-cols-1 gap-4 border-border-light dark:border-muted rounded-lg border-[1px] p-4 max-h-[300px]">
           <div className="w-full flex justify-between items-center px-2">
             <p className="text-base/4 text-black dark:text-white font-roboto_bold">
               Contracts

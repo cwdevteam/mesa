@@ -45,7 +45,7 @@ const ProjectPage = () => {
       </div>
       {tabContent === 'project' && <ProjectDetailsComponent />}
       {tabContent === 'contract' && <ContractDetailsPage />}
-      {tabContent === 'setting' && <ProjectDistribution />}
+      {tabContent === 'settings' && <ProjectDistribution />}
       {tabContent === 'Zora' && <DistributionOnchain protocol="Zora" />}
       {tabContent === 'Sound' && <DistributionOnchain protocol="Sound" />}
     </main>

@@ -42,7 +42,7 @@ export const MediaController: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="absolute left-0 top-0 w-full flex justify-center pt-12">
+      <div className="absolute left-0 top-0 w-full flex justify-center pt-20">
         <div className="w-2/3">
           <AudioPlayerControls
             isPlaying={isPlaying}

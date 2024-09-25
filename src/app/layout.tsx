@@ -31,7 +31,7 @@ export default async function RootLayout({
       <body className={clsx('h-full', inter.className)}>
         <Suspense>
           <Providers>
-            <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen py-20">
+            <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen pt-20">
               <Header />
               <PaymasterProvider>{children}</PaymasterProvider>
             </div>
