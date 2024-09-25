@@ -6,11 +6,10 @@ import { Toaster } from '@/components/ui/toaster'
 import Header from '@/components/Header'
 import Providers from '@/context/Providers'
 import env from '@/env'
-import MediaPlayer from '@/components/GlobalAudioPlayer/MediaPlayer'
-
-import '@/app/globals.css'
+import '@/styles/globals.css'
 import { ToastQuery } from '@/components/ToastQuery'
 import { PaymasterProvider } from '@/context/Paymasters'
+import { Suspense } from 'react'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,15 +29,16 @@ export default async function RootLayout({
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
       <body className={clsx('h-full', inter.className)}>
-        <Providers>
-          <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen py-20">
-            <Header />
-            <PaymasterProvider>{children}</PaymasterProvider>
-            <MediaPlayer />
-          </div>
-          <ToastQuery />
-          <Toaster />
-        </Providers>
+        <Suspense>
+          <Providers>
+            <div className="grid grid-rows-[auto_minmax(0,1fr)] min-h-screen pt-20">
+              <Header />
+              <PaymasterProvider>{children}</PaymasterProvider>
+            </div>
+            <ToastQuery />
+            <Toaster />
+          </Providers>
+        </Suspense>
       </body>
     </html>
   )

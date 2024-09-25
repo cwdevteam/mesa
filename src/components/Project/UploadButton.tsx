@@ -1,30 +1,18 @@
 'use client'
 
 import { uploadFile } from '@/lib/ipfs/uploadToIpfs'
-import { Button } from '../ui/button'
-import { FilePlusIcon, ReloadIcon } from '@radix-ui/react-icons'
-import usePaymasterAttest from '@/hooks/project/usePaymasterAttest'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { useRef, useState } from 'react'
-import { toast } from '../ui/use-toast'
+import { Icons } from '../Icons'
+import AudioWavePlayer from './AudioWavePlayer'
 
 const UploadButton = () => {
-  const {
-    setAnimationUrl,
-    uploadingAudio,
-    setUploadingAudio,
-    creatingStatus,
-    setCreatingStatus,
-  } = useProjectProvider()
-  const { attest } = usePaymasterAttest()
+  const { setAnimationUrl, uploadingAudio, setUploadingAudio, creatingStatus } =
+    useProjectProvider()
   const [fileSelected, setFileSelected] = useState(false)
   const inputRef = useRef<any>()
   const loading = uploadingAudio || creatingStatus
-  const buttonLabel = fileSelected ? (
-    'Save'
-  ) : (
-    <FilePlusIcon className="h-4 w-4" />
-  )
+  const [audioUrl, setAudioUrl] = useState(null)
 
   const handleFileChange = async (event: any) => {
     setUploadingAudio(true)
@@ -32,47 +20,47 @@ const UploadButton = () => {
     if (file) {
       const { uri } = await uploadFile(file)
       setAnimationUrl(uri)
+      setAudioUrl(URL.createObjectURL(file) as any)
       setFileSelected(true)
     }
     setUploadingAudio(false)
   }
 
   const handleClick = async () => {
-    if (!fileSelected) {
-      inputRef.current.click()
-      return
-    }
-    setCreatingStatus(true)
-    const response = await attest()
-    if (response?.error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to update project.',
-        variant: 'default',
-      })
-    }
-    setCreatingStatus(false)
+    if (!fileSelected) inputRef.current.click()
+  }
+
+  const handleDelete = () => {
+    inputRef.current.value = ''
+    setFileSelected(false)
   }
 
   return (
-    <div>
-      <Button
-        className={`${!fileSelected && 'rounded-full'}`}
+    <div className="col-span-6 mt-6 pr-5 pl-3">
+      <button
+        className="rounded-lg py-8 flex flex-col items-center justify-center border-danger border-dashed border-[1px] w-full bg-danger/20 min-h-[110px]"
         onClick={handleClick}
         disabled={loading}
+        type="button"
       >
-        {loading ? (
-          <div className="flex gap-2 items-center">
-            <ReloadIcon className="h-4 w-4 animate-spin" />
-            <p className="text-[12px]">
-              {uploadingAudio && 'Uploading...'}
-              {creatingStatus && 'Updating...'}
-            </p>
-          </div>
+        {fileSelected ? (
+          <AudioWavePlayer src={audioUrl} onCancel={handleDelete} />
         ) : (
-          buttonLabel
+          <>
+            <Icons.audio />
+            <p className="text-danger text-[10px] font-roboto_bold">
+              Select an Audio
+            </p>
+            <p className="text-[8px] text-grey font-roboto_bold">
+              Or drag file here to upload{' '}
+            </p>
+          </>
         )}
-      </Button>
+      </button>
+      <p className="text-[7px] text-grey pt-2 font-roboto_italic pl-2 dark:text-white">
+        Accepted audio files: <br />
+        {`WAV, MP3, M4A, FLAC, AIFF, WMA`}
+      </p>
       <input
         type="file"
         id="fileUpload"

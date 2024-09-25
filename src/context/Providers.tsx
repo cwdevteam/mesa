@@ -2,6 +2,7 @@ import ThemeProvider from '@/context/ThemeProvider'
 import WagmiProvider from './WagmiProvider'
 import UserProvider from './UserProvider'
 import MediaProvider from './MediaContext'
+import ProjectProvider from './ProjectProvider'
 
 export default async function Providers({
   children,
@@ -17,7 +18,9 @@ export default async function Providers({
     >
       <MediaProvider>
         <WagmiProvider>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <ProjectProvider>{children}</ProjectProvider>
+          </UserProvider>
         </WagmiProvider>
       </MediaProvider>
     </ThemeProvider>

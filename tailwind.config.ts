@@ -18,12 +18,27 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        roboto: ["Roboto Regular", "sans-serif"],
+        roboto_medium: ["Roboto Medium", "sans-serif"],
+        roboto_bold: ["Roboto Bold", "sans-serif"],
+        roboto_italic: ["Roboto Italic", "sans-serif"],
+      },
       colors: {
-        border: "hsl(var(--border))",
+        border: {
+          DEFAULT: "#828282B2",
+          light: "#E0E0E0"
+        },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        grey: {
+          DEFAULT: "#454545"
+        },
+        danger: {
+          DEFAULT: "#E18583",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
