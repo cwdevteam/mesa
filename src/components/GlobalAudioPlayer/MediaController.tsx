@@ -37,7 +37,7 @@ export const MediaController: React.FC = () => {
           <div className="dark:text-white text-zinc-900 text-md font-sans hover:underline">
             <b>{medias[currentMedia]?.name}</b>
             <p className="font-roboto text-[10px] text-grey">
-              Lat Uploaded By. TA
+              Last Uploaded By. TA
             </p>
           </div>
         </div>
