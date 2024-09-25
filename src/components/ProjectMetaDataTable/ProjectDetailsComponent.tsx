@@ -1,10 +1,9 @@
-import ProjectCollaborators from './ProjectCollaborators'
-import UploadButton from '../Project/UploadButton'
-import ImageSelect from '../Project/ImageSelect'
+import Contracts from './Contracts'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import Loading from 'react-loading'
 import Collaborators from './Collaborators'
 import WorkRoom from './WorkRoom'
+import Notes from './Notes'
 
 const ProjectDetailsComponent = () => {
   const { loading } = useProjectProvider()
@@ -19,9 +18,9 @@ const ProjectDetailsComponent = () => {
         <>
           <div className="w-full grid grid-cols-10 gap-8">
             <Collaborators />
-            <ProjectCollaborators />
+            <Contracts />
             <WorkRoom />
-            {/* <ImageSelect /> */}
+            <Notes />
           </div>
         </>
       )}
