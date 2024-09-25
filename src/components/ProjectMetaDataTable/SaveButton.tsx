@@ -7,7 +7,7 @@ const SaveButton = () => {
   const { setCreatingStatus, animationUrl, image } = useProjectProvider()
 
   const handleClick = async () => {
-    if (!animationUrl || !image) return
+    if (!(animationUrl || image)) return
     setCreatingStatus(true)
     const response = await attest()
     if (response?.error) {
