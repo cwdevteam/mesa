@@ -3,10 +3,12 @@ import UserMatrixCard from './UserMatrixCard'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { Credit } from '@/types/projectMetadataForm'
 import CollaboratorsTableHead from './CollaboratorsTableHead'
+import { Button } from '../ui/button'
+import useDownloadUnsignedVersion from '@/hooks/useDownloadUnsignedVersion'
 
 const Contracts = () => {
   const { credits } = useProjectProvider()
-
+  const { downloadUnsignedVersion } = useDownloadUnsignedVersion()
   return (
     <section className="w-full col-span-6 mt-4">
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
@@ -33,6 +35,9 @@ const Contracts = () => {
                   ))}
                 </tbody>
               </table>
+              <Button onClick={downloadUnsignedVersion}>
+                Download Contract
+              </Button>
             </div>
           </div>
         </div>

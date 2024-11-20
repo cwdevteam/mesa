@@ -10,6 +10,7 @@ import DistributionOnchain from '../DistributionOnchain'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import Loading from 'react-loading'
 import { useRouter } from 'next/navigation'
+import UnsignedVersion from '../UnsignedVersion/UnsignedVersion'
 
 const ProjectPage = () => {
   const [tabContent, setTabContent] = useState<ProjectTab>('project')
@@ -48,6 +49,7 @@ const ProjectPage = () => {
       {tabContent === 'settings' && <ProjectDistribution />}
       {tabContent === 'Zora' && <DistributionOnchain protocol="Zora" />}
       {tabContent === 'Sound' && <DistributionOnchain protocol="Sound" />}
+      <UnsignedVersion />
     </main>
   )
 }
