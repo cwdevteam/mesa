@@ -6,6 +6,8 @@ import { useAccount } from 'wagmi'
 import { useMediaContext } from '@/context/MediaContext'
 import getDecodedAttestationData from '@/lib/eas/getDecodedAttestationData'
 import getFormattedContentHashes from '@/lib/eas/getFormattedContentHashes'
+import { UserDetailsProps } from '@/types/const'
+import fetchUserByAddress from '@/lib/supabase/user/fetchUserByAddress'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -17,6 +19,9 @@ const useProject = () => {
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
+  const [collaborators, setCollaborators] = useState<
+    UserDetailsProps[] | undefined
+  >([])
   const [feeRecipient, setFeeRecipient] = useState(address)
   const {
     attestationData,
@@ -53,6 +58,19 @@ const useProject = () => {
   }
 
   useEffect(() => {
+    if (credits.length > 0) {
+      const collaboratorsPromise = credits.map(async (credit: Credit) => {
+        const { address } = credit
+        const data = await fetchUserByAddress(address)
+        return data
+      })
+      Promise.all(collaboratorsPromise).then((data) => {
+        setCollaborators(data)
+      })
+    }
+  }, [credits])
+
+  useEffect(() => {
     if (attestationData) {
       const decoded = getDecodedAttestationData(attestationData)
       setName(decoded[0].value.value)
@@ -68,6 +86,8 @@ const useProject = () => {
     attestationData,
     credits,
     setCredits,
+    collaborators,
+    setCollaborators,
     name,
     setName,
     description,
