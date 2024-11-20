@@ -23,9 +23,6 @@ const SongWritingIdentification = () => {
             <PageBreakInside>
               Legal Name: <span className="underline">{item.name}</span>
             </PageBreakInside>
-            {/* <PageBreakInside>
-              Email address: <span className="underline">{item.email}</span>
-            </PageBreakInside> */}
             <PageBreakInside>
               Contribution (Lyrics, music, or both):{' '}
               <span className="underline">{item.collaboratorType}</span>
