@@ -26,6 +26,9 @@ const CollaboratorsInfo = ({
             <span className="underline">{collaborator.legal_name}</span>
           </PageBreakInside>
           <PageBreakInside>
+            Email: <span className="underline">{collaborator.email}</span>
+          </PageBreakInside>
+          <PageBreakInside>
             {contributionText}:{' '}
             <span className="underline">{'Songwriting'}</span>
           </PageBreakInside>
