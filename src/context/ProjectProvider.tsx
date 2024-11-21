@@ -3,7 +3,7 @@
 import useProject from '@/hooks/project/useProject'
 import { ReactNode, createContext, useContext, useMemo } from 'react'
 
-const ProjectContext = createContext({} as ReturnType<typeof useProject>)
+const ProjectContext = createContext({} as any)
 
 const ProjectProvider = ({ children }: { children: ReactNode }) => {
   const project = useProject()
