@@ -29,7 +29,7 @@ const CollaboratorsInfo = ({
           </PageBreakInside>
           <PageBreakInside>
             {contributionText}:{' '}
-            <span className="underline">{'Songwriting'}</span>
+            <span className="underline">{collaborator.role}</span>
           </PageBreakInside>
           <PageBreakInside>
             Ownership percentage:{' '}
