@@ -1,7 +1,7 @@
 import React from 'react'
 import PageBreakInside from '../PageBreakInside/PageBreakInside'
 import { useProjectProvider } from '@/context/ProjectProvider'
-import { UserDetailsProps } from '@/types/const'
+import { Collaboratortype } from '@/types/const'
 
 const SongWritingIdentification = () => {
   const { collaborators } = useProjectProvider()
@@ -13,7 +13,7 @@ const SongWritingIdentification = () => {
         copyright ownership as follows:
       </p>
       <div className="flex flex-col gap-4">
-        {collaborators?.map((item: UserDetailsProps, index: number) => (
+        {collaborators?.map((item: Collaboratortype, index: number) => (
           <div key={index} className="pl-7 flex flex-col gap-2">
             <PageBreakInside>
               <span className="text-md font-semibold">
@@ -28,10 +28,11 @@ const SongWritingIdentification = () => {
             </PageBreakInside>
             <PageBreakInside>
               Contribution (Lyrics, music, or both):{' '}
-              <span className="underline">{'Music'}</span>
+              <span className="underline">{item.role}</span>
             </PageBreakInside>
             <PageBreakInside>
-              Ownership percentage: <span className="underline">50%</span>
+              Ownership percentage:{' '}
+              <span className="underline">{item.splitBps / 100}%</span>
             </PageBreakInside>
           </div>
         ))}

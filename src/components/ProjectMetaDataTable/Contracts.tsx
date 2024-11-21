@@ -5,10 +5,31 @@ import { Credit } from '@/types/projectMetadataForm'
 import CollaboratorsTableHead from './CollaboratorsTableHead'
 import { Button } from '../ui/button'
 import useDownloadUnsignedVersion from '@/hooks/useDownloadUnsignedVersion'
+import fetchUserByAddress from '@/lib/supabase/user/fetchUserByAddress'
+import { Collaboratortype } from '@/types/const'
 
 const Contracts = () => {
-  const { credits } = useProjectProvider()
+  const { credits, setCollaborators } = useProjectProvider()
   const { downloadUnsignedVersion } = useDownloadUnsignedVersion()
+
+  const handleDownloadUnsignedVersion = () => {
+    const collaboratorsPromise = credits.map(async (credit: Credit) => {
+      const { address } = credit
+      const data = await fetchUserByAddress(address)
+      return {
+        ...data,
+        splitBps: credit.splitBps,
+        role: credit.collaboratorType,
+      }
+    })
+    Promise.all(collaboratorsPromise).then((data: Collaboratortype[]) => {
+      setCollaborators(data)
+      setTimeout(() => {
+        downloadUnsignedVersion()
+      }, 1000)
+    })
+  }
+
   return (
     <section className="w-full col-span-6 mt-4">
       <div className="flex flex-wrap overflow-auto text-muted-foreground text-xs">
@@ -35,7 +56,7 @@ const Contracts = () => {
                   ))}
                 </tbody>
               </table>
-              <Button onClick={downloadUnsignedVersion}>
+              <Button onClick={handleDownloadUnsignedVersion}>
                 Download Contract
               </Button>
             </div>

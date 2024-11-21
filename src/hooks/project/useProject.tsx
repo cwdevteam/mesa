@@ -6,8 +6,7 @@ import { useAccount } from 'wagmi'
 import { useMediaContext } from '@/context/MediaContext'
 import getDecodedAttestationData from '@/lib/eas/getDecodedAttestationData'
 import getFormattedContentHashes from '@/lib/eas/getFormattedContentHashes'
-import { UserDetailsProps } from '@/types/const'
-import fetchUserByAddress from '@/lib/supabase/user/fetchUserByAddress'
+import { Collaboratortype } from '@/types/const'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -20,7 +19,7 @@ const useProject = () => {
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
   const [collaborators, setCollaborators] = useState<
-    UserDetailsProps[] | undefined
+    Collaboratortype[] | undefined
   >([])
   const [feeRecipient, setFeeRecipient] = useState(address)
   const {
@@ -56,19 +55,6 @@ const useProject = () => {
       setRefUID(dashboardData['refUID'])
     }
   }
-
-  useEffect(() => {
-    if (credits.length > 0) {
-      const collaboratorsPromise = credits.map(async (credit: Credit) => {
-        const { address } = credit
-        const data = await fetchUserByAddress(address)
-        return data
-      })
-      Promise.all(collaboratorsPromise).then((data) => {
-        setCollaborators(data)
-      })
-    }
-  }, [credits])
 
   useEffect(() => {
     if (attestationData) {

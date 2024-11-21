@@ -1,14 +1,14 @@
 import React from 'react'
 import PageBreakInside from '../PageBreakInside/PageBreakInside'
 import { useProjectProvider } from '@/context/ProjectProvider'
-import { UserDetailsProps } from '@/types/const'
+import { Collaboratortype } from '@/types/const'
 
 const CollaboratorsSign = () => {
   const { collaborators } = useProjectProvider()
   return (
     <div className="flex flex-col gap-6">
       <p>In witness whereof, the collaborators sign:</p>
-      {collaborators?.map((_: UserDetailsProps, index: number) => (
+      {collaborators?.map((_: Collaboratortype, index: number) => (
         <PageBreakInside key={index}>
           <div className="flex flex-col gap-2">
             <p className="font-semibold">Collaborator {index + 1}:</p>
