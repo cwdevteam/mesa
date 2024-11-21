@@ -18,7 +18,7 @@ const Price = () => {
         inputMode="decimal"
         pattern="^\d+(\.\d+)?$"
         required
-        onChange={(event) => setEthPrice(Number(event.target.value))}
+        onChange={(event) => setEthPrice(event.target.value)}
       />
     </div>
   )

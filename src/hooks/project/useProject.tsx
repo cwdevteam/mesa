@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi'
 import { useMediaContext } from '@/context/MediaContext'
 import getDecodedAttestationData from '@/lib/eas/getDecodedAttestationData'
 import getFormattedContentHashes from '@/lib/eas/getFormattedContentHashes'
+import { Collaboratortype } from '@/types/const'
 
 const useProject = () => {
   const { address } = useAccount()
@@ -17,6 +18,9 @@ const useProject = () => {
   const [image, setImage] = useState<string>('')
   const [ethPrice, setEthPrice] = useState<string>('')
   const [credits, setCredits] = useState<Credit[]>([])
+  const [collaborators, setCollaborators] = useState<
+    Collaboratortype[] | undefined
+  >([])
   const [feeRecipient, setFeeRecipient] = useState(address)
   const {
     attestationData,
@@ -68,6 +72,8 @@ const useProject = () => {
     attestationData,
     credits,
     setCredits,
+    collaborators,
+    setCollaborators,
     name,
     setName,
     description,

@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 import { PlayMode } from '@/lib/enum'
 import { Address } from 'viem'
-import { Credit } from './projectMetadataForm'
+import { Credit, UserRole } from './projectMetadataForm'
 
 export type OnchainDistributionProtocol = 'Zora' | 'Sound'
 export type ProjectTab =
@@ -117,4 +117,9 @@ export type ContentType = {
   name: string
   type: string
   uri: string
+}
+
+export interface Collaboratortype extends UserDetailsProps {
+  splitBps: number
+  role: UserRole
 }
