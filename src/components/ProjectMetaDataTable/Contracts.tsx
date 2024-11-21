@@ -1,34 +1,11 @@
-import React from 'react'
 import UserMatrixCard from './UserMatrixCard'
 import { useProjectProvider } from '@/context/ProjectProvider'
 import { Credit } from '@/types/projectMetadataForm'
 import CollaboratorsTableHead from './CollaboratorsTableHead'
-import { Button } from '../ui/button'
-import useDownloadUnsignedVersion from '@/hooks/useDownloadUnsignedVersion'
-import fetchUserByAddress from '@/lib/supabase/user/fetchUserByAddress'
-import { Collaboratortype } from '@/types/const'
+import DownloadPDFButton from './DownloadPDFButton'
 
 const Contracts = () => {
-  const { credits, setCollaborators } = useProjectProvider()
-  const { downloadUnsignedVersion } = useDownloadUnsignedVersion()
-
-  const handleDownloadUnsignedVersion = () => {
-    const collaboratorsPromise = credits.map(async (credit: Credit) => {
-      const { address } = credit
-      const data = await fetchUserByAddress(address)
-      return {
-        ...data,
-        splitBps: credit.splitBps,
-        role: credit.collaboratorType,
-      }
-    })
-    Promise.all(collaboratorsPromise).then((data: Collaboratortype[]) => {
-      setCollaborators(data)
-      setTimeout(() => {
-        downloadUnsignedVersion()
-      }, 1000)
-    })
-  }
+  const { credits } = useProjectProvider()
 
   return (
     <section className="w-full col-span-6 mt-4">
@@ -56,9 +33,7 @@ const Contracts = () => {
                   ))}
                 </tbody>
               </table>
-              <Button onClick={handleDownloadUnsignedVersion}>
-                Download Contract
-              </Button>
+              <DownloadPDFButton />
             </div>
           </div>
         </div>
